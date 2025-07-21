@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Material - Strategic Business Architecture</title>
+    <script>
+        // GitHub Pages SPA redirect handler
+        (function() {
+            var path = window.location.pathname;
+            var validPaths = ['/advisory', '/foundry', '/team'];
+            
+            // Store the intended path in sessionStorage and redirect to index
+            if (validPaths.includes(path)) {
+                sessionStorage.setItem('redirect', path);
+                window.location.replace(window.location.origin + '/');
+            } else {
+                // For invalid paths, just redirect to home
+                window.location.replace(window.location.origin + '/');
+            }
+        })();
+    </script>
+</head>
+<body>
+    <p>Redirecting...</p>
+</body>
+</html>
