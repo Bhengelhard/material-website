@@ -370,6 +370,8 @@
         .company-logo {
             height: 28px;
             width: auto;
+            max-width: none;
+            min-width: 0;
             background: none !important;
             border-radius: 0 !important;
             box-shadow: none !important;
@@ -860,6 +862,10 @@
             box-shadow: 0 8px 32px rgba(0,0,0,0.08);
             border-radius: 20px;
             background: #fff;
+            height: 540px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
         }
 
         .member-image {
@@ -939,17 +945,22 @@
         }
         .card-logos {
             display: flex;
+            align-items: center;
             justify-content: center;
-            gap: 1rem;
+            gap: 1.5rem;
             margin-top: 1rem;
             margin-bottom: 0.5rem;
         }
         .card-logos .company-logo {
-            width: 60px;
-            height: 24px;
-            background: rgba(10, 10, 10, 0.08);
-            border-radius: 4px;
-            backdrop-filter: blur(6px);
+            max-height: 22px;
+            height: 22px;
+            width: auto;
+            max-width: 120px;
+            min-width: 0;
+            background: none !important;
+            border-radius: 0 !important;
+            box-shadow: none !important;
+            object-fit: contain;
         }
 
         .member-info h3 {
