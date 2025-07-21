@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Material - Strategic Business Architecture</title>
+    <link rel="icon" type="image/png" href="images/favicon.png">
     <style>
         * {
             margin: 0;
@@ -19,6 +20,7 @@
             --cream: #FFFEF9;
             --accent: #E5E5E0;
             --max-width: 1400px;
+            --page-padding: 3rem;
         }
 
         body {
@@ -27,6 +29,30 @@
             background: var(--cream);
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
+            padding-bottom: env(safe-area-inset-bottom);
+            cursor: none;
+        }
+        #custom-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 12px;
+            height: 12px;
+            background: #0A0A0A;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%) scale(1);
+            transition: transform 0.15s cubic-bezier(0.4,0,0.2,1), background 0.2s;
+        }
+        #custom-cursor.cursor-hover {
+            transform: translate(-50%, -50%) scale(1.35);
+        }
+        a, button, .nav-link, .btn-contact, .hero-link, .logo {
+            cursor: none;
+        }
+        .team-member, .member-card {
+            cursor: none !important;
         }
 
         /* Navigation */
@@ -48,18 +74,60 @@
         .nav-container {
             max-width: var(--max-width);
             margin: 0 auto;
-            padding: 1.75rem 3rem;
+            padding-left: var(--page-padding);
+            padding-right: var(--page-padding);
+            padding-top: 1.75rem;
+            padding-bottom: 1.75rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
         }
 
         .logo {
             font-size: 1.5rem;
             font-weight: 600;
-            letter-spacing: -0.02em;
+            letter-spacing: 1pt;
             transition: opacity 0.3s;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5em;
+            line-height: 1;
+        }
+
+        .logo-mark {
+            width: 24px;
+            height: 24px;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .logo-rect-1 {
+            position: absolute;
+            width: 24px;
+            height: 8px;
+            background: var(--ink);
+            top: 0;
+            left: 0;
+        }
+
+        .logo-rect-2 {
+            position: absolute;
+            width: 8px;
+            height: 24px;
+            background: var(--ink);
+            top: 0;
+            left: 0;
+        }
+
+        .logo-rect-3 {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background: var(--ink);
+            bottom: 0;
+            right: 0;
         }
 
         .logo:hover {
@@ -170,6 +238,8 @@
             width: 100%;
             position: relative;
             z-index: 1;
+            padding-left: var(--page-padding);
+            padding-right: var(--page-padding);
         }
 
         .hero h1 {
@@ -241,12 +311,72 @@
         .section-content {
             max-width: var(--max-width);
             margin: 0 auto;
+            padding-left: var(--page-padding);
+            padding-right: var(--page-padding);
         }
 
         .section-header {
-            margin-bottom: 6rem;
+            margin-bottom: 4rem;
             opacity: 0;
             animation: fadeIn 0.8s ease forwards;
+        }
+
+        /* Experience Showcase Alternative Style */
+        .experience-showcase {
+            margin: 2rem 0 2.5rem;
+            padding: 2rem 0;
+            border-top: 1px solid var(--accent);
+            border-bottom: 1px solid var(--accent);
+            text-align: center;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease 0.2s forwards;
+        }
+
+        .showcase-label {
+            font-size: 0.75rem;
+            color: var(--ink);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-bottom: 1.25rem;
+            font-weight: 400;
+        }
+
+        .showcase-logos {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.25rem 2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            align-items: center;
+            justify-items: center;
+        }
+
+        .showcase-logo,
+        .logo-placeholder {
+            height: 28px;
+            width: auto;
+            background: none !important;
+            border-radius: 0 !important;
+            box-shadow: none !important;
+            position: relative;
+            overflow: visible;
+            opacity: 0.6;
+            transition: opacity 0.3s;
+        }
+        .showcase-logo:hover,
+        .logo-placeholder:hover {
+            opacity: 1;
+        }
+        .company-logo {
+            height: 28px;
+            width: auto;
+            background: none !important;
+            border-radius: 0 !important;
+            box-shadow: none !important;
+            position: relative;
+            overflow: visible;
+            opacity: 1;
+            transition: none;
         }
 
         .section-title {
@@ -323,7 +453,7 @@
         .process {
             background: linear-gradient(180deg, var(--pearl) 0%, var(--accent) 100%);
             padding: 8rem 3rem;
-            margin: 8rem 0;
+            margin: 8rem 0 0 0;
             position: relative;
         }
 
@@ -367,7 +497,7 @@
 
         /* CTA Section */
         .cta {
-            padding: 10rem 3rem;
+            padding: 4rem 3rem 6rem 3rem;
             text-align: center;
             background: var(--ink);
             color: var(--cream);
@@ -465,52 +595,111 @@
             color: var(--smoke);
             font-weight: 400;
             max-width: 900px;
-            margin: 0 auto;
+            margin: 0 auto 2rem;
             text-align: center;
             position: relative;
             z-index: 1;
         }
 
+        .logo-strip {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo-placeholder {
+            width: 120px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-placeholder::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            to {
+                left: 100%;
+            }
+        }
+
         .build-section {
-            margin: 6rem 0;
+            margin: 3rem 0 2rem 0;
         }
 
         .build-title {
             font-size: 2.5rem;
-            margin-bottom: 3rem;
+            margin-bottom: 1.5rem;
             font-weight: 500;
             letter-spacing: -0.02em;
+            text-align: center;
+        }
+
+        .build-description {
+            max-width: 800px;
+            margin: 0 auto 4rem;
+            text-align: center;
+        }
+
+        .build-description p {
+            font-size: 1.25rem;
+            color: var(--smoke);
+            line-height: 1.6;
         }
 
         .build-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 3rem;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
         }
 
         .build-type {
             background: var(--pearl);
-            padding: 3rem;
+            padding: 2.5rem;
             border-radius: 16px;
             position: relative;
             overflow: hidden;
             opacity: 0;
             animation: fadeInUp 0.8s ease forwards;
             animation-delay: calc(var(--index) * 0.2s);
+            /* Add hover effect bar */
         }
-
-        .build-number {
-            font-size: 5rem;
-            font-weight: 200;
+        .build-type::before {
+            content: '';
             position: absolute;
-            top: 2rem;
-            right: 2rem;
-            opacity: 0.1;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--smoke), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+        .build-type:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+        }
+        .build-type:hover::before {
+            transform: translateX(100%);
         }
 
         .build-type h3 {
-            font-size: 1.75rem;
-            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            margin-bottom: 1.25rem;
             font-weight: 500;
             position: relative;
             z-index: 1;
@@ -521,11 +710,12 @@
             line-height: 1.6;
             position: relative;
             z-index: 1;
+            font-size: 1.0625rem;
         }
 
         .framework-section {
             background: linear-gradient(180deg, var(--cream) 0%, var(--pearl) 100%);
-            padding: 8rem 3rem;
+            padding: 4rem 3rem 8rem 3rem;
         }
 
         .framework-title {
@@ -654,6 +844,138 @@
             line-height: 1.5;
         }
 
+        /* Team Page Styles */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            margin-top: 6rem;
+            margin-bottom: 6rem;
+        }
+
+        .member-card {
+            position: relative;
+            cursor: pointer;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+            border-radius: 20px;
+            background: #fff;
+        }
+
+        .member-image {
+            width: 100%;
+            aspect-ratio: 1/1;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #f7f7f5 0%, #e5e5e0 100%);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .member-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 16px;
+            display: block;
+        }
+        .member-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, rgba(10, 10, 10, 0.6) 0%, rgba(10, 10, 10, 0.92) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 2rem 1.5rem;
+            opacity: 0;
+            transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 16px;
+        }
+        .overlay-description {
+            color: #fff;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            transform: translateY(20px);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .member-card:hover .member-overlay {
+            opacity: 1;
+        }
+        .member-card:hover .overlay-description {
+            transform: translateY(0);
+        }
+
+        .member-card:hover .member-image img {
+            transform: scale(1.05);
+        }
+
+        .overlay-logos {
+            display: flex;
+            gap: 1rem;
+            transform: translateY(20px);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.1s;
+        }
+
+        .member-card:hover .overlay-logos {
+            transform: translateY(0);
+        }
+
+        .overlay-logos .company-logo {
+            width: 60px;
+            height: 24px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            backdrop-filter: blur(10px);
+        }
+
+        .member-info {
+            padding: 1.5rem 0 0.5rem 0;
+            text-align: center;
+        }
+        .card-logos {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        .card-logos .company-logo {
+            width: 60px;
+            height: 24px;
+            background: rgba(10, 10, 10, 0.08);
+            border-radius: 4px;
+            backdrop-filter: blur(6px);
+        }
+
+        .member-info h3 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+            letter-spacing: -0.02em;
+        }
+
+        .member-role {
+            font-size: 1rem;
+            color: var(--silver);
+            font-weight: 400;
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+        }
+
+        /* Team Grid Responsive */
+        @media (max-width: 1200px) {
+            .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Mobile team styles already included in main mobile section */
+
         /* Animations */
         @keyframes fadeInUp {
             from {
@@ -675,20 +997,117 @@
             }
         }
 
-        /* Mobile */
-        @media (max-width: 968px) {
-            .nav-links {
+        /* Tablet */
+        @media (max-width: 1200px) and (min-width: 769px) {
+            .build-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .process-grid {
+                grid-template-columns: repeat(3, 1fr);
                 gap: 2rem;
             }
 
+            .showcase-logos {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 968px) {
+            .showcase-logo,
+            .logo-strip img {
+                height: 20px !important;
+                width: auto !important;
+            }
+            /* Navigation fixes for mobile */
+            .nav-container {
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+                padding-top: 1rem;
+                padding-bottom: 1rem;
+                flex-direction: row;
+                align-items: center;
+                gap: 0;
+                justify-content: space-between;
+            }
+            .logo {
+                font-size: 1.1rem;
+                gap: 0.5rem;
+            }
+            .logo-mark {
+                height: 1.5em !important;
+                width: auto !important;
+            }
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.95rem;
+                width: 100%;
+                justify-content: flex-start;
+                margin-top: 0.25rem;
+            }
+            .nav-links li {
+                margin-right: 1.25rem;
+            }
             .nav-contact {
                 display: none;
             }
 
-            .hero h1 {
-                font-size: 3.5rem;
+            /* Page padding adjustment */
+            .page {
+                padding-top: 4rem;
             }
 
+            /* Hero adjustments */
+            .hero {
+                min-height: calc(100vh - env(safe-area-inset-bottom, 0px));
+                padding: 0 1.5rem;
+                padding-bottom: env(safe-area-inset-bottom, 2rem);
+            }
+
+            .hero h1 {
+                font-size: 2.75rem;
+            }
+
+            .hero h1 span {
+                margin-top: 0.25rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.125rem;
+            }
+
+            /* Experience showcase mobile */
+            .experience-showcase {
+                margin: 3rem 0 4rem;
+                padding: 3rem 0;
+            }
+
+            .showcase-logos {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem 2rem;
+            }
+
+            .showcase-logo {
+                width: 120px;
+                height: 40px;
+            }
+
+            /* Section padding adjustments */
+            .section {
+                padding: 4rem 1.5rem;
+            }
+
+            .section-title {
+                font-size: 2.25rem;
+            }
+
+            .section-description {
+                font-size: 1.125rem;
+            }
+
+            /* Grids */
             .offerings-grid {
                 grid-template-columns: 1fr;
                 gap: 2rem;
@@ -697,6 +1116,34 @@
             .process-grid {
                 grid-template-columns: 1fr;
                 gap: 3rem;
+            }
+
+            /* Process steps mobile layout */
+            .process-step {
+                text-align: left;
+                display: flex;
+                align-items: flex-start;
+                gap: 1.5rem;
+            }
+
+            .process-number {
+                font-size: 3rem;
+                margin-bottom: 0;
+                flex-shrink: 0;
+                width: 80px;
+            }
+
+            .process-step-content {
+                flex: 1;
+            }
+
+            .process-step h4 {
+                margin-bottom: 0.5rem;
+            }
+
+            .process-step p {
+                margin: 0;
+                max-width: none;
             }
 
             .hero-nav {
@@ -708,6 +1155,7 @@
             /* Foundry mobile styles */
             .build-grid {
                 grid-template-columns: 1fr;
+                gap: 2rem;
             }
 
             .framework-flow {
@@ -719,9 +1167,208 @@
                 display: none;
             }
 
+            /* Fix framework step layout on mobile */
+            .framework-step {
+                text-align: left;
+                display: grid;
+                grid-template-columns: auto 1fr;
+                gap: 1rem;
+                align-items: start;
+            }
+
+            .step-icon {
+                width: 48px;
+                height: 48px;
+                margin: 0;
+                font-size: 1.25rem;
+            }
+
+            .framework-step h4 {
+                grid-column: 2;
+                font-size: 1.125rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .framework-step p {
+                grid-column: 2;
+                font-size: 0.875rem;
+            }
+
             .village-grid {
                 grid-template-columns: 1fr;
                 gap: 2rem;
+            }
+
+            /* Team mobile styles */
+            .team-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .member-image {
+                aspect-ratio: 3/4;
+            }
+
+            .member-overlay {
+                padding: 2rem 1.5rem;
+            }
+
+            .overlay-description {
+                font-size: 0.9375rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .member-info h3 {
+                font-size: 1.375rem;
+            }
+
+            .member-role {
+                font-size: 0.875rem;
+            }
+
+            /* Experience statement mobile */
+            .experience-statement {
+                padding: 2rem 1.5rem;
+                margin: 3rem 0 4rem;
+            }
+
+            .experience-statement p {
+                font-size: 1.125rem;
+            }
+
+            .logo-strip {
+                gap: 1.5rem;
+            }
+
+            .logo-placeholder {
+                width: 100px;
+                height: 32px;
+            }
+
+            /* Build section mobile */
+            .build-description p {
+                font-size: 1.125rem;
+            }
+
+            /* Process section mobile */
+            .process {
+                padding: 4rem 1.5rem;
+                margin: 4rem 0;
+            }
+
+            /* CTA mobile */
+            .cta {
+                padding: 6rem 1.5rem;
+            }
+
+            .cta h2 {
+                font-size: 2rem;
+            }
+
+            .cta p {
+                font-size: 1.125rem;
+            }
+
+            /* Button adjustments */
+            .btn-contact {
+                padding: 0.875rem 2rem;
+                font-size: 0.9375rem;
+            }
+        }
+
+        /* iPhone SE and smaller devices */
+        @media (max-width: 375px) {
+            .hero h1 {
+                font-size: 2.25rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.8125rem;
+            }
+        }
+        .logo-strip img {
+            height: 20px !important;
+            width: auto !important;
+            background: none !important;
+            border-radius: 0 !important;
+            box-shadow: none !important;
+            object-fit: contain;
+        }
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 1100;
+        }
+        .hamburger span {
+            display: block;
+            width: 26px;
+            height: 3px;
+            margin: 4px 0;
+            background: var(--ink);
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+        .hamburger.active span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+        @media (max-width: 968px) {
+            .hamburger {
+                display: flex;
+                position: static;
+                margin-left: auto;
+                background: #fff;
+                border-radius: 50%;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+                transition: box-shadow 0.2s;
+                padding: 0.25rem;
+                width: 44px;
+                height: 44px;
+                justify-content: center;
+                align-items: center;
+            }
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100vw;
+                background: var(--cream);
+                flex-direction: column;
+                gap: 0;
+                box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+                z-index: 1001;
+                padding: 1.5rem 0 1.5rem 0;
+                margin: 0;
+            }
+            .nav-links.open {
+                display: flex;
+            }
+            .nav-links li {
+                margin: 0;
+                padding: 0.75rem 2rem;
+                width: 100%;
+            }
+            .nav-links li a {
+                width: 100%;
+                display: block;
             }
         }
     </style>
@@ -730,12 +1377,18 @@
     <!-- Navigation -->
     <nav>
         <div class="nav-container">
-            <div class="logo">Material</div>
+            <div class="logo">
+                <img src="images/material-logo-lockup.svg" alt="Material logo lockup" class="logo-mark" style="height: 2.2rem; width: auto; display: block;" />
+            </div>
+            <button class="hamburger" aria-label="Open navigation" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
             <ul class="nav-links">
                 <li><a href="#home" class="nav-link active">Home</a></li>
                 <li><a href="#advisory" class="nav-link">Advisory</a></li>
                 <li><a href="#foundry" class="nav-link">Foundry</a></li>
-                <li><a href="mailto:blakefrommaterial@gmail.com" class="nav-contact">Contact</a></li>
+                <li><a href="#team" class="nav-link">Team</a></li>
+                <li><a href="mailto:blakefrommaterial@gmail.com" class="nav-contact" target="_blank" rel="noopener noreferrer">Contact</a></li>
             </ul>
         </div>
     </nav>
@@ -744,7 +1397,7 @@
     <div id="home" class="page active">
         <section class="hero">
             <div class="hero-content">
-                <h1>Strategic Architecture
+                <h1>Business Architecture
                     <span>for Exponential Growth</span>
                 </h1>
                 <p class="hero-subtitle">
@@ -758,15 +1411,169 @@
         </section>
     </div>
 
-    <!-- Advisory Page -->
+    <!-- Team Page -->
+    <div id="team" class="page">
+        <section class="section">
+            <div class="section-content">
+                <div class="section-header">
+                    <h1 class="section-title">Material Advisors</h1>
+                    <p class="section-description">
+                        Seasoned operators and strategic advisors with deep expertise needed for exponential growth.
+                    </p>
+                </div>
+
+                <div class="team-grid">
+                    <!-- Blake Engelhard -->
+                    <div class="team-member" style="--index: 0">
+                        <div class="member-card">
+                            <div class="member-image">
+                                <img src="images/blake-engelhard.png" alt="Blake Engelhard">
+                                <div class="member-overlay">
+                                    <p class="overlay-description">Serial venture builder who scaled revenue 20x and grew enterprise clients by 7.5x across portfolio companies. Built three companies from zero as venture studio leader. Specializes in transforming operational chaos into scalable AI-first systems that drive exponential growth.</p>
+                                </div>
+                            </div>
+                            <div class="member-info">
+                                <h3>Blake Engelhard</h3>
+                                <p class="member-role">Founder</p>
+                            </div>
+                            <div class="card-logos">
+                                <img class="company-logo" src="images/wharton-logo.png" alt="Wharton logo">
+                                <img class="company-logo" src="images/accenture-logo.png" alt="Accenture logo">
+                                <img class="company-logo" src="images/goodr-logo.png" alt="Goodr logo">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Peter Moot -->
+                    <div class="team-member" style="--index: 1">
+                        <div class="member-card">
+                            <div class="member-image">
+                                <img src="images/peter-moot.png" alt="Peter Moot">
+                                <div class="member-overlay">
+                                    <p class="overlay-description">Product leader who directed global incentives for 100M+ users before founding an AI-powered commerce platform (YC S24). Expert in building products that scale from zero to millions while maintaining customer obsession.</p>
+                                </div>
+                            </div>
+                            <div class="member-info">
+                                <h3>Peter Moot</h3>
+                                <p class="member-role">Product</p>
+                            </div>
+                            <div class="card-logos">
+                                <img class="company-logo" src="images/harvard-logo.png" alt="Harvard logo">
+                                <img class="company-logo" src="images/kpmg-logo.png" alt="KPMG logo">
+                                <img class="company-logo" src="images/uber-logo.png" alt="Uber logo">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Michael Friedson -->
+                    <div class="team-member" style="--index: 2">
+                        <div class="member-card">
+                            <div class="member-image">
+                                <img src="images/michael-friedson.png" alt="Michael Friedson">
+                                <div class="member-overlay">
+                                    <p class="overlay-description">Strategic finance advisor specializing in PE diligence, M&A modeling, and transaction structuring. Guides CEOs and CFOs through complex financial decisions, from investment evaluation to preparing companies for institutional capital.</p>
+                                </div>
+                            </div>
+                            <div class="member-info">
+                                <h3>Michael Friedson</h3>
+                                <p class="member-role">Finance</p>
+                            </div>
+                            <div class="card-logos">
+                                <img class="company-logo" src="images/wharton-logo.png" alt="Wharton logo">
+                                <img class="company-logo" src="images/credit-logo.png" alt="Credit logo">
+                                <img class="company-logo" src="images/corsair-logo.png" alt="Corsair logo">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chaim Frenkel -->
+                    <div class="team-member" style="--index: 3">
+                        <div class="member-card">
+                            <div class="member-image">
+                                <img src="images/chaim-frenkel.png" alt="Chaim Frenkel">
+                                <div class="member-overlay">
+                                    <p class="overlay-description">Executive dealmaker with decades structuring transformative partnerships across technology, finance, and enterprise sectors. Identifies and executes strategic alliances that unlock new revenue streams and market opportunities.</p>
+                                </div>
+                            </div>
+                            <div class="member-info">
+                                <h3>Chaim Frenkel</h3>
+                                <p class="member-role">Partnerships</p>
+                            </div>
+                            <div class="card-logos">
+                                <img class="company-logo" src="images/michigan-logo.png" alt="Michigan logo">
+                                <img class="company-logo" src="images/tricentis-logo.png" alt="Tricentis logo">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dale Amler -->
+                    <div class="team-member" style="--index: 4">
+                        <div class="member-card">
+                            <div class="member-image">
+                                <img src="images/dale-amler.png" alt="Dale Amler">
+                                <div class="member-overlay">
+                                    <p class="overlay-description">Growth marketing executive serving Fortune 500 C-suites. Expert in GTM engineering, marketing automation, and building revenue systems that drive predictable, scalable growth.</p>
+                                </div>
+                            </div>
+                            <div class="member-info">
+                                <h3>Dale Amler</h3>
+                                <p class="member-role">Marketing</p>
+                            </div>
+                            <div class="card-logos">
+                                <img class="company-logo" src="images/monster-logo.png" alt="Monster logo">
+                                <img class="company-logo" src="images/world50-logo.png" alt="World 50 logo">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sadya Zirkind -->
+                    <div class="team-member" style="--index: 5">
+                        <div class="member-card">
+                            <div class="member-image">
+                                <img src="images/sadya-zirkind.png" alt="Sadya Zirkind">
+                                <div class="member-overlay">
+                                    <p class="overlay-description">Sales leader who built outbound engines from inception to exit. Specializes in high-velocity enterprise sales, go-to-market strategy, and building high-performing teams across fintech and financial services.</p>
+                                </div>
+                            </div>
+                            <div class="member-info">
+                                <h3>Sadya Zirkind</h3>
+                                <p class="member-role">Sales</p>
+                            </div>
+                            <div class="card-logos">
+                                <img class="company-logo" src="images/citi-logo.png" alt="Citi logo">
+                                <img class="company-logo" src="images/four-logo.png" alt="Four logo">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+            <!-- Advisory Page -->
     <div id="advisory" class="page">
         <section class="section">
             <div class="section-content">
                 <div class="section-header">
                     <h1 class="section-title">Material Advisory</h1>
                     <p class="section-description">
-                        We serve as strategic business architects for ambitious CEOs and the Partners who back them. Whether you're a CEO building for scale or a Partner placing leadership talent, we transform vision into operational excellence through AI-first thinking and systematic precision.
+                        We serve as strategic business architects for ambitious CEOs and the partners who back them. Transform vision into operational excellence through AI-first thinking and systematic precision.
                     </p>
+                </div>
+
+                <!-- Experience Showcase -->
+                <div class="experience-showcase">
+                    <p class="showcase-label">Built on experience from</p>
+                    <div class="showcase-logos">
+                        <img class="showcase-logo" src="images/wharton-logo.png" alt="Wharton logo" style="--index: 0">
+                        <img class="showcase-logo" src="images/accenture-logo.png" alt="Accenture logo" style="--index: 1">
+                        <img class="showcase-logo" src="images/uber-logo.png" alt="Uber logo" style="--index: 2">
+                        <img class="showcase-logo" src="images/harvard-logo.png" alt="Harvard logo" style="--index: 3">
+                        <img class="showcase-logo" src="images/citi-logo.png" alt="Citi logo" style="--index: 4">
+                        <img class="showcase-logo" src="images/kpmg-logo.png" alt="KPMG logo" style="--index: 5">
+                        <img class="showcase-logo" src="images/michigan-logo.png" alt="Michigan logo" style="--index: 6">
+                        <img class="showcase-logo" src="images/credit-logo.png" alt="Credit logo" style="--index: 7">
+                    </div>
                 </div>
 
                 <div class="offerings-grid">
@@ -776,8 +1583,8 @@
                     </div>
 
                     <div class="offering" style="--index: 1">
-                        <h3>Strategic Architecture</h3>
-                        <p>Transform ambition into systems. We design the complete business architecture—strategy, processes, and metrics—that bridges today's reality with tomorrow's vision.</p>
+                        <h3>Strategic Guidance & Execution</h3>
+                        <p>Progress work on the business, instead of just in the business. We provide clarity on your roadmap to scale, then execute alongside you to bring that vision to life and sustain its impact.</p>
                     </div>
 
                     <div class="offering" style="--index: 2">
@@ -799,23 +1606,22 @@
                     </div>
                     <div class="process-step" style="--index: 1">
                         <div class="process-number">02</div>
-                        <h4>Engineer</h4>
-                        <p>Build AI-powered systems. Create intelligent feedback loops.</p>
+                        <h4>Execute</h4>
+                        <p>Turn vision into reality. Drive strategic initiatives to completion.</p>
                     </div>
                     <div class="process-step" style="--index: 2">
                         <div class="process-number">03</div>
-                        <h4>Accelerate</h4>
-                        <p>Deploy with precision. Scale with continuous optimization.</p>
+                        <h4>Scale</h4>
+                        <p>Build systems for exponential growth. Sustain impact through continuous optimization.</p>
                     </div>
                 </div>
             </div>
         </section>
-
         <section class="cta">
-            <div class="cta-content">
+            <div class="cta-content" style="margin-top: 0;">
                 <h2>Ready to Build at Scale?</h2>
                 <p>Let's architect your path to exponential growth.</p>
-                <a href="mailto:blakefrommaterial@gmail.com" class="btn-contact">Begin the Conversation</a>
+                <a href="mailto:blake@materialadvisory.com" class="btn-contact" target="_blank" rel="noopener noreferrer">Begin the Conversation</a>
             </div>
         </section>
     </div>
@@ -827,28 +1633,43 @@
                 <div class="section-header">
                     <h1 class="section-title">Material Foundry</h1>
                     <p class="section-description">
-                        For those who've conquered distribution, we build what's next. Partner with us to create AI-first cash-flowing businesses and agentic AI companies that transform your market access into multiple revenue engines.
+                        For those who've conquered distribution, we build what's next. Partner with us to create AI-enabled ancillary businesses that transform your market access into a portfolio of high-value revenue engines.
                     </p>
                 </div>
 
                 <!-- Experience Statement -->
                 <div class="experience-statement">
-                    <p>We've spent over a decade founding and scaling category-defining businesses. Our proven framework leverages existing distribution to build products, achieve product-market fit, and bring on exceptional CEOs to drive exponential growth.</p>
+                    <p>Built on a decade of experience founding and scaling category-defining businesses.</p>
+                    <div class="logo-strip">
+                        <img class="logo-placeholder" src="images/wharton-logo.png" alt="Wharton logo">
+                        <img class="logo-placeholder" src="images/accenture-logo.png" alt="Accenture logo">
+                        <img class="logo-placeholder" src="images/uber-logo.png" alt="Uber logo">
+                        <img class="logo-placeholder" src="images/harvard-logo.png" alt="Harvard logo">
+                        <img class="logo-placeholder" src="images/citi-logo.png" alt="Citi logo">
+                        <img class="logo-placeholder" src="images/kpmg-logo.png" alt="KPMG logo">
+                        <img class="logo-placeholder" src="images/michigan-logo.png" alt="Michigan logo">
+                        <img class="logo-placeholder" src="images/credit-logo.png" alt="Credit logo">
+                    </div>
                 </div>
 
                 <!-- What We Build -->
                 <div class="build-section">
-                    <h2 class="build-title">What We Build Together</h2>
+                    <h2 class="build-title">Building AI-Enabled Ancillary Businesses</h2>
+                    <div class="build-description">
+                        <p>We help you build a portfolio of ancillary businesses leveraging your existing distribution. By identifying opportunities within your ecosystem and applying AI to amplify their value, we create ventures that are profitable from inception and positioned for exponential growth.</p>
+                    </div>
                     <div class="build-grid">
                         <div class="build-type" style="--index: 0">
-                            <div class="build-number">01</div>
-                            <h3>AI-First Cash-Flowing Businesses</h3>
-                            <p>Leverage your distribution to create profitable ancillary businesses powered by AI. These aren't experiments—they're revenue engines designed to generate immediate returns while serving your existing ecosystem.</p>
+                            <h3>Strategic Opportunities</h3>
+                            <p>We identify high-value ancillary business opportunities within your ecosystem—services and products your customers already need but seek elsewhere.</p>
                         </div>
                         <div class="build-type" style="--index: 1">
-                            <div class="build-number">02</div>
-                            <h3>Agentic AI Companies</h3>
-                            <p>Build the future with autonomous AI systems that don't just automate—they innovate. We create companies where AI agents handle operations, make decisions, and scale capabilities beyond human constraints.</p>
+                            <h3>AI-Enabled Value</h3>
+                            <p>Every venture we build incorporates AI to multiply its impact—from operational efficiency to customer experience, making each business significantly more valuable.</p>
+                        </div>
+                        <div class="build-type" style="--index: 2">
+                            <h3>Operational Excellence</h3>
+                            <p>We provide the strategic and operational capabilities needed to launch and scale, backed by top-tier talent that knows how to build category-defining businesses.</p>
                         </div>
                     </div>
                 </div>
@@ -859,28 +1680,28 @@
         <section class="framework-section">
             <div class="section-content">
                 <h2 class="framework-title">The Proven Framework</h2>
-                <p class="framework-subtitle">A decade of experience distilled into a repeatable process for building ventures at scale.</p>
+                <p class="framework-subtitle">A decade of experience distilled into a repeatable process for building AI-enabled ancillary businesses at scale.</p>
                 
                 <div class="framework-flow">
                     <div class="framework-step" style="--index: 0">
                         <div class="step-icon">→</div>
-                        <h4>Leverage Distribution</h4>
-                        <p>Your market access becomes the unfair advantage for new ventures</p>
+                        <h4>Identify Opportunities</h4>
+                        <p>Map your distribution to high-value ancillary business opportunities</p>
                     </div>
                     <div class="framework-step" style="--index: 1">
                         <div class="step-icon">→</div>
                         <h4>Build & Validate</h4>
-                        <p>Rapid product development with built-in market validation</p>
+                        <p>Rapid development with built-in market validation through your channels</p>
                     </div>
                     <div class="framework-step" style="--index: 2">
                         <div class="step-icon">→</div>
-                        <h4>Achieve PMF</h4>
-                        <p>Product-market fit through your existing customer insights</p>
+                        <h4>Apply AI Leverage</h4>
+                        <p>Design AI-enabled solutions that multiply value and efficiency</p>
                     </div>
                     <div class="framework-step" style="--index: 3">
                         <div class="step-icon">→</div>
                         <h4>Scale with Leadership</h4>
-                        <p>Bring on spin-out CEOs to drive exponential growth</p>
+                        <p>Bring on exceptional CEOs to drive portfolio companies to market leadership</p>
                     </div>
                 </div>
             </div>
@@ -890,34 +1711,33 @@
         <section class="village-section">
             <div class="section-content">
                 <h2 class="village-title">The Village Advantage</h2>
-                <p class="village-subtitle">Building ventures requires more than capital—it demands a complete ecosystem.</p>
+                <p class="village-subtitle">Building AI-enabled ancillary businesses requires more than capital—it demands a complete ecosystem of world-class talent.</p>
                 
                 <div class="village-grid">
                     <div class="village-item" style="--index: 0">
-                        <h4>Top-Tier Agencies</h4>
-                        <p>Brand, marketing, and growth partners who've scaled unicorns</p>
+                        <h4>Strategic Operators</h4>
+                        <p>Battle-tested leaders ready to scale your ancillary businesses to category leadership</p>
                     </div>
                     <div class="village-item" style="--index: 1">
-                        <h4>Technical Builders</h4>
-                        <p>Engineers and architects who build at the frontier of AI</p>
+                        <h4>Top-Tier Advisors</h4>
+                        <p>Product, finance, sales, marketing, and technical advisors with unmatched experience</p>
                     </div>
                     <div class="village-item" style="--index: 2">
-                        <h4>Support Providers</h4>
-                        <p>Legal, financial, and operational excellence on demand</p>
+                        <h4>Technical Builders</h4>
+                        <p>GTM engineers and strategic architects who build at the frontier of AI</p>
                     </div>
                     <div class="village-item" style="--index: 3">
-                        <h4>Strategic Operators</h4>
-                        <p>Battle-tested leaders ready to scale your ventures</p>
+                        <h4>Support Providers</h4>
+                        <p>Legal, financial, and recruiting excellence on demand</p>
                     </div>
                 </div>
             </div>
         </section>
-
         <section class="cta">
             <div class="cta-content">
                 <h2>Transform Distribution Into Empire</h2>
-                <p>Let's build your portfolio of AI-first ventures.</p>
-                <a href="mailto:blakefrommaterial@gmail.com" class="btn-contact">Explore Partnership</a>
+                <p>Let's build your portfolio of AI-enabled ventures.</p>
+                <a href="mailto:blake@materialadvisory.com" class="btn-contact" target="_blank" rel="noopener noreferrer">Explore Partnership</a>
             </div>
         </section>
     </div>
@@ -962,6 +1782,44 @@
         logo.addEventListener('click', () => {
             showPage('home');
         });
+
+        // Hamburger menu toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinksMobile = document.querySelector('.nav-links');
+        if (hamburger && navLinksMobile) {
+          hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinksMobile.classList.toggle('open');
+            hamburger.setAttribute('aria-expanded', hamburger.classList.contains('active'));
+          });
+          // Close hamburger nav when a nav link is clicked
+          navLinksMobile.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+              hamburger.classList.remove('active');
+              navLinksMobile.classList.remove('open');
+              hamburger.setAttribute('aria-expanded', 'false');
+            });
+          });
+        }
     </script>
 </body>
+<div id="custom-cursor"></div>
+<script>
+// Custom cursor logic
+const cursor = document.getElementById('custom-cursor');
+document.addEventListener('mousemove', e => {
+  cursor.style.left = e.clientX + 'px';
+  cursor.style.top = e.clientY + 'px';
+});
+function setCursorHover(state) {
+  if (state) cursor.classList.add('cursor-hover');
+  else cursor.classList.remove('cursor-hover');
+}
+const hoverables = document.querySelectorAll('a, button, .nav-link, .btn-contact, .hero-link, .logo');
+hoverables.forEach(el => {
+  el.addEventListener('mouseenter', () => setCursorHover(true));
+  el.addEventListener('mouseleave', () => setCursorHover(false));
+});
+// For dynamically added elements (e.g., nav links), use event delegation if needed
+</script>
 </html>
