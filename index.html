@@ -90,21 +90,19 @@
             padding-top: 1.75rem;
             padding-bottom: 1.75rem;
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-start;
             align-items: center;
             position: relative;
         }
 
         .logo {
-            font-size: 1.5rem;
-            font-weight: 600;
-            letter-spacing: 1pt;
-            transition: opacity 0.3s;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
+            margin-right: 2rem;
             gap: 0.5em;
-            line-height: 1;
+        }
+
+        .nav-links,
+        .hamburger {
+            margin-left: auto;
         }
 
         .logo-mark {
@@ -1090,7 +1088,14 @@
                 flex-direction: row;
                 align-items: center;
                 gap: 0;
-                justify-content: space-between;
+                justify-content: flex-start;
+            }
+            .logo {
+                margin-right: 1rem;
+            }
+            .nav-links,
+            .hamburger {
+                margin-left: auto;
             }
 
             .logo {
@@ -1162,6 +1167,11 @@
             /* Section padding adjustments */
             .section {
                 padding: 4rem 1.5rem;
+            }
+
+            .section-content {
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
             }
 
             .section-title {
