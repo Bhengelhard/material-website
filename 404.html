@@ -5,19 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Material - Strategic Business Architecture</title>
     <script>
-        // GitHub Pages SPA redirect handler
+        // GitHub Pages SPA redirect handler (hash-based)
         (function() {
             var path = window.location.pathname;
-            var validPaths = ['/advisory', '/foundry', '/team'];
-            
-            // Store the intended path in sessionStorage and redirect to index
-            if (validPaths.includes(path)) {
-                sessionStorage.setItem('redirect', path);
-                window.location.replace(window.location.origin + '/');
-            } else {
-                // For invalid paths, just redirect to home
-                window.location.replace(window.location.origin + '/');
+            // Normalize root cases
+            if (path === '/' || path === '/index.html') {
+                window.location.replace(window.location.origin + '/#/');
+                return;
             }
+            // Redirect any other path to hash route
+            var hashTarget = '/#' + path;
+            window.location.replace(window.location.origin + hashTarget);
         })();
     </script>
 </head>
