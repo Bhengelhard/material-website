@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://materialadvisory.com/</loc>
+  </url>
+  <!-- For hash routing, many crawlers ignore fragment URLs. Keep canonical non-fragment paths for discoverability if server/host ever serves 200s. -->
+  <url>
+    <loc>https://materialadvisory.com/advisory</loc>
+  </url>
+  <url>
+    <loc>https://materialadvisory.com/foundry</loc>
+  </url>
+  <url>
+    <loc>https://materialadvisory.com/team</loc>
+  </url>
+</urlset>

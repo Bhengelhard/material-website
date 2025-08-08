@@ -6,6 +6,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Material - Strategic Business Architecture</title>
     <link rel="icon" type="image/png" href="images/favicon.png">
+    <!-- SEO & Social -->
+    <meta name="description" content="Material helps leaders turn distribution into AI-enabled ancillary businesses. Venture studio + advisory for building scalable revenue engines.">
+    <link rel="canonical" href="https://materialadvisory.com/">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="theme-color" content="#FFFEF9">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://materialadvisory.com/">
+    <meta property="og:title" content="Material — Strategic Business Architecture">
+    <meta property="og:description" content="We build AI-enabled ancillary businesses that scale with your distribution.">
+    <meta property="og:image" content="https://materialadvisory.com/images/material-logo-lockup.svg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Material — Strategic Business Architecture">
+    <meta name="twitter:description" content="We build AI-enabled ancillary businesses that scale with your distribution.">
+    <meta name="twitter:image" content="https://materialadvisory.com/images/material-logo-lockup.svg">
+    <script type="application/ld+json">
+    {
+      "@context":"https://schema.org",
+      "@type":"Organization",
+      "name":"Material",
+      "url":"https://materialadvisory.com/",
+      "logo":"https://materialadvisory.com/images/material-logo-lockup.svg",
+      "sameAs":[]
+    }
+    </script>
     <style>
         * {
             margin: 0;
@@ -32,6 +56,16 @@
             -webkit-font-smoothing: antialiased;
             padding-bottom: env(safe-area-inset-bottom);
             cursor: none;
+        }
+        /* Accessibility: show native cursor on touch/reduced motion and hide custom cursor */
+        @media (pointer: coarse), (prefers-reduced-motion: reduce) {
+            body, a, button, .nav-link, .btn-contact, .hero-link, .logo, .team-member, .member-card { cursor: auto !important; }
+            #custom-cursor { display: none !important; }
+        }
+        /* Focus styles */
+        .nav-links a:focus-visible, .btn-contact:focus-visible, .hero-link:focus-visible, .logo:focus-visible {
+            outline: 2px solid currentColor;
+            outline-offset: 3px;
         }
 
         #custom-cursor {
@@ -1460,7 +1494,7 @@
     <!-- Navigation -->
     <nav>
         <div class="nav-container">
-            <div class="logo">
+            <div class="logo" tabindex="0">
                 <img src="images/material-logo-lockup.svg" alt="Material logo lockup" class="logo-mark"
                     style="height: 2.2rem; width: auto; display: block;" />
             </div>
@@ -1468,10 +1502,10 @@
                 <span></span><span></span><span></span>
             </button>
             <ul class="nav-links">
-                <li><a href="/" class="nav-link active">Home</a></li>
-                <li><a href="/advisory" class="nav-link">Advisory</a></li>
-                <li><a href="/foundry" class="nav-link">Foundry</a></li>
-                <li><a href="/team" class="nav-link">Team</a></li>
+                <li><a href="#/" class="nav-link active" aria-current="page">Home</a></li>
+                <li><a href="#/advisory" class="nav-link">Advisory</a></li>
+                <li><a href="#/foundry" class="nav-link">Foundry</a></li>
+                <li><a href="#/team" class="nav-link">Team</a></li>
                 <li><a href="mailto:blakefrommaterial@gmail.com" class="nav-contact" target="_blank"
                         rel="noopener noreferrer">Contact</a></li>
             </ul>
@@ -1490,8 +1524,8 @@
                     tomorrow's markets.
                 </p>
                 <div class="hero-nav">
-                    <a href="/advisory" class="hero-link nav-link">Material Advisory</a>
-                    <a href="/foundry" class="hero-link nav-link">Material Foundry</a>
+                    <a href="#/advisory" class="hero-link nav-link">Material Advisory</a>
+                    <a href="#/foundry" class="hero-link nav-link">Material Foundry</a>
                 </div>
             </div>
         </section>
@@ -1876,18 +1910,26 @@
             }
         });
 
-        // Page navigation
+        // Page navigation (hash-based)
         const navLinks = document.querySelectorAll('.nav-link');
         const pages = document.querySelectorAll('.page');
         const logo = document.querySelector('.logo');
 
+        function setActiveNav(targetId) {
+            navLinks.forEach(l => {
+                l.classList.remove('active');
+                l.removeAttribute('aria-current');
+            });
+            const targetHref = targetId === 'home' ? '#/' : `#/${targetId}`;
+            const active = document.querySelector(`.nav-link[href="${targetHref}"]`);
+            if (active) {
+                active.classList.add('active');
+                active.setAttribute('aria-current', 'page');
+            }
+        }
+
         function showPage(targetId) {
-            navLinks.forEach(l => l.classList.remove('active'));
-
-            // Find the correct nav link based on the target page
-            const targetHref = targetId === 'home' ? '/' : `/${targetId}`;
-            document.querySelector(`.nav-link[href="${targetHref}"]`)?.classList.add('active');
-
+            setActiveNav(targetId);
             pages.forEach(page => {
                 page.classList.remove('active');
                 if (page.id === targetId) {
@@ -1895,61 +1937,54 @@
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 }
             });
-
-            // Update URL without page reload
-            const newUrl = targetId === 'home' ? '/' : `/${targetId}`;
-            history.pushState({ page: targetId }, '', newUrl);
+            const newHash = targetId === 'home' ? '#/' : `#/${targetId}`;
+            if (window.location.hash !== newHash) {
+                window.location.hash = newHash;
+            }
         }
 
-        // Handle browser back/forward buttons
-        window.addEventListener('popstate', (e) => {
-            const page = e.state?.page || getPageFromUrl();
-            showPage(page);
-        });
-
-        // Get page from current URL
-        function getPageFromUrl() {
-            const path = window.location.pathname;
-            if (path === '/' || path === '/index.html') return 'home';
-            const page = path.substring(1); // Remove leading slash
+        function getPageFromHash() {
+            const raw = window.location.hash || '#/';
+            const hash = raw.replace(/^#/, '');
+            if (hash === '/' || hash === '/index.html' || hash === '') return 'home';
+            const page = hash.replace(/^\//, '');
             return ['advisory', 'foundry', 'team'].includes(page) ? page : 'home';
         }
 
-        // Initialize page based on URL
-        function initializePage() {
-            // Check for redirect from 404 page
-            const redirectPath = sessionStorage.getItem('redirect');
-            if (redirectPath) {
-                sessionStorage.removeItem('redirect');
-                const targetPage = redirectPath.substring(1); // Remove leading slash
-                showPage(targetPage);
-                return;
-            }
+        window.addEventListener('hashchange', () => {
+            const page = getPageFromHash();
+            showPage(page);
+        });
 
-            const targetPage = getPageFromUrl();
+        // Initialize page based on hash
+        function initializePage() {
+            const targetPage = getPageFromHash();
             showPage(targetPage);
         }
 
         navLinks.forEach(link => {
             link.addEventListener('click', (e) => {
+                // let hash routing handle it
                 e.preventDefault();
                 const href = link.getAttribute('href');
                 let targetId;
-
-                if (href.startsWith('#')) {
+                if (href.startsWith('#/')) {
+                    targetId = href.substring(2);
+                    if (targetId === '') targetId = 'home';
+                } else if (href.startsWith('#')) {
                     targetId = href.substring(1);
-                } else if (href === '/') {
-                    targetId = 'home';
                 } else {
-                    targetId = href.substring(1); // Remove leading slash
+                    targetId = 'home';
                 }
-
                 showPage(targetId);
             });
         });
 
         logo.addEventListener('click', () => {
             showPage('home');
+        });
+        logo.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') showPage('home');
         });
 
         // Initialize the page on load
@@ -1973,26 +2008,36 @@
                 });
             });
         }
+
+        // Performance: lazy-load and async-decode images by default (except first, which may be LCP)
+        document.addEventListener('DOMContentLoaded', () => {
+            const imgs = Array.from(document.querySelectorAll('img'));
+            imgs.forEach((img, index) => {
+                if (!img.hasAttribute('loading') && index > 0) img.setAttribute('loading', 'lazy');
+                if (!img.hasAttribute('decoding')) img.setAttribute('decoding', 'async');
+            });
+        });
+    </script>
+    <div id="custom-cursor"></div>
+    <script>
+        // Custom cursor logic
+        const cursor = document.getElementById('custom-cursor');
+        document.addEventListener('mousemove', e => {
+            if (!cursor) return;
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+        function setCursorHover(state) {
+            if (!cursor) return;
+            if (state) cursor.classList.add('cursor-hover');
+            else cursor.classList.remove('cursor-hover');
+        }
+        const hoverables = document.querySelectorAll('a, button, .nav-link, .btn-contact, .hero-link, .logo');
+        hoverables.forEach(el => {
+            el.addEventListener('mouseenter', () => setCursorHover(true));
+            el.addEventListener('mouseleave', () => setCursorHover(false));
+        });
+        // For dynamically added elements (e.g., nav links), use event delegation if needed
     </script>
 </body>
-<div id="custom-cursor"></div>
-<script>
-    // Custom cursor logic
-    const cursor = document.getElementById('custom-cursor');
-    document.addEventListener('mousemove', e => {
-        cursor.style.left = e.clientX + 'px';
-        cursor.style.top = e.clientY + 'px';
-    });
-    function setCursorHover(state) {
-        if (state) cursor.classList.add('cursor-hover');
-        else cursor.classList.remove('cursor-hover');
-    }
-    const hoverables = document.querySelectorAll('a, button, .nav-link, .btn-contact, .hero-link, .logo');
-    hoverables.forEach(el => {
-        el.addEventListener('mouseenter', () => setCursorHover(true));
-        el.addEventListener('mouseleave', () => setCursorHover(false));
-    });
-    // For dynamically added elements (e.g., nav links), use event delegation if needed
-</script>
-
 </html>
