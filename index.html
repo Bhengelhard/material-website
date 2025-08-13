@@ -1974,25 +1974,25 @@
             });
         }
     </script>
+    <div id="custom-cursor"></div>
+    <script>
+        // Custom cursor logic
+        const cursor = document.getElementById('custom-cursor');
+        document.addEventListener('mousemove', e => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+        function setCursorHover(state) {
+            if (state) cursor.classList.add('cursor-hover');
+            else cursor.classList.remove('cursor-hover');
+        }
+        const hoverables = document.querySelectorAll('a, button, .nav-link, .btn-contact, .hero-link, .logo');
+        hoverables.forEach(el => {
+            el.addEventListener('mouseenter', () => setCursorHover(true));
+            el.addEventListener('mouseleave', () => setCursorHover(false));
+        });
+        // For dynamically added elements (e.g., nav links), use event delegation if needed
+    </script>
 </body>
-<div id="custom-cursor"></div>
-<script>
-    // Custom cursor logic
-    const cursor = document.getElementById('custom-cursor');
-    document.addEventListener('mousemove', e => {
-        cursor.style.left = e.clientX + 'px';
-        cursor.style.top = e.clientY + 'px';
-    });
-    function setCursorHover(state) {
-        if (state) cursor.classList.add('cursor-hover');
-        else cursor.classList.remove('cursor-hover');
-    }
-    const hoverables = document.querySelectorAll('a, button, .nav-link, .btn-contact, .hero-link, .logo');
-    hoverables.forEach(el => {
-        el.addEventListener('mouseenter', () => setCursorHover(true));
-        el.addEventListener('mouseleave', () => setCursorHover(false));
-    });
-    // For dynamically added elements (e.g., nav links), use event delegation if needed
-</script>
 
 </html>
