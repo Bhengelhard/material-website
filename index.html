@@ -352,18 +352,19 @@
         }
 
         .showcase-logos {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1.25rem 2rem;
-            max-width: 700px;
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 3rem;
+            max-width: 100%;
             margin: 0 auto;
             align-items: center;
-            justify-items: center;
+            justify-content: center;
+            overflow-x: auto;
         }
 
         .showcase-logo,
         .logo-placeholder {
-            height: 28px;
+            height: 20px;
             width: auto;
             background: none !important;
             border-radius: 0 !important;
@@ -374,8 +375,9 @@
             transition: opacity 0.3s;
         }
 
-        .showcase-logo:hover,
-        .logo-placeholder:hover {
+        /* Group hover: when the section is hovered, all logos go full color */
+        .experience-showcase:hover .showcase-logo,
+        .experience-statement:hover .logo-placeholder {
             opacity: 1;
         }
 
@@ -1155,13 +1157,16 @@
             }
 
             .showcase-logos {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 1.5rem 2rem;
+                display: flex;
+                flex-wrap: nowrap;
+                gap: 1.5rem;
+                justify-content: flex-start;
+                overflow-x: auto;
             }
 
             .showcase-logo {
-                width: 120px;
-                height: 40px;
+                width: auto;
+                height: 20px;
             }
 
             /* Section padding adjustments */
@@ -1558,8 +1563,29 @@
                         </div>
                     </div>
 
-                    <!-- Michael Friedson -->
+                    <!-- Jesse Grodman -->
                     <div class="team-member" style="--index: 2">
+                        <div class="member-card">
+                            <div class="member-image">
+                                <img src="images/Jesse_Grodman.png" alt="Jesse Grodman">
+                                <div class="member-overlay">
+                                    <p class="overlay-description">Technology leader with deep expertise in software architecture and data infrastructure. Designs scalable platforms and guides executives through critical decisions to ensure engineering teams and codebases align with business goals.</p>
+                                </div>
+                            </div>
+                            <div class="member-info">
+                                <h3>Jesse Grodman</h3>
+                                <p class="member-role">Technology</p>
+                            </div>
+                            <div class="card-logos">
+                                <img class="company-logo" src="images/Stanford_logo.png" alt="Stanford logo">
+                                <img class="company-logo" src="images/Palantir_logo.png" alt="Palantir logo">
+                                <img class="company-logo" src="images/Triple_whale_logo.png" alt="Triple Whale logo">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Michael Friedson -->
+                    <div class="team-member" style="--index: 3">
                         <div class="member-card">
                             <div class="member-image">
                                 <img src="images/michael-friedson.png" alt="Michael Friedson">
@@ -1582,53 +1608,8 @@
                         </div>
                     </div>
 
-                    <!-- Chaim Frenkel -->
-                    <div class="team-member" style="--index: 3">
-                        <div class="member-card">
-                            <div class="member-image">
-                                <img src="images/chaim-frenkel.png" alt="Chaim Frenkel">
-                                <div class="member-overlay">
-                                    <p class="overlay-description">Executive dealmaker with decades structuring
-                                        transformative partnerships across technology, finance, and enterprise sectors.
-                                        Identifies and executes strategic alliances that unlock new revenue streams and
-                                        market opportunities.</p>
-                                </div>
-                            </div>
-                            <div class="member-info">
-                                <h3>Chaim Frenkel</h3>
-                                <p class="member-role">Partnerships</p>
-                            </div>
-                            <div class="card-logos">
-                                <img class="company-logo" src="images/michigan-logo.png" alt="Michigan logo">
-                                <img class="company-logo" src="images/tricentis-logo.png" alt="Tricentis logo">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Dale Amler -->
-                    <div class="team-member" style="--index: 4">
-                        <div class="member-card">
-                            <div class="member-image">
-                                <img src="images/dale-amler.png" alt="Dale Amler">
-                                <div class="member-overlay">
-                                    <p class="overlay-description">Growth marketing executive serving Fortune 500
-                                        C-suites. Expert in GTM engineering, marketing automation, and building revenue
-                                        systems that drive predictable, scalable growth.</p>
-                                </div>
-                            </div>
-                            <div class="member-info">
-                                <h3>Dale Amler</h3>
-                                <p class="member-role">Marketing</p>
-                            </div>
-                            <div class="card-logos">
-                                <img class="company-logo" src="images/monster-logo.png" alt="Monster logo">
-                                <img class="company-logo" src="images/world50-logo.png" alt="World 50 logo">
-                            </div>
-                        </div>
-                    </div>
-
                     <!-- Sadya Zirkind -->
-                    <div class="team-member" style="--index: 5">
+                    <div class="team-member" style="--index: 4">
                         <div class="member-card">
                             <div class="member-image">
                                 <img src="images/sadya-zirkind.png" alt="Sadya Zirkind">
@@ -1650,23 +1631,47 @@
                         </div>
                     </div>
 
-                    <!-- Jesse Grodman -->
-                    <div class="team-member" style="--index: 6">
+                    <!-- Dale Amler -->
+                    <div class="team-member" style="--index: 5">
                         <div class="member-card">
                             <div class="member-image">
-                                <img src="images/Jesse_Grodman.png" alt="Jesse Grodman">
+                                <img src="images/dale-amler.png" alt="Dale Amler">
                                 <div class="member-overlay">
-                                    <p class="overlay-description">Technology leader with deep expertise in software architecture and data infrastructure. Designs scalable platforms and guides executives through critical decisions to ensure engineering teams and codebases align with business goals.</p>
+                                    <p class="overlay-description">Growth marketing executive serving Fortune 500
+                                        C-suites. Expert in GTM engineering, marketing automation, and building revenue
+                                        systems that drive predictable, scalable growth.</p>
                                 </div>
                             </div>
                             <div class="member-info">
-                                <h3>Jesse Grodman</h3>
-                                <p class="member-role">Technology</p>
+                                <h3>Dale Amler</h3>
+                                <p class="member-role">Marketing</p>
                             </div>
                             <div class="card-logos">
-                                <img class="company-logo" src="images/Stanford_logo.png" alt="Stanford logo">
-                                <img class="company-logo" src="images/Palantir_logo.png" alt="Palantir logo">
-                                <img class="company-logo" src="images/Triple_whale_logo.png" alt="Triple Whale logo">
+                                <img class="company-logo" src="images/monster-logo.png" alt="Monster logo">
+                                <img class="company-logo" src="images/world50-logo.png" alt="World 50 logo">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chaim Frenkel -->
+                    <div class="team-member" style="--index: 6">
+                        <div class="member-card">
+                            <div class="member-image">
+                                <img src="images/chaim-frenkel.png" alt="Chaim Frenkel">
+                                <div class="member-overlay">
+                                    <p class="overlay-description">Executive dealmaker with decades structuring
+                                        transformative partnerships across technology, finance, and enterprise sectors.
+                                        Identifies and executes strategic alliances that unlock new revenue streams and
+                                        market opportunities.</p>
+                                </div>
+                            </div>
+                            <div class="member-info">
+                                <h3>Chaim Frenkel</h3>
+                                <p class="member-role">Partnerships</p>
+                            </div>
+                            <div class="card-logos">
+                                <img class="company-logo" src="images/michigan-logo.png" alt="Michigan logo">
+                                <img class="company-logo" src="images/tricentis-logo.png" alt="Tricentis logo">
                             </div>
                         </div>
                     </div>
