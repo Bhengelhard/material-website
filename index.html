@@ -1474,10 +1474,10 @@
             </button>
             <ul class="nav-links">
                 <li><a href="/" class="nav-link active">Home</a></li>
-                <li><a href="/advisory" class="nav-link">Advisory</a></li>
+                <li><a href="/services" class="nav-link">Services</a></li>
                 <li><a href="/foundry" class="nav-link">Foundry</a></li>
                 <li><a href="/team" class="nav-link">Team</a></li>
-                <li><a href="mailto:blakefrommaterial@gmail.com" class="nav-contact" target="_blank"
+                <li><a href="mailto:blake@materialadvisory.com" class="nav-contact" target="_blank"
                         rel="noopener noreferrer">Contact</a></li>
             </ul>
         </div>
@@ -1495,7 +1495,7 @@
                     tomorrow's markets.
                 </p>
                 <div class="hero-nav">
-                    <a href="/advisory" class="hero-link nav-link">Material Advisory</a>
+                    <a href="/services" class="hero-link nav-link">Material Services</a>
                     <a href="/foundry" class="hero-link nav-link">Material Foundry</a>
                 </div>
             </div>
@@ -1680,12 +1680,12 @@
         </section>
     </div>
 
-    <!-- Advisory Page -->
-    <div id="advisory" class="page">
+    <!-- Services Page -->
+    <div id="services" class="page">
         <section class="section">
             <div class="section-content">
                 <div class="section-header">
-                    <h1 class="section-title">Material Advisory</h1>
+                    <h1 class="section-title">Material Services</h1>
                     <p class="section-description">
                         We serve as strategic business architects for ambitious CEOs and the partners who back them, transforming vision into operational excellence through AI-first thinking and systematic precision.
                     </p>
@@ -1938,7 +1938,7 @@
             const path = window.location.pathname;
             if (path === '/' || path === '/index.html') return 'home';
             const page = path.substring(1); // Remove leading slash
-            return ['advisory', 'foundry', 'team'].includes(page) ? page : 'home';
+            return ['services', 'foundry', 'team'].includes(page) ? page : 'home';
         }
 
         // Initialize page based on URL
