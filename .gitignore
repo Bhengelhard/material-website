@@ -5,3 +5,7 @@
 .Spotlight-V100
 .Trashes
 .env
+
+# Local dev
+.claude/
+serve.json
