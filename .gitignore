@@ -9,3 +9,4 @@
 # Local dev
 .claude/
 serve.json
+.vercel

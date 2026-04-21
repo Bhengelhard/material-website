@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Modernize & scale, strategy, structure, and systems to scale — Material</title>
+    <meta name="description" content="For CEOs and operators of growing companies. Material embeds alongside your team to build the strategy, structure, and systems that bring your vision to life and scale your business.">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400;1,500&family=Inter:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400;1,500&family=Inter:wght@400;500;600&display=swap">
+
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .mode-hero { padding-top: var(--space-3xl); padding-bottom: var(--space-2xl); min-height: auto; }
+        .mode-hero .hero-title { max-width: 20ch; }
+        .mode-hero .hero-subtitle { max-width: 640px; }
+
+        .feature {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+        .feature-lede {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            font-style: italic;
+            font-size: clamp(1.5rem, 2.4vw, 1.875rem);
+            line-height: 1.35;
+            color: var(--ink);
+        }
+        .feature-body p + p { margin-top: 1rem; }
+        .feature-body p { font-size: 1rem; line-height: 1.75; color: var(--gray-600); }
+        .feature-body strong { color: var(--ink); font-weight: 500; }
+
+        /* Engagement types */
+        .engagement-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 3rem;
+        }
+        .engagement-card {
+            padding: 2.25rem 2rem 2.5rem;
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 16px;
+            transition: border-color var(--dur) var(--ease), transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+        }
+        .engagement-card:hover {
+            border-color: var(--forest);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(11, 61, 46, 0.06);
+        }
+        .engagement-card .kicker { margin-bottom: 1rem; }
+        .engagement-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 500;
+            font-size: 1.5rem;
+            line-height: 1.2;
+            margin-bottom: 0.875rem;
+            color: var(--ink);
+        }
+        .engagement-card p.engagement-desc {
+            font-size: 0.9375rem;
+            line-height: 1.65;
+            color: var(--gray-600);
+            margin-bottom: 1.25rem;
+        }
+        .engagement-card ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid var(--gray-200);
+        }
+        .engagement-card li {
+            display: flex;
+            gap: 0.625rem;
+            font-size: 0.875rem;
+            line-height: 1.5;
+            color: var(--gray-600);
+        }
+        .engagement-card li::before {
+            content: '';
+            display: block;
+            width: 5px;
+            height: 5px;
+            margin-top: 0.5rem;
+            background: var(--forest);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .audience-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem 2.5rem;
+            margin-top: 3rem;
+            border-top: 1px solid var(--gray-200);
+            padding-top: 2.5rem;
+        }
+        .audience-list li {
+            display: flex;
+            gap: 1rem;
+            padding: 0.5rem 0;
+            font-size: 1rem;
+            line-height: 1.55;
+            color: var(--ink-80);
+        }
+        .audience-list li::before {
+            content: '';
+            display: block;
+            width: 6px;
+            height: 6px;
+            margin-top: 0.6rem;
+            background: var(--forest);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .mode-switch { display: grid; grid-template-columns: 1fr; gap: 1rem; margin-top: 3rem; }
+        .mode-switch-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 2.25rem;
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 12px;
+            transition: border-color var(--dur) var(--ease), transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+            gap: 2rem;
+        }
+        .mode-switch-card:hover {
+            border-color: var(--forest);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(11, 61, 46, 0.06);
+        }
+        .mode-switch-card .kicker { color: var(--forest); margin-bottom: 0.5rem; }
+        .mode-switch-card h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 500;
+            font-size: 1.375rem;
+            line-height: 1.2;
+            color: var(--ink);
+            margin-bottom: 0.375rem;
+        }
+        .mode-switch-card p {
+            font-size: 0.9375rem;
+            color: var(--gray-600);
+            line-height: 1.55;
+        }
+        .mode-switch-arrow {
+            color: var(--forest);
+            font-size: 1.5rem;
+            line-height: 1;
+            transition: transform var(--dur) var(--ease);
+            flex-shrink: 0;
+        }
+        .mode-switch-card:hover .mode-switch-arrow { transform: translateX(4px); }
+
+        @media (max-width: 1024px) {
+            .engagement-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 768px) {
+            .feature { grid-template-columns: 1fr; gap: 2rem; }
+            .audience-list { grid-template-columns: 1fr; gap: 0.25rem; }
+            .mode-switch-card { padding: 1.5rem 1.75rem; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ================ NAVIGATION ================ -->
+    <nav>
+        <div class="nav-container">
+            <a class="logo" href="/" aria-label="Material home">
+                <img src="images/material-logo-lockup.svg" alt="Material">
+            </a>
+            <button class="hamburger" aria-label="Open navigation" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="nav-links">
+                <li><a href="/build">Build with us</a></li>
+                <li><a href="/modernize" class="active">Modernize &amp; scale</a></li>
+                <li><a href="/playbook">Playbook</a></li>
+                <li><a href="/team">Team</a></li>
+                <li><a href="#" class="nav-cta" data-fillout-id="p8cqDmytcAus" data-fillout-embed-type="popup" data-fillout-dynamic-resize data-fillout-inherit-parameters data-fillout-popup-size="medium">Book a call</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <a href="#" class="mobile-floating-cta" data-fillout-id="p8cqDmytcAus" data-fillout-embed-type="popup" data-fillout-dynamic-resize data-fillout-inherit-parameters data-fillout-popup-size="medium">Map your growth plan</a>
+
+    <!-- ================ HERO ================ -->
+    <section class="hero mode-hero">
+        <div class="hero-inner">
+            <div class="hero-kicker">
+                <span class="kicker">Modernize &amp; scale</span>
+            </div>
+            <h1 class="hero-title">
+                The strategy, structure, and systems <span class="italic">to scale what you've built.</span>
+            </h1>
+            <p class="hero-subtitle">
+                Material embeds alongside CEOs and operators of growing companies to build the <em class="brand-em">strategy, structure, and systems</em> that bring your vision to life and scale the business. We don't hand you a deck and walk away. We build the thing with you.
+            </p>
+            <div class="hero-actions">
+                <a href="#" class="btn btn--primary" data-fillout-id="p8cqDmytcAus" data-fillout-embed-type="popup" data-fillout-dynamic-resize data-fillout-inherit-parameters data-fillout-popup-size="medium">
+                    Map your growth plan
+                    <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+                </a>
+                <a href="/playbook" class="hero-link">See the playbook &rarr;</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================ WHAT THIS IS ================ -->
+    <section class="section section--white">
+        <div class="section-inner">
+            <div class="section-header reveal">
+                <span class="accent-bar"></span>
+                <span class="kicker" style="margin-bottom: 1.25rem;">What this is</span>
+                <h2 class="section-title">An embedded team of operators, working the way your team works.</h2>
+                <p class="section-description">When CEOs hire Material, they're hiring builders who've run and scaled companies. We come in alongside your team, own a specific outcome, and leave your business stronger than we found it.</p>
+            </div>
+            <div class="feature reveal">
+                <p class="feature-lede">&ldquo;You do not rise to the level of your goals. You fall to the level of your systems.&rdquo; <span style="display:block; margin-top: 0.5rem; font-style: normal; font-family: 'Inter', sans-serif; font-size: 0.875rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gray-600);">&mdash; James Clear</span></p>
+                <div class="feature-body">
+                    <p><strong>Strategy</strong> is the clarity of where you're going and why. Positioning, ideal customer, offer, pricing — the thesis your whole company runs on.</p>
+                    <p><strong>Structure</strong> is how your company is organized to execute on that strategy. Team shape, roles, process, decisions, cadence.</p>
+                    <p><strong>Systems</strong> are the infrastructure that lets a small team operate like a big one. CRM, data, reporting, automation, and AI, all working together.</p>
+                    <p>Most growing companies are strong in one and stretched thin across the other two. We find the gap and help you rebuild it, in the right order.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================ ENGAGEMENT MODEL ================ -->
+    <section class="section section--pearl">
+        <div class="section-inner">
+            <div class="section-header reveal">
+                <span class="accent-bar"></span>
+                <span class="kicker" style="margin-bottom: 1.25rem;">How we engage</span>
+                <h2 class="section-title">We embed. We build the strategy, then we build it into the business.</h2>
+                <p class="section-description">We don't do one-off strategy projects. Every Material engagement starts with strategy, then brings that strategy to life inside your company, helping you turn the vision you have for the business into something real and scaled.</p>
+            </div>
+            <div class="engagement-grid">
+                <article class="engagement-card reveal stagger-1">
+                    <span class="kicker">01 &mdash; Always</span>
+                    <h3>Strategy</h3>
+                    <p class="engagement-desc">Every engagement begins here. Clear positioning, ideal customer, offer, pricing, and a sharpened story for where the business is going. This is the foundation the rest of the work builds from.</p>
+                    <ul>
+                        <li>Positioning and narrative</li>
+                        <li>Ideal customer and segmentation</li>
+                        <li>Offer and pricing design</li>
+                        <li>Financial and KPI framework</li>
+                        <li>Growth roadmap with clear priorities</li>
+                    </ul>
+                </article>
+                <article class="engagement-card reveal stagger-2">
+                    <span class="kicker">02 &mdash; Bringing it to market</span>
+                    <h3>Go-to-market</h3>
+                    <p class="engagement-desc">Turning the strategy into something customers feel. Brand, website, sales materials, and the channels that bring new revenue in. For companies where growth has gone quiet and the playbook needs a refresh.</p>
+                    <ul>
+                        <li>Brand and messaging refresh</li>
+                        <li>Website and sales assets</li>
+                        <li>Outbound, partnerships, and channels</li>
+                        <li>Content, SEO, and paid media</li>
+                        <li>Revenue operations and reporting</li>
+                    </ul>
+                </article>
+                <article class="engagement-card reveal stagger-3">
+                    <span class="kicker">03 &mdash; Bringing it to the back end</span>
+                    <h3>Systems &amp; operations</h3>
+                    <p class="engagement-desc">Turning the strategy into how the business actually runs. The systems, reporting, and automation that help a growing team operate with the clarity and speed of a much bigger one.</p>
+                    <ul>
+                        <li>CRM and sales system rebuilds</li>
+                        <li>Data infrastructure</li>
+                        <li>Reporting and analytics</li>
+                        <li>Automation and AI agents</li>
+                        <li>Process and team design</li>
+                    </ul>
+                </article>
+            </div>
+            <p class="pillar-closing reveal">Strategy and execution under the same roof, with one team that sees your business end to end.</p>
+        </div>
+    </section>
+
+    <!-- ================ WHO IT'S FOR ================ -->
+    <section class="section section--white">
+        <div class="section-inner">
+            <div class="section-header reveal">
+                <span class="accent-bar"></span>
+                <span class="kicker" style="margin-bottom: 1.25rem;">Who we work with</span>
+                <h2 class="section-title">CEOs and operators of growing companies.</h2>
+                <p class="section-description">You've built a real business with real customers. What you're hiring us for is the operator experience, the extra capacity, and the systems work your in-house team doesn't have the time or specialty to own.</p>
+            </div>
+            <ul class="audience-list reveal">
+                <li>Founder-CEOs of growing 7&ndash;9 figure businesses ready for the next chapter</li>
+                <li>Operators who inherited a go-to-market motion that needs a refresh</li>
+                <li>Teams running on tools and processes that no longer scale with them</li>
+                <li>Companies ready to embed AI but not sure where to start</li>
+                <li>Brands whose story hasn't caught up with where the business has gone</li>
+                <li>PE-backed operators under pressure to drive the next stage of growth</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ================ PROCESS ================ -->
+    <section class="section section--pearl">
+        <div class="section-inner">
+            <div class="section-header reveal">
+                <span class="accent-bar"></span>
+                <span class="kicker" style="margin-bottom: 1.25rem;">How it works</span>
+                <h2 class="section-title">Diagnose. Prioritize. Embed. Execute.</h2>
+            </div>
+            <div class="process-grid">
+                <div class="process-step reveal stagger-1">
+                    <p class="process-step-number">01</p>
+                    <div class="process-step-body">
+                        <h4>Diagnose</h4>
+                        <p>A focused look at where the business is and where the biggest opportunities are sitting. Spending time with you, your team, your customers, and your numbers to understand where growth is stuck and why.</p>
+                    </div>
+                </div>
+                <div class="process-step reveal stagger-2">
+                    <p class="process-step-number">02</p>
+                    <div class="process-step-body">
+                        <h4>Prioritize</h4>
+                        <p>We agree on the outcomes that matter most, the order to tackle them in, and the investment it'll take. Clear enough to keep us accountable, flexible enough to adjust as the work reveals what it needs.</p>
+                    </div>
+                </div>
+                <div class="process-step reveal stagger-3">
+                    <p class="process-step-number">03</p>
+                    <div class="process-step-body">
+                        <h4>Embed</h4>
+                        <p>A strategic operator joins your team and becomes your single point of contact. They learn your business, your market, and your customers, and they own the outcomes we committed to together.</p>
+                    </div>
+                </div>
+                <div class="process-step reveal stagger-4">
+                    <p class="process-step-number">04</p>
+                    <div class="process-step-body">
+                        <h4>Execute</h4>
+                        <p>Strategists, brand and product designers, engineers, and systems builders working in step with your team. Real work ships every week, and progress is visible in the business, not just the slides.</p>
+                    </div>
+                </div>
+                <div class="process-step reveal stagger-5">
+                    <p class="process-step-number">05</p>
+                    <div class="process-step-body">
+                        <h4>Hand off</h4>
+                        <p>KPIs tracked weekly. Playbooks documented. Your in-house team owns the system going forward. We stay on only as long as we're adding real value, not a dollar longer.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================ PROOF ================ -->
+    <section class="section section--white">
+        <div class="section-inner">
+            <div class="section-header reveal">
+                <span class="accent-bar"></span>
+                <span class="kicker" style="margin-bottom: 1.25rem;">Track record</span>
+                <h2 class="section-title">Companies we've scaled.</h2>
+            </div>
+            <div class="case-studies-grid">
+                <a href="https://www.goodr.co" class="case-study-card reveal stagger-1" target="_blank" rel="noopener noreferrer">
+                    <div class="case-study-top">
+                        <img src="images/goodr-logo.png" alt="Goodr" class="case-study-logo" loading="lazy" decoding="async">
+                        <span class="case-study-arrow" aria-hidden="true">&#8599;</span>
+                    </div>
+                    <div class="case-study-metric" data-target="20" data-suffix="x">20x</div>
+                    <div class="case-study-metric-label">Revenue growth</div>
+                    <p class="case-study-description">Scaled revenue <em class="brand-em">20x in 3 years</em>.</p>
+                </a>
+                <a href="https://www.grovara.com" class="case-study-card reveal stagger-2" target="_blank" rel="noopener noreferrer">
+                    <div class="case-study-top">
+                        <img src="images/grovara-logo.png" alt="Grovara" class="case-study-logo" loading="lazy" decoding="async">
+                        <span class="case-study-arrow" aria-hidden="true">&#8599;</span>
+                    </div>
+                    <div class="case-study-metric" data-target="7.5" data-suffix="x">7.5x</div>
+                    <div class="case-study-metric-label">Client growth</div>
+                    <p class="case-study-description">Grew enterprise clients <em class="brand-em">7.5x in 2 years</em>.</p>
+                </a>
+                <a href="https://bookkeepingconnect.pwc.com" class="case-study-card reveal stagger-3" target="_blank" rel="noopener noreferrer">
+                    <div class="case-study-top">
+                        <img src="images/pwc-logo.png" alt="PwC" class="case-study-logo" loading="lazy" decoding="async">
+                        <span class="case-study-arrow" aria-hidden="true">&#8599;</span>
+                    </div>
+                    <div class="case-study-metric">$1M</div>
+                    <div class="case-study-metric-label">Annual recurring revenue</div>
+                    <p class="case-study-description">Modernized legacy bookkeeping into <em class="brand-em">$1M ARR</em> SaaS.</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================ INLINE CTA ================ -->
+    <section class="inline-cta">
+        <div class="inline-cta-inner reveal">
+            <div class="inline-cta-copy">
+                <div class="inline-cta-kicker">
+                    <span class="kicker">See if we're a fit</span>
+                </div>
+                <h3 class="inline-cta-title">A short call, a clear next move.</h3>
+            </div>
+            <a href="#" class="btn btn--primary" data-fillout-id="p8cqDmytcAus" data-fillout-embed-type="popup" data-fillout-dynamic-resize data-fillout-inherit-parameters data-fillout-popup-size="medium">
+                Map your growth plan
+                <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- ================ MODE SWITCH ================ -->
+    <section class="section section--white">
+        <div class="section-inner">
+            <div class="section-header reveal">
+                <span class="accent-bar"></span>
+                <span class="kicker" style="margin-bottom: 1.25rem;">Thinking about a new venture?</span>
+                <h2 class="section-title">We also build new companies with operators.</h2>
+            </div>
+            <div class="mode-switch reveal">
+                <a href="/build" class="mode-switch-card">
+                    <div>
+                        <span class="kicker">Material Venture Studio</span>
+                        <h4>Have an idea for a new business? We co-build new companies with operators.</h4>
+                        <p>You bring the domain, distribution, or conviction. We bring the team, the playbook, and the systems &mdash; and we stay on to oversee the CEO after spinout.</p>
+                    </div>
+                    <span class="mode-switch-arrow" aria-hidden="true">&rarr;</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================ FINAL CTA ================ -->
+    <section class="cta">
+        <div class="cta-inner reveal">
+            <span class="kicker kicker--light kicker--centered" style="color: var(--forest-light); margin-bottom: 1.5rem;">Scale with Material</span>
+            <h2 class="cta-title">Ready to scale what you've built?</h2>
+            <p class="cta-description">Book a discovery call. We'll get to know your business, understand where growth has stalled, and map what it takes to get it moving again, with the strategy, structure, and systems behind it.</p>
+            <div class="cta-actions">
+                <a href="#" class="btn btn--on-dark" data-fillout-id="p8cqDmytcAus" data-fillout-embed-type="popup" data-fillout-dynamic-resize data-fillout-inherit-parameters data-fillout-popup-size="medium">
+                    Map your growth plan
+                    <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+                </a>
+                <a href="/playbook" class="btn btn--on-dark-secondary">
+                    See the playbook
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================ FOOTER ================ -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <img src="images/material-logo-lockup.svg" alt="Material" class="footer-logo">
+                    <p class="footer-tagline">A venture studio and embedded operator team for operators and growing companies.</p>
+                </div>
+                <div class="footer-col">
+                    <p class="footer-col-heading">Ways we work</p>
+                    <ul>
+                        <li><a href="/build">Build with us</a></li>
+                        <li><a href="/modernize">Modernize &amp; scale</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <p class="footer-col-heading">Material</p>
+                    <ul>
+                        <li><a href="/playbook">Playbook</a></li>
+                        <li><a href="/team">Team</a></li>
+                        <li><a href="#" data-fillout-id="p8cqDmytcAus" data-fillout-embed-type="popup" data-fillout-dynamic-resize data-fillout-inherit-parameters data-fillout-popup-size="medium">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <p class="footer-col-heading">Connect</p>
+                    <ul>
+                        <li><a href="https://www.linkedin.com/company/materialbuilt" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Material. All rights reserved.</p>
+                <p>materialbuilt.com</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        'use strict';
+        const navEl = document.querySelector('nav');
+        const onScroll = () => {
+            if (window.scrollY > 24) navEl.classList.add('scrolled');
+            else navEl.classList.remove('scrolled');
+        };
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        if (hamburger && navLinks) {
+            hamburger.addEventListener('click', () => {
+                const open = hamburger.classList.toggle('active');
+                navLinks.classList.toggle('open', open);
+                hamburger.setAttribute('aria-expanded', String(open));
+            });
+        }
+
+        const floatingCta = document.querySelector('.mobile-floating-cta');
+        const hero = document.querySelector('.hero');
+        if (floatingCta && hero) {
+            window.addEventListener('scroll', () => {
+                const heroBottom = hero.offsetTop + hero.offsetHeight;
+                const scrolled = window.scrollY + window.innerHeight * 0.4;
+                if (scrolled > heroBottom) floatingCta.classList.add('visible');
+                else floatingCta.classList.remove('visible');
+            }, { passive: true });
+        }
+
+        document.documentElement.classList.add('reveal-ready');
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (prefersReducedMotion) {
+            document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+        } else if ('IntersectionObserver' in window) {
+            const obs = new IntersectionObserver((entries) => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) {
+                        e.target.classList.add('visible');
+                        obs.unobserve(e.target);
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+            document.querySelectorAll('.reveal').forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight + 40 && rect.bottom > 0) {
+                    el.classList.add('visible');
+                } else {
+                    obs.observe(el);
+                }
+            });
+        } else {
+            document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+        }
+
+        const metrics = document.querySelectorAll('.case-study-metric[data-target]');
+        if (metrics.length && 'IntersectionObserver' in window) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const el = entry.target;
+                        const target = parseFloat(el.dataset.target);
+                        const suffix = el.dataset.suffix || '';
+                        const duration = 1400;
+                        const start = performance.now();
+                        (function step(now) {
+                            const elapsed = now - start;
+                            const progress = Math.min(elapsed / duration, 1);
+                            const eased = 1 - Math.pow(1 - progress, 3);
+                            const current = target * eased;
+                            el.textContent = (target % 1 === 0 ? Math.round(current) : current.toFixed(1)) + suffix;
+                            if (progress < 1) requestAnimationFrame(step);
+                        })(performance.now());
+                        observer.unobserve(el);
+                    }
+                });
+            }, { threshold: 0.5 });
+            metrics.forEach(m => observer.observe(m));
+        }
+    </script>
+
+    <script src="https://server.fillout.com/embed/v1/"></script>
+</body>
+</html>

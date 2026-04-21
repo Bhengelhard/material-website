@@ -2,9 +2,14 @@
   "trailingSlash": false,
   "rewrites": [
     { "source": "/playbook", "destination": "/playbook.html" },
-    { "source": "/team", "destination": "/index.html" }
+    { "source": "/build", "destination": "/build.html" },
+    { "source": "/modernize", "destination": "/modernize.html" },
+    { "source": "/team", "destination": "/team.html" }
   ],
   "redirects": [
-    { "source": "/playbook.html", "destination": "/playbook", "permanent": true }
+    { "source": "/playbook.html", "destination": "/playbook", "permanent": true },
+    { "source": "/build.html", "destination": "/build", "permanent": true },
+    { "source": "/modernize.html", "destination": "/modernize", "permanent": true },
+    { "source": "/team.html", "destination": "/team", "permanent": true }
   ]
 }
