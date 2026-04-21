@@ -15,8 +15,8 @@
 
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Team page needs top padding to clear the fixed nav (no .page wrapper here) */
-        body > nav + section { padding-top: calc(var(--space-3xl) + 4rem); }
+        /* Match Build/Modernize hero top spacing */
+        body > nav + section.team-hero { padding-top: var(--space-3xl); }
     </style>
 </head>
 
@@ -45,7 +45,6 @@
     <section class="section team-hero">
         <div class="section-inner">
             <div class="reveal">
-                <span class="accent-bar"></span>
                 <span class="kicker" style="margin-bottom: 1.25rem;">The team</span>
                 <h1 class="team-hero-title">The builders behind the work.</h1>
                 <p class="team-hero-body">Material is a collective of operators, strategists, designers, and engineers who've built and scaled companies at some of the best organizations in the world. We help founders and operators scale by building the <em class="brand-em">strategy, systems, and teams</em> that make it happen. Operators who embed and execute.</p>
