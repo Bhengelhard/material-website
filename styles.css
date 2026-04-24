@@ -99,15 +99,11 @@ button { font: inherit; background: none; border: none; cursor: pointer; color: 
 .accent-bar--centered { margin-left: auto; margin-right: auto; }
 .accent-bar--light    { background: var(--forest-light); }
 
-/* Brand emphasis — Cormorant italic forest green, signature inline accent */
+/* Brand emphasis — forest green color accent, signature inline accent */
 em.brand-em,
 .brand-em {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-weight: 500;
+    font-style: normal;
     color: var(--forest);
-    font-size: 1.08em;
-    letter-spacing: -0.005em;
 }
 
 /* ===== SCROLL REVEAL ===== */
