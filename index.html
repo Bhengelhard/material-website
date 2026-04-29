@@ -4,1889 +4,293 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Material — Strategic Operators for Growing Companies</title>
+    <title>Material, strategic operators for growing companies</title>
     <meta name="description" content="Material embeds strategic operators into growing companies to execute the initiatives that actually move the needle.">
     <link rel="icon" type="image/png" href="images/favicon.png">
-    <style>
-        /* ===== RESET ===== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
 
-        /* ===== DESIGN TOKENS ===== */
-        :root {
-            --ink: #0A0A0A;
-            --smoke: #4A4A4A;
-            --silver: #8A8A8A;
-            --pearl: #F7F7F5;
-            --cream: #FFFEF9;
-            --accent: #E5E5E0;
-            --max-width: 1400px;
-            --page-padding: 3rem;
-            --ink-90: rgba(10, 10, 10, 0.9);
-            --ink-05: rgba(10, 10, 10, 0.05);
-            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-            --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
-        }
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap">
 
-        html {
-            scroll-behavior: smooth;
-        }
+    <link rel="stylesheet" href="styles.css">
 
-        ::selection {
-            background: var(--ink);
-            color: var(--cream);
-        }
-
-        body {
-            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
-            color: var(--ink);
-            background: var(--cream);
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-            padding-bottom: env(safe-area-inset-bottom);
-            cursor: none;
-        }
-
-        /* ===== CUSTOM CURSOR ===== */
-        #custom-cursor {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 12px;
-            height: 12px;
-            background: #0A0A0A;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            transform: translate(-50%, -50%) scale(1);
-            transition: transform 0.15s var(--ease-in-out), background 0.2s;
-        }
-
-        #custom-cursor.cursor-hover {
-            transform: translate(-50%, -50%) scale(1.35);
-        }
-
-        #custom-cursor.cursor-invert {
-            background: var(--cream);
-        }
-
-        #custom-cursor.cursor-invert.cursor-dark {
-            background: var(--ink);
-        }
-
-        a, button, .nav-link, .btn-contact, .btn-hero, .hero-link, .logo,
-        .icp-pill, .pillar, .case-study-card, .testimonial-dot, .category-block {
-            cursor: none;
-        }
-
-        /* ===== SCROLL REVEAL SYSTEM ===== */
-        /* Reveal system: JS adds .reveal-ready to <html> to enable animations.
-           Without JS, all content stays visible (progressive enhancement). */
-        .reveal-ready .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .reveal-ready .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .reveal-ready .reveal-scale {
-            opacity: 0;
-            transform: scale(0.95);
-            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .reveal-ready .reveal-scale.visible {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        .reveal-ready .stagger-1 { transition-delay: 0.1s; }
-        .reveal-ready .stagger-2 { transition-delay: 0.2s; }
-        .reveal-ready .stagger-3 { transition-delay: 0.3s; }
-        .reveal-ready .stagger-4 { transition-delay: 0.4s; }
-        .reveal-ready .stagger-5 { transition-delay: 0.5s; }
-
-        /* ===== NAVIGATION ===== */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(255, 254, 249, 0.92);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            z-index: 1000;
-            transition: all 0.3s var(--ease-in-out);
-        }
-
-        nav.scrolled {
-            box-shadow: 0 1px 40px rgba(0, 0, 0, 0.02);
-        }
-
-        .nav-container {
-            max-width: var(--max-width);
-            margin: 0 auto;
-            padding: 1.75rem var(--page-padding);
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            position: relative;
-        }
-
-        .logo {
-            margin-right: 2rem;
-            gap: 0.5em;
-            transition: opacity 0.3s;
-        }
-
-        .logo:hover {
-            opacity: 0.7;
-        }
-
-        .nav-links, .hamburger {
-            margin-left: auto;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 3rem;
-            list-style: none;
-            align-items: center;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--smoke);
-            font-weight: 500;
-            font-size: 0.95rem;
-            transition: all 0.3s;
-            position: relative;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--ink);
-            transition: width 0.3s var(--ease-in-out);
-        }
-
-        .nav-links a:hover, .nav-links a.active {
-            color: var(--ink);
-        }
-
-        .nav-links a:hover::after, .nav-links a.active::after {
-            width: 100%;
-        }
-
-        .nav-contact {
-            background: var(--ink);
-            color: var(--cream) !important;
-            padding: 0.625rem 1.5rem;
-            border-radius: 30px;
-            font-weight: 500 !important;
-            transition: all 0.3s var(--ease-in-out);
-        }
-
-        .nav-contact:hover {
-            background: var(--smoke);
-            transform: translateY(-1px);
-        }
-
-        .nav-contact::after {
-            display: none !important;
-        }
-
-        /* ===== PAGE CONTAINER ===== */
-        .page {
-            display: none;
-            min-height: 100vh;
-            padding-top: 5rem;
-        }
-
-        .page.active {
-            display: block;
-        }
-
-        /* ===== SECTION BASE ===== */
-        .section {
-            padding: 8rem 3rem;
-            position: relative;
-        }
-
-        .section-content {
-            max-width: var(--max-width);
-            margin: 0 auto;
-            padding-left: var(--page-padding);
-            padding-right: var(--page-padding);
-        }
-
-        .section--pearl { background: var(--pearl); }
-        .section--ink { background: var(--ink); color: var(--cream); }
-        .section--gradient { background: linear-gradient(180deg, var(--cream) 0%, var(--pearl) 100%); }
-
-        .section-label {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-            color: var(--silver);
-            margin-bottom: 1.5rem;
-            font-weight: 500;
-        }
-
-        .section-header {
-            margin-bottom: 4rem;
-        }
-
-        .section-title {
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            font-weight: 500;
-            line-height: 1.05;
-            letter-spacing: -0.03em;
-            margin-bottom: 1.5rem;
-        }
-
-        .section-description {
-            font-size: 1.25rem;
-            color: var(--smoke);
-            max-width: 800px;
-            line-height: 1.6;
-            font-weight: 400;
-        }
-
-        /* ===== HERO ===== */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            padding: 0 3rem;
-            background:
-                radial-gradient(ellipse at 20% 50%, rgba(229, 229, 224, 0.4) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 20%, rgba(247, 247, 245, 0.6) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 80%, rgba(229, 229, 224, 0.3) 0%, transparent 50%),
-                linear-gradient(135deg, var(--cream) 0%, var(--pearl) 50%, var(--accent) 100%);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
-            background-size: 50px 50px;
-            animation: drift 20s linear infinite;
-            opacity: 0.5;
-        }
-
-        @keyframes drift {
-            from { transform: translate(0, 0); }
-            to { transform: translate(50px, 50px); }
-        }
-
-        .hero-content {
-            max-width: var(--max-width);
-            margin: 0 auto;
-            width: 100%;
-            position: relative;
-            z-index: 1;
-            padding-left: var(--page-padding);
-            padding-right: var(--page-padding);
-        }
-
-        .hero-eyebrow {
-            font-size: 0.75rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--silver);
-            margin-bottom: 2rem;
-            font-weight: 500;
-            opacity: 0;
-            animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-        }
-
-        .hero h1 {
-            font-size: clamp(3rem, 7vw, 5.5rem);
-            font-weight: 500;
-            line-height: 1;
-            letter-spacing: -0.03em;
-            margin-bottom: 2rem;
-            opacity: 0;
-            animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1) 0.1s forwards;
-        }
-
-        .hero h1 span {
-            display: block;
-            font-weight: 300;
-            color: var(--smoke);
-            margin-top: 0.25rem;
-        }
-
-        .hero-subtitle {
-            font-size: 1.3rem;
-            color: var(--smoke);
-            margin-bottom: 3rem;
-            max-width: 640px;
-            line-height: 1.6;
-            font-weight: 400;
-            opacity: 0;
-            animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1) 0.2s forwards;
-        }
-
-        .hero-cta {
-            opacity: 0;
-            animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1) 0.35s forwards;
-        }
-
-        .btn-hero {
-            display: inline-block;
-            padding: 1rem 2.5rem;
-            background: var(--ink);
-            color: var(--cream);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1rem;
-            letter-spacing: 0.01em;
-            border-radius: 30px;
-            transition: all 0.3s var(--ease-in-out);
-        }
-
-        .btn-hero:hover {
-            background: var(--smoke);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-        }
-
-        /* ===== PROBLEM SECTION ===== */
-        .problem-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            margin-top: 4rem;
-        }
-
-        .problem-card {
-            padding: 2.5rem;
-            border: 1px solid var(--accent);
-            border-radius: 16px;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.4s var(--ease-in-out);
-            background: rgba(255, 254, 249, 0.5);
-        }
-
-        .problem-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 0;
-            background: var(--ink);
-            transition: height 0.6s var(--ease-out-expo);
-        }
-
-        .problem-card:hover::before {
-            height: 100%;
-        }
-
-        .problem-card:hover {
-            border-color: var(--silver);
-            background: rgba(255, 254, 249, 0.9);
-            transform: translateY(-2px);
-        }
-
-        .problem-card h4 {
-            font-size: 1.375rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            letter-spacing: -0.02em;
-        }
-
-        .problem-card p {
-            color: var(--smoke);
-            line-height: 1.6;
-            font-size: 1.0625rem;
-        }
-
-        /* ===== NEW GAME / IN vs ON ===== */
-        .section--in-on {
-            padding: 10rem 3rem;
-        }
-
-        .in-on-block {
-            text-align: center;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .in-on-block .section-title {
-            margin-bottom: 2rem;
-        }
-
-        .in-on-block .section-description {
-            max-width: 800px;
-            margin: 0 auto 2rem;
-            font-size: 1.375rem;
-        }
-
-        .in-on-subtext {
-            font-size: 1.25rem;
-            color: var(--smoke);
-            line-height: 1.6;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .emphasis-word {
-            font-weight: 700;
-            font-style: italic;
-            color: var(--ink);
-            position: relative;
-            display: inline-block;
-        }
-
-        .emphasis-word::after {
-            content: '';
-            position: absolute;
-            bottom: 2px;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: var(--ink);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.6s var(--ease-out-expo);
-        }
-
-        .emphasis-visible .emphasis-word::after {
-            transform: scaleX(1);
-        }
-
-        /* ===== PLAYBOOK SECTION ===== */
-        .playbook-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
-            margin-top: 4rem;
-        }
-
-        .playbook-item {
-            padding: 2.5rem;
-            border-radius: 16px;
-            background: rgba(255, 254, 249, 0.5);
-            border: 1px solid var(--accent);
-            transition: all 0.3s var(--ease-in-out);
-        }
-
-        .playbook-item:hover {
-            transform: translateY(-2px);
-            border-color: var(--silver);
-        }
-
-        .playbook-label {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-            color: var(--silver);
-            margin-bottom: 0.75rem;
-            font-weight: 500;
-        }
-
-        .playbook-item h4 {
-            font-size: 1.5rem;
-            font-weight: 500;
-            margin-bottom: 0.75rem;
-            letter-spacing: -0.02em;
-        }
-
-        .playbook-item p {
-            color: var(--smoke);
-            line-height: 1.6;
-            font-size: 1.0625rem;
-        }
-
-        .transition-line {
-            margin-top: 4rem;
-            padding: 3rem;
-            border-radius: 16px;
-            background: var(--ink);
-            color: var(--cream);
-        }
-
-        .transition-line p {
-            font-size: 1.25rem;
-            line-height: 1.6;
-            font-weight: 400;
-            max-width: 900px;
-        }
-
-        /* ===== PILLARS (WHAT MATERIAL DOES) ===== */
-        .pillars-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 3rem;
-            margin-top: 5rem;
-        }
-
-        .pillar {
-            padding: 3rem;
-            border-radius: 20px;
-            background: var(--pearl);
-            position: relative;
-            overflow: hidden;
-            transition: all 0.4s var(--ease-in-out);
-        }
-
-        .pillar::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--smoke), transparent);
-            transform: translateX(-100%);
-            transition: transform 0.6s;
-        }
-
-        .pillar:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
-        }
-
-        .pillar:hover::before {
-            transform: translateX(100%);
-        }
-
-        .pillar-number {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            color: var(--silver);
-            margin-bottom: 1.5rem;
-            font-weight: 500;
-        }
-
-        .pillar h3 {
-            font-size: 1.75rem;
-            font-weight: 500;
-            letter-spacing: -0.02em;
-            margin-bottom: 1rem;
-        }
-
-        .pillar p {
-            color: var(--smoke);
-            line-height: 1.6;
-            font-size: 1.0625rem;
-        }
-
-        .section-closing {
-            margin-top: 4rem;
-            font-size: 1.25rem;
-            font-weight: 500;
-            color: var(--smoke);
-            font-style: italic;
-            letter-spacing: -0.01em;
-        }
-
-        /* ===== HOW IT WORKS (5 STEPS) ===== */
-        .steps-flow {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 1.5rem;
-            margin-top: 5rem;
-            position: relative;
-        }
-
-        .steps-flow::before {
-            content: '';
-            position: absolute;
-            top: 28px;
-            left: 8%;
-            right: 8%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--accent), var(--silver), var(--accent), transparent);
-            z-index: 0;
-        }
-
-        .step {
-            text-align: center;
-            position: relative;
-            z-index: 1;
-        }
-
-        .step-number {
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            background: var(--ink);
-            color: var(--cream);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.5rem;
-            font-size: 1.25rem;
-            font-weight: 500;
-            letter-spacing: -0.02em;
-            transition: all 0.3s var(--ease-in-out);
-        }
-
-        .step:hover .step-number {
-            transform: scale(1.1);
-            box-shadow: 0 8px 24px rgba(10, 10, 10, 0.2);
-        }
-
-        .step h4 {
-            font-size: 1.125rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            letter-spacing: -0.01em;
-        }
-
-        .step p {
-            color: var(--smoke);
-            font-size: 0.9375rem;
-            line-height: 1.5;
-            max-width: 200px;
-            margin: 0 auto;
-        }
-
-        /* ===== CATEGORIES (WHAT WE EXECUTE ON) ===== */
-        .categories-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
-            margin-top: 4rem;
-        }
-
-        .category-block {
-            padding: 2.5rem;
-            border: 1px solid var(--accent);
-            border-radius: 16px;
-            transition: all 0.3s var(--ease-in-out);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .category-block::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--smoke), transparent);
-            transform: translateX(-100%);
-            transition: transform 0.6s;
-        }
-
-        .category-block:hover {
-            border-color: var(--accent);
-            background: var(--pearl);
-            transform: translateY(-2px);
-        }
-
-        .category-block:hover::before {
-            transform: translateX(100%);
-        }
-
-        .category-block h4 {
-            font-size: 1.375rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-            letter-spacing: -0.01em;
-        }
-
-        .category-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .category-list li {
-            color: var(--smoke);
-            font-size: 0.9375rem;
-            line-height: 1.5;
-            padding: 0.5rem 0;
-            border-bottom: 1px solid var(--ink-05);
-        }
-
-        .category-list li:last-child {
-            border-bottom: none;
-        }
-
-        /* ===== ICP PILLS (WHO WE WORK WITH) ===== */
-        .icp-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin-top: 3rem;
-        }
-
-        .icp-pill {
-            display: inline-flex;
-            align-items: center;
-            padding: 0.75rem 1.5rem;
-            border-radius: 30px;
-            border: 1px solid var(--accent);
-            font-size: 0.9375rem;
-            font-weight: 500;
-            color: var(--smoke);
-            transition: all 0.3s var(--ease-in-out);
-            white-space: nowrap;
-            background: rgba(255, 254, 249, 0.5);
-        }
-
-        .icp-pill:hover {
-            border-color: var(--ink);
-            color: var(--ink);
-            background: rgba(255, 254, 249, 0.9);
-            transform: translateY(-2px);
-        }
-
-        /* ===== CASE STUDIES ===== */
-        .case-studies-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            margin-top: 4rem;
-        }
-
-        .case-study-card {
-            padding: 2.5rem;
-            border-radius: 20px;
-            background: var(--pearl);
-            transition: all 0.4s var(--ease-in-out);
-            position: relative;
-            overflow: hidden;
-            text-decoration: none;
-            color: inherit;
-            display: block;
-        }
-
-        .case-study-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
-        }
-
-        .case-study-logo {
-            height: 28px;
-            width: auto;
-            margin-bottom: 1.5rem;
-            opacity: 0.6;
-            transition: opacity 0.3s;
-        }
-
-        .case-study-card:hover .case-study-logo {
-            opacity: 1;
-        }
-
-        .case-study-logo-text {
-            font-size: 1.125rem;
-            font-weight: 600;
-            letter-spacing: -0.02em;
-            color: var(--smoke);
-            margin-bottom: 1.5rem;
-            opacity: 0.7;
-            transition: opacity 0.3s;
-        }
-
-        .case-study-card:hover .case-study-logo-text {
-            opacity: 1;
-        }
-
-        .case-study-description {
-            font-size: 1rem;
-            color: var(--smoke);
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
-        }
-
-        .case-study-metric {
-            font-size: 2.5rem;
-            font-weight: 500;
-            letter-spacing: -0.03em;
-            color: var(--ink);
-            line-height: 1;
-        }
-
-        .case-study-metric-label {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--silver);
-            margin-top: 0.5rem;
-        }
-
-        /* ===== MARQUEE LOGO BAR ===== */
-        .marquee-container {
-            overflow: hidden;
-            padding: 3rem 0;
-            position: relative;
-        }
-
-        .marquee-container::before,
-        .marquee-container::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            width: 120px;
-            height: 100%;
-            z-index: 2;
-            pointer-events: none;
-        }
-
-        .marquee-container::before {
-            left: 0;
-            background: linear-gradient(90deg, var(--cream), transparent);
-        }
-
-        .marquee-container::after {
-            right: 0;
-            background: linear-gradient(270deg, var(--cream), transparent);
-        }
-
-        .section--pearl .marquee-container::before {
-            background: linear-gradient(90deg, var(--pearl), transparent);
-        }
-
-        .section--pearl .marquee-container::after {
-            background: linear-gradient(270deg, var(--pearl), transparent);
-        }
-
-        .marquee-track {
-            display: flex;
-            gap: 4rem;
-            align-items: center;
-            animation: marquee 35s linear infinite;
-            width: max-content;
-        }
-
-        .marquee-track img {
-            height: 24px;
-            width: auto;
-            opacity: 0.4;
-            transition: opacity 0.3s;
-            flex-shrink: 0;
-        }
-
-        .marquee-container:hover .marquee-track {
-            animation-play-state: paused;
-        }
-
-        .marquee-container:hover .marquee-track img {
-            opacity: 0.7;
-        }
-
-        @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-
-        .team-link {
-            display: inline-block;
-            padding: 1rem 2.5rem;
-            background: transparent;
-            color: var(--ink);
-            text-decoration: none;
-            font-size: 1rem;
-            font-weight: 500;
-            letter-spacing: 0.01em;
-            border: 1px solid rgba(10, 10, 10, 0.25);
-            border-radius: 30px;
-            transition: all 0.3s var(--ease-in-out);
-        }
-
-        .team-link:hover {
-            border-color: var(--ink);
-            background: rgba(10, 10, 10, 0.03);
-            transform: translateY(-2px);
-        }
-
-        /* ===== TESTIMONIALS ===== */
-        .testimonials-container {
-            position: relative;
-            overflow: hidden;
-            margin-top: 4rem;
-        }
-
-        .testimonials-track {
-            display: flex;
-            transition: transform 0.6s var(--ease-out-expo);
-        }
-
-        .testimonial-card {
-            flex: 0 0 calc(50% - 1rem);
-            margin-right: 2rem;
-            padding: 3rem;
-            border-radius: 20px;
-            background: var(--pearl);
-        }
-
-        .testimonial-quote {
-            font-size: 1.25rem;
-            line-height: 1.6;
-            color: var(--ink);
-            font-weight: 400;
-            margin-bottom: 2rem;
-            font-style: italic;
-        }
-
-        .testimonial-quote::before {
-            content: '\201C';
-            display: block;
-            font-size: 4rem;
-            line-height: 1;
-            color: var(--accent);
-            font-style: normal;
-            margin-bottom: 0.5rem;
-        }
-
-        .testimonial-author {
-            font-weight: 500;
-            font-size: 1rem;
-            color: var(--ink);
-        }
-
-        .testimonial-role {
-            font-size: 0.875rem;
-            color: var(--silver);
-            margin-top: 0.25rem;
-        }
-
-        .testimonial-nav {
-            display: flex;
-            gap: 0.75rem;
-            margin-top: 2rem;
-            justify-content: center;
-        }
-
-        .testimonial-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--accent);
-            border: none;
-            cursor: none;
-            transition: all 0.3s;
-            padding: 0;
-        }
-
-        .testimonial-dot.active {
-            background: var(--ink);
-            transform: scale(1.25);
-        }
-
-        /* ===== CTA SECTION ===== */
-        .cta {
-            padding: 6rem 3rem 8rem;
-            text-align: center;
-            background: var(--ink);
-            color: var(--cream);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
-            animation: pulse 4s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.5; }
-            50% { transform: scale(1.1); opacity: 0.8; }
-        }
-
-        .cta-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .cta h2 {
-            font-size: clamp(2.5rem, 5vw, 3.5rem);
-            margin-bottom: 1.5rem;
-            font-weight: 400;
-            letter-spacing: -0.02em;
-        }
-
-        .cta p {
-            font-size: 1.25rem;
-            margin-bottom: 3rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            opacity: 0.9;
-            line-height: 1.6;
-        }
-
-        .btn-contact {
-            display: inline-block;
-            padding: 1rem 3rem;
-            background: var(--cream);
-            color: var(--ink);
-            text-decoration: none;
-            font-weight: 500;
-            letter-spacing: 0.02em;
-            border-radius: 30px;
-            transition: all 0.3s var(--ease-in-out);
-        }
-
-        .btn-contact:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 1.5rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn-primary {
-            display: inline-block;
-            padding: 1rem 2.5rem;
-            background: var(--cream);
-            color: var(--ink);
-            text-decoration: none;
-            font-weight: 500;
-            border-radius: 30px;
-            transition: all 0.3s var(--ease-in-out);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
-        }
-
-        .btn-secondary {
-            display: inline-block;
-            padding: 1rem 2.5rem;
-            background: transparent;
-            color: var(--cream);
-            text-decoration: none;
-            font-weight: 500;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 30px;
-            transition: all 0.3s var(--ease-in-out);
-        }
-
-        .btn-secondary:hover {
-            border-color: rgba(255, 255, 255, 0.6);
-            background: rgba(255, 255, 255, 0.05);
-            transform: translateY(-2px);
-        }
-
-        /* ===== TEAM PAGE STYLES ===== */
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 3rem;
-        }
-
-        .team-member {
-            cursor: none !important;
-        }
-
-        .member-card {
-            position: relative;
-            padding: 2rem;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-            border-radius: 20px;
-            background: #fff;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            transition: transform 0.3s var(--ease-in-out), box-shadow 0.3s ease;
-            cursor: none !important;
-        }
-
-        .member-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
-        }
-
-        .member-image {
-            width: 100%;
-            aspect-ratio: 1 / 1;
-            position: relative;
-            overflow: hidden;
-            background: linear-gradient(135deg, #f7f7f5 0%, #e5e5e0 100%);
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .member-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 16px;
-            display: block;
-            transition: transform 0.4s var(--ease-in-out);
-        }
-
-        .member-card:hover .member-image img {
-            transform: scale(1.03);
-        }
-
-        .member-info {
-            padding: 1.5rem 0 0.5rem;
-            text-align: center;
-        }
-
-        .member-info h3 {
-            font-size: 1.5rem;
-            font-weight: 500;
-            margin-bottom: 0.25rem;
-            letter-spacing: -0.02em;
-        }
-
-        .member-role {
-            font-size: 1rem;
-            color: var(--silver);
-            font-weight: 400;
-            letter-spacing: 0.02em;
-            text-transform: uppercase;
-        }
-
-        .member-bio {
-            font-size: 0.9375rem;
-            color: var(--smoke);
-            line-height: 1.6;
-            margin-top: 0.75rem;
-            padding: 0 0.25rem;
-            text-align: center;
-        }
-
-        .card-logos {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-top: 1rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .card-logos .company-logo {
-            max-height: 22px;
-            height: 22px;
-            width: auto;
-            max-width: 120px;
-            min-width: 0;
-            background: none !important;
-            border-radius: 0 !important;
-            box-shadow: none !important;
-            object-fit: contain;
-            opacity: 0.6;
-            transition: opacity 0.3s;
-        }
-
-        .member-card:hover .card-logos .company-logo {
-            opacity: 1;
-        }
-
-        /* How We Work */
-        .how-we-work {
-            text-align: center;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .how-we-work-title {
-            font-size: clamp(2rem, 4vw, 3rem);
-            font-weight: 500;
-            letter-spacing: -0.02em;
-            margin-bottom: 1.5rem;
-        }
-
-        .how-we-work-body {
-            font-size: 1.25rem;
-            color: var(--smoke);
-            line-height: 1.7;
-        }
-
-        /* ===== ANIMATIONS ===== */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        /* ===== FOCUS STATES ===== */
-        a:focus-visible, button:focus-visible {
-            outline: 2px solid var(--ink);
-            outline-offset: 4px;
-            border-radius: 4px;
-        }
-
-        /* ===== HAMBURGER ===== */
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            width: 40px;
-            height: 40px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            z-index: 1100;
-        }
-
-        .hamburger span {
-            display: block;
-            width: 26px;
-            height: 3px;
-            margin: 4px 0;
-            background: var(--ink);
-            border-radius: 2px;
-            transition: all 0.3s;
-        }
-
-        .hamburger.active span:nth-child(1) {
-            transform: translateY(7px) rotate(45deg);
-        }
-
-        .hamburger.active span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .hamburger.active span:nth-child(3) {
-            transform: translateY(-7px) rotate(-45deg);
-        }
-
-        /* ===== TABLET (769-1200px) ===== */
-        @media (max-width: 1200px) and (min-width: 769px) {
-            .team-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .categories-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .case-studies-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .steps-flow {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 2rem;
-            }
-
-            .steps-flow .step:nth-child(4),
-            .steps-flow .step:nth-child(5) {
-                grid-column: span 1;
-            }
-        }
-
-        /* ===== MOBILE (<=968px) ===== */
-        @media (max-width: 968px) {
-
-            /* Hide custom cursor on touch */
-            #custom-cursor { display: none; }
-            body { cursor: auto; }
-            a, button, .nav-link, .btn-contact, .btn-hero, .hero-link, .logo,
-            .icp-pill, .pillar, .case-study-card, .testimonial-dot, .category-block,
-            .team-member, .member-card { cursor: pointer !important; }
-
-            /* Nav mobile */
-            .nav-container {
-                padding: 1rem 1.5rem;
-            }
-
-            .logo {
-                margin-right: 1rem;
-            }
-
-            .hamburger {
-                display: flex;
-                position: static;
-                margin-left: auto;
-                background: #fff;
-                border-radius: 50%;
-                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-                padding: 0.25rem;
-                width: 44px;
-                height: 44px;
-            }
-
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100vw;
-                background: var(--cream);
-                flex-direction: column;
-                gap: 0;
-                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-                z-index: 1001;
-                padding: 1.5rem 0;
-                margin: 0;
-            }
-
-            .nav-links.open {
-                display: flex;
-            }
-
-            .nav-links li {
-                margin: 0;
-                padding: 0.75rem 2rem;
-                width: 100%;
-            }
-
-            .nav-links li a {
-                width: 100%;
-                display: block;
-            }
-
-            .nav-contact {
-                display: inline-block !important;
-                margin: 0.5rem 2rem;
-                text-align: center;
-            }
-
-            /* Page */
-            .page {
-                padding-top: 4rem;
-            }
-
-            /* Hero */
-            .hero {
-                min-height: calc(100vh - env(safe-area-inset-bottom, 0px));
-                padding: 0 1.5rem;
-                padding-bottom: env(safe-area-inset-bottom, 2rem);
-            }
-
-            .hero h1 {
-                font-size: clamp(2.5rem, 8vw, 3.5rem);
-            }
-
-            .hero-subtitle {
-                font-size: 1.125rem;
-            }
-
-            /* Sections */
-            .section {
-                padding: 5rem 1.5rem;
-            }
-
-            .section--in-on {
-                padding: 6rem 1.5rem;
-            }
-
-            .section-content {
-                padding-left: 1rem;
-                padding-right: 1rem;
-            }
-
-            .section-title {
-                font-size: clamp(2rem, 6vw, 2.75rem);
-            }
-
-            .section-description {
-                font-size: 1.125rem;
-            }
-
-            .in-on-block .section-description {
-                font-size: 1.125rem;
-            }
-
-            /* Grids collapse to 1 col */
-            .problem-grid,
-            .playbook-grid,
-            .pillars-grid,
-            .categories-grid,
-            .case-studies-grid {
-                grid-template-columns: 1fr;
-            }
-
-            /* Steps flow mobile */
-            .steps-flow {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .steps-flow::before { display: none; }
-
-            .step {
-                text-align: left;
-                display: flex;
-                align-items: flex-start;
-                gap: 1.5rem;
-            }
-
-            .step-number {
-                margin: 0;
-                flex-shrink: 0;
-                width: 48px;
-                height: 48px;
-                font-size: 1.125rem;
-            }
-
-            .step p {
-                max-width: none;
-                margin: 0;
-            }
-
-            /* ICP pills */
-            .icp-grid {
-                flex-wrap: wrap;
-            }
-
-            .icp-pill {
-                font-size: 0.875rem;
-                padding: 0.625rem 1.25rem;
-            }
-
-            /* Testimonials */
-            .testimonial-card {
-                flex: 0 0 calc(100% - 1rem);
-            }
-
-            .testimonial-quote {
-                font-size: 1.125rem;
-            }
-
-            /* Team */
-            .team-grid {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            /* CTA */
-            .cta {
-                padding: 5rem 1.5rem 6rem;
-            }
-
-            .cta h2 {
-                font-size: 2rem;
-            }
-
-            .cta p {
-                font-size: 1.125rem;
-            }
-
-            .btn-contact, .btn-primary, .btn-secondary {
-                padding: 0.875rem 2rem;
-                font-size: 0.9375rem;
-            }
-
-            /* Marquee */
-            .marquee-track img {
-                height: 20px;
-            }
-
-            .marquee-container::before,
-            .marquee-container::after {
-                width: 60px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .team-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* ===== SMALL DEVICES (<=375px) ===== */
-        @media (max-width: 375px) {
-            .hero h1 {
-                font-size: 2.25rem;
-            }
-
-            .section-title {
-                font-size: 2rem;
-            }
-        }
-
-        /* ===== FOOTER ===== */
-        .site-footer {
-            background: var(--ink);
-            color: rgba(255, 255, 255, 0.5);
-            padding: 4rem 3rem 2.5rem;
-            font-size: 0.875rem;
-            line-height: 1.6;
-        }
-
-        .footer-container {
-            max-width: var(--max-width);
-            margin: 0 auto;
-            padding: 0 var(--page-padding);
-        }
-
-        .footer-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 4rem;
-            padding-bottom: 3rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .footer-brand {
-            flex-shrink: 0;
-        }
-
-        .footer-logo {
-            height: 1.8rem;
-            width: auto;
-            opacity: 0.9;
-            filter: brightness(0) invert(1);
-            margin-bottom: 1rem;
-        }
-
-        .footer-tagline {
-            color: rgba(255, 255, 255, 0.4);
-            font-size: 0.875rem;
-            max-width: 280px;
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-        }
-
-        .footer-btn {
-            color: rgba(255, 255, 255, 0.5);
-            text-decoration: none;
-            font-size: 0.875rem;
-            font-weight: 500;
-            padding: 0.6rem 1.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 100px;
-            transition: color 0.25s, border-color 0.25s, background 0.25s;
-        }
-
-        .footer-btn:hover {
-            color: rgba(255, 255, 255, 0.9);
-            border-color: rgba(255, 255, 255, 0.4);
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .footer-bottom {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 2rem;
-            gap: 2rem;
-        }
-
-        .footer-copyright {
-            color: rgba(255, 255, 255, 0.25);
-            font-size: 0.8125rem;
-        }
-
-        .footer-social {
-            display: flex;
-            gap: 1.5rem;
-        }
-
-        .footer-social a {
-            color: rgba(255, 255, 255, 0.3);
-            text-decoration: none;
-            font-size: 0.8125rem;
-            transition: color 0.2s;
-        }
-
-        .footer-social a:hover {
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        @media (max-width: 968px) {
-            .site-footer {
-                padding: 3rem 1.5rem 2rem;
-            }
-
-            .footer-container {
-                padding: 0 1rem;
-            }
-
-            .footer-top {
-                flex-direction: column;
-                gap: 2.5rem;
-            }
-
-            .footer-links {
-                gap: 0.75rem;
-            }
-
-            .footer-bottom {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 1rem;
-            }
-        }
-
-        /* ===== TOUCH DEVICE CURSOR OVERRIDE ===== */
-        @media (hover: none) {
-            #custom-cursor { display: none !important; }
-            body { cursor: auto !important; }
-            *, *::before, *::after { cursor: auto !important; }
-            a, button { cursor: pointer !important; }
-        }
-    </style>
 </head>
 
 <body>
-    <!-- Custom Cursor -->
-    <div id="custom-cursor"></div>
 
-    <!-- Navigation -->
+    <!-- ================ NAVIGATION ================ -->
     <nav>
         <div class="nav-container">
-            <div class="logo">
-                <img src="images/material-logo-lockup.svg" alt="Material" class="logo-mark"
-                    style="height: 2.2rem; width: auto; display: block;" />
-            </div>
+            <a class="logo" href="/" aria-label="Material home">
+                <img src="images/material-logo-lockup.svg" alt="Material">
+            </a>
             <button class="hamburger" aria-label="Open navigation" aria-expanded="false">
                 <span></span><span></span><span></span>
             </button>
             <ul class="nav-links">
-                <li><a href="#services" class="nav-link scroll-link">What We Do</a></li>
-                <li><a href="#capabilities" class="nav-link scroll-link">Capabilities</a></li>
-                <li><a href="#process" class="nav-link scroll-link">How It Works</a></li>
-                <li><a href="#work" class="nav-link scroll-link">Our Work</a></li>
+                <li><a href="/build" class="nav-link">Build with us</a></li>
+                <li><a href="/modernize" class="nav-link">Modernize &amp; scale</a></li>
+                <li><a href="/playbook" class="nav-link">Playbook</a></li>
                 <li><a href="/team" class="nav-link">Team</a></li>
-                <li><a href="https://forms.fillout.com/t/p8cqDmytcAus" class="nav-contact" target="_blank" rel="noopener noreferrer">Book a Discovery Call</a></li>
+                <li><a href="#" class="nav-link nav-cta" data-fillout-id="p8cqDmytcAus" data-fillout-embed-type="popup" data-fillout-dynamic-resize data-fillout-inherit-parameters data-fillout-popup-size="medium">Book a call</a></li>
             </ul>
         </div>
     </nav>
 
-    <!-- ===== HOME PAGE ===== -->
-    <div id="home" class="page active">
+    <!-- Mobile floating CTA (shows after hero scroll on mobile) -->
+    <a href="#" class="mobile-floating-cta" data-fillout-id="p8cqDmytcAus" data-fillout-embed-type="popup" data-fillout-dynamic-resize data-fillout-inherit-parameters data-fillout-popup-size="medium">Map your growth plan</a>
 
-        <!-- Section 1: Hero -->
+    <!-- ================ HOME ================ -->
+    <main class="page">
+
+        <!-- Hero -->
         <section class="hero">
-            <div class="hero-content">
-                <h1>Stop waiting for bandwidth.<span>Start building for scale.</span></h1>
-                <p class="hero-subtitle">Material grows B2B companies by building brands, demand engines, products, and systems that last.</p>
-                <div class="hero-cta">
-                    <a href="https://forms.fillout.com/t/p8cqDmytcAus" class="btn-hero" target="_blank" rel="noopener noreferrer">Book a Discovery Call</a>
+            <div class="hero-inner">
+                <div class="hero-kicker">
+                    <span class="kicker">Strategic operators for growing companies</span>
+                </div>
+                <h1 class="hero-title">
+                    Stop waiting for bandwidth. <span class="italic">Start building for scale.</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Material partners with founders and operators to build new companies and modernize existing ones, with the <em class="brand-em">strategy, structure, and systems</em> that drive durable growth.
+                </p>
+                <div class="hero-actions">
+                    <a href="#" class="btn btn--primary" data-fillout-id="p8cqDmytcAus" data-fillout-embed-type="popup" data-fillout-dynamic-resize data-fillout-inherit-parameters data-fillout-popup-size="medium">
+                        Map your growth plan
+                        <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+                <div class="hero-proof">
+                    <span class="hero-proof-label">Built by operators from</span>
+                    <div class="hero-proof-logos">
+                        <img src="images/wharton-logo.png" alt="Wharton" loading="lazy" decoding="async">
+                        <img src="images/harvard-logo.png" alt="Harvard" loading="lazy" decoding="async">
+                        <img src="images/Stanford_logo.png" alt="Stanford" loading="lazy" decoding="async">
+                        <img src="images/ycombinator-logo.png" alt="Y Combinator" loading="lazy" decoding="async">
+                        <img src="images/Palantir_logo.png" alt="Palantir" loading="lazy" decoding="async">
+                        <img src="images/uber-logo.png" alt="Uber" loading="lazy" decoding="async">
+                        <img src="images/pwc-logo.png" alt="PwC" loading="lazy" decoding="async">
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Section 2: What We Do -->
-        <section id="services" class="section">
-            <div class="section-content">
+        <!-- Two ways we work -->
+        <section id="modes" class="section section--white">
+            <div class="section-inner">
                 <div class="section-header reveal">
-                    <p class="section-label">What we do</p>
-                    <h2 class="section-title">We embed strategic operators into your company to unlock your capacity for growth.</h2>
-                    <p class="section-description">Today's urgent tasks always trump the opportunities that bring your vision to life. Together we define a roadmap to drive growth and deploy a team of builders to make it a reality.</p>
+                    <span class="accent-bar"></span>
+                    <span class="kicker" style="margin-bottom: 1.25rem;">Two ways we work</span>
+                    <h2 class="section-title">Build a new company with us. Or scale the one you already have.</h2>
+                    <p class="section-description">Material engages two ways. As a <em class="brand-em">venture studio</em> for operators starting new companies, and as an <em class="brand-em">embedded operator team</em> for CEOs scaling existing ones. Pick the path that fits where you are.</p>
+                </div>
+                <div class="mode-cards">
+                    <a class="mode-card mode-card--dark reveal stagger-1 nav-link" href="/build">
+                        <div class="mode-card-head">
+                            <span class="mode-card-tag">Have an idea for a new business?</span>
+                            <span class="mode-card-num">01</span>
+                        </div>
+                        <h3>Build with us</h3>
+                        <p>Material Venture Studio builds new companies with operators. You bring the <em class="brand-em" style="color: var(--forest-light);">domain, distribution, or conviction</em>. We bring the team, the playbook, and the systems &mdash; and we stay on to oversee the CEO after spinout.</p>
+                        <ul class="mode-card-meta">
+                            <li>For operators launching new or ancillary businesses</li>
+                            <li>Shared risk and upside as a partner on the cap table</li>
+                            <li>We build it with you, then spin it out with a full-time CEO</li>
+                        </ul>
+                        <span class="mode-card-cta">
+                            Explore Building with Us
+                            <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+                        </span>
+                    </a>
+                    <a class="mode-card reveal stagger-2 nav-link" href="/modernize">
+                        <div class="mode-card-head">
+                            <span class="mode-card-tag">Scaling an existing company?</span>
+                            <span class="mode-card-num">02</span>
+                        </div>
+                        <h3>Modernize &amp; scale</h3>
+                        <p>We embed as the team that builds <em class="brand-em">strategy, structure, and systems</em> into your growing business. We build the strategy, and then we build it into the company &mdash; across go-to-market, operations, and the systems underneath.</p>
+                        <ul class="mode-card-meta">
+                            <li>For CEOs and operators of growing 7&ndash;9 figure businesses</li>
+                            <li>Strategy first, then go-to-market, systems, or both</li>
+                            <li>An embedded operator with a full build team behind them</li>
+                        </ul>
+                        <span class="mode-card-cta">
+                            Explore Modernize &amp; scale
+                            <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- The approach -->
+        <section id="services" class="section section--pearl">
+            <div class="section-inner">
+                <div class="section-header reveal">
+                    <span class="accent-bar"></span>
+                    <span class="kicker" style="margin-bottom: 1.25rem;">Why Material</span>
+                    <h2 class="section-title">Two ways to work with us. One standard behind both.</h2>
+                    <p class="section-description">Whether we're building a new company with you or scaling the one you already run, the same people, the same playbook, and the same <em class="brand-em">strategy, structure, and systems</em> sit behind the work.</p>
                 </div>
                 <div class="pillars-grid">
-                    <div class="pillar reveal stagger-2">
+                    <article class="pillar reveal stagger-1">
                         <p class="pillar-number">01</p>
-                        <h3>Scale Your Revenue</h3>
-                        <p>Build a world-class brand, launch new demand engines, and optimize your conversion rates.</p>
-                    </div>
-                    <div class="pillar reveal stagger-1">
+                        <h3>Operators, not outside help</h3>
+                        <p>We've built, run, scaled, and exited companies ourselves. Every engagement is led by operators who've done the work, not analysts passing recommendations over the wall.</p>
+                    </article>
+                    <article class="pillar reveal stagger-2">
                         <p class="pillar-number">02</p>
-                        <h3>Optimize Your Operations</h3>
-                        <p>Fine-tune your processes and build systems that make your team more effective every day.</p>
-                    </div>
-                    <div class="pillar reveal stagger-3">
+                        <h3>One team, full stack</h3>
+                        <p>Brand, go-to-market, product, and systems delivered by a single team, not coordinated across five vendors who don't talk to each other.</p>
+                    </article>
+                    <article class="pillar reveal stagger-3">
                         <p class="pillar-number">03</p>
-                        <h3>Build Great Products</h3>
-                        <p>Turn product vision into reality with quality end-to-end strategy, design, and engineering that ships fast.</p>
-                    </div>
+                        <h3>A playbook that compounds</h3>
+                        <p>The same refined approach behind every build and every scale, sharpened by real revenue and reused from one engagement to the next.</p>
+                    </article>
                 </div>
-                <p class="section-closing reveal">Not consultants handing off decks. Builders obsessed with the outcomes.</p>
+                <p class="pillar-closing reveal">Builders who embed, ship, and stick around until the thing we built is working.</p>
             </div>
         </section>
 
-        <!-- Section 3: Capabilities -->
-        <section id="capabilities" class="section section--pearl">
-            <div class="section-content">
+        <!-- Capabilities -->
+        <section id="capabilities" class="section section--white">
+            <div class="section-inner">
                 <div class="section-header reveal">
-                    <p class="section-label">Capabilities</p>
+                    <span class="accent-bar"></span>
+                    <span class="kicker" style="margin-bottom: 1.25rem;">Capabilities</span>
                     <h2 class="section-title">The full bench. One team of strategic builders.</h2>
                 </div>
                 <div class="categories-grid">
                     <div class="category-block reveal stagger-1">
                         <h4>Branding</h4>
                         <ul class="category-list">
-                            <li>Messaging Strategy</li>
+                            <li>Messaging strategy</li>
                             <li>Copywriting</li>
                             <li>Design</li>
-                            <li>Web Development</li>
-                            <li>Decks, One-Pagers, Social</li>
+                            <li>Web development</li>
+                            <li>Decks, one-pagers, social</li>
                         </ul>
                     </div>
                     <div class="category-block reveal stagger-2">
-                        <h4>Demand Generation</h4>
+                        <h4>Demand generation</h4>
                         <ul class="category-list">
-                            <li>Go-to-Market Strategy</li>
+                            <li>Go-to-market strategy</li>
                             <li>Partnerships</li>
-                            <li>AI-Powered Outbound</li>
-                            <li>Content & SEO</li>
-                            <li>Paid Media</li>
+                            <li>AI-powered outbound</li>
+                            <li>Content and SEO</li>
+                            <li>Paid media</li>
                         </ul>
                     </div>
                     <div class="category-block reveal stagger-3">
                         <h4>Product</h4>
                         <ul class="category-list">
-                            <li>Product Strategy</li>
-                            <li>UI/UX Design</li>
-                            <li>Software Engineering</li>
-                            <li>Internal Tools</li>
-                            <li>AI/ML Integration</li>
+                            <li>Product strategy</li>
+                            <li>UI and UX design</li>
+                            <li>Software engineering</li>
+                            <li>Internal tools</li>
+                            <li>AI and ML integration</li>
                         </ul>
                     </div>
                     <div class="category-block reveal stagger-4">
                         <h4>Systems</h4>
                         <ul class="category-list">
-                            <li>Process Development</li>
-                            <li>AI & Automation</li>
-                            <li>CRM Buildouts</li>
-                            <li>Data Infrastructure</li>
-                            <li>Reporting & Analytics</li>
+                            <li>Process development</li>
+                            <li>AI and automation</li>
+                            <li>CRM buildouts</li>
+                            <li>Data infrastructure</li>
+                            <li>Reporting and analytics</li>
                         </ul>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Section 4: How It Works -->
-        <section id="process" class="section section--gradient">
-            <div class="section-content">
+        <!-- Our work -->
+        <section id="work" class="section section--white">
+            <div class="section-inner">
                 <div class="section-header reveal">
-                    <p class="section-label">How it works</p>
-                    <h2 class="section-title">Start with a specific area of focus. Or just a desire to grow.</h2>
-                </div>
-                <div class="steps-flow">
-                    <div class="step reveal stagger-2">
-                        <div class="step-number">1</div>
-                        <div>
-                            <h4>Identify High Impact Opportunities</h4>
-                            <p>Not a 60-page audit. A focused look at what will actually move the needle.</p>
-                        </div>
-                    </div>
-                    <div class="step reveal stagger-3">
-                        <div class="step-number">2</div>
-                        <div>
-                            <h4>Create Your Strategic Roadmap</h4>
-                            <p>Clear priorities, defined outcomes, realistic timelines.</p>
-                        </div>
-                    </div>
-                    <div class="step reveal stagger-1">
-                        <div class="step-number">3</div>
-                        <div>
-                            <h4>Embed a Strategic Operator</h4>
-                            <p>They learn your team, your market, and how you operate.</p>
-                        </div>
-                    </div>
-                    <div class="step reveal stagger-4">
-                        <div class="step-number">4</div>
-                        <div>
-                            <h4>Execute with Speed & Quality</h4>
-                            <p>Our builders deliver across brand, demand, product, and operations. In parallel, not in sequence.</p>
-                        </div>
-                    </div>
-                    <div class="step reveal stagger-5">
-                        <div class="step-number">5</div>
-                        <div>
-                            <h4>Measure, Learn, Repeat</h4>
-                            <p>Track returns. Double down on what works. Keep building.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Section 5: Our Work -->
-        <section id="work" class="section">
-            <div class="section-content">
-                <div class="section-header reveal">
-                    <p class="section-label">Our work</p>
+                    <span class="accent-bar"></span>
+                    <span class="kicker" style="margin-bottom: 1.25rem;">Our work</span>
                     <h2 class="section-title">Built on a decade of building and scaling.</h2>
                 </div>
                 <div class="case-studies-grid">
                     <a href="https://www.goodr.co" class="case-study-card reveal stagger-1" target="_blank" rel="noopener noreferrer">
-                        <img src="images/goodr-logo.png" alt="Goodr" class="case-study-logo" loading="lazy" decoding="async">
-                        <p class="case-study-description">Scaled revenue by 20x in 3 years</p>
+                        <div class="case-study-top">
+                            <img src="images/goodr-logo.png" alt="Goodr" class="case-study-logo" loading="lazy" decoding="async">
+                            <span class="case-study-arrow" aria-hidden="true">&#8599;</span>
+                        </div>
                         <div class="case-study-metric" data-target="20" data-suffix="x">20x</div>
-                        <p class="case-study-metric-label">Revenue Growth</p>
+                        <div class="case-study-metric-label">Revenue growth</div>
+                        <p class="case-study-description">Scaled revenue <em class="brand-em">20x in 3 years</em>.</p>
                     </a>
                     <a href="https://www.grovara.com" class="case-study-card reveal stagger-2" target="_blank" rel="noopener noreferrer">
-                        <img src="images/grovara-logo.png" alt="Grovara" class="case-study-logo" loading="lazy" decoding="async">
-                        <p class="case-study-description">Grew clients by 7.5x in 2 years</p>
+                        <div class="case-study-top">
+                            <img src="images/grovara-logo.png" alt="Grovara" class="case-study-logo" loading="lazy" decoding="async">
+                            <span class="case-study-arrow" aria-hidden="true">&#8599;</span>
+                        </div>
                         <div class="case-study-metric" data-target="7.5" data-suffix="x">7.5x</div>
-                        <p class="case-study-metric-label">Client Growth</p>
+                        <div class="case-study-metric-label">Client growth</div>
+                        <p class="case-study-description">Grew enterprise clients <em class="brand-em">7.5x in 2 years</em>.</p>
                     </a>
                     <a href="https://www.transformative.studio" class="case-study-card reveal stagger-3" target="_blank" rel="noopener noreferrer">
-                        <img src="images/transformative-logo.png" alt="Transformative Studio" class="case-study-logo" loading="lazy" decoding="async">
-                        <p class="case-study-description">Took 3 companies from 0 to 1 in 2 years</p>
+                        <div class="case-study-top">
+                            <img src="images/transformative-logo.png" alt="Transformative Studio" class="case-study-logo" loading="lazy" decoding="async">
+                            <span class="case-study-arrow" aria-hidden="true">&#8599;</span>
+                        </div>
                         <div class="case-study-metric">3 cos.</div>
-                        <p class="case-study-metric-label">Built from Zero</p>
+                        <div class="case-study-metric-label">Built from zero</div>
+                        <p class="case-study-description">Took <em class="brand-em">3 companies</em> from 0 to 1 in 2 years.</p>
                     </a>
                     <a href="https://www.harmonyworks.com" class="case-study-card reveal stagger-1" target="_blank" rel="noopener noreferrer">
-                        <img src="images/harmony-logo.png" alt="Harmony" class="case-study-logo" loading="lazy" decoding="async">
-                        <p class="case-study-description">Developed from concept to strategically funded venture spin-out</p>
-                        <div class="case-study-metric">0 &rarr; 1</div>
-                        <p class="case-study-metric-label">Venture Initiation</p>
+                        <div class="case-study-top">
+                            <img src="images/harmony-logo.png" alt="Harmony" class="case-study-logo" loading="lazy" decoding="async">
+                            <span class="case-study-arrow" aria-hidden="true">&#8599;</span>
+                        </div>
+                        <div class="case-study-metric">0&rarr;1</div>
+                        <div class="case-study-metric-label">Venture initiation</div>
+                        <p class="case-study-description">Developed from concept to <em class="brand-em">strategically funded venture spin-out</em>.</p>
                     </a>
                     <a href="https://bookkeepingconnect.pwc.com" class="case-study-card reveal stagger-2" target="_blank" rel="noopener noreferrer">
-                        <img src="images/pwc-logo.png" alt="PwC" class="case-study-logo" loading="lazy" decoding="async">
-                        <p class="case-study-description">Created PwC Bookkeeping Connect and grew it from $0 to $1M ARR</p>
-                        <div class="case-study-metric">0&rarr;$1M</div>
-                        <p class="case-study-metric-label">Annual Recurring Revenue</p>
+                        <div class="case-study-top">
+                            <img src="images/pwc-logo.png" alt="PwC" class="case-study-logo" loading="lazy" decoding="async">
+                            <span class="case-study-arrow" aria-hidden="true">&#8599;</span>
+                        </div>
+                        <div class="case-study-metric">$1M</div>
+                        <div class="case-study-metric-label">Annual recurring revenue</div>
+                        <p class="case-study-description">Created PwC Bookkeeping Connect, grew it from <em class="brand-em">$0 to $1M ARR</em>.</p>
                     </a>
-                    <!-- COMMENTED OUT: Barkly Living
-                    <a href="https://www.barklyliving.com" class="case-study-card reveal stagger-2" target="_blank" rel="noopener noreferrer">
-                        <img src="images/barkly-living-logo.png" alt="Barkly Living" class="case-study-logo" loading="lazy" decoding="async">
-                        <p class="case-study-description">Built brand, product, and go-to-market engine from pilot to all-in-one pet wellness platform for multifamily</p>
-                        <div class="case-study-metric">9.3x</div>
-                        <p class="case-study-metric-label">Properties Onboarded</p>
-                    </a>
-                    -->
-                    <!-- COMMENTED OUT: Ford Risk
-                    <a href="https://www.fordrisk.com" class="case-study-card reveal stagger-3" target="_blank" rel="noopener noreferrer">
-                        <img src="images/ford-risk-logo.png" alt="Ford Risk" class="case-study-logo" loading="lazy" decoding="async">
-                        <p class="case-study-description">Scaled multifamily damage waiver program with differentiation strategy, rebuilt brand, and go-to-market systems</p>
-                        <div class="case-study-metric">+23.3K</div>
-                        <p class="case-study-metric-label">Units Added</p>
-                    </a>
-                    -->
                 </div>
             </div>
         </section>
 
-        <!-- Section 10: The Team -->
-        <section class="section section--pearl">
-            <div class="section-content" style="text-align: center;">
-                <div class="section-header reveal">
-                    <p class="section-label">The team</p>
+        <!-- Inline CTA (mid-page re-engagement) -->
+        <section class="inline-cta">
+            <div class="inline-cta-inner reveal">
+                <div class="inline-cta-copy">
+                    <div class="inline-cta-kicker">
+                        <span class="kicker">See if Material is a fit</span>
+                    </div>
+                    <h3 class="inline-cta-title">A short call, a clear next step.</h3>
+                </div>
+                <a href="#" class="btn btn--primary" data-fillout-id="p8cqDmytcAus" data-fillout-embed-type="popup" data-fillout-dynamic-resize data-fillout-inherit-parameters data-fillout-popup-size="medium">
+                    Map your growth plan
+                    <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+        </section>
+
+        <!-- The team -->
+        <section class="section section--white">
+            <div class="section-inner">
+                <div class="section-header section-header--centered reveal">
+                    <span class="accent-bar accent-bar--centered"></span>
+                    <span class="kicker kicker--centered" style="margin-bottom: 1.25rem;">The team</span>
                     <h2 class="section-title">Operators and builders from the institutions that set the standard.</h2>
                 </div>
-                <div class="marquee-container reveal">
+                <div class="marquee reveal">
                     <div class="marquee-track">
                         <img src="images/wharton-logo.png" alt="Wharton" loading="lazy" decoding="async">
                         <img src="images/accenture-logo.png" alt="Accenture" loading="lazy" decoding="async">
@@ -1899,846 +303,180 @@
                         <img src="images/citi-logo.png" alt="Citi" loading="lazy" decoding="async">
                         <img src="images/credit-logo.png" alt="Credit Suisse" loading="lazy" decoding="async">
                         <img src="images/pwc-logo.png" alt="PwC" loading="lazy" decoding="async">
-                        <!-- Duplicate for seamless loop -->
-                        <img src="images/wharton-logo.png" alt="Wharton" loading="lazy" decoding="async">
-                        <img src="images/accenture-logo.png" alt="Accenture" loading="lazy" decoding="async">
-                        <img src="images/uber-logo.png" alt="Uber" loading="lazy" decoding="async">
-                        <img src="images/harvard-logo.png" alt="Harvard" loading="lazy" decoding="async">
-                        <img src="images/Palantir_logo.png" alt="Palantir" loading="lazy" decoding="async">
-                        <img src="images/ycombinator-logo.png" alt="Y Combinator" loading="lazy" decoding="async">
-                        <img src="images/Stanford_logo.png" alt="Stanford" loading="lazy" decoding="async">
-                        <img src="images/kpmg-logo.png" alt="KPMG" loading="lazy" decoding="async">
-                        <img src="images/citi-logo.png" alt="Citi" loading="lazy" decoding="async">
-                        <img src="images/credit-logo.png" alt="Credit Suisse" loading="lazy" decoding="async">
-                        <img src="images/pwc-logo.png" alt="PwC" loading="lazy" decoding="async">
+                        <img src="images/twilio-logo.png" alt="Twilio" loading="lazy" decoding="async">
+                        <img src="images/invision-logo.png" alt="InVision" loading="lazy" decoding="async">
+                        <img src="images/wharton-logo.png" alt="" loading="lazy" decoding="async" aria-hidden="true">
+                        <img src="images/accenture-logo.png" alt="" loading="lazy" decoding="async" aria-hidden="true">
+                        <img src="images/uber-logo.png" alt="" loading="lazy" decoding="async" aria-hidden="true">
+                        <img src="images/harvard-logo.png" alt="" loading="lazy" decoding="async" aria-hidden="true">
+                        <img src="images/Palantir_logo.png" alt="" loading="lazy" decoding="async" aria-hidden="true">
+                        <img src="images/ycombinator-logo.png" alt="" loading="lazy" decoding="async" aria-hidden="true">
+                        <img src="images/Stanford_logo.png" alt="" loading="lazy" decoding="async" aria-hidden="true">
+                        <img src="images/kpmg-logo.png" alt="" loading="lazy" decoding="async" aria-hidden="true">
+                        <img src="images/citi-logo.png" alt="" loading="lazy" decoding="async" aria-hidden="true">
+                        <img src="images/credit-logo.png" alt="" loading="lazy" decoding="async" aria-hidden="true">
+                        <img src="images/pwc-logo.png" alt="" loading="lazy" decoding="async" aria-hidden="true">
+                        <img src="images/twilio-logo.png" alt="" loading="lazy" decoding="async" aria-hidden="true">
+                        <img src="images/invision-logo.png" alt="" loading="lazy" decoding="async" aria-hidden="true">
                     </div>
                 </div>
-                <div class="reveal" style="margin-top: 3rem;">
-                    <a href="/team" class="team-link nav-link">Meet the team</a>
+                <div class="team-preview reveal">
+                    <a href="/team" class="btn btn--secondary nav-link">
+                        Meet the team
+                        <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+                    </a>
                 </div>
             </div>
         </section>
 
-        <!-- 
-        Section 11: Testimonials
-        <section class="section">
-            <div class="section-content">
-                <div class="section-header reveal" style="text-align: center;">
-                    <p class="section-label">Kind words</p>
-                    <h2 class="section-title">Trusted by leaders building the future.</h2>
-                </div>
-                <div class="testimonials-container reveal">
-                    <div class="testimonials-track" id="testimonials-track">
-                        <div class="testimonial-card">
-                            <p class="testimonial-quote">[Nathan testimonial copy to be provided]</p>
-                            <p class="testimonial-author">Nathan</p>
-                            <p class="testimonial-role">CEO</p>
-                        </div>
-                        <div class="testimonial-card">
-                            <p class="testimonial-quote">[Malka testimonial copy to be provided]</p>
-                            <p class="testimonial-author">Malka</p>
-                            <p class="testimonial-role">Founder</p>
-                        </div>
-                        <div class="testimonial-card">
-                            <p class="testimonial-quote">[Evan Toporek testimonial copy to be provided]</p>
-                            <p class="testimonial-author">Evan Toporek</p>
-                            <p class="testimonial-role">CEO</p>
-                        </div>
-                        <div class="testimonial-card">
-                            <p class="testimonial-quote">[Peter Groverman testimonial copy to be provided]</p>
-                            <p class="testimonial-author">Peter Groverman</p>
-                            <p class="testimonial-role">CEO</p>
-                        </div>
-                    </div>
-                    <div class="testimonial-nav" id="testimonial-nav">
-                        <button class="testimonial-dot active" data-index="0" aria-label="Show testimonial 1"></button>
-                        <button class="testimonial-dot" data-index="1" aria-label="Show testimonial 2"></button>
-                        <button class="testimonial-dot" data-index="2" aria-label="Show testimonial 3"></button>
-                        <button class="testimonial-dot" data-index="3" aria-label="Show testimonial 4"></button>
-                    </div>
-                </div>
-            </div>
-        </section>
-        -->
-
-        <!-- Section 12: CTA -->
+        <!-- Final CTA -->
         <section class="cta">
-            <div class="cta-content">
-                <h2>Interested in scaling with Material?</h2>
-                <p>Book a discovery call with our team. We'll learn about your business, identify opportunities, and map out your strategic roadmap to scale.</p>
-                <a href="https://forms.fillout.com/t/p8cqDmytcAus" class="btn-contact" target="_blank" rel="noopener noreferrer">Get Your Strategic Roadmap</a>
-            </div>
-        </section>
-    </div>
-
-    <!-- ===== TEAM PAGE ===== -->
-    <div id="team" class="page">
-
-        <!-- Team Hero -->
-        <section class="section">
-            <div class="section-content">
-                <div class="section-header reveal">
-                    <h1 class="section-title">The builders behind the work.</h1>
-                    <p class="section-description">Material is a collective of operators, strategists, designers, and engineers who've built and scaled companies at some of the best organizations in the world.</p>
-                </div>
-                <div class="marquee-container reveal">
-                    <div class="marquee-track">
-                        <img src="images/wharton-logo.png" alt="Wharton" loading="lazy" decoding="async">
-                        <img src="images/accenture-logo.png" alt="Accenture" loading="lazy" decoding="async">
-                        <img src="images/uber-logo.png" alt="Uber" loading="lazy" decoding="async">
-                        <img src="images/harvard-logo.png" alt="Harvard" loading="lazy" decoding="async">
-                        <img src="images/Palantir_logo.png" alt="Palantir" loading="lazy" decoding="async">
-                        <img src="images/ycombinator-logo.png" alt="Y Combinator" loading="lazy" decoding="async">
-                        <img src="images/Stanford_logo.png" alt="Stanford" loading="lazy" decoding="async">
-                        <img src="images/kpmg-logo.png" alt="KPMG" loading="lazy" decoding="async">
-                        <img src="images/citi-logo.png" alt="Citi" loading="lazy" decoding="async">
-                        <img src="images/credit-logo.png" alt="Credit Suisse" loading="lazy" decoding="async">
-                        <img src="images/pwc-logo.png" alt="PwC" loading="lazy" decoding="async">
-                        <!-- Duplicate for seamless loop -->
-                        <img src="images/wharton-logo.png" alt="Wharton" loading="lazy" decoding="async">
-                        <img src="images/accenture-logo.png" alt="Accenture" loading="lazy" decoding="async">
-                        <img src="images/uber-logo.png" alt="Uber" loading="lazy" decoding="async">
-                        <img src="images/harvard-logo.png" alt="Harvard" loading="lazy" decoding="async">
-                        <img src="images/Palantir_logo.png" alt="Palantir" loading="lazy" decoding="async">
-                        <img src="images/ycombinator-logo.png" alt="Y Combinator" loading="lazy" decoding="async">
-                        <img src="images/Stanford_logo.png" alt="Stanford" loading="lazy" decoding="async">
-                        <img src="images/kpmg-logo.png" alt="KPMG" loading="lazy" decoding="async">
-                        <img src="images/citi-logo.png" alt="Citi" loading="lazy" decoding="async">
-                        <img src="images/credit-logo.png" alt="Credit Suisse" loading="lazy" decoding="async">
-                        <img src="images/pwc-logo.png" alt="PwC" loading="lazy" decoding="async">
-                    </div>
+            <div class="cta-inner reveal">
+                <span class="kicker kicker--light kicker--centered" style="color: var(--forest-light); margin-bottom: 1.5rem;">Get started</span>
+                <h2 class="cta-title">Ready to build or scale with Material?</h2>
+                <p class="cta-description">Book a discovery call. We'll learn about your business, identify opportunities, and map out your strategic roadmap to scale.</p>
+                <div class="cta-actions">
+                    <a href="#" class="btn btn--on-dark" data-fillout-id="p8cqDmytcAus" data-fillout-embed-type="popup" data-fillout-dynamic-resize data-fillout-inherit-parameters data-fillout-popup-size="medium">
+                        Map your growth plan
+                        <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+                    </a>
+                    <a href="/playbook" class="btn btn--on-dark-secondary nav-link">
+                        See our playbook
+                    </a>
                 </div>
             </div>
         </section>
 
-        <!-- Team Grid -->
-        <section class="section section--pearl">
-            <div class="section-content">
-                <div class="team-grid">
-                    <!-- Blake Engelhard -->
-                    <div class="team-member reveal stagger-1">
-                        <div class="member-card">
-                            <div class="member-image">
-                                <img src="images/blake-engelhard.png" alt="Blake Engelhard" loading="lazy" decoding="async">
-                            </div>
-                            <div class="member-info">
-                                <h3>Blake Engelhard</h3>
-                                <p class="member-role">Managing Director</p>
-                                <p class="member-bio">Serial venture builder who scaled revenue 20x and grew enterprise clients by 7.5x across portfolio companies. Specializes in transforming operational chaos into scalable systems that drive exponential growth.</p>
-                            </div>
-                            <div class="card-logos">
-                                <img class="company-logo" src="images/wharton-logo.png" alt="Wharton" loading="lazy" decoding="async">
-                                <img class="company-logo" src="images/accenture-logo.png" alt="Accenture" loading="lazy" decoding="async">
-                                <img class="company-logo" src="images/goodr-logo.png" alt="Goodr" loading="lazy" decoding="async">
-                            </div>
-                        </div>
-                    </div>
+    </main>
 
-                    <!-- Ryan Moore -->
-                    <div class="team-member reveal stagger-2">
-                        <div class="member-card">
-                            <div class="member-image">
-                                <img src="images/ryan-moore.png" alt="Ryan Moore" loading="lazy" decoding="async">
-                            </div>
-                            <div class="member-info">
-                                <h3>Ryan Moore</h3>
-                                <p class="member-role">Strategic Operator</p>
-                                <p class="member-bio">Experienced early-stage builder who created and scaled new technology product at PwC to $1M and drove enduring growth at multiple tech-enabled startups through AI-enabled operations and strategic, modern go-to-market.</p>
-                            </div>
-                            <div class="card-logos">
-                                <img class="company-logo" src="images/pwc-logo.png" alt="PwC" loading="lazy" decoding="async">
-                                <img class="company-logo" src="images/goodr-logo.png" alt="Goodr" loading="lazy" decoding="async">
-                                <img class="company-logo" src="images/barkly-living-logo.png" alt="Barkly Living" loading="lazy" decoding="async">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Jesse Grodman -->
-                    <div class="team-member reveal stagger-3">
-                        <div class="member-card">
-                            <div class="member-image">
-                                <img src="images/Jesse_Grodman.png" alt="Jesse Grodman" loading="lazy" decoding="async">
-                            </div>
-                            <div class="member-info">
-                                <h3>Jesse Grodman</h3>
-                                <p class="member-role">Technology</p>
-                                <p class="member-bio">Technology leader with deep expertise in software architecture and data infrastructure. Designs scalable platforms and guides executives through critical technical decisions.</p>
-                            </div>
-                            <div class="card-logos">
-                                <img class="company-logo" src="images/Stanford_logo.png" alt="Stanford" loading="lazy" decoding="async">
-                                <img class="company-logo" src="images/Palantir_logo.png" alt="Palantir" loading="lazy" decoding="async">
-                                <img class="company-logo" src="images/Triple_whale_logo.png" alt="Triple Whale" loading="lazy" decoding="async">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Peter Moot -->
-                    <div class="team-member reveal stagger-1">
-                        <div class="member-card">
-                            <div class="member-image">
-                                <img src="images/peter-moot.png" alt="Peter Moot" loading="lazy" decoding="async">
-                            </div>
-                            <div class="member-info">
-                                <h3>Peter Moot</h3>
-                                <p class="member-role">Product</p>
-                                <p class="member-bio">Product leader who directed global incentives for 100M+ users before founding an AI-powered commerce platform (YC S24). Expert in building products that scale from zero to millions.</p>
-                            </div>
-                            <div class="card-logos">
-                                <img class="company-logo" src="images/harvard-logo.png" alt="Harvard" loading="lazy" decoding="async">
-                                <img class="company-logo" src="images/uber-logo.png" alt="Uber" loading="lazy" decoding="async">
-                                <img class="company-logo" src="images/ycombinator-logo.png" alt="Y Combinator" loading="lazy" decoding="async">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Tomas Jasovsky -->
-                    <div class="team-member reveal stagger-2">
-                        <div class="member-card">
-                            <div class="member-image">
-                                <img src="images/tomas-jasovsky.png" alt="Tomas Jasovsky" loading="lazy" decoding="async">
-                            </div>
-                            <div class="member-info">
-                                <h3>Tomas Jasovsky</h3>
-                                <p class="member-role">Design</p>
-                                <p class="member-bio">Exited serial founder and growth-focused design strategist who has fueled product, marketing, and brand execution at B2B SaaS leaders including Twilio, InVision, Parabola, SauceLabs, and Temporal.</p>
-                            </div>
-                            <div class="card-logos">
-                                <img class="company-logo" src="images/invision-logo.png" alt="InVision" loading="lazy" decoding="async">
-                                <img class="company-logo" src="images/twilio-logo.png" alt="Twilio" loading="lazy" decoding="async">
-                                <img class="company-logo" src="images/ahoy-logo.png" alt="Ahoy" loading="lazy" decoding="async">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Sadya Zirkind -->
-                    <div class="team-member reveal stagger-3">
-                        <div class="member-card">
-                            <div class="member-image">
-                                <img src="images/sadya-zirkind.png" alt="Sadya Zirkind" loading="lazy" decoding="async">
-                            </div>
-                            <div class="member-info">
-                                <h3>Sadya Zirkind</h3>
-                                <p class="member-role">Sales</p>
-                                <p class="member-bio">Sales leader who built outbound engines from inception to exit. Specializes in high-velocity enterprise sales, go-to-market strategy, and building high-performing teams.</p>
-                            </div>
-                            <div class="card-logos">
-                                <img class="company-logo" src="images/citi-logo.png" alt="Citi" loading="lazy" decoding="async">
-                                <img class="company-logo" src="images/four-logo.png" alt="Four" loading="lazy" decoding="async">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Dale Amler -->
-                    <div class="team-member reveal stagger-1">
-                        <div class="member-card">
-                            <div class="member-image">
-                                <img src="images/dale-amler.png" alt="Dale Amler" loading="lazy" decoding="async">
-                            </div>
-                            <div class="member-info">
-                                <h3>Dale Amler</h3>
-                                <p class="member-role">Marketing</p>
-                                <p class="member-bio">Growth marketing executive serving Fortune 500 C-suites. Expert in GTM engineering, marketing automation, and building revenue systems that drive predictable, scalable growth.</p>
-                            </div>
-                            <div class="card-logos">
-                                <img class="company-logo" src="images/monster-logo.png" alt="Monster" loading="lazy" decoding="async">
-                                <img class="company-logo" src="images/world50-logo.png" alt="World 50" loading="lazy" decoding="async">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Chaim Frenkel -->
-                    <div class="team-member reveal stagger-2">
-                        <div class="member-card">
-                            <div class="member-image">
-                                <img src="images/chaim-frenkel.png" alt="Chaim Frenkel" loading="lazy" decoding="async">
-                            </div>
-                            <div class="member-info">
-                                <h3>Chaim Frenkel</h3>
-                                <p class="member-role">Partnerships</p>
-                                <p class="member-bio">Executive dealmaker with decades structuring transformative partnerships across technology, finance, and enterprise sectors. Unlocks new revenue streams and market opportunities.</p>
-                            </div>
-                            <div class="card-logos">
-                                <img class="company-logo" src="images/michigan-logo.png" alt="Michigan" loading="lazy" decoding="async">
-                                <img class="company-logo" src="images/tricentis-logo.png" alt="Tricentis" loading="lazy" decoding="async">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Michael Friedson -->
-                    <div class="team-member reveal stagger-3">
-                        <div class="member-card">
-                            <div class="member-image">
-                                <img src="images/michael-friedson.png" alt="Michael Friedson" loading="lazy" decoding="async">
-                            </div>
-                            <div class="member-info">
-                                <h3>Michael Friedson</h3>
-                                <p class="member-role">Finance</p>
-                                <p class="member-bio">Strategic finance advisor specializing in PE diligence, M&A modeling, and transaction structuring. Guides CEOs and CFOs through complex financial decisions and institutional capital readiness.</p>
-                            </div>
-                            <div class="card-logos">
-                                <img class="company-logo" src="images/wharton-logo.png" alt="Wharton" loading="lazy" decoding="async">
-                                <img class="company-logo" src="images/credit-logo.png" alt="Credit Suisse" loading="lazy" decoding="async">
-                                <img class="company-logo" src="images/corsair-logo.png" alt="Corsair" loading="lazy" decoding="async">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- How We Work -->
-        <section class="section">
-            <div class="section-content">
-                <div class="how-we-work reveal">
-                    <h2 class="how-we-work-title">Built for execution.</h2>
-                    <p class="how-we-work-body">Every person on our team was selected for a specific discipline and has a track record of building. Together we execute with an uncommon combination of speed and quality.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Team CTA -->
-        <section class="cta">
-            <div class="cta-content">
-                <h2>Interested in scaling with Material?</h2>
-                <p>Whether you're looking to engage Material for your business or build a new company with us, we'd love to hear from you.</p>
-                <div class="cta-buttons">
-                    <a href="https://forms.fillout.com/t/p8cqDmytcAus" class="btn-primary" target="_blank" rel="noopener noreferrer">Schedule a Call</a>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <!-- ===== COMMENTED OUT: Services Page =====
-    <div id="services" class="page">
-        <section class="section">
-            <div class="section-content">
-                <div class="section-header">
-                    <h1 class="section-title">Material Services</h1>
-                    <p class="section-description">
-                        We serve as strategic business architects for ambitious CEOs and the partners who back them, transforming vision into operational excellence through AI-first thinking and systematic precision.
-                    </p>
-                </div>
-                <div class="experience-showcase">
-                    <p class="showcase-label">Built on experience from</p>
-                    <div class="showcase-logos">
-                        <img class="showcase-logo" src="images/wharton-logo.png" alt="Wharton logo">
-                        <img class="showcase-logo" src="images/accenture-logo.png" alt="Accenture logo">
-                        <img class="showcase-logo" src="images/uber-logo.png" alt="Uber logo">
-                        <img class="showcase-logo" src="images/harvard-logo.png" alt="Harvard logo">
-                        <img class="showcase-logo" src="images/Palantir_logo.png" alt="Palantir logo">
-                        <img class="showcase-logo" src="images/ycombinator-logo.png" alt="Y Combinator logo">
-                        <img class="showcase-logo" src="images/Stanford_logo.png" alt="Stanford logo">
-                        <img class="showcase-logo" src="images/credit-logo.png" alt="Credit logo">
-                    </div>
-                </div>
-                <div class="offerings-grid">
-                    <div class="offering">
-                        <h3>AI-First Operations</h3>
-                        <p>We don't just implement AI — we reimagine your entire operational stack.</p>
-                    </div>
-                    <div class="offering">
-                        <h3>Strategic Guidance & Execution</h3>
-                        <p>Progress work on the business, instead of just in the business.</p>
-                    </div>
-                    <div class="offering">
-                        <h3>World-Class Network</h3>
-                        <p>Curated connections that matter.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-    ===== END Services Page ===== -->
-
-    <!-- ===== COMMENTED OUT: Foundry Page =====
-    <div id="foundry" class="page">
-        <section class="section">
-            <div class="section-content">
-                <div class="section-header">
-                    <h1 class="section-title">Material Foundry</h1>
-                    <p class="section-description">
-                        For those who've conquered distribution, we build what's next.
-                    </p>
-                </div>
-            </div>
-        </section>
-    </div>
-    ===== END Foundry Page ===== -->
-
-    <!-- ===== FOOTER ===== -->
+    <!-- ================ FOOTER ================ -->
     <footer class="site-footer">
-        <div class="footer-container">
+        <div class="footer-inner">
             <div class="footer-top">
                 <div class="footer-brand">
                     <img src="images/material-logo-lockup.svg" alt="Material" class="footer-logo">
-                    <p class="footer-tagline">Strategic operators and builders for growing companies.</p>
+                    <p class="footer-tagline">A venture studio and embedded operator team for operators and growing companies.</p>
                 </div>
-                <div class="footer-links">
-                    <a href="/team" class="nav-link footer-btn">Team</a>
-                    <a href="https://forms.fillout.com/t/p8cqDmytcAus" target="_blank" rel="noopener noreferrer" class="footer-btn">Contact</a>
+                <div class="footer-col">
+                    <p class="footer-col-heading">Ways we work</p>
+                    <ul>
+                        <li><a href="/build" class="nav-link">Build with us</a></li>
+                        <li><a href="/modernize" class="nav-link">Modernize &amp; scale</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <p class="footer-col-heading">Material</p>
+                    <ul>
+                        <li><a href="/playbook" class="nav-link">Playbook</a></li>
+                        <li><a href="/team" class="nav-link">Team</a></li>
+                        <li><a href="#" data-fillout-id="p8cqDmytcAus" data-fillout-embed-type="popup" data-fillout-dynamic-resize data-fillout-inherit-parameters data-fillout-popup-size="medium">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <p class="footer-col-heading">Connect</p>
+                    <ul>
+                        <li><a href="https://www.linkedin.com/company/materialbuilt" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+                    </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p class="footer-copyright">&copy; 2026 Material. All rights reserved.</p>
-                <div class="footer-social">
-                    <a href="https://www.linkedin.com/company/materialbuilt" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-                </div>
+                <p>&copy; 2026 Material. All rights reserved.</p>
+                <p>materialbuilt.com</p>
             </div>
         </div>
     </footer>
 
-    <!-- ===== JAVASCRIPT ===== -->
+    <!-- ================ JAVASCRIPT ================ -->
     <script>
-        // ===== Navigation scroll effect =====
-        window.addEventListener('scroll', () => {
-            const nav = document.querySelector('nav');
-            if (window.scrollY > 50) {
-                nav.classList.add('scrolled');
-            } else {
-                nav.classList.remove('scrolled');
-            }
-        }, { passive: true });
+        'use strict';
 
-        // ===== Page Navigation / Router =====
-        const navLinks = document.querySelectorAll('.nav-link');
-        const pages = document.querySelectorAll('.page');
-        const logo = document.querySelector('.logo');
+        // Nav scroll border
+        const navEl = document.querySelector('nav');
+        const onScroll = () => {
+            if (window.scrollY > 24) navEl.classList.add('scrolled');
+            else navEl.classList.remove('scrolled');
+        };
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
 
-        function showPage(targetId) {
-            navLinks.forEach(l => l.classList.remove('active'));
-            document.querySelectorAll('.scroll-link').forEach(l => l.classList.remove('active'));
-
-            if (targetId !== 'home') {
-                const targetHref = `/${targetId}`;
-                document.querySelector(`.nav-link[href="${targetHref}"]`)?.classList.add('active');
-            }
-
-            pages.forEach(page => {
-                page.classList.remove('active');
-                if (page.id === targetId) {
-                    page.classList.add('active');
-                }
-            });
-
-            // Instant scroll to top (not smooth) so layout is settled before reveals
-            window.scrollTo(0, 0);
-
-            const newUrl = targetId === 'home' ? '/' : `/${targetId}`;
-            history.pushState({ page: targetId }, '', newUrl);
-
-            // Re-initialize scroll reveals for the new page
-            // Use multiple passes to catch elements after layout settles
-            requestAnimationFrame(() => {
-                requestAnimationFrame(() => {
-                    initScrollReveals();
-                    checkRevealsOnScroll();
-                    setTimeout(() => { initScrollReveals(); checkRevealsOnScroll(); }, 100);
-                    setTimeout(() => { initScrollReveals(); checkRevealsOnScroll(); }, 300);
-                });
-            });
-        }
-
-        window.addEventListener('popstate', (e) => {
-            const page = e.state?.page || getPageFromUrl();
-            showPage(page);
-        });
-
-        function getPageFromUrl() {
-            const path = window.location.pathname;
-            if (path === '/' || path === '/index.html') return 'home';
-            const page = path.substring(1);
-            return page === 'team' ? page : 'home';
-        }
-
-        function initializePage() {
-            const redirectPath = sessionStorage.getItem('redirect');
-            if (redirectPath) {
-                sessionStorage.removeItem('redirect');
-                const targetPage = redirectPath.substring(1);
-                showPage(targetPage);
-                return;
-            }
-
-            const targetPage = getPageFromUrl();
-            showPage(targetPage);
-        }
-
-        // Smooth scroll to a section with offset for fixed nav
-        function scrollToSection(sectionId) {
-            const el = document.getElementById(sectionId);
-            if (!el) return;
-            const navHeight = document.querySelector('nav').offsetHeight;
-            const top = el.getBoundingClientRect().top + window.pageYOffset - navHeight - 16;
-            window.scrollTo({ top, behavior: 'smooth' });
-        }
-
-        navLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                const href = link.getAttribute('href');
-                // Don't intercept external links
-                if (href.startsWith('http') || href.startsWith('mailto:')) return;
-
-                e.preventDefault();
-
-                // Handle scroll links (#services, #process, #work)
-                if (href.startsWith('#')) {
-                    const sectionId = href.substring(1);
-                    const homePage = document.getElementById('home');
-                    // If not on home page, switch to it first then scroll
-                    if (!homePage.classList.contains('active')) {
-                        showPage('home');
-                        // Wait for page switch, then scroll
-                        setTimeout(() => scrollToSection(sectionId), 100);
-                    } else {
-                        scrollToSection(sectionId);
-                    }
-                    // Update active state
-                    navLinks.forEach(l => l.classList.remove('active'));
-                    link.classList.add('active');
-                    return;
-                }
-
-                // Handle page links (/team)
-                let targetId;
-                if (href === '/') {
-                    targetId = 'home';
-                } else {
-                    targetId = href.substring(1);
-                }
-                showPage(targetId);
-            });
-        });
-
-        logo.addEventListener('click', () => {
-            showPage('home');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-
-        // Update active nav link on scroll (for section links)
-        function updateActiveNavOnScroll() {
-            const homePage = document.getElementById('home');
-            if (!homePage || !homePage.classList.contains('active')) return;
-
-            const sections = ['work', 'process', 'capabilities', 'services'];
-            const navHeight = document.querySelector('nav').offsetHeight;
-            let activeSectionId = null;
-
-            for (const id of sections) {
-                const el = document.getElementById(id);
-                if (!el) continue;
-                const rect = el.getBoundingClientRect();
-                if (rect.top <= navHeight + 100) {
-                    activeSectionId = id;
-                    break;
-                }
-            }
-
-            const scrollLinks = document.querySelectorAll('.scroll-link');
-            scrollLinks.forEach(l => l.classList.remove('active'));
-            if (activeSectionId) {
-                document.querySelector(`.scroll-link[href="#${activeSectionId}"]`)?.classList.add('active');
-            }
-        }
-        window.addEventListener('scroll', updateActiveNavOnScroll, { passive: true });
-
-        // ===== Footer navigation =====
-        // Footer Team link uses .nav-link class, handled by main router
-        // Footer Contact link opens external Fillout form in new tab
-
-        // ===== Hamburger menu =====
+        // Hamburger
         const hamburger = document.querySelector('.hamburger');
-        const navLinksMobile = document.querySelector('.nav-links');
-        if (hamburger && navLinksMobile) {
+        const navLinks = document.querySelector('.nav-links');
+        if (hamburger && navLinks) {
             hamburger.addEventListener('click', () => {
-                hamburger.classList.toggle('active');
-                navLinksMobile.classList.toggle('open');
-                hamburger.setAttribute('aria-expanded', hamburger.classList.contains('active'));
-            });
-            navLinksMobile.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => {
-                    hamburger.classList.remove('active');
-                    navLinksMobile.classList.remove('open');
-                    hamburger.setAttribute('aria-expanded', 'false');
-                });
+                const open = hamburger.classList.toggle('active');
+                navLinks.classList.toggle('open', open);
+                hamburger.setAttribute('aria-expanded', String(open));
             });
         }
 
-        // ===== Scroll-triggered Reveals (IntersectionObserver) =====
-        // Enable reveal animations via CSS class on html element
+        // Scroll reveals
         document.documentElement.classList.add('reveal-ready');
-
-        function initScrollReveals() {
-            const activePage = document.querySelector('.page.active');
-            if (!activePage) return;
-
-            const reveals = activePage.querySelectorAll('.reveal:not(.visible), .reveal-scale:not(.visible)');
-            if (!reveals.length) return;
-
-            // Check if IntersectionObserver is supported
-            if (!('IntersectionObserver' in window)) {
-                // Fallback: just show everything
-                reveals.forEach(el => el.classList.add('visible'));
-                return;
-            }
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        observer.unobserve(entry.target);
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (prefersReducedMotion) {
+            document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+        } else if ('IntersectionObserver' in window) {
+            const obs = new IntersectionObserver((entries) => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) {
+                        e.target.classList.add('visible');
+                        obs.unobserve(e.target);
                     }
                 });
-            }, {
-                threshold: 0,
-                rootMargin: '0px'
-            });
-
-            reveals.forEach(el => {
-                // If element is already in viewport, reveal immediately
+            }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+            document.querySelectorAll('.reveal').forEach(el => {
                 const rect = el.getBoundingClientRect();
-                if (rect.top < window.innerHeight + 50 && rect.bottom > 0) {
+                if (rect.top < window.innerHeight + 40 && rect.bottom > 0) {
                     el.classList.add('visible');
                 } else {
-                    observer.observe(el);
+                    obs.observe(el);
                 }
             });
+        } else {
+            document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
         }
 
-        // ===== IN/ON Emphasis Animation =====
-        function initEmphasisAnimation() {
-            const inOnBlock = document.getElementById('in-on-block');
-            if (!inOnBlock) return;
-
-            const observer = new IntersectionObserver((entries) => {
+        // Metric counter
+        const metrics = document.querySelectorAll('.case-study-metric[data-target]');
+        if (metrics.length && 'IntersectionObserver' in window) {
+            const counterObs = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        entry.target.classList.add('emphasis-visible');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.3 });
-
-            observer.observe(inOnBlock);
-        }
-
-        // ===== Hero Parallax =====
-        function initParallax() {
-            const hero = document.querySelector('.hero');
-            if (!hero) return;
-
-            const heroContent = hero.querySelector('.hero-content');
-
-            window.addEventListener('scroll', () => {
-                const scrolled = window.pageYOffset;
-                const heroHeight = hero.offsetHeight;
-
-                if (scrolled < heroHeight && document.getElementById('home').classList.contains('active')) {
-                    const rate = scrolled * 0.3;
-                    heroContent.style.transform = `translateY(${rate}px)`;
-                    heroContent.style.opacity = 1 - (scrolled / heroHeight) * 0.4;
-                }
-            }, { passive: true });
-        }
-
-        // ===== Testimonial Carousel =====
-        function initTestimonialCarousel() {
-            const track = document.getElementById('testimonials-track');
-            const navContainer = document.getElementById('testimonial-nav');
-            if (!track || !navContainer) return;
-
-            const dots = navContainer.querySelectorAll('.testimonial-dot');
-            const cards = track.querySelectorAll('.testimonial-card');
-            let currentIndex = 0;
-            let autoPlay;
-
-            function getCardsPerView() {
-                return window.innerWidth <= 968 ? 1 : 2;
-            }
-
-            function goToSlide(index) {
-                const cardsPerView = getCardsPerView();
-                const maxIndex = Math.max(0, cards.length - cardsPerView);
-                currentIndex = Math.min(index, maxIndex);
-
-                const card = cards[0];
-                if (!card) return;
-                const cardStyle = getComputedStyle(card);
-                const cardWidth = card.offsetWidth + parseFloat(cardStyle.marginRight);
-                track.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
-
-                dots.forEach((dot, i) => {
-                    dot.classList.toggle('active', i === currentIndex);
-                });
-            }
-
-            dots.forEach(dot => {
-                dot.addEventListener('click', () => {
-                    goToSlide(parseInt(dot.dataset.index));
-                    resetAutoPlay();
-                });
-            });
-
-            function startAutoPlay() {
-                autoPlay = setInterval(() => {
-                    const cardsPerView = getCardsPerView();
-                    const maxIndex = Math.max(0, cards.length - cardsPerView);
-                    goToSlide((currentIndex + 1) > maxIndex ? 0 : currentIndex + 1);
-                }, 6000);
-            }
-
-            function resetAutoPlay() {
-                clearInterval(autoPlay);
-                startAutoPlay();
-            }
-
-            const container = track.closest('.testimonials-container');
-            if (container) {
-                container.addEventListener('mouseenter', () => clearInterval(autoPlay));
-                container.addEventListener('mouseleave', startAutoPlay);
-            }
-
-            // Touch support
-            let startX = 0;
-            track.addEventListener('touchstart', (e) => {
-                startX = e.touches[0].clientX;
-            }, { passive: true });
-
-            track.addEventListener('touchend', (e) => {
-                const endX = e.changedTouches[0].clientX;
-                const diff = startX - endX;
-                if (Math.abs(diff) > 50) {
-                    const cardsPerView = getCardsPerView();
-                    const maxIndex = Math.max(0, cards.length - cardsPerView);
-                    if (diff > 0 && currentIndex < maxIndex) {
-                        goToSlide(currentIndex + 1);
-                    } else if (diff < 0 && currentIndex > 0) {
-                        goToSlide(currentIndex - 1);
-                    }
-                    resetAutoPlay();
-                }
-            });
-
-            startAutoPlay();
-
-            // Recalculate on resize
-            window.addEventListener('resize', () => {
-                goToSlide(currentIndex);
-            });
-        }
-
-        // ===== Metric Counter Animation =====
-        function initCounters() {
-            const metrics = document.querySelectorAll('.case-study-metric[data-target]');
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        animateMetric(entry.target);
-                        observer.unobserve(entry.target);
+                        const el = entry.target;
+                        const target = parseFloat(el.dataset.target);
+                        const suffix = el.dataset.suffix || '';
+                        const duration = 1400;
+                        const start = performance.now();
+                        (function step(now) {
+                            const elapsed = now - start;
+                            const progress = Math.min(elapsed / duration, 1);
+                            const eased = 1 - Math.pow(1 - progress, 3);
+                            const current = target * eased;
+                            el.textContent = (target % 1 === 0 ? Math.round(current) : current.toFixed(1)) + suffix;
+                            if (progress < 1) requestAnimationFrame(step);
+                        })(performance.now());
+                        counterObs.unobserve(el);
                     }
                 });
             }, { threshold: 0.5 });
-
-            metrics.forEach(m => observer.observe(m));
+            metrics.forEach(m => counterObs.observe(m));
         }
 
-        function animateMetric(el) {
-            const target = parseFloat(el.dataset.target);
-            const suffix = el.dataset.suffix || '';
-            const duration = 1500;
-            const start = performance.now();
-
-            function step(now) {
-                const elapsed = now - start;
-                const progress = Math.min(elapsed / duration, 1);
-                const eased = 1 - Math.pow(1 - progress, 3);
-                const current = target * eased;
-
-                if (target % 1 === 0) {
-                    el.textContent = Math.round(current) + suffix;
-                } else {
-                    el.textContent = current.toFixed(1) + suffix;
-                }
-
-                if (progress < 1) {
-                    requestAnimationFrame(step);
-                }
-            }
-
-            requestAnimationFrame(step);
+        // Mobile floating CTA visibility (after hero scroll)
+        const floatingCta = document.querySelector('.mobile-floating-cta');
+        const heroEl = document.querySelector('.hero');
+        if (floatingCta && heroEl) {
+            window.addEventListener('scroll', () => {
+                const heroBottom = heroEl.offsetTop + heroEl.offsetHeight;
+                const scrolled = window.scrollY + window.innerHeight * 0.4;
+                if (scrolled > heroBottom) floatingCta.classList.add('visible');
+                else floatingCta.classList.remove('visible');
+            }, { passive: true });
         }
-
-        // ===== Custom Cursor (Event Delegation) =====
-        const cursor = document.getElementById('custom-cursor');
-        if (cursor) {
-            const darkSelector = '.cta, .site-footer';
-            const lightBtnSelector = '.btn-contact, .btn-primary, .btn-hero';
-
-            document.addEventListener('mousemove', e => {
-                cursor.style.left = e.clientX + 'px';
-                cursor.style.top = e.clientY + 'px';
-
-                // Invert cursor on dark backgrounds
-                const el = document.elementFromPoint(e.clientX, e.clientY);
-                if (el && el.closest(darkSelector)) {
-                    cursor.classList.add('cursor-invert');
-                    // Flip back to dark on light-colored buttons within dark sections
-                    if (el.closest(lightBtnSelector)) {
-                        cursor.classList.add('cursor-dark');
-                    } else {
-                        cursor.classList.remove('cursor-dark');
-                    }
-                } else {
-                    cursor.classList.remove('cursor-invert');
-                    cursor.classList.remove('cursor-dark');
-                }
-            });
-
-            function setCursorHover(state) {
-                if (state) cursor.classList.add('cursor-hover');
-                else cursor.classList.remove('cursor-hover');
-            }
-
-            const hoverSelector = 'a, button, .nav-link, .btn-contact, .btn-hero, .btn-primary, .btn-secondary, .hero-link, .team-link, .logo, .icp-pill, .pillar, .case-study-card, .testimonial-dot, .category-block, .member-card, .footer-btn';
-
-            document.addEventListener('mouseover', (e) => {
-                if (e.target.closest(hoverSelector)) {
-                    setCursorHover(true);
-                }
-            });
-
-            document.addEventListener('mouseout', (e) => {
-                if (e.target.closest(hoverSelector)) {
-                    setCursorHover(false);
-                }
-            });
-        }
-
-        // ===== Fallback scroll-based reveal =====
-        // In case IntersectionObserver doesn't fire, reveal on scroll too
-        function checkRevealsOnScroll() {
-            const activePage = document.querySelector('.page.active');
-            if (!activePage) return;
-            const unrevealed = activePage.querySelectorAll('.reveal:not(.visible), .reveal-scale:not(.visible)');
-            unrevealed.forEach(el => {
-                const rect = el.getBoundingClientRect();
-                if (rect.top < window.innerHeight + 50 && rect.bottom > 0) {
-                    el.classList.add('visible');
-                }
-            });
-        }
-        window.addEventListener('scroll', checkRevealsOnScroll, { passive: true });
-
-        // ===== Initialize Everything =====
-        initializePage();
-        initScrollReveals();
-        initEmphasisAnimation();
-        initParallax();
-        initTestimonialCarousel();
-        initCounters();
-        // Run once more after a brief delay to catch anything missed
-        setTimeout(() => { initScrollReveals(); checkRevealsOnScroll(); }, 100);
     </script>
+
+    <!-- Fillout popup embed — wires up elements with data-fillout-id -->
+    <script src="https://server.fillout.com/embed/v1/"></script>
 </body>
 
 </html>

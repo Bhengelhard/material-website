@@ -3,25 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Material — Strategic Operators for Growing Companies</title>
+    <title>Material — Strategic operators for growing companies</title>
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Inter:wght@400;500&display=swap">
     <script>
-        // GitHub Pages SPA redirect handler
-        (function() {
+        (function () {
             var path = window.location.pathname;
             var validPaths = ['/team'];
-            
-            // Store the intended path in sessionStorage and redirect to index
             if (validPaths.includes(path)) {
                 sessionStorage.setItem('redirect', path);
                 window.location.replace(window.location.origin + '/');
             } else {
-                // For invalid paths, just redirect to home
                 window.location.replace(window.location.origin + '/');
             }
         })();
     </script>
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #F1EBDD;
+            color: #0B0A07;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            -webkit-font-smoothing: antialiased;
+        }
+        .wrap { text-align: center; max-width: 480px; }
+        .kicker {
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: #0B3D2E;
+            margin-bottom: 1.5rem;
+        }
+        .accent-bar {
+            display: block;
+            width: 32px;
+            height: 2px;
+            background: #0B3D2E;
+            border-radius: 1px;
+            margin: 0 auto 1.75rem;
+        }
+        h1 {
+            font-family: 'Playfair Display', 'Times New Roman', serif;
+            font-weight: 400;
+            font-size: clamp(2rem, 5vw, 3rem);
+            line-height: 1.1;
+            letter-spacing: -0.015em;
+            color: #111111;
+            margin-bottom: 1rem;
+        }
+        p { color: #6B6B6B; font-size: 1rem; line-height: 1.6; margin-bottom: 2rem; }
+        a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #0B3D2E;
+            color: #FFFFFF;
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            padding: 0.9375rem 1.75rem;
+            border-radius: 8px;
+            transition: background 200ms ease;
+        }
+        a:hover { background: #03281A; }
+    </style>
 </head>
 <body>
-    <p>Redirecting...</p>
+    <div class="wrap">
+        <span class="accent-bar"></span>
+        <p class="kicker">Material</p>
+        <h1>Redirecting you home.</h1>
+        <p>If nothing happens in a moment, head back to the homepage.</p>
+        <a href="/">Return to Material</a>
+    </div>
 </body>
 </html>

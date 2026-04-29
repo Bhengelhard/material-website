@@ -1,0 +1,2822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Native — Standard, three variants · NativeBuilt.com</title>
+<meta name="description" content="Direction 01 (Native Standard), three editorial variants — Letterpress, Estate, Atelier. Custom-crafted, textured, premium.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
+<style>
+/* ==============================================================
+   NATIVE — STANDARD, THREE VARIANTS (v4)
+   01·A Letterpress  ·  01·B Estate  ·  01·C Atelier
+   All anchored in editorial Direction 01.
+   Texture: paper grain, scotch rules, drop caps, custom monograms.
+   ============================================================== */
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --shell-bg: #0B0A07;
+  --shell-paper: #F1EBDD;
+  --shell-ink: #F2ECE0;
+  --shell-muted: rgba(242,236,224,0.56);
+  --shell-line: rgba(242,236,224,0.12);
+  --shell-line-strong: rgba(242,236,224,0.20);
+  --shell-brass: #CDAA6B;
+  --container: 1320px;
+  --gutter: clamp(1.25rem, 3vw, 2.5rem);
+}
+
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--shell-bg);
+  color: var(--shell-ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 15px;
+  line-height: 1.55;
+  overflow-x: hidden;
+}
+img, svg { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; background: none; border: none; cursor: pointer; color: inherit; }
+
+a:focus-visible, button:focus-visible {
+  outline: 2px solid currentColor; outline-offset: 3px; border-radius: 3px;
+}
+
+/* =====================================================
+   TEXTURE LAYERS — reusable
+   ===================================================== */
+
+/* Paper grain — subtle SVG noise via data URL */
+.tex-paper {
+  position: relative;
+  isolation: isolate;
+}
+.tex-paper::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.65 0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.6'/></svg>");
+  background-size: 220px 220px;
+  opacity: 0.55;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  z-index: 0;
+}
+.tex-paper > * { position: relative; z-index: 1; }
+
+/* Halftone pattern — for accent zones */
+.tex-halftone {
+  background-image: radial-gradient(currentColor 0.7px, transparent 0.7px);
+  background-size: 7px 7px;
+  background-position: 0 0;
+}
+
+/* Vellum (very faint, on light surfaces) */
+.tex-vellum::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='320' height='320'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='1' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.35 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  background-size: 320px 320px;
+  opacity: 0.35;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Scotch rule — thick-thin-thick horizontal divider (classical editorial) */
+.scotch {
+  position: relative;
+  height: 12px;
+  border-top: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  margin: 0;
+}
+.scotch::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0;
+  top: 50%;
+  height: 1px; background: currentColor;
+  transform: translateY(-0.5px);
+  opacity: 0.85;
+}
+.scotch.thin {
+  height: 7px;
+  border-top-width: 1px;
+  border-bottom-width: 1px;
+}
+.scotch.thin::after { height: 0.5px; }
+
+/* Hairline rule */
+.hairline {
+  height: 1px;
+  background: currentColor;
+  opacity: 0.18;
+  border: none;
+}
+
+/* Ornament center — used as horizontal divider with center glyph */
+.ornament-rule {
+  display: flex; align-items: center; gap: 1.25rem;
+  font-family: 'Playfair Display', serif; font-style: italic;
+  font-size: 1.125rem;
+}
+.ornament-rule::before,
+.ornament-rule::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.35;
+}
+
+/* =====================================================
+   SHELL MASTHEAD
+   ===================================================== */
+.shell-mast {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(11,10,7,0.86);
+  backdrop-filter: saturate(160%) blur(14px);
+  -webkit-backdrop-filter: saturate(160%) blur(14px);
+  border-bottom: 1px solid var(--shell-line);
+}
+.shell-mast-inner {
+  max-width: var(--container); margin: 0 auto;
+  padding: 1rem var(--gutter);
+  display: flex; align-items: center; gap: 1.25rem;
+}
+.shell-brand {
+  display: inline-flex; align-items: baseline; gap: 0.625rem;
+  font-family: 'Playfair Display', serif;
+  font-weight: 500; font-size: 1.3125rem; letter-spacing: -0.02em;
+}
+.shell-brand .period { color: var(--shell-brass); }
+.shell-brand-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6875rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--shell-muted);
+  padding: 0.25rem 0.5rem;
+  border: 1px solid var(--shell-line-strong);
+  border-radius: 2px;
+}
+.shell-nav {
+  margin-left: auto;
+  display: flex; align-items: center; gap: 0.125rem;
+  padding: 0.25rem;
+  background: rgba(242,236,224,0.04);
+  border: 1px solid var(--shell-line);
+  border-radius: 999px;
+}
+.shell-nav a {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.8125rem; font-weight: 500;
+  border-radius: 999px;
+  color: var(--shell-muted);
+  transition: background 180ms ease, color 180ms ease;
+}
+.shell-nav a:hover { background: rgba(242,236,224,0.08); color: var(--shell-ink); }
+.shell-nav a .dot {
+  width: 8px; height: 8px; border-radius: 999px; display: inline-block;
+  box-shadow: 0 0 0 2px rgba(242,236,224,0.08);
+}
+@media (max-width: 820px) {
+  .shell-nav a span:not(.dot) { display: none; }
+  .shell-nav a { padding: 0.5rem 0.6rem; }
+}
+
+/* =====================================================
+   COVER
+   ===================================================== */
+.cover {
+  max-width: var(--container); margin: 0 auto;
+  padding: clamp(3.5rem, 9vw, 7rem) var(--gutter) clamp(3rem, 7vw, 5.5rem);
+  position: relative;
+}
+.cover::after {
+  content: ''; position: absolute;
+  left: var(--gutter); right: var(--gutter); bottom: 0;
+  height: 1px; background: var(--shell-line);
+}
+.cover-grid {
+  display: grid; grid-template-columns: 1fr; gap: 3.5rem;
+}
+@media (min-width: 1000px) {
+  .cover-grid { grid-template-columns: 1.35fr 1fr; gap: 5rem; align-items: end; }
+}
+.cover-kicker {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem; font-weight: 500;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--shell-muted);
+  display: inline-flex; align-items: center; gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+.cover-kicker::before {
+  content: ''; width: 32px; height: 1px; background: currentColor;
+  opacity: 0.6;
+}
+.cover h1 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 300;
+  font-size: clamp(2.75rem, 6.4vw, 5.5rem);
+  line-height: 0.96;
+  letter-spacing: -0.025em;
+  margin-bottom: 1.5rem;
+  color: var(--shell-ink);
+}
+.cover h1 em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--shell-brass);
+}
+.cover-lede {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.0625rem; line-height: 1.65;
+  color: var(--shell-muted);
+  max-width: 56ch;
+  margin-bottom: 2rem;
+}
+.cover-lede strong { color: var(--shell-ink); font-weight: 500; }
+.cover-lede em { font-family: 'Playfair Display', serif; font-style: italic; color: var(--shell-ink); font-size: 1.0625em; }
+
+.cover-meta {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;
+  border-top: 1px solid var(--shell-line);
+  padding-top: 1.75rem;
+}
+.cover-meta-item .num {
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+  font-size: clamp(1.625rem, 3vw, 2.25rem);
+  line-height: 1;
+  letter-spacing: -0.025em;
+  color: var(--shell-ink);
+  margin-bottom: 0.375rem;
+}
+.cover-meta-item .num em { font-style: italic; color: var(--shell-brass); }
+.cover-meta-item .label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6875rem; color: var(--shell-muted);
+  letter-spacing: 0.1em; text-transform: uppercase;
+}
+
+.cover-aside {
+  border: 1px solid var(--shell-line);
+  border-radius: 12px;
+  padding: 1.75rem;
+  background: rgba(242,236,224,0.02);
+  position: relative;
+  overflow: hidden;
+}
+.cover-aside::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    radial-gradient(rgba(205,170,107,0.08) 0.8px, transparent 0.8px);
+  background-size: 9px 9px;
+  background-position: 0 0;
+  opacity: 0.55;
+  pointer-events: none;
+}
+.cover-aside > * { position: relative; }
+.cover-aside-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6875rem; font-weight: 500;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--shell-muted);
+  margin-bottom: 1.25rem;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.cover-aside-title span { color: rgba(242,236,224,0.3); }
+
+/* Cover variant grid — three little chips that summarize the variants */
+.variant-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+.variant-chip {
+  border: 1px solid var(--shell-line-strong);
+  border-radius: 8px;
+  padding: 0.875rem 0.75rem;
+  background: rgba(242,236,224,0.03);
+  display: flex; flex-direction: column; gap: 0.5rem;
+  text-align: left;
+  transition: border-color 180ms ease, transform 180ms ease;
+}
+.variant-chip:hover { border-color: var(--shell-brass); transform: translateY(-2px); }
+.variant-chip .vc-letter {
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+  font-size: 1.625rem;
+  line-height: 1;
+  color: var(--shell-ink);
+}
+.variant-chip .vc-letter em { font-style: italic; color: var(--shell-brass); }
+.variant-chip .vc-name {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--shell-ink);
+}
+.variant-chip .vc-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.625rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--shell-muted);
+}
+.cover-thesis {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.0625rem;
+  line-height: 1.5;
+  color: var(--shell-ink);
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--shell-line);
+}
+.cover-thesis::before { content: '"'; color: var(--shell-brass); margin-right: 2px; }
+.cover-thesis::after { content: '"'; color: var(--shell-brass); }
+
+/* =====================================================
+   DIRECTION FRAME (shared)
+   ===================================================== */
+.dir {
+  position: relative;
+  scroll-margin-top: 96px;
+}
+.dir-inner {
+  max-width: var(--container); margin: 0 auto;
+  padding: clamp(4rem, 9vw, 7rem) var(--gutter) clamp(4rem, 9vw, 6.5rem);
+  position: relative;
+}
+.dir-head {
+  display: grid; grid-template-columns: 1fr; gap: 2rem;
+  padding-bottom: 3rem;
+  margin-bottom: 3.5rem;
+}
+@media (min-width: 900px) {
+  .dir-head {
+    grid-template-columns: auto 1fr auto;
+    gap: 3rem;
+    align-items: end;
+  }
+}
+.dir-index {
+  font-family: 'Playfair Display', serif;
+  font-weight: 300;
+  font-size: clamp(4.5rem, 10vw, 8rem);
+  line-height: 0.82;
+  letter-spacing: -0.045em;
+  display: inline-flex; align-items: baseline; gap: 0.05em;
+}
+.dir-index .letter { font-style: italic; }
+.dir-title-group .dir-kicker {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem; font-weight: 500;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  margin-bottom: 1rem;
+  display: inline-flex; align-items: center; gap: 0.625rem;
+}
+.dir-title-group .dir-kicker::before {
+  content: ''; width: 18px; height: 1px; background: currentColor;
+}
+.dir-title-group h2 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+  font-size: clamp(2rem, 4.4vw, 3.25rem);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+}
+.dir-title-group h2 em { font-style: italic; font-weight: 500; }
+.dir-title-group .dir-thesis {
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  max-width: 62ch;
+}
+.dir-badge {
+  align-self: start;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 0.5rem 0.875rem;
+  border: 1px solid currentColor;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
+/* Block layouts */
+.block { display: grid; grid-template-columns: 1fr; gap: 1.75rem; margin-bottom: 1.75rem; }
+.block-2 { grid-template-columns: 1fr; }
+@media (min-width: 1000px) { .block-2 { grid-template-columns: 1.35fr 1fr; gap: 1.75rem; } }
+.block-3 { grid-template-columns: 1fr; }
+@media (min-width: 900px) { .block-3 { grid-template-columns: repeat(3, 1fr); } }
+
+.panel {
+  border: 1px solid currentColor;
+  border-radius: 14px;
+  padding: 1.75rem;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.panel-head {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 1.375rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6875rem; font-weight: 500;
+  letter-spacing: 0.14em; text-transform: uppercase;
+}
+.panel-head .panel-meta { opacity: 0.6; font-weight: 400; }
+
+/* Swatches */
+.swatches { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.5rem; }
+.swatch {
+  aspect-ratio: 1 / 1.2;
+  border-radius: 8px;
+  padding: 0.625rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.625rem;
+  letter-spacing: 0.05em;
+  overflow: hidden;
+  position: relative;
+}
+.swatch .sw-label { opacity: 0.9; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; }
+.swatch .sw-hex { font-weight: 500; }
+.swatch.bordered { box-shadow: inset 0 0 0 1px rgba(0,0,0,0.08); }
+.swatch.tex::after {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.4'/></svg>");
+  background-size: 120px 120px;
+  mix-blend-mode: multiply;
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* Type rows */
+.type-stack { display: grid; gap: 1.25rem; }
+.type-row {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 1.5rem;
+  align-items: baseline;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px dashed currentColor;
+}
+.type-row:last-child { border-bottom: none; padding-bottom: 0; }
+.type-row .tr-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.55;
+}
+
+/* Components */
+.components { display: grid; gap: 1.25rem; }
+.btn-row { display: flex; flex-wrap: wrap; gap: 0.625rem; align-items: center; }
+.chip-row { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+
+.arrow { width: 0.9em; height: 0.9em; }
+
+/* Hero specimen */
+.hero-spec {
+  border-radius: 16px;
+  padding: 3rem 2.5rem;
+  min-height: 540px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.hero-spec .hs-top {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1.5rem;
+  position: relative; z-index: 3;
+}
+.hero-spec .hs-nav {
+  display: flex; gap: 1.25rem;
+  font-size: 0.8125rem; font-weight: 500;
+}
+.hero-spec .hs-body-wrap { position: relative; z-index: 3; }
+.hero-spec .hs-kicker {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem; font-weight: 500;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  margin-bottom: 1.25rem;
+  display: inline-flex; align-items: center; gap: 0.5rem;
+}
+.hero-spec h3 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+  font-size: clamp(1.875rem, 3.8vw, 3rem);
+  line-height: 1.02;
+  letter-spacing: -0.022em;
+  margin-bottom: 1.25rem;
+  max-width: 18ch;
+}
+.hero-spec h3 em { font-style: italic; font-weight: 500; }
+.hero-spec .hs-sub {
+  font-size: 1.0625rem; line-height: 1.6;
+  max-width: 50ch; opacity: 0.82;
+  margin-bottom: 2rem;
+}
+.hero-spec .hs-actions {
+  display: flex; gap: 0.625rem; flex-wrap: wrap; align-items: center;
+}
+
+/* Editorial detail specimen — drop cap paragraph */
+.editorial-detail {
+  border: 1px solid currentColor;
+  border-radius: 14px;
+  padding: 2.25rem;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+@media (min-width: 800px) {
+  .editorial-detail { grid-template-columns: 2fr 1fr; gap: 2.5rem; }
+}
+.ed-body {
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+  font-size: 1.125rem;
+  line-height: 1.55;
+}
+.ed-body::first-letter {
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+  font-size: 5rem;
+  line-height: 0.9;
+  float: left;
+  margin: 0.05em 0.625rem 0 0;
+  font-style: italic;
+}
+.ed-body em { font-style: italic; }
+.ed-marginalia {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  display: grid; gap: 1rem;
+  align-content: start;
+}
+.ed-marginalia .mg-item {
+  padding-bottom: 1rem;
+  border-bottom: 1px solid currentColor;
+}
+.ed-marginalia .mg-item:last-child { border-bottom: none; padding-bottom: 0; }
+.ed-marginalia .mg-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6875rem; letter-spacing: 0.14em; text-transform: uppercase;
+  margin-bottom: 0.375rem;
+}
+
+/* In-use card */
+.inuse {
+  border-radius: 16px;
+  padding: 2.25rem;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.inuse-head {
+  display: flex; align-items: start; justify-content: space-between;
+  gap: 1rem; margin-bottom: 1.25rem;
+}
+.inuse-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em; text-transform: uppercase;
+}
+.inuse-num {
+  font-family: 'Playfair Display', serif;
+  font-weight: 300;
+  font-size: 1.625rem;
+  line-height: 1;
+}
+.inuse h4 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 500;
+  font-size: 1.875rem;
+  line-height: 1.08;
+  letter-spacing: -0.018em;
+  margin-bottom: 0.75rem;
+}
+.inuse h4 em { font-style: italic; }
+.inuse p {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+  max-width: 48ch;
+}
+.inuse-list {
+  list-style: none; padding: 0; margin: 0 0 1.5rem;
+  display: grid; gap: 0.5rem;
+}
+.inuse-list li {
+  position: relative;
+  padding-left: 1.125rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+.inuse-list li::before {
+  content: ''; position: absolute; left: 0; top: 0.6em;
+  width: 8px; height: 1px; background: currentColor;
+}
+
+/* Case study cards */
+.cs-grid {
+  display: grid; gap: 1rem;
+  grid-template-columns: 1fr 1fr;
+}
+.cs-card {
+  border: 1px solid currentColor;
+  border-radius: 14px;
+  padding: 1.5rem;
+  display: flex; flex-direction: column; gap: 0.875rem;
+  min-height: 220px;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.cs-card .cs-top {
+  display: flex; justify-content: space-between; align-items: start;
+}
+.cs-metric {
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+  font-size: clamp(2.25rem, 4vw, 3rem);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+}
+.cs-metric em { font-style: italic; }
+.cs-metric-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  opacity: 0.6;
+}
+.cs-desc {
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  margin-top: auto;
+  opacity: 0.88;
+}
+.cs-logo {
+  font-family: 'Playfair Display', serif;
+  font-weight: 500;
+  font-size: 1.125rem;
+  letter-spacing: -0.01em;
+  opacity: 0.85;
+}
+
+/* Logo zone */
+.logo-zone {
+  display: grid; gap: 1.5rem;
+  padding: 2.25rem;
+  border: 1px solid currentColor;
+  border-radius: 14px;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.logo-zone .lz-row {
+  display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;
+}
+
+/* ====================================================================
+   ===== VARIANT 01·A · LETTERPRESS  ===================================
+   The original. Refined. Paper grain, drop caps, scotch rules.
+   Forest #0B3D2E · Bone #F1EBDD · Brass #B08848
+   ==================================================================== */
+
+#a {
+  --ink: #0B0A07;
+  --ink-80: rgba(11,10,7,0.82);
+  --ink-60: rgba(11,10,7,0.62);
+  --ink-40: rgba(11,10,7,0.4);
+  --ink-22: rgba(11,10,7,0.22);
+  --ink-10: rgba(11,10,7,0.1);
+  --bone: #F1EBDD;
+  --paper: #FAF6EC;
+  --paper-deep: #F5F0E0;
+  --forest: #0B3D2E;
+  --forest-deep: #062116;
+  --forest-soft: #436D5E;
+  --sage: #9BB2A2;
+  --brass: #B08848;
+  --brass-deep: #83602E;
+  background: var(--bone);
+  color: var(--ink);
+  position: relative;
+}
+#a::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='320' height='320'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.4 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  background-size: 320px 320px;
+  opacity: 0.4;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+#a > * { position: relative; }
+#a .dir-head { border-bottom: none; }
+#a .dir-head-rule {
+  grid-column: 1 / -1;
+  color: var(--ink-22);
+}
+#a .dir-index { color: var(--forest); }
+#a .dir-index .letter { color: var(--brass); }
+#a .dir-title-group .dir-kicker { color: var(--forest); }
+#a .dir-title-group h2 em { color: var(--forest); font-weight: 500; }
+#a .dir-title-group .dir-thesis { color: var(--ink-60); }
+#a .dir-badge { color: var(--forest); border-color: var(--ink-22); background: var(--paper); }
+
+#a .panel { background: var(--paper); border-color: var(--ink-22); }
+#a .panel.tex-vellum::before { /* layered */ }
+#a .panel-head { color: var(--forest); }
+#a .type-row { border-bottom-color: var(--ink-22); }
+#a .type-row .tr-meta { color: var(--ink-40); }
+#a .logo-zone { background: var(--paper); border-color: var(--ink-22); }
+#a .editorial-detail { background: var(--paper); border-color: var(--ink-22); }
+
+#a .ed-body { color: var(--ink); }
+#a .ed-body::first-letter { color: var(--brass); }
+#a .ed-body em { color: var(--forest); }
+#a .ed-marginalia { color: var(--ink-80); border-color: var(--ink-22); }
+#a .ed-marginalia .mg-item { border-bottom-color: var(--ink-22); }
+#a .ed-marginalia .mg-label { color: var(--forest); }
+
+/* Type tokens */
+#a .t-display { font-family: 'Playfair Display', serif; font-weight: 400; font-size: 3rem; line-height: 1; letter-spacing: -0.02em; }
+#a .t-display em { font-style: italic; font-weight: 500; color: var(--forest); }
+#a .t-h2 { font-family: 'Playfair Display', serif; font-weight: 500; font-size: 1.875rem; line-height: 1.1; letter-spacing: -0.015em; }
+#a .t-lede { font-family: 'Inter', sans-serif; font-weight: 400; font-size: 1.0625rem; line-height: 1.65; color: var(--ink-60); }
+#a .t-body { font-family: 'Inter', sans-serif; font-weight: 400; font-size: 0.9375rem; line-height: 1.65; color: var(--ink-80); }
+#a .t-kicker { font-family: 'JetBrains Mono', monospace; font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--forest); }
+#a .t-caption { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 400; font-size: 1rem; color: var(--ink-60); }
+
+/* Buttons */
+#a .btn-primary {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: var(--forest); color: var(--paper);
+  padding: 0.8125rem 1.375rem; border-radius: 999px;
+  font-size: 0.8125rem; font-weight: 500; letter-spacing: 0.005em;
+  transition: background 180ms ease, transform 180ms ease;
+}
+#a .btn-primary:hover { background: var(--forest-deep); transform: translateY(-1px); }
+#a .btn-ghost {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.8125rem 1.375rem; border-radius: 999px;
+  font-size: 0.8125rem; font-weight: 500;
+  border: 1px solid var(--ink-22); color: var(--ink);
+  transition: border-color 180ms ease, background 180ms ease;
+}
+#a .btn-ghost:hover { border-color: var(--forest); background: rgba(11,61,46,0.05); }
+#a .btn-link {
+  display: inline-flex; align-items: center; gap: 0.375rem;
+  color: var(--forest);
+  font-family: 'Playfair Display', serif; font-style: italic;
+  font-size: 1.0625rem; font-weight: 500;
+  border-bottom: 1px solid var(--sage); padding-bottom: 3px;
+}
+
+/* Pills */
+#a .pill {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.375rem 0.75rem; border-radius: 999px;
+  background: rgba(11,61,46,0.08); color: var(--forest);
+  font-size: 0.75rem; font-weight: 500;
+}
+#a .pill::before { content: ''; width: 6px; height: 6px; border-radius: 999px; background: var(--forest); }
+#a .pill.brass { background: rgba(176,136,72,0.14); color: var(--brass-deep); }
+#a .pill.brass::before { background: var(--brass); }
+
+/* Logo — Letterpress */
+#a .logo-display {
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+  font-size: 3.5rem;
+  line-height: 1;
+  letter-spacing: -0.028em;
+  color: var(--forest);
+}
+#a .logo-display em { font-style: italic; font-weight: 500; color: var(--brass); }
+#a .logo-mark {
+  width: 56px; height: 56px; border-radius: 10px;
+  background: var(--forest); color: var(--paper);
+  display: grid; place-items: center;
+  font-family: 'Playfair Display', serif; font-weight: 500;
+  font-size: 2rem; letter-spacing: -0.02em;
+  position: relative;
+}
+#a .logo-mark::after {
+  content: '';
+  position: absolute; left: 12px; right: 12px; bottom: 11px;
+  height: 1.5px; background: var(--brass);
+  opacity: 0.85;
+}
+
+/* Custom monogram — Standard */
+.monogram-a {
+  width: 110px; height: 110px;
+  display: grid; place-items: center;
+  position: relative;
+}
+
+#a .logo-lockup {
+  display: inline-flex; align-items: baseline; gap: 0.5rem;
+  font-family: 'Playfair Display', serif;
+  font-weight: 500;
+  font-size: 1.5rem;
+  letter-spacing: -0.015em;
+  color: var(--forest);
+}
+#a .logo-lockup .period { color: var(--brass); }
+#a .logo-lockup-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+  padding: 0.25rem 0.5rem;
+  border: 1px solid var(--ink-22);
+  border-radius: 2px;
+  align-self: center;
+}
+#a .domain-display {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9375rem;
+  letter-spacing: 0.02em;
+  color: var(--ink-60);
+}
+#a .domain-display .u { color: var(--forest); font-weight: 500; }
+
+/* Hero — Letterpress */
+#a .hero-spec {
+  background:
+    radial-gradient(ellipse at 80% 20%, rgba(176,136,72,0.10) 0%, transparent 55%),
+    linear-gradient(180deg, var(--paper) 0%, var(--paper-deep) 100%);
+  border: 1px solid var(--ink-22);
+  color: var(--ink);
+}
+#a .hero-spec::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.4'/></svg>");
+  background-size: 240px 240px;
+  mix-blend-mode: multiply;
+  opacity: 0.45;
+  pointer-events: none;
+  z-index: 1;
+}
+#a .hero-spec .hs-kicker { color: var(--forest); }
+#a .hero-spec .hs-kicker::before {
+  content: '§'; font-family: 'Playfair Display', serif; font-style: italic;
+  font-size: 1.125rem; color: var(--brass); margin-right: 0.125rem;
+}
+#a .hero-spec h3 em { color: var(--forest); }
+#a .hero-spec .hs-sub { color: var(--ink-60); }
+#a .hero-spec .hs-nav { color: var(--ink-60); font-weight: 500; }
+
+/* Hero scotch rule strip at bottom */
+#a .hero-strip {
+  display: flex; align-items: center; gap: 1.5rem;
+  margin-top: 1.75rem; padding-top: 1.5rem;
+  border-top: 1px solid var(--ink-22);
+  font-size: 0.8125rem;
+  color: var(--ink-60);
+  position: relative; z-index: 3;
+}
+#a .hero-strip-glyph {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 1.25rem;
+  color: var(--brass);
+}
+
+/* In-use — Letterpress */
+#a .inuse {
+  background: var(--forest);
+  color: var(--paper);
+  border: 1px solid var(--forest);
+}
+#a .inuse::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 85% 15%, rgba(176,136,72,0.20) 0%, transparent 55%),
+    radial-gradient(ellipse at 10% 95%, rgba(155,178,162,0.10) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+#a .inuse::after {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.5'/></svg>");
+  background-size: 220px 220px;
+  mix-blend-mode: overlay;
+  opacity: 0.18;
+  pointer-events: none;
+}
+#a .inuse > * { position: relative; z-index: 1; }
+#a .inuse .inuse-tag { color: var(--sage); }
+#a .inuse .inuse-num { color: rgba(241,235,221,0.5); }
+#a .inuse h4 em { color: var(--brass); }
+#a .inuse p { color: rgba(241,235,221,0.78); }
+#a .inuse-list li { color: rgba(241,235,221,0.82); }
+#a .inuse-list li::before { background: var(--brass); }
+#a .inuse .btn-link { color: var(--brass); border-bottom-color: rgba(176,136,72,0.5); }
+
+#a .cs-card { background: var(--paper); border-color: var(--ink-22); }
+#a .cs-logo { color: var(--forest); }
+#a .cs-metric { color: var(--forest); }
+#a .cs-metric em { color: var(--brass); }
+#a .cs-metric-label { color: var(--ink-40); }
+#a .cs-desc { color: var(--ink-80); }
+
+/* ====================================================================
+   ===== VARIANT 01·B · ESTATE  ========================================
+   The house. Heavier weight, oxblood + brass, ribbon tags, Scotch rules,
+   sealed-document gravitas. The estate that goes back generations.
+   Forest deep #062116 · Antique #ECE2C8 · Oxblood #6E1F1F · Brass #C49B4F
+   ==================================================================== */
+
+#b {
+  --ink: #100C04;
+  --ink-80: rgba(16,12,4,0.84);
+  --ink-60: rgba(16,12,4,0.62);
+  --ink-40: rgba(16,12,4,0.4);
+  --ink-22: rgba(16,12,4,0.22);
+  --ink-10: rgba(16,12,4,0.1);
+  --paper: #ECE2C8;
+  --paper-deep: #E2D5B4;
+  --paper-warm: #F0E7D0;
+  --forest: #0A3025;
+  --forest-deep: #051811;
+  --oxblood: #6E1F1F;
+  --oxblood-deep: #4F1212;
+  --brass: #C49B4F;
+  --brass-deep: #8E6826;
+  --sage: #8FA593;
+  background: var(--paper);
+  color: var(--ink);
+  position: relative;
+}
+#b::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='340' height='340'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  background-size: 340px 340px;
+  opacity: 0.45;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+#b > * { position: relative; }
+#b .dir-head { border-bottom: none; }
+#b .dir-index { color: var(--forest); font-family: 'Playfair Display', serif; font-weight: 500; }
+#b .dir-index .letter { color: var(--oxblood); font-style: italic; font-weight: 500; }
+#b .dir-title-group .dir-kicker { color: var(--oxblood); }
+#b .dir-title-group h2 { font-weight: 500; }
+#b .dir-title-group h2 em { color: var(--oxblood); font-weight: 500; }
+#b .dir-title-group .dir-thesis { color: var(--ink-60); }
+#b .dir-badge { color: var(--oxblood); border-color: var(--oxblood); background: var(--paper-warm); font-weight: 500; }
+
+#b .panel { background: var(--paper-warm); border-color: var(--ink-22); }
+#b .panel-head { color: var(--oxblood); }
+#b .type-row { border-bottom-color: var(--ink-22); }
+#b .type-row .tr-meta { color: var(--ink-40); }
+#b .logo-zone { background: var(--paper-warm); border-color: var(--ink-22); }
+#b .editorial-detail { background: var(--paper-warm); border-color: var(--ink-22); }
+
+#b .ed-body {
+  font-family: 'Cormorant Garamond', 'Playfair Display', serif;
+  font-weight: 400;
+  font-size: 1.1875rem;
+  line-height: 1.55;
+  color: var(--ink);
+}
+#b .ed-body::first-letter {
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+  font-size: 5.5rem;
+  line-height: 0.85;
+  float: left;
+  margin: 0.05em 0.625rem 0 0;
+  color: var(--oxblood);
+  font-style: normal;
+}
+#b .ed-body em { font-style: italic; color: var(--forest); }
+#b .ed-marginalia { color: var(--ink-80); }
+#b .ed-marginalia .mg-item { border-bottom-color: var(--ink-22); }
+#b .ed-marginalia .mg-label { color: var(--oxblood); font-weight: 600; }
+
+/* Type tokens — Estate (heavier) */
+#b .t-display { font-family: 'Playfair Display', serif; font-weight: 500; font-size: 3.125rem; line-height: 1; letter-spacing: -0.022em; color: var(--forest); }
+#b .t-display em { font-style: italic; font-weight: 500; color: var(--oxblood); }
+#b .t-h2 { font-family: 'Playfair Display', serif; font-weight: 600; font-size: 1.875rem; line-height: 1.1; letter-spacing: -0.018em; color: var(--forest); }
+#b .t-lede { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 1.1875rem; line-height: 1.55; color: var(--ink-80); font-style: italic; }
+#b .t-body { font-family: 'Inter', sans-serif; font-weight: 400; font-size: 0.9375rem; line-height: 1.65; color: var(--ink-80); }
+#b .t-kicker { font-family: 'JetBrains Mono', monospace; font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--oxblood); }
+#b .t-caption { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500; font-size: 1rem; color: var(--ink-60); }
+
+/* Buttons — Estate */
+#b .btn-primary {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: var(--forest); color: var(--paper-warm);
+  padding: 0.875rem 1.625rem; border-radius: 3px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem; font-weight: 600;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  transition: background 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+  box-shadow: 0 2px 0 var(--oxblood);
+  position: relative;
+}
+#b .btn-primary:hover { background: var(--forest-deep); transform: translateY(-1px); box-shadow: 0 3px 0 var(--oxblood); }
+#b .btn-ghost {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.875rem 1.625rem; border-radius: 3px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem; font-weight: 600;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  border: 1.5px solid var(--forest); color: var(--forest);
+  background: transparent;
+}
+#b .btn-ghost:hover { background: var(--forest); color: var(--paper-warm); }
+#b .btn-link {
+  display: inline-flex; align-items: center; gap: 0.375rem;
+  color: var(--oxblood);
+  font-family: 'Playfair Display', serif; font-style: italic;
+  font-size: 1.125rem; font-weight: 600;
+  border-bottom: 1.5px solid var(--brass); padding-bottom: 2px;
+}
+
+/* Pills — Estate (ribbon-tag styling) */
+#b .pill {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.375rem 0.875rem;
+  background: var(--forest); color: var(--paper-warm);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.625rem; font-weight: 600;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  position: relative;
+  border-radius: 0;
+  clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 50%, 100% 100%, 8px 100%, 0% 50%);
+}
+#b .pill.oxblood { background: var(--oxblood); }
+#b .pill.brass { background: var(--brass); color: var(--ink); }
+#b .pill.outline { background: transparent; border: 1.5px solid var(--forest); color: var(--forest); clip-path: none; padding: 0.375rem 0.875rem; }
+
+/* Scotch rule color binding for Estate */
+#b .scotch { color: var(--forest); }
+#b .ornament-rule { color: var(--ink-40); }
+#b .ornament-rule .glyph { color: var(--oxblood); font-weight: 500; }
+#b .hairline { color: var(--ink); }
+
+/* Logo — Estate */
+#b .logo-display {
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+  font-size: 3.25rem;
+  line-height: 1;
+  letter-spacing: -0.025em;
+  color: var(--forest);
+}
+#b .logo-display em { font-style: italic; font-weight: 500; color: var(--oxblood); }
+#b .logo-mark {
+  width: 60px; height: 60px;
+  background: var(--forest); color: var(--paper);
+  display: grid; place-items: center;
+  font-family: 'Playfair Display', serif; font-weight: 600;
+  font-size: 2.125rem; letter-spacing: -0.02em;
+  position: relative;
+  border-radius: 4px;
+  border: 1.5px solid var(--forest);
+  box-shadow: inset 0 0 0 4px var(--forest), inset 0 0 0 5px var(--brass);
+}
+
+#b .logo-stacked {
+  display: inline-flex; flex-direction: column; align-items: center; line-height: 1;
+  padding: 1rem 1.5rem;
+  border: 1.5px solid var(--forest);
+  background: var(--paper-warm);
+  position: relative;
+}
+#b .logo-stacked::before,
+#b .logo-stacked::after {
+  content: '';
+  position: absolute;
+  left: 8px; right: 8px;
+  height: 0.5px; background: var(--forest);
+}
+#b .logo-stacked::before { top: 6px; }
+#b .logo-stacked::after { bottom: 6px; }
+#b .logo-stacked .top {
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+  font-size: 1.875rem;
+  color: var(--forest);
+  letter-spacing: -0.015em;
+}
+#b .logo-stacked .top em { font-style: italic; color: var(--oxblood); font-weight: 500; }
+#b .logo-stacked .div {
+  font-family: 'Playfair Display', serif; font-style: italic;
+  color: var(--brass);
+  font-size: 0.875rem; margin: 0.375rem 0 0.25rem;
+}
+#b .logo-stacked .bottom {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 0.625rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+}
+
+#b .logo-lockup {
+  display: inline-flex; align-items: baseline; gap: 0.5rem;
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+  font-size: 1.5rem;
+  letter-spacing: -0.015em;
+  color: var(--forest);
+}
+#b .logo-lockup em { font-style: italic; color: var(--oxblood); font-weight: 500; }
+#b .logo-lockup-tag {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.625rem;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--paper-warm);
+  padding: 0.25rem 0.625rem;
+  background: var(--oxblood);
+  font-weight: 600;
+  align-self: center;
+}
+#b .domain-display {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9375rem;
+  letter-spacing: 0.02em;
+  color: var(--ink-60);
+  display: inline-flex; align-items: center; gap: 0.5rem;
+}
+#b .domain-display::before { content: '✦'; color: var(--brass); }
+#b .domain-display .u { color: var(--oxblood); font-weight: 600; }
+
+/* Hero — Estate */
+#b .hero-spec {
+  background:
+    radial-gradient(ellipse at 90% 0%, rgba(110,31,31,0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 10% 100%, rgba(196,155,79,0.10) 0%, transparent 50%),
+    var(--paper-warm);
+  border: 1px solid var(--ink-22);
+  color: var(--ink);
+}
+#b .hero-spec::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='280' height='280'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.45'/></svg>");
+  background-size: 280px 280px;
+  mix-blend-mode: multiply;
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 1;
+}
+#b .hero-spec::after {
+  content: '';
+  position: absolute;
+  top: 1.25rem; left: 1.25rem; right: 1.25rem; bottom: 1.25rem;
+  border: 1px solid var(--brass);
+  opacity: 0.35;
+  pointer-events: none;
+  z-index: 2;
+}
+#b .hero-spec .hs-top { z-index: 4; }
+#b .hero-spec .hs-body-wrap { z-index: 4; }
+#b .hero-spec .hs-kicker { color: var(--oxblood); }
+#b .hero-spec .hs-kicker::before {
+  content: '✦'; color: var(--brass); font-size: 0.875rem; margin-right: 0.125rem;
+}
+#b .hero-spec h3 { font-family: 'Playfair Display', serif; font-weight: 500; }
+#b .hero-spec h3 em { font-style: italic; font-weight: 500; color: var(--oxblood); }
+#b .hero-spec .hs-sub { color: var(--ink-60); }
+#b .hero-spec .hs-nav { color: var(--ink-60); font-weight: 500; font-family: 'Playfair Display', serif; font-style: italic; font-size: 1rem; }
+
+#b .hero-strip {
+  display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;
+  margin-top: 1.75rem; padding-top: 1.5rem;
+  border-top: 1px solid var(--ink-22);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--ink-60);
+  position: relative; z-index: 4;
+}
+#b .hero-strip-glyph { color: var(--oxblood); }
+
+/* In-use — Estate */
+#b .inuse {
+  background: var(--forest);
+  color: var(--paper-warm);
+  border: 1px solid var(--forest);
+  padding: 2.75rem 2.25rem;
+}
+#b .inuse::before {
+  content: '';
+  position: absolute;
+  top: 1rem; left: 1rem; right: 1rem; bottom: 1rem;
+  border: 1px solid var(--brass);
+  opacity: 0.3;
+  pointer-events: none;
+}
+#b .inuse::after {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.4'/></svg>");
+  background-size: 220px 220px;
+  mix-blend-mode: overlay;
+  opacity: 0.18;
+  pointer-events: none;
+}
+#b .inuse > * { position: relative; z-index: 1; }
+#b .inuse .inuse-tag { color: var(--brass); }
+#b .inuse .inuse-num {
+  font-family: 'Playfair Display', serif;
+  font-weight: 500;
+  font-size: 1.25rem;
+  font-style: italic;
+  color: var(--brass);
+  letter-spacing: 0.04em;
+}
+#b .inuse h4 em { color: var(--brass); }
+#b .inuse p { color: rgba(236,226,200,0.8); font-family: 'Cormorant Garamond', serif; font-size: 1.125rem; line-height: 1.55; font-style: italic; }
+#b .inuse-list li { color: rgba(236,226,200,0.85); }
+#b .inuse-list li::before { background: var(--brass); }
+#b .inuse .btn-link { color: var(--brass); border-bottom-color: rgba(196,155,79,0.5); }
+
+#b .cs-card { background: var(--paper-warm); border-color: var(--ink-22); border-radius: 4px; }
+#b .cs-card::before {
+  content: '';
+  position: absolute; top: 0; left: 1.5rem;
+  width: 32px; height: 4px; background: var(--oxblood);
+}
+#b .cs-logo { color: var(--forest); font-weight: 600; }
+#b .cs-metric { color: var(--forest); font-weight: 500; }
+#b .cs-metric em { color: var(--oxblood); font-weight: 500; }
+#b .cs-metric-label { color: var(--oxblood); font-weight: 600; opacity: 1; }
+#b .cs-desc { color: var(--ink-80); font-family: 'Cormorant Garamond', serif; font-size: 1.0625rem; font-style: italic; line-height: 1.5; }
+
+/* ====================================================================
+   ===== VARIANT 01·C · ATELIER  =======================================
+   The couture studio. Lighter weight, hairlines, lots of whitespace,
+   pearl paper, sage cool, italic-forward. Hermès Petit H / Aman.
+   Pearl #F7F2E5 · Forest soft #1A4A38 · Sage #B6C7BC · Brass pale #D6BB85
+   ==================================================================== */
+
+#c {
+  --ink: #1B1A14;
+  --ink-80: rgba(27,26,20,0.78);
+  --ink-60: rgba(27,26,20,0.58);
+  --ink-40: rgba(27,26,20,0.38);
+  --ink-22: rgba(27,26,20,0.18);
+  --ink-12: rgba(27,26,20,0.1);
+  --pearl: #F7F2E5;
+  --pearl-deep: #F1EBDB;
+  --pearl-warm: #FBF8EE;
+  --forest: #1A4A38;
+  --forest-deep: #0E2F22;
+  --sage: #B6C7BC;
+  --sage-deep: #6F8A78;
+  --brass: #D6BB85;
+  --brass-deep: #A0865A;
+  background: var(--pearl);
+  color: var(--ink);
+  position: relative;
+}
+#c::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='420' height='420'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.55' numOctaves='1' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.3 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  background-size: 420px 420px;
+  opacity: 0.35;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+#c > * { position: relative; }
+#c .dir-head { border-bottom: none; }
+#c .dir-index {
+  font-family: 'Playfair Display', serif;
+  font-weight: 300;
+  color: var(--forest);
+  letter-spacing: -0.05em;
+}
+#c .dir-index .letter { color: var(--brass-deep); font-style: italic; font-weight: 400; }
+#c .dir-title-group .dir-kicker { color: var(--brass-deep); }
+#c .dir-title-group h2 { font-weight: 300; letter-spacing: -0.025em; }
+#c .dir-title-group h2 em { color: var(--forest); font-weight: 400; }
+#c .dir-title-group .dir-thesis { color: var(--ink-60); }
+#c .dir-badge { color: var(--forest); border-color: var(--ink-22); background: var(--pearl-warm); font-weight: 500; }
+
+#c .panel { background: var(--pearl-warm); border-color: var(--ink-22); }
+#c .panel-head { color: var(--forest); }
+#c .type-row { border-bottom: 1px solid var(--ink-12); border-bottom-style: solid; }
+#c .type-row .tr-meta { color: var(--ink-40); }
+#c .logo-zone { background: var(--pearl-warm); border-color: var(--ink-22); }
+#c .editorial-detail { background: var(--pearl-warm); border-color: var(--ink-22); }
+
+#c .ed-body {
+  font-family: 'Playfair Display', serif;
+  font-weight: 300;
+  font-size: 1.1875rem;
+  line-height: 1.65;
+  color: var(--ink);
+}
+#c .ed-body::first-letter {
+  font-family: 'Playfair Display', serif;
+  font-weight: 300;
+  font-size: 6rem;
+  line-height: 0.85;
+  float: left;
+  margin: 0.05em 0.75rem 0 0;
+  color: var(--forest);
+  font-style: italic;
+}
+#c .ed-body em { font-style: italic; color: var(--brass-deep); font-weight: 400; }
+#c .ed-marginalia { color: var(--ink-80); }
+#c .ed-marginalia .mg-item { border-bottom: 1px solid var(--ink-12); }
+#c .ed-marginalia .mg-label { color: var(--brass-deep); letter-spacing: 0.18em; font-weight: 500; }
+
+/* Type tokens — Atelier (lighter, more italic) */
+#c .t-display {
+  font-family: 'Playfair Display', serif;
+  font-weight: 300;
+  font-size: 3.5rem;
+  line-height: 0.98;
+  letter-spacing: -0.025em;
+  color: var(--forest);
+}
+#c .t-display em { font-style: italic; font-weight: 400; color: var(--brass-deep); }
+#c .t-h2 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+  font-size: 1.875rem;
+  line-height: 1.12;
+  letter-spacing: -0.018em;
+  color: var(--forest);
+}
+#c .t-h2 em { font-style: italic; font-weight: 400; }
+#c .t-lede {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.1875rem;
+  line-height: 1.55;
+  color: var(--ink-60);
+}
+#c .t-body { font-family: 'Inter', sans-serif; font-weight: 300; font-size: 0.9375rem; line-height: 1.7; color: var(--ink-80); }
+#c .t-kicker {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--brass-deep);
+}
+#c .t-caption { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 400; font-size: 1.0625rem; color: var(--ink-60); }
+
+/* Buttons — Atelier (hairline, soft) */
+#c .btn-primary {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: var(--forest); color: var(--pearl-warm);
+  padding: 0.875rem 1.625rem; border-radius: 999px;
+  font-size: 0.8125rem; font-weight: 400;
+  letter-spacing: 0.04em;
+  transition: background 220ms ease, transform 220ms ease;
+}
+#c .btn-primary:hover { background: var(--forest-deep); transform: translateY(-1px); }
+#c .btn-ghost {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.875rem 1.625rem; border-radius: 999px;
+  font-size: 0.8125rem; font-weight: 400;
+  letter-spacing: 0.04em;
+  border: 0.5px solid var(--forest); color: var(--forest);
+  background: transparent;
+}
+#c .btn-ghost:hover { background: var(--forest); color: var(--pearl-warm); }
+#c .btn-link {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  color: var(--forest);
+  font-family: 'Playfair Display', serif; font-style: italic;
+  font-size: 1.1875rem; font-weight: 400;
+  border-bottom: 0.5px solid var(--brass);
+  padding-bottom: 3px;
+}
+
+/* Pills — Atelier (hairline outlines) */
+#c .pill {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.4375rem 0.875rem; border-radius: 999px;
+  background: transparent; color: var(--forest);
+  border: 0.5px solid var(--forest);
+  font-size: 0.6875rem; font-weight: 500;
+  letter-spacing: 0.12em; text-transform: uppercase;
+}
+#c .pill::before { content: ''; width: 5px; height: 5px; border-radius: 999px; background: var(--brass); }
+#c .pill.brass { color: var(--brass-deep); border-color: var(--brass); }
+#c .pill.brass::before { background: var(--brass); }
+#c .pill.solid { background: var(--forest); color: var(--pearl-warm); border-color: var(--forest); }
+#c .pill.solid::before { background: var(--brass); }
+
+/* Logo — Atelier */
+#c .logo-display {
+  font-family: 'Playfair Display', serif;
+  font-weight: 300;
+  font-size: 4rem;
+  line-height: 1;
+  letter-spacing: -0.035em;
+  color: var(--forest);
+}
+#c .logo-display em { font-style: italic; font-weight: 400; color: var(--brass-deep); }
+#c .logo-mark {
+  width: 64px; height: 64px;
+  background: transparent; color: var(--forest);
+  display: grid; place-items: center;
+  font-family: 'Playfair Display', serif; font-weight: 300;
+  font-size: 2.25rem; letter-spacing: -0.02em;
+  position: relative;
+  border-radius: 50%;
+  border: 0.5px solid var(--forest);
+}
+#c .logo-mark::after {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border: 0.5px solid var(--brass);
+  border-radius: 50%;
+  opacity: 0.7;
+}
+#c .logo-mark .glyph { position: relative; }
+#c .logo-mark .glyph em { font-style: italic; }
+
+#c .logo-stacked {
+  display: inline-flex; flex-direction: column; align-items: center; gap: 0.625rem;
+  line-height: 1;
+}
+#c .logo-stacked .top {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 300;
+  font-size: 2.5rem;
+  color: var(--forest);
+  letter-spacing: -0.025em;
+}
+#c .logo-stacked .div {
+  width: 36px; height: 0.5px; background: var(--brass);
+}
+#c .logo-stacked .bottom {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 0.625rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--brass-deep);
+}
+
+#c .logo-lockup {
+  display: inline-flex; align-items: baseline; gap: 0.5rem;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 300;
+  font-size: 1.875rem;
+  letter-spacing: -0.025em;
+  color: var(--forest);
+}
+#c .logo-lockup em { font-style: italic; color: var(--brass-deep); font-weight: 400; }
+#c .logo-lockup-tag {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.625rem;
+  letter-spacing: 0.32em; text-transform: uppercase;
+  color: var(--brass-deep);
+  padding: 0.25rem 0;
+  border-bottom: 0.5px solid var(--brass);
+  font-weight: 500;
+  align-self: flex-end;
+}
+#c .domain-display {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.125rem;
+  letter-spacing: -0.005em;
+  color: var(--ink-60);
+  display: inline-flex; align-items: center; gap: 0.625rem;
+}
+#c .domain-display::before { content: '◇'; color: var(--brass-deep); font-size: 0.75rem; font-style: normal; }
+#c .domain-display .u { color: var(--forest); }
+
+/* Hero — Atelier */
+#c .hero-spec {
+  background:
+    radial-gradient(ellipse at 20% 100%, rgba(214,187,133,0.10) 0%, transparent 55%),
+    radial-gradient(ellipse at 100% 0%, rgba(182,199,188,0.14) 0%, transparent 50%),
+    var(--pearl-warm);
+  border: 0.5px solid var(--ink-22);
+  color: var(--ink);
+  padding: 3.5rem 3rem;
+}
+#c .hero-spec::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='320' height='320'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='1' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.4 0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.35'/></svg>");
+  background-size: 320px 320px;
+  mix-blend-mode: multiply;
+  opacity: 0.4;
+  pointer-events: none;
+  z-index: 1;
+}
+#c .hero-spec::after {
+  content: '◇';
+  position: absolute;
+  top: 1.5rem; right: 2rem;
+  font-size: 1.25rem;
+  color: var(--brass-deep);
+  opacity: 0.5;
+  z-index: 4;
+}
+#c .hero-spec .hs-top { z-index: 4; }
+#c .hero-spec .hs-body-wrap { z-index: 4; }
+#c .hero-spec .hs-kicker { color: var(--brass-deep); }
+#c .hero-spec .hs-kicker::before {
+  content: '◇'; color: var(--brass-deep); font-size: 0.75rem; opacity: 0.7;
+}
+#c .hero-spec h3 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 300;
+  letter-spacing: -0.028em;
+}
+#c .hero-spec h3 em { font-style: italic; font-weight: 400; color: var(--brass-deep); }
+#c .hero-spec .hs-sub {
+  color: var(--ink-60);
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 400;
+}
+#c .hero-spec .hs-nav { color: var(--ink-60); font-weight: 400; font-family: 'Inter', sans-serif; font-size: 0.75rem; letter-spacing: 0.16em; text-transform: uppercase; }
+
+#c .hero-strip {
+  display: flex; align-items: center; gap: 2rem; flex-wrap: wrap;
+  margin-top: 2rem; padding-top: 1.75rem;
+  border-top: 0.5px solid var(--ink-22);
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 0.9375rem;
+  color: var(--ink-60);
+  position: relative; z-index: 4;
+}
+#c .hero-strip-glyph { color: var(--brass-deep); font-style: normal; }
+
+/* In-use — Atelier */
+#c .inuse {
+  background: var(--forest);
+  color: var(--pearl-warm);
+  border: 1px solid var(--forest);
+}
+#c .inuse::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 90% 90%, rgba(214,187,133,0.16) 0%, transparent 55%),
+    radial-gradient(ellipse at 0% 0%, rgba(182,199,188,0.10) 0%, transparent 50%);
+  pointer-events: none;
+}
+#c .inuse::after {
+  content: '◇';
+  position: absolute; top: 1.5rem; right: 2rem;
+  font-size: 1rem;
+  color: var(--brass);
+  opacity: 0.6;
+}
+#c .inuse > * { position: relative; }
+#c .inuse .inuse-tag { color: var(--brass); letter-spacing: 0.22em; }
+#c .inuse .inuse-num { color: var(--brass); opacity: 0.7; font-style: italic; font-weight: 300; }
+#c .inuse h4 { font-weight: 400; }
+#c .inuse h4 em { color: var(--brass); font-weight: 400; }
+#c .inuse p { color: rgba(247,242,229,0.78); font-family: 'Playfair Display', serif; font-style: italic; font-weight: 300; font-size: 1.125rem; line-height: 1.6; }
+#c .inuse-list li { color: rgba(247,242,229,0.86); font-weight: 300; }
+#c .inuse-list li::before { background: var(--brass); width: 12px; height: 0.5px; }
+#c .inuse .btn-link { color: var(--brass); border-bottom-color: var(--brass); }
+
+#c .cs-card { background: var(--pearl-warm); border: 0.5px solid var(--ink-22); }
+#c .cs-logo { color: var(--forest); font-weight: 400; font-style: italic; font-size: 1.25rem; }
+#c .cs-metric { color: var(--forest); font-weight: 300; }
+#c .cs-metric em { color: var(--brass-deep); font-weight: 400; }
+#c .cs-metric-label { color: var(--ink-40); letter-spacing: 0.18em; }
+#c .cs-desc { color: var(--ink-80); }
+
+/* ====================================================================
+   ===== COMPARE  ======================================================
+   ==================================================================== */
+.compare {
+  background: var(--shell-bg);
+  color: var(--shell-ink);
+  padding: clamp(4rem, 9vw, 6rem) 0;
+  border-top: 1px solid var(--shell-line);
+  position: relative;
+  overflow: hidden;
+}
+.compare::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    radial-gradient(rgba(205,170,107,0.05) 1px, transparent 1px);
+  background-size: 22px 22px;
+  background-position: 0 0;
+  opacity: 0.6;
+  pointer-events: none;
+}
+.compare-inner { max-width: var(--container); margin: 0 auto; padding: 0 var(--gutter); position: relative; }
+.compare-head {
+  display: grid; grid-template-columns: 1fr; gap: 2rem;
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--shell-line);
+}
+@media (min-width: 900px) { .compare-head { grid-template-columns: 1fr 1fr; gap: 4rem; align-items: end; } }
+.compare-head .ch-kicker {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem; font-weight: 500;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--shell-muted);
+  margin-bottom: 1.25rem;
+  display: inline-flex; align-items: center; gap: 0.75rem;
+}
+.compare-head .ch-kicker::before {
+  content: ''; width: 20px; height: 1px; background: currentColor;
+}
+.compare-head h2 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 300;
+  font-size: clamp(2rem, 4.2vw, 3.25rem);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+}
+.compare-head h2 em { font-style: italic; color: var(--shell-brass); font-weight: 400; }
+.compare-head p { color: var(--shell-muted); font-size: 1.0625rem; line-height: 1.6; }
+
+.compare-grid {
+  display: grid; grid-template-columns: 1fr; gap: 1rem;
+}
+@media (min-width: 900px) { .compare-grid { grid-template-columns: repeat(3, 1fr); } }
+
+.compare-card {
+  border: 1px solid var(--shell-line);
+  border-radius: 14px;
+  padding: 1.75rem;
+  background: rgba(242,236,224,0.025);
+  display: flex; flex-direction: column; gap: 1rem;
+  transition: transform 200ms ease, border-color 200ms ease;
+  position: relative; overflow: hidden;
+}
+.compare-card::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='1' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.05 0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.5'/></svg>");
+  background-size: 240px 240px;
+  mix-blend-mode: overlay;
+  opacity: 0.5;
+  pointer-events: none;
+}
+.compare-card > * { position: relative; }
+.compare-card:hover { transform: translateY(-3px); border-color: var(--shell-brass); }
+.compare-card-head {
+  display: flex; align-items: center; justify-content: space-between;
+}
+.compare-card .cc-letter {
+  font-family: 'Playfair Display', serif;
+  font-weight: 300;
+  font-size: 3.5rem; line-height: 0.85;
+  letter-spacing: -0.04em;
+  color: var(--shell-ink);
+}
+.compare-card .cc-letter em { font-style: italic; color: var(--shell-brass); }
+.compare-card .cc-chips {
+  display: flex; gap: 0.25rem;
+}
+.compare-card .cc-chip {
+  width: 18px; height: 18px; border-radius: 4px;
+  border: 1px solid rgba(255,255,255,0.12);
+}
+.compare-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+  font-size: 1.625rem;
+  line-height: 1.1;
+  letter-spacing: -0.018em;
+  color: var(--shell-ink);
+  margin-top: 0.5rem;
+}
+.compare-card h3 em { font-style: italic; color: var(--shell-brass); }
+.compare-card p {
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--shell-muted);
+}
+.compare-card .cc-meta {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-top: auto;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--shell-line);
+}
+.compare-card .cc-meta div { color: var(--shell-muted); }
+.compare-card .cc-meta strong { color: var(--shell-ink); font-weight: 500; display: block; margin-top: 0.25rem; letter-spacing: 0.04em; text-transform: none; font-family: 'Inter', sans-serif; font-size: 0.8125rem; }
+
+/* ====================================================================
+   ===== CLOSE  ========================================================
+   ==================================================================== */
+.close {
+  max-width: var(--container); margin: 0 auto;
+  padding: clamp(3rem, 6vw, 5rem) var(--gutter);
+  display: grid; grid-template-columns: 1fr; gap: 2rem;
+  border-top: 1px solid var(--shell-line);
+}
+@media (min-width: 900px) { .close { grid-template-columns: 1fr auto; align-items: center; } }
+.close-copy h3 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  margin-bottom: 0.75rem;
+}
+.close-copy h3 em { font-style: italic; color: var(--shell-brass); }
+.close-copy p {
+  font-size: 1rem; line-height: 1.6;
+  color: var(--shell-muted);
+  max-width: 56ch;
+}
+.close-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+.close-btn {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  border: 1px solid var(--shell-line-strong);
+  border-radius: 999px;
+  font-size: 0.8125rem; font-weight: 500;
+  color: var(--shell-ink);
+  transition: background 180ms ease, border-color 180ms ease;
+}
+.close-btn:hover { background: rgba(242,236,224,0.05); border-color: var(--shell-ink); }
+.close-btn.primary {
+  background: var(--shell-brass); color: #0B0A07; border-color: var(--shell-brass);
+}
+.close-btn.primary:hover { background: #B89556; border-color: #B89556; }
+
+.end {
+  max-width: var(--container); margin: 0 auto;
+  padding: 2rem var(--gutter) 3rem;
+  display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+  flex-wrap: wrap;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--shell-muted);
+  border-top: 1px solid var(--shell-line);
+}
+
+/* Responsive tightening */
+@media (max-width: 640px) {
+  .type-row { grid-template-columns: 70px 1fr; gap: 1rem; }
+  .hero-spec { padding: 2rem 1.5rem; min-height: 460px; }
+  #a .logo-display, #b .logo-display, #c .logo-display { font-size: 2.5rem; }
+  #a .t-display, #b .t-display, #c .t-display { font-size: 2.25rem; }
+  .ed-body::first-letter, #b .ed-body::first-letter, #c .ed-body::first-letter { font-size: 4rem; }
+  .cs-grid { grid-template-columns: 1fr; }
+  .editorial-detail { padding: 1.5rem; }
+  .variant-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- =================================================
+     SHELL MASTHEAD
+     ================================================= -->
+<header class="shell-mast">
+  <div class="shell-mast-inner">
+    <div class="shell-brand">
+      Native<span class="period">.</span>
+      <span class="shell-brand-tag">Standard · v4 · 03 variants</span>
+    </div>
+    <nav class="shell-nav" aria-label="Jump to variant">
+      <a href="#a"><span class="dot" style="background:#0B3D2E"></span><span>01·A Letterpress</span></a>
+      <a href="#b"><span class="dot" style="background:#6E1F1F"></span><span>01·B Estate</span></a>
+      <a href="#c"><span class="dot" style="background:#D6BB85"></span><span>01·C Atelier</span></a>
+      <a href="#compare"><span class="dot" style="background:#CDAA6B"></span><span>Compare</span></a>
+    </nav>
+  </div>
+</header>
+
+<!-- =================================================
+     COVER
+     ================================================= -->
+<section class="cover">
+  <div class="cover-grid">
+    <div>
+      <div class="cover-kicker">Direction 01 · Native Standard · Three variants</div>
+      <h1>
+        One <em>family.</em><br>
+        Three temperatures of <em>Standard.</em>
+      </h1>
+      <p class="cover-lede">
+        Direction 01 was the favorite — the editorial institution. This is the <em>same family</em>, deepened. Each variant
+        keeps Playfair + Inter, forest, and brass at the center, then pushes texture in a different direction:
+        <strong>Letterpress</strong> sharpens the original, <strong>Estate</strong> weights it like a heritage house,
+        <strong>Atelier</strong> opens it like a couture studio. Pick the one that matches the room.
+      </p>
+      <div class="cover-meta">
+        <div class="cover-meta-item">
+          <div class="num">01</div>
+          <div class="label">Direction</div>
+        </div>
+        <div class="cover-meta-item">
+          <div class="num">03</div>
+          <div class="label">Variants</div>
+        </div>
+        <div class="cover-meta-item">
+          <div class="num"><em>1</em></div>
+          <div class="label">Decision</div>
+        </div>
+      </div>
+    </div>
+    <aside class="cover-aside">
+      <div class="cover-aside-title"><span>Standard, three temperatures</span><span>v4</span></div>
+      <div class="variant-grid">
+        <a href="#a" class="variant-chip">
+          <span class="vc-letter">01<em>A</em></span>
+          <span class="vc-name">Letterpress</span>
+          <span class="vc-tag">Refined</span>
+        </a>
+        <a href="#b" class="variant-chip">
+          <span class="vc-letter">01<em>B</em></span>
+          <span class="vc-name">Estate</span>
+          <span class="vc-tag">Heritage</span>
+        </a>
+        <a href="#c" class="variant-chip">
+          <span class="vc-letter">01<em>C</em></span>
+          <span class="vc-name">Atelier</span>
+          <span class="vc-tag">Couture</span>
+        </a>
+      </div>
+      <p class="cover-thesis">
+        Same family. Different weight, different paper, different room.
+      </p>
+    </aside>
+  </div>
+</section>
+
+<!-- =================================================
+     VARIANT 01·A — LETTERPRESS (the original, sharpened)
+     ================================================= -->
+<section id="a" class="dir">
+  <div class="dir-inner">
+
+    <div class="dir-head">
+      <div class="dir-index">01<span class="letter">A</span></div>
+      <div class="dir-title-group">
+        <div class="dir-kicker">Variant 01·A · Letterpress</div>
+        <h2>The original. <em>Set in metal, printed on paper.</em></h2>
+        <p class="dir-thesis t-body">
+          Direction 01 sharpened. We kept the palette and the voice — Playfair Display set lightly,
+          Inter for the daily work, a brass period after the wordmark — and added what was missing:
+          a real paper grain on every surface, drop caps in the longer reads, a Scotch rule between
+          sections, and a Standard monogram for marks where the wordmark won't fit. The trusted
+          advisor in the room — quiet, confident, and unmistakably hand-set.
+        </p>
+      </div>
+      <span class="dir-badge">Editorial · Letterpress</span>
+    </div>
+
+    <!-- Hero + right column -->
+    <div class="block block-2">
+      <div class="hero-spec">
+        <div class="hs-top">
+          <div style="display:flex; align-items:baseline; gap:0.625rem;">
+            <span class="logo-lockup">Native<span class="period">.</span></span>
+            <span class="logo-lockup-tag">NativeBuilt.com</span>
+          </div>
+          <div class="hs-nav">
+            <span>Build</span>
+            <span>Modernize</span>
+            <span>Playbook</span>
+            <span>Team</span>
+          </div>
+        </div>
+        <div class="hs-body-wrap">
+          <div class="hs-kicker">The operator team · Est. MMXXVI</div>
+          <h3>Stop waiting for bandwidth. <em>Start building native.</em></h3>
+          <p class="hs-sub">
+            Native partners with founders and operators to build new companies and modernize existing ones,
+            with the <em>strategy, structure, and systems</em> that make AI-Native the default, not the aspiration.
+          </p>
+          <div class="hs-actions">
+            <a href="#" class="btn-primary">
+              Map your growth plan
+              <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
+            <a href="#" class="btn-ghost">Read the playbook</a>
+          </div>
+          <div class="hero-strip">
+            <span class="hero-strip-glyph">§</span>
+            <span>Built by operators from Wharton · Harvard · Stanford · Y Combinator · Palantir · Uber</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:grid; gap:1.75rem;">
+        <div class="panel">
+          <div class="panel-head"><span>Palette · Letterpress</span><span class="panel-meta">5 tokens</span></div>
+          <div class="swatches">
+            <div class="swatch tex" style="background:#0B3D2E; color:#FAF6EC"><span class="sw-label">Forest</span><span class="sw-hex">#0B3D2E</span></div>
+            <div class="swatch tex" style="background:#062116; color:#FAF6EC"><span class="sw-label">Forest/Deep</span><span class="sw-hex">#062116</span></div>
+            <div class="swatch tex" style="background:#B08848; color:#FAF6EC"><span class="sw-label">Brass</span><span class="sw-hex">#B08848</span></div>
+            <div class="swatch tex bordered" style="background:#F1EBDD; color:#0B0A07"><span class="sw-label">Bone</span><span class="sw-hex">#F1EBDD</span></div>
+            <div class="swatch tex" style="background:#0B0A07; color:#FAF6EC"><span class="sw-label">Ink</span><span class="sw-hex">#0B0A07</span></div>
+          </div>
+          <div style="margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px dashed var(--ink-22); font-family:'Inter',sans-serif; font-size:0.8125rem; color:var(--ink-60);">
+            <strong style="color:var(--forest); font-weight:500;">Texture:</strong> hand-laid paper grain, brass underline on the wordmark mark, scotch rule (thick-thin-thick) between sections.
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head"><span>Logo · Wordmark + Mark + Monogram</span><span class="panel-meta">Letterpress</span></div>
+          <div style="display:grid; gap:1.75rem;">
+            <div class="lz-row">
+              <div class="logo-mark">N</div>
+              <div>
+                <div class="logo-display">Native<em>.</em></div>
+                <div style="font-family:'JetBrains Mono',monospace;font-size:0.6875rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-40);margin-top:0.5rem;">Primary · Display</div>
+              </div>
+            </div>
+            <div style="display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap; padding-top:1.5rem; border-top:1px dashed var(--ink-22);">
+              <!-- Custom Standard monogram (engraved circle) -->
+              <svg class="monogram-a" viewBox="0 0 110 110" aria-hidden="true">
+                <circle cx="55" cy="55" r="52" fill="none" stroke="#0B3D2E" stroke-width="0.8" />
+                <circle cx="55" cy="55" r="46" fill="none" stroke="#B08848" stroke-width="0.5" stroke-dasharray="1.5 2"/>
+                <text x="55" y="68" text-anchor="middle" font-family="Playfair Display, serif" font-weight="500" font-size="48" fill="#0B3D2E" letter-spacing="-2">N</text>
+                <text x="55" y="22" text-anchor="middle" font-family="Inter, sans-serif" font-weight="600" font-size="6.5" fill="#0B3D2E" letter-spacing="3">EST · MMXXVI</text>
+                <text x="55" y="98" text-anchor="middle" font-family="Inter, sans-serif" font-weight="600" font-size="6.5" fill="#0B3D2E" letter-spacing="3">NATIVEBUILT.COM</text>
+                <line x1="20" y1="55" x2="30" y2="55" stroke="#B08848" stroke-width="0.6"/>
+                <line x1="80" y1="55" x2="90" y2="55" stroke="#B08848" stroke-width="0.6"/>
+              </svg>
+              <div>
+                <span class="logo-lockup">Native<span class="period">.</span></span>
+                <div style="font-family:'JetBrains Mono',monospace;font-size:0.6875rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-40);margin-top:0.5rem;">Lockup · Mark · Domain</div>
+                <div style="margin-top:0.625rem;"><span class="domain-display"><span class="u">native</span>built.com</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Editorial detail specimen -->
+    <div class="block">
+      <div class="editorial-detail">
+        <div>
+          <p class="t-kicker" style="margin-bottom:1rem;">§ The playbook · Phase one</p>
+          <p class="ed-body">
+            <em>Strategy</em> is the edge, not the AI. The AI is commodity. The strategic core
+            the AI is built on is not. We start every engagement by writing or rewriting that core —
+            the positioning, the ICP, the narrative — and only then do we install the systems that
+            <em>read</em> from it. Skip this and the rest is decoration. Hold this and the rest compounds.
+          </p>
+          <div style="margin-top:1.25rem;">
+            <a href="#" class="btn-link">Read the full playbook →</a>
+          </div>
+        </div>
+        <aside class="ed-marginalia">
+          <div class="mg-item">
+            <p class="mg-label">Phase 01</p>
+            <p>Strategic core — positioning, ICP, narrative, brand. Written as markdown.</p>
+          </div>
+          <div class="mg-item">
+            <p class="mg-label">Phase 02</p>
+            <p>Org &amp; operating model — roles, rituals, the cadence the company moves to.</p>
+          </div>
+          <div class="mg-item">
+            <p class="mg-label">Phase 03</p>
+            <p>Systems &amp; agents — installed where the business is ready, not where the hype is loudest.</p>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <!-- Scotch rule -->
+    <div class="ornament-rule" style="margin: 2.5rem 0; color: var(--ink-22);">
+      <span class="glyph" style="color: var(--brass);">❦</span>
+    </div>
+
+    <!-- Typography + Components -->
+    <div class="block block-2">
+      <div class="panel">
+        <div class="panel-head"><span>Typography · Playfair + Inter</span><span class="panel-meta">Literary</span></div>
+        <div class="type-stack">
+          <div class="type-row">
+            <span class="tr-meta">Display</span>
+            <span class="t-display">Strategy, <em>installed.</em></span>
+          </div>
+          <div class="type-row">
+            <span class="tr-meta">Heading</span>
+            <span class="t-h2">Built in order, one layer at a time.</span>
+          </div>
+          <div class="type-row">
+            <span class="tr-meta">Kicker</span>
+            <span class="t-kicker">§ The playbook · Phase one</span>
+          </div>
+          <div class="type-row">
+            <span class="tr-meta">Lede</span>
+            <span class="t-lede">Native partners with founders and operators to build new companies and modernize existing ones, with the strategy, structure, and systems that drive durable growth.</span>
+          </div>
+          <div class="type-row">
+            <span class="tr-meta">Body</span>
+            <span class="t-body">We embed inside the business. Write the strategic core. Install the loop. Stay in until the system is compounding on its own.</span>
+          </div>
+          <div class="type-row">
+            <span class="tr-meta">Caption</span>
+            <span class="t-caption">— A note from the operator team.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head"><span>Components</span><span class="panel-meta">Button · Pill · Rule</span></div>
+        <div class="components">
+          <div class="btn-row">
+            <a href="#" class="btn-primary">
+              Book a call
+              <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
+            <a href="#" class="btn-ghost">Read the playbook</a>
+          </div>
+          <div>
+            <a href="#" class="btn-link">Explore our approach →</a>
+          </div>
+          <div class="chip-row">
+            <span class="pill">Build with us</span>
+            <span class="pill">Modernize &amp; scale</span>
+            <span class="pill brass">On the cap table</span>
+          </div>
+          <!-- Scotch rule -->
+          <div style="display:grid; gap:0.625rem; padding-top:0.75rem;">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:0.6875rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-40);">Scotch rule · Section divider</div>
+            <div class="scotch" style="color: var(--forest);"></div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:0.6875rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-40); margin-top:0.5rem;">Hairline · Subtle divider</div>
+            <hr class="hairline" style="color: var(--forest);">
+          </div>
+          <div style="padding-top:1rem;border-top:1px solid var(--ink-22);">
+            <div class="t-kicker" style="margin-bottom:0.75rem;">§ Motion</div>
+            <div class="t-body">Transitions 180–220ms · ease-out. Hover lifts 1px, no hard shadows. Scroll reveals fade-up. The whole system exhales slowly.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- In-use + Cases -->
+    <div class="block block-2">
+      <div class="inuse">
+        <div class="inuse-head">
+          <span class="inuse-tag">Have an idea for a new business?</span>
+          <span class="inuse-num">01</span>
+        </div>
+        <h4>Build with <em>us.</em></h4>
+        <p>
+          Native Venture Studio builds new companies with operators. You bring the domain, distribution, or conviction.
+          We bring the team, the playbook, and the systems — and we stay on to oversee the CEO after spinout.
+        </p>
+        <ul class="inuse-list">
+          <li>For operators launching new or ancillary businesses</li>
+          <li>Shared risk and upside as a partner on the cap table</li>
+          <li>We build it with you, then spin it out with a full-time CEO</li>
+        </ul>
+        <a href="#" class="btn-link">Explore Building with us →</a>
+      </div>
+
+      <div class="cs-grid">
+        <div class="cs-card">
+          <div class="cs-top">
+            <span class="cs-logo">Goodr<em style="font-style:italic;color:var(--brass);">.</em></span>
+            <span aria-hidden="true">↗</span>
+          </div>
+          <div>
+            <div class="cs-metric"><em>20</em>x</div>
+            <div class="cs-metric-label">Revenue growth</div>
+          </div>
+          <p class="cs-desc">Scaled revenue <em style="font-style:italic;color:var(--forest);">20x in 3 years</em>.</p>
+        </div>
+        <div class="cs-card">
+          <div class="cs-top">
+            <span class="cs-logo">Grovara<em style="font-style:italic;color:var(--brass);">.</em></span>
+            <span aria-hidden="true">↗</span>
+          </div>
+          <div>
+            <div class="cs-metric"><em>7.5</em>x</div>
+            <div class="cs-metric-label">Client growth</div>
+          </div>
+          <p class="cs-desc">Grew enterprise clients <em style="font-style:italic;color:var(--forest);">7.5x in 2 years</em>.</p>
+        </div>
+        <div class="cs-card" style="grid-column: 1 / -1;">
+          <div class="cs-top">
+            <span class="cs-logo">Transformative Studio<em style="font-style:italic;color:var(--brass);">.</em></span>
+            <span aria-hidden="true">↗</span>
+          </div>
+          <div>
+            <div class="cs-metric">0 → <em>3</em></div>
+            <div class="cs-metric-label">Companies built from zero</div>
+          </div>
+          <p class="cs-desc">Took <em style="font-style:italic;color:var(--forest);">3 companies from 0 to 1</em> in 2 years, with embedded operator teams and installed systems.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- =================================================
+     VARIANT 01·B — ESTATE (heritage house)
+     ================================================= -->
+<section id="b" class="dir">
+  <div class="dir-inner">
+
+    <div class="dir-head">
+      <div class="dir-index">01<span class="letter">B</span></div>
+      <div class="dir-title-group">
+        <div class="dir-kicker">Variant 01·B · Estate</div>
+        <h2>The house. <em>Generational, sealed, weighted.</em></h2>
+        <p class="dir-thesis t-body">
+          What if Native were a hundred-year-old house? Heavier weight Playfair, Cormorant Garamond italic for the
+          longer reads, an oxblood accent that lands like a wax seal next to brass, and ribbon-tag pills with notched
+          ends. Every panel framed with a fine inset rule. Cards open with a deep oxblood top-stripe — the way a
+          private wealth firm or a publishing house signs the bottom of a page. For buyers who want to feel like they
+          just walked into the office that's been doing this for three decades.
+        </p>
+      </div>
+      <span class="dir-badge">Heritage · House</span>
+    </div>
+
+    <div class="block block-2">
+      <div class="hero-spec">
+        <div class="hs-top">
+          <div style="display:flex; align-items:baseline; gap:0.625rem;">
+            <span class="logo-lockup"><em>Native</em></span>
+            <span class="logo-lockup-tag">No. 01</span>
+          </div>
+          <div class="hs-nav">
+            <span><em>Build</em></span>
+            <span><em>Modernize</em></span>
+            <span><em>House</em></span>
+          </div>
+        </div>
+        <div class="hs-body-wrap">
+          <div class="hs-kicker">The Native Estate · Issue 01 · Spring</div>
+          <h3>An operator team, <em>set in stone.</em></h3>
+          <p class="hs-sub">
+            The companies that will matter in 2028 are being built this year. We're the operator team
+            that gets you there — strategy first, the operating model installed, the systems running,
+            the loop closed. The order is the product.
+          </p>
+          <div class="hs-actions">
+            <a href="#" class="btn-primary">
+              Map the plan
+              <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
+            <a href="#" class="btn-ghost">The playbook</a>
+          </div>
+          <div class="hero-strip">
+            <span class="hero-strip-glyph">✦</span>
+            <span>Wharton · Harvard · Stanford</span>
+            <span class="hero-strip-glyph">✦</span>
+            <span>Y Combinator · Palantir</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:grid; gap:1.75rem;">
+        <div class="panel">
+          <div class="panel-head"><span>Palette · Estate</span><span class="panel-meta">6 tokens</span></div>
+          <div class="swatches" style="grid-template-columns: repeat(6, 1fr);">
+            <div class="swatch tex" style="background:#0A3025; color:#ECE2C8"><span class="sw-label">Forest</span><span class="sw-hex">#0A3025</span></div>
+            <div class="swatch tex" style="background:#051811; color:#ECE2C8"><span class="sw-label">Forest/Deep</span><span class="sw-hex">#051811</span></div>
+            <div class="swatch tex" style="background:#6E1F1F; color:#ECE2C8"><span class="sw-label">Oxblood</span><span class="sw-hex">#6E1F1F</span></div>
+            <div class="swatch tex" style="background:#C49B4F; color:#100C04"><span class="sw-label">Brass</span><span class="sw-hex">#C49B4F</span></div>
+            <div class="swatch tex bordered" style="background:#ECE2C8; color:#100C04"><span class="sw-label">Antique</span><span class="sw-hex">#ECE2C8</span></div>
+            <div class="swatch tex" style="background:#100C04; color:#ECE2C8"><span class="sw-label">Ink</span><span class="sw-hex">#100C04</span></div>
+          </div>
+          <div style="margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid var(--ink-22); font-family:'Inter',sans-serif; font-size:0.8125rem; color:var(--ink-60);">
+            <strong style="color:var(--oxblood); font-weight:600;">Texture:</strong> deep paper grain, framed inset rules, Cormorant italic body, ribbon-tag pills, a wax-seal oxblood accent.
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head"><span>Logo · House marks</span><span class="panel-meta">Estate</span></div>
+          <div style="display:grid; gap:1.75rem;">
+            <div class="lz-row">
+              <div class="logo-mark">N</div>
+              <div>
+                <div class="logo-display">Nativ<em>e</em>.</div>
+                <div style="font-family:'JetBrains Mono',monospace;font-size:0.6875rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--oxblood);margin-top:0.5rem;font-weight:600;">Primary · Cabinet display</div>
+              </div>
+            </div>
+            <div style="display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap; padding-top:1.5rem; border-top:1px dashed var(--ink-22);">
+              <!-- Estate crest -->
+              <svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true">
+                <circle cx="60" cy="60" r="56" fill="none" stroke="#0A3025" stroke-width="1.5"/>
+                <circle cx="60" cy="60" r="51" fill="none" stroke="#0A3025" stroke-width="0.5"/>
+                <circle cx="60" cy="60" r="44" fill="none" stroke="#C49B4F" stroke-width="0.5"/>
+                <text x="60" y="74" text-anchor="middle" font-family="Playfair Display, serif" font-weight="600" font-size="50" fill="#0A3025" letter-spacing="-2">N</text>
+                <text x="60" y="20" text-anchor="middle" font-family="Inter, sans-serif" font-weight="700" font-size="6.2" fill="#6E1F1F" letter-spacing="2.4">THE NATIVE ESTATE</text>
+                <text x="60" y="106" text-anchor="middle" font-family="Inter, sans-serif" font-weight="700" font-size="6.2" fill="#6E1F1F" letter-spacing="2.4">EST · MMXXVI</text>
+                <line x1="14" y1="60" x2="26" y2="60" stroke="#C49B4F" stroke-width="0.7"/>
+                <line x1="94" y1="60" x2="106" y2="60" stroke="#C49B4F" stroke-width="0.7"/>
+                <path d="M 50 38 L 60 30 L 70 38" stroke="#6E1F1F" stroke-width="0.8" fill="none"/>
+                <path d="M 50 82 L 60 90 L 70 82" stroke="#6E1F1F" stroke-width="0.8" fill="none"/>
+              </svg>
+              <div class="logo-stacked">
+                <span class="top"><em>Native</em></span>
+                <span class="div">— ✦ —</span>
+                <span class="bottom">House · Est. MMXXVI</span>
+              </div>
+            </div>
+            <div style="display:flex; align-items:center; gap:1.25rem; flex-wrap:wrap;">
+              <span class="logo-lockup"><em>Native</em></span>
+              <span class="logo-lockup-tag">House · No. 01</span>
+              <span class="domain-display"><span class="u">native</span>built.com</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Editorial detail -->
+    <div class="block">
+      <div class="editorial-detail">
+        <div>
+          <p class="t-kicker" style="margin-bottom:1rem;">✦ A note from the partners</p>
+          <p class="ed-body">
+            We do not deliver decks. We do not hand over artifacts. We <em>install</em> the operating model
+            and stay in until it is running on its own. There are simpler businesses, faster businesses,
+            cheaper businesses. There are not better ones. The order is the product, and the order is hard
+            to hold — which is why we hold it for you.
+          </p>
+          <div style="margin-top:1.5rem; padding-top:1.5rem; border-top:1px solid var(--ink-22); display:flex; align-items:center; gap:1.25rem;">
+            <div style="font-family:'Playfair Display',serif; font-style:italic; font-weight:500; color:var(--oxblood); font-size:1.125rem;">— The Native partners</div>
+            <div style="font-family:'JetBrains Mono',monospace; font-size:0.6875rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-40);">House · Spring · MMXXVI</div>
+          </div>
+        </div>
+        <aside class="ed-marginalia">
+          <div class="mg-item">
+            <p class="mg-label">A · Build with us</p>
+            <p>For operators launching a new or ancillary company. We come on the cap table.</p>
+          </div>
+          <div class="mg-item">
+            <p class="mg-label">B · Modernize &amp; scale</p>
+            <p>For 7–9 figure CEOs. Strategy first, then the systems underneath.</p>
+          </div>
+          <div class="mg-item">
+            <p class="mg-label">C · The order</p>
+            <p>Strategic core. Org &amp; operating model. Systems &amp; agents. The loop.</p>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <div class="ornament-rule" style="margin: 2.5rem 0; color: var(--ink-22);">
+      <span class="glyph" style="color: var(--oxblood);">✦ ❦ ✦</span>
+    </div>
+
+    <div class="block block-2">
+      <div class="panel">
+        <div class="panel-head"><span>Typography · Playfair + Cormorant + Inter</span><span class="panel-meta">Cabinet</span></div>
+        <div class="type-stack">
+          <div class="type-row">
+            <span class="tr-meta">Display</span>
+            <span class="t-display">Set in <em>stone.</em></span>
+          </div>
+          <div class="type-row">
+            <span class="tr-meta">Heading</span>
+            <span class="t-h2">The order is the product.</span>
+          </div>
+          <div class="type-row">
+            <span class="tr-meta">Kicker</span>
+            <span class="t-kicker">✦ Issue No. 01 · Spring</span>
+          </div>
+          <div class="type-row">
+            <span class="tr-meta">Lede</span>
+            <span class="t-lede">"We embed inside the business, rebuild the strategic core, and install the operating model that compounds. Every week the company gets sharper."</span>
+          </div>
+          <div class="type-row">
+            <span class="tr-meta">Body</span>
+            <span class="t-body">Strategic core. Org &amp; operating model. Systems &amp; agents. The loop. Skip a layer and the rest is decoration.</span>
+          </div>
+          <div class="type-row">
+            <span class="tr-meta">Caption</span>
+            <span class="t-caption">— A note from the partners.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head"><span>Components</span><span class="panel-meta">Estate</span></div>
+        <div class="components">
+          <div class="btn-row">
+            <a href="#" class="btn-primary">Book a call</a>
+            <a href="#" class="btn-ghost">The playbook</a>
+          </div>
+          <div>
+            <a href="#" class="btn-link">An invitation, in private →</a>
+          </div>
+          <div class="chip-row">
+            <span class="pill">Build with us</span>
+            <span class="pill oxblood">Modernize &amp; scale</span>
+            <span class="pill brass">House membership</span>
+            <span class="pill outline">By referral</span>
+          </div>
+          <div style="display:grid; gap:0.625rem; padding-top:0.75rem;">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:0.6875rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-40); font-weight:600;">Scotch rule · Section seal</div>
+            <div class="scotch" style="color: var(--forest);"></div>
+            <div class="ornament-rule" style="margin: 0.5rem 0; color: var(--ink-22); font-size:0.875rem;">
+              <span class="glyph" style="color: var(--oxblood);">✦</span>
+            </div>
+          </div>
+          <div style="padding-top:1rem;border-top:1px solid var(--ink-22);">
+            <div class="t-kicker" style="margin-bottom:0.75rem;">✦ Motion</div>
+            <div class="t-body">Transitions 220–280ms · ease. Cards open from a wax-seal oxblood top stripe. Scotch rules fade in. Buttons sink 1px on press, like pressing into letterpress paper.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block block-2">
+      <div class="inuse">
+        <div class="inuse-head">
+          <span class="inuse-tag">Scaling an existing company?</span>
+          <span class="inuse-num">No. <em style="font-style:italic;">02</em></span>
+        </div>
+        <h4>Modernize &amp; scale, <em>at the pace the business can absorb.</em></h4>
+        <p>
+          Most growing companies know they should be AI-Native. Very few have the operator team to get there
+          without breaking what's already working. We embed, rebuild the core, and take you native.
+        </p>
+        <ul class="inuse-list">
+          <li>For CEOs and operators of growing 7–9 figure businesses</li>
+          <li>Strategy first. Then channels. Then systems. Then the loop.</li>
+          <li>An embedded operator with a full build team behind them</li>
+        </ul>
+        <a href="#" class="btn-link">Read the engagement →</a>
+      </div>
+
+      <div class="cs-grid">
+        <div class="cs-card">
+          <div class="cs-top">
+            <span class="cs-logo">Goodr</span>
+            <span aria-hidden="true">↗</span>
+          </div>
+          <div>
+            <div class="cs-metric"><em>20</em>x</div>
+            <div class="cs-metric-label">Revenue growth</div>
+          </div>
+          <p class="cs-desc">"Scaled revenue <em>20x in 3 years</em> with strategic core, GTM engine, and systems installed inside the business."</p>
+        </div>
+        <div class="cs-card">
+          <div class="cs-top">
+            <span class="cs-logo">Grovara</span>
+            <span aria-hidden="true">↗</span>
+          </div>
+          <div>
+            <div class="cs-metric"><em>7.5</em>x</div>
+            <div class="cs-metric-label">Client growth</div>
+          </div>
+          <p class="cs-desc">"Grew enterprise clients <em>7.5x in 2 years</em> on a compounding channel mix and embedded operator coverage."</p>
+        </div>
+        <div class="cs-card" style="grid-column: 1 / -1;">
+          <div class="cs-top">
+            <span class="cs-logo">PwC Bookkeeping Connect</span>
+            <span aria-hidden="true">↗</span>
+          </div>
+          <div>
+            <div class="cs-metric">$0 → $<em>1</em>M</div>
+            <div class="cs-metric-label">ARR in 24 months</div>
+          </div>
+          <p class="cs-desc">"0→1 inside a global firm. The operating model still runs."</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- =================================================
+     VARIANT 01·C — ATELIER (couture studio)
+     ================================================= -->
+<section id="c" class="dir">
+  <div class="dir-inner">
+
+    <div class="dir-head">
+      <div class="dir-index">01<span class="letter">C</span></div>
+      <div class="dir-title-group">
+        <div class="dir-kicker">Variant 01·C · Atelier</div>
+        <h2>The studio. <em>Hairline, italic, breathing.</em></h2>
+        <p class="dir-thesis t-body">
+          The same family at couture weight. Playfair light italic does the heavy lifting; Inter steps back to
+          a quieter 300. Hairline rules instead of Scotch. A pearl paper that's almost white, sage and pale
+          brass instead of forest and brass. More whitespace. A diamond glyph in place of the section mark.
+          For the buyer who wants the editorial DNA — but at the temperature of a fashion house, not a firm.
+        </p>
+      </div>
+      <span class="dir-badge">Couture · Atelier</span>
+    </div>
+
+    <div class="block block-2">
+      <div class="hero-spec">
+        <div class="hs-top">
+          <div style="display:flex; align-items:flex-end; gap:0.75rem;">
+            <span class="logo-lockup"><em>Native</em></span>
+            <span class="logo-lockup-tag">Atelier</span>
+          </div>
+          <div class="hs-nav">
+            <span>Build</span>
+            <span>Modernize</span>
+            <span>Atelier</span>
+          </div>
+        </div>
+        <div class="hs-body-wrap">
+          <div class="hs-kicker">◇ The atelier · By appointment</div>
+          <h3>The operator team, <em>in private practice.</em></h3>
+          <p class="hs-sub">
+            We don't deliver decks. We install the operating model and stay in until it's compounding —
+            quietly, on its own.
+          </p>
+          <div class="hs-actions">
+            <a href="#" class="btn-primary">
+              Request an introduction
+              <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
+            <a href="#" class="btn-ghost">The playbook</a>
+          </div>
+          <div class="hero-strip">
+            <span class="hero-strip-glyph">◇</span>
+            <span>An operator-led practice — Wharton, Harvard, Stanford, YC, Palantir.</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:grid; gap:1.75rem;">
+        <div class="panel">
+          <div class="panel-head"><span>Palette · Atelier</span><span class="panel-meta">5 tokens</span></div>
+          <div class="swatches">
+            <div class="swatch tex" style="background:#1A4A38; color:#FBF8EE"><span class="sw-label">Forest</span><span class="sw-hex">#1A4A38</span></div>
+            <div class="swatch tex" style="background:#B6C7BC; color:#1B1A14"><span class="sw-label">Sage</span><span class="sw-hex">#B6C7BC</span></div>
+            <div class="swatch tex" style="background:#D6BB85; color:#1B1A14"><span class="sw-label">Brass/Pale</span><span class="sw-hex">#D6BB85</span></div>
+            <div class="swatch tex bordered" style="background:#F7F2E5; color:#1B1A14"><span class="sw-label">Pearl</span><span class="sw-hex">#F7F2E5</span></div>
+            <div class="swatch tex" style="background:#1B1A14; color:#FBF8EE"><span class="sw-label">Ink</span><span class="sw-hex">#1B1A14</span></div>
+          </div>
+          <div style="margin-top: 1.25rem; padding-top: 1.25rem; border-top: 0.5px solid var(--ink-12); font-family:'Inter',sans-serif; font-size:0.8125rem; color:var(--ink-60); font-weight:300;">
+            <strong style="color:var(--brass-deep); font-weight:500; letter-spacing:0.04em;">Texture:</strong> pearl paper grain, hairline rules, a diamond glyph, Playfair light italic — the fewest moves to make the same point.
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head"><span>Logo · Atelier marks</span><span class="panel-meta">Couture</span></div>
+          <div style="display:grid; gap:1.75rem;">
+            <div class="lz-row">
+              <div class="logo-mark"><span class="glyph"><em>N</em></span></div>
+              <div>
+                <span class="logo-display"><em>Native</em></span>
+                <div style="font-family:'Inter',sans-serif;font-size:0.6875rem;letter-spacing:0.32em;text-transform:uppercase;color:var(--brass-deep);margin-top:0.5rem;font-weight:500;">Primary · Atelier</div>
+              </div>
+            </div>
+            <div style="display:flex; align-items:center; gap:1.75rem; flex-wrap:wrap; padding-top:1.5rem; border-top:0.5px solid var(--ink-12);">
+              <!-- Atelier monogram -->
+              <svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true">
+                <circle cx="60" cy="60" r="56" fill="none" stroke="#1A4A38" stroke-width="0.5"/>
+                <circle cx="60" cy="60" r="50" fill="none" stroke="#D6BB85" stroke-width="0.4"/>
+                <text x="60" y="76" text-anchor="middle" font-family="Playfair Display, serif" font-weight="300" font-style="italic" font-size="58" fill="#1A4A38" letter-spacing="-2">N</text>
+                <text x="60" y="22" text-anchor="middle" font-family="Inter, sans-serif" font-weight="500" font-size="5.6" fill="#A0865A" letter-spacing="3.4">— ATELIER —</text>
+                <text x="60" y="106" text-anchor="middle" font-family="Inter, sans-serif" font-weight="500" font-size="5.6" fill="#A0865A" letter-spacing="3.4">— MMXXVI —</text>
+                <text x="60" y="50" text-anchor="middle" font-family="Playfair Display, serif" font-style="italic" font-weight="400" font-size="6" fill="#A0865A">◇</text>
+              </svg>
+              <div class="logo-stacked">
+                <span class="top"><em>Native</em></span>
+                <span class="div"></span>
+                <span class="bottom">Atelier · Est. MMXXVI</span>
+              </div>
+            </div>
+            <div style="display:flex; align-items:center; gap:1.25rem; flex-wrap:wrap;">
+              <span class="logo-lockup"><em>Native</em></span>
+              <span class="logo-lockup-tag">Atelier</span>
+              <span class="domain-display"><span class="u">native</span>built.com</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="editorial-detail">
+        <div>
+          <p class="t-kicker" style="margin-bottom:1rem;">◇ The atelier · A philosophy</p>
+          <p class="ed-body">
+            <em>Quiet</em> is the fastest a company can move. Loud is what it looks like
+            when the operating model is missing. Native installs the model first — the strategic
+            core, the org, the systems, the loop — and then steps back. The work happens in private.
+            The results show up in the room.
+          </p>
+          <div style="margin-top:1.5rem; padding-top:1.5rem; border-top:0.5px solid var(--ink-22);">
+            <a href="#" class="btn-link">A note on the practice →</a>
+          </div>
+        </div>
+        <aside class="ed-marginalia">
+          <div class="mg-item">
+            <p class="mg-label">— The studio</p>
+            <p>Operator-led, by appointment. We work with three to five companies a year.</p>
+          </div>
+          <div class="mg-item">
+            <p class="mg-label">— The work</p>
+            <p>Strategic core, org &amp; operating model, systems &amp; agents, feedback loop.</p>
+          </div>
+          <div class="mg-item">
+            <p class="mg-label">— The order</p>
+            <p>Always the same. The order is the product.</p>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <hr class="hairline" style="color: var(--ink); margin: 2.5rem 0;">
+
+    <div class="block block-2">
+      <div class="panel">
+        <div class="panel-head"><span>Typography · Playfair light + Inter 300</span><span class="panel-meta">Hairline</span></div>
+        <div class="type-stack">
+          <div class="type-row">
+            <span class="tr-meta">Display</span>
+            <span class="t-display">In <em>private practice.</em></span>
+          </div>
+          <div class="type-row">
+            <span class="tr-meta">Heading</span>
+            <span class="t-h2">The work happens <em>in private.</em></span>
+          </div>
+          <div class="type-row">
+            <span class="tr-meta">Kicker</span>
+            <span class="t-kicker">— Atelier · By appointment</span>
+          </div>
+          <div class="type-row">
+            <span class="tr-meta">Lede</span>
+            <span class="t-lede">"Quiet is the fastest a company can move. Loud is what it looks like when the operating model is missing."</span>
+          </div>
+          <div class="type-row">
+            <span class="tr-meta">Body</span>
+            <span class="t-body">We work with three to five companies a year. The order is always the same — strategic core, org &amp; operating model, systems &amp; agents, feedback loop.</span>
+          </div>
+          <div class="type-row">
+            <span class="tr-meta">Caption</span>
+            <span class="t-caption">◇ A note from the studio.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head"><span>Components</span><span class="panel-meta">Atelier</span></div>
+        <div class="components">
+          <div class="btn-row">
+            <a href="#" class="btn-primary">Request an introduction</a>
+            <a href="#" class="btn-ghost">The playbook</a>
+          </div>
+          <div>
+            <a href="#" class="btn-link">A note on the practice →</a>
+          </div>
+          <div class="chip-row">
+            <span class="pill">Build with us</span>
+            <span class="pill brass">By appointment</span>
+            <span class="pill solid">Three to five a year</span>
+          </div>
+          <div style="display:grid; gap:0.625rem; padding-top:0.75rem;">
+            <div style="font-family:'Inter',sans-serif;font-size:0.6875rem;letter-spacing:0.32em;text-transform:uppercase;color:var(--brass-deep);font-weight:500;">Hairline · Section divider</div>
+            <hr class="hairline" style="color: var(--ink);">
+            <div style="font-family:'Inter',sans-serif;font-size:0.6875rem;letter-spacing:0.32em;text-transform:uppercase;color:var(--brass-deep);font-weight:500; margin-top:0.5rem;">Diamond rule · With glyph</div>
+            <div class="ornament-rule" style="margin: 0.25rem 0; color: var(--ink-22); font-size:1rem;">
+              <span class="glyph" style="color: var(--brass-deep);">◇</span>
+            </div>
+          </div>
+          <div style="padding-top:1rem;border-top:0.5px solid var(--ink-22);">
+            <div class="t-kicker" style="margin-bottom:0.75rem;">◇ Motion</div>
+            <div class="t-body">Transitions 280–360ms · ease. Reveals fade slowly. Hover lifts 1px and softens borders. The whole system breathes.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block block-2">
+      <div class="inuse">
+        <div class="inuse-head">
+          <span class="inuse-tag">— By appointment</span>
+          <span class="inuse-num"><em>03</em></span>
+        </div>
+        <h4>Two ways to work. <em>One studio.</em></h4>
+        <p>
+          Whether we're building a new company with you or scaling the one you already run, the same operators,
+          the same playbook, and the same strategic core sit behind the work. The atelier doesn't scale by hiring more
+          juniors — it scales by sharpening the system.
+        </p>
+        <ul class="inuse-list">
+          <li>Operators, not outside help — every engagement led by people who've done it</li>
+          <li>One team, full stack — brand, GTM, product, systems</li>
+          <li>A playbook that compounds — refined by every engagement</li>
+        </ul>
+        <a href="#" class="btn-link">Read the engagement →</a>
+      </div>
+
+      <div class="cs-grid">
+        <div class="cs-card">
+          <div class="cs-top">
+            <span class="cs-logo">Goodr</span>
+            <span aria-hidden="true" style="color:var(--brass-deep);">↗</span>
+          </div>
+          <div>
+            <div class="cs-metric"><em>20</em>x</div>
+            <div class="cs-metric-label">— Revenue growth</div>
+          </div>
+          <p class="cs-desc">Scaled revenue <em style="font-style:italic;color:var(--brass-deep);">20x in 3 years.</em></p>
+        </div>
+        <div class="cs-card">
+          <div class="cs-top">
+            <span class="cs-logo">Harmony</span>
+            <span aria-hidden="true" style="color:var(--brass-deep);">↗</span>
+          </div>
+          <div>
+            <div class="cs-metric"><em>0 → 1</em></div>
+            <div class="cs-metric-label">— Venture initiation</div>
+          </div>
+          <p class="cs-desc">Concept to <em style="font-style:italic;color:var(--brass-deep);">strategically funded</em> spin-out.</p>
+        </div>
+        <div class="cs-card" style="grid-column: 1 / -1;">
+          <div class="cs-top">
+            <span class="cs-logo">Grovara</span>
+            <span aria-hidden="true" style="color:var(--brass-deep);">↗</span>
+          </div>
+          <div>
+            <div class="cs-metric"><em>7.5</em>x</div>
+            <div class="cs-metric-label">— Enterprise client growth</div>
+          </div>
+          <p class="cs-desc">Grew enterprise clients <em style="font-style:italic;color:var(--brass-deep);">7.5x in 2 years</em> — with the go-to-market engine rebuilt from the strategic core out.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- =================================================
+     COMPARE
+     ================================================= -->
+<section id="compare" class="compare">
+  <div class="compare-inner">
+    <div class="compare-head">
+      <div>
+        <div class="ch-kicker">Side by side · How to choose</div>
+        <h2>Same family. <em>Three rooms.</em></h2>
+      </div>
+      <p>
+        All three keep Direction 01's editorial DNA. The choice is about who you want in the room when the buyer
+        is deciding — the trusted advisor, the heritage house, or the couture studio.
+        Pick the temperature, and the rest of the system follows.
+      </p>
+    </div>
+
+    <div class="compare-grid">
+      <a href="#a" class="compare-card">
+        <div class="compare-card-head">
+          <span class="cc-letter">01<em>A</em></span>
+          <div class="cc-chips">
+            <span class="cc-chip" style="background:#0B3D2E"></span>
+            <span class="cc-chip" style="background:#B08848"></span>
+            <span class="cc-chip" style="background:#F1EBDD"></span>
+          </div>
+        </div>
+        <h3>Native <em>Letterpress</em></h3>
+        <p>Direction 01 sharpened. Real paper grain, drop caps, a Standard monogram, a brass period after the wordmark. The trusted advisor — quiet, hand-set.</p>
+        <div class="cc-meta">
+          <div>Best for<strong>Premium advisory buyers</strong></div>
+          <div>Reads as<strong>Refined · Hand-set</strong></div>
+        </div>
+      </a>
+
+      <a href="#b" class="compare-card">
+        <div class="compare-card-head">
+          <span class="cc-letter">01<em>B</em></span>
+          <div class="cc-chips">
+            <span class="cc-chip" style="background:#0A3025"></span>
+            <span class="cc-chip" style="background:#6E1F1F"></span>
+            <span class="cc-chip" style="background:#ECE2C8"></span>
+          </div>
+        </div>
+        <h3>Native <em>Estate</em></h3>
+        <p>The same family with weight. Heavier Playfair, Cormorant italic body, oxblood + brass, ribbon-tag pills, framed inset rules. The hundred-year-old house.</p>
+        <div class="cc-meta">
+          <div>Best for<strong>Family offices, heritage CEOs</strong></div>
+          <div>Reads as<strong>Heritage · House</strong></div>
+        </div>
+      </a>
+
+      <a href="#c" class="compare-card">
+        <div class="compare-card-head">
+          <span class="cc-letter">01<em>C</em></span>
+          <div class="cc-chips">
+            <span class="cc-chip" style="background:#1A4A38"></span>
+            <span class="cc-chip" style="background:#D6BB85"></span>
+            <span class="cc-chip" style="background:#F7F2E5"></span>
+          </div>
+        </div>
+        <h3>Native <em>Atelier</em></h3>
+        <p>Direction 01 at couture weight. Playfair light italic, hairline rules, pearl paper, sage + pale brass, diamond glyph. By appointment, in private.</p>
+        <div class="cc-meta">
+          <div>Best for<strong>Studio buyers, founders</strong></div>
+          <div>Reads as<strong>Couture · Quiet</strong></div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- =================================================
+     CLOSE
+     ================================================= -->
+<section class="close">
+  <div class="close-copy">
+    <h3>Pick the temperature. <em>The rest is execution.</em></h3>
+    <p>
+      Three variants of the same direction. Each is a complete brand world — palette, type, logo, monogram,
+      components, motion. Pick one and the rebrand becomes a build job. Don't, and we'll design three sites
+      instead of one.
+    </p>
+  </div>
+  <div class="close-actions">
+    <a href="#a" class="close-btn primary">Open Letterpress</a>
+    <a href="#b" class="close-btn">Estate</a>
+    <a href="#c" class="close-btn">Atelier</a>
+  </div>
+</section>
+
+<footer class="end">
+  <span>Native · Standard, three variants · v4</span>
+  <span>NativeBuilt.com · 01 direction · 03 temperatures</span>
+</footer>
+
+<script>
+  // Highlight current variant in masthead nav on scroll.
+  (function () {
+    const links = document.querySelectorAll('.shell-nav a[href^="#"]');
+    const map = new Map();
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      const target = document.getElementById(id);
+      if (target) map.set(target, a);
+    });
+    if (!('IntersectionObserver' in window) || map.size === 0) return;
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        const link = map.get(e.target);
+        if (!link) return;
+        if (e.isIntersecting && e.intersectionRatio > 0.25) {
+          links.forEach(l => { l.style.color = ''; l.style.background = ''; });
+          link.style.color = 'var(--shell-ink)';
+          link.style.background = 'rgba(242,236,224,0.08)';
+        }
+      });
+    }, { threshold: [0.25, 0.5, 0.75] });
+    map.forEach((_l, target) => obs.observe(target));
+  })();
+</script>
+
+</body>
+</html>

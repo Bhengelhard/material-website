@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>The playbook, how to build an AI-Native company in 2026 — Material</title>
+    <meta name="description" content="A practical walkthrough for founders and operators. Humans lead the strategy. AI runs the execution. Experts shape the review.">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+
+    <style>
+        /* ============================================================
+           MATERIAL PLAYBOOK — EDITORIAL DESIGN SYSTEM v1.2
+           ============================================================ */
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --forest:       #0B3D2E;
+            --forest-dark:  #062116;
+            --forest-light: #9BB2A2;
+            --forest-05:    rgba(11, 61, 46, 0.05);
+            --forest-10:    rgba(11, 61, 46, 0.10);
+            --brass:        #B08848;
+
+            --ink:      #0B0A07;
+            --ink-80:   rgba(11, 10, 7, 0.82);
+            --ink-60:   rgba(11, 10, 7, 0.62);
+
+            --gray-700: rgba(11, 10, 7, 0.78);
+            --gray-600: rgba(11, 10, 7, 0.62);
+            --gray-400: rgba(11, 10, 7, 0.40);
+            --gray-300: rgba(11, 10, 7, 0.30);
+            --gray-200: rgba(11, 10, 7, 0.22);
+            --gray-100: rgba(11, 10, 7, 0.10);
+
+            --off-white: #F1EBDD;
+            --white:     #FAF6EC;
+
+            --container:        1200px;
+            --container-narrow: 1080px;
+            --reading:          680px;
+
+            --ease:     cubic-bezier(0.22, 1, 0.36, 1);
+            --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+            --dur-fast: 200ms;
+            --dur:      400ms;
+            --dur-slow: 700ms;
+        }
+
+        html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+        ::selection { background: var(--forest); color: var(--off-white); }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 1.7;
+            color: var(--ink);
+            background: var(--off-white);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+
+        img { max-width: 100%; height: auto; display: block; }
+        a { color: inherit; text-decoration: none; }
+        button { font: inherit; background: none; border: none; cursor: pointer; color: inherit; }
+
+        /* Typography primitives */
+        .kicker {
+            display: inline-block;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--forest);
+            line-height: 1.4;
+        }
+
+        .kicker--centered { display: block; text-align: center; }
+        .kicker--light    { color: var(--forest-light); }
+
+        .accent-bar {
+            display: block;
+            width: 32px;
+            height: 2px;
+            background: var(--forest);
+            border-radius: 1px;
+            margin-bottom: 1.75rem;
+        }
+
+        .accent-bar--centered { margin-left: auto; margin-right: auto; }
+
+        em.brand-em,
+        .brand-em {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-weight: 500;
+            color: var(--forest);
+            font-size: 1.08em;
+            letter-spacing: -0.005em;
+        }
+
+        /* Scroll reveal */
+        .reveal-ready .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 900ms var(--ease-out), transform 900ms var(--ease-out);
+        }
+
+        .reveal-ready .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+            .reveal-ready .reveal { opacity: 1 !important; transform: none !important; }
+        }
+
+        /* ===== NAVIGATION ===== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(247, 247, 245, 0.82);
+            backdrop-filter: saturate(140%) blur(14px);
+            -webkit-backdrop-filter: saturate(140%) blur(14px);
+            z-index: 100;
+            transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease);
+            border-bottom: 1px solid transparent;
+        }
+
+        nav.scrolled {
+            background: rgba(247, 247, 245, 0.92);
+            border-bottom-color: var(--gray-200);
+        }
+
+        .nav-container {
+            max-width: var(--container);
+            margin: 0 auto;
+            padding: 1.25rem 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .logo { display: flex; align-items: center; transition: opacity var(--dur-fast) var(--ease); }
+        .logo img { height: 1.75rem; width: auto; }
+        .logo:hover { opacity: 0.7; }
+
+        .nav-links {
+            display: flex;
+            gap: 2.25rem;
+            list-style: none;
+            align-items: center;
+            margin-left: auto;
+        }
+
+        .nav-links > li > a {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--gray-600);
+            transition: color var(--dur-fast) var(--ease);
+            position: relative;
+            padding: 0.25rem 0;
+        }
+
+        .nav-links > li > a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: -2px;
+            height: 1px;
+            background: var(--forest);
+            transform: scaleX(0);
+            transform-origin: left center;
+            transition: transform var(--dur) var(--ease);
+        }
+
+        .nav-links > li > a:hover,
+        .nav-links > li > a.active { color: var(--ink); }
+        .nav-links > li > a:hover::after,
+        .nav-links > li > a.active::after { transform: scaleX(1); }
+
+        .nav-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--forest);
+            color: var(--white) !important;
+            padding: 0.625rem 1.25rem !important;
+            border-radius: 999px;
+            font-size: 0.8125rem !important;
+            font-weight: 500 !important;
+            transition: background var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
+        }
+
+        .nav-cta::after { display: none !important; }
+        .nav-cta:hover {
+            background: var(--forest-dark);
+            color: var(--white) !important;
+            transform: translateY(-1px);
+        }
+
+        .hamburger {
+            display: none;
+            margin-left: auto;
+            width: 44px;
+            height: 44px;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 5px;
+            background: transparent;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 22px;
+            height: 1.5px;
+            background: var(--ink);
+            transition: transform var(--dur) var(--ease), opacity var(--dur) var(--ease);
+        }
+
+        .hamburger.active span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+        /* ===== BUTTONS ===== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.875rem;
+            font-weight: 500;
+            letter-spacing: 0.005em;
+            line-height: 1;
+            padding: 0.9375rem 1.75rem;
+            border-radius: 8px;
+            border: 1px solid transparent;
+            transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
+        }
+
+        .btn--primary    { background: var(--forest); color: var(--white); border-color: var(--forest); }
+        .btn--primary:hover { background: var(--forest-dark); border-color: var(--forest-dark); transform: translateY(-1px); }
+
+        .btn--on-dark    { background: var(--off-white); color: var(--ink); }
+        .btn--on-dark:hover { background: var(--white); }
+
+        .btn-arrow { width: 0.95em; height: 0.95em; transition: transform var(--dur-fast) var(--ease); }
+        .btn:hover .btn-arrow { transform: translateX(2px); }
+
+        /* ===== PLAYBOOK HERO ===== */
+        .playbook-hero {
+            position: relative;
+            padding: 6rem 2rem 4rem;
+            background: var(--off-white);
+            overflow: hidden;
+        }
+
+        .playbook-hero::before {
+            content: '';
+            position: absolute;
+            top: 20%;
+            right: -25%;
+            width: 80%;
+            height: 80%;
+            background: radial-gradient(ellipse at center, var(--forest-05) 0%, transparent 60%);
+            filter: blur(30px);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .playbook-hero-inner {
+            max-width: var(--container-narrow);
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .playbook-hero-kicker { margin-bottom: 2rem; }
+
+        .playbook-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 300;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            line-height: 1.06;
+            letter-spacing: -0.015em;
+            color: var(--ink);
+            margin-bottom: 1.75rem;
+            max-width: 20ch;
+        }
+
+        .playbook-hero h1 em {
+            font-style: italic;
+            font-weight: 300;
+            color: var(--forest);
+        }
+
+        .lede {
+            font-size: 1.125rem;
+            line-height: 1.7;
+            color: var(--gray-600);
+            max-width: 620px;
+            margin-bottom: 2.5rem;
+        }
+
+        .meta {
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+            flex-wrap: wrap;
+            padding-top: 2.5rem;
+            border-top: 1px solid var(--gray-200);
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: baseline;
+            gap: 0.625rem;
+        }
+
+        .meta-number {
+            font-family: 'Playfair Display', serif;
+            font-weight: 500;
+            font-size: 2.5rem;
+            line-height: 1;
+            letter-spacing: -0.02em;
+            color: var(--forest);
+        }
+
+        .meta-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8125rem;
+            color: var(--gray-600);
+            letter-spacing: 0.01em;
+        }
+
+        /* ===== SECTIONS ===== */
+        .section {
+            padding: 6rem 2rem;
+            background: var(--white);
+        }
+
+        .section--pearl { background: var(--off-white); }
+
+        .section-inner {
+            max-width: var(--container-narrow);
+            margin: 0 auto;
+        }
+
+        .section-header {
+            max-width: var(--reading);
+            margin-bottom: 3.5rem;
+        }
+
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 500;
+            font-size: clamp(2rem, 3.6vw, 2.75rem);
+            line-height: 1.15;
+            letter-spacing: -0.01em;
+            color: var(--ink);
+            margin-bottom: 1.25rem;
+        }
+
+        .section-header p {
+            font-size: 1.0625rem;
+            line-height: 1.7;
+            color: var(--gray-600);
+        }
+
+        .section-header .order-note {
+            margin-top: 1rem;
+        }
+
+        .order-note {
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+            font-size: 1.125rem;
+            line-height: 1.5;
+            color: var(--ink);
+            font-style: italic;
+            padding: 1.25rem 1.5rem;
+            background: var(--forest-05);
+            border-left: 2px solid var(--forest);
+            border-radius: 0 6px 6px 0;
+            max-width: 640px;
+        }
+
+        .order-note strong { font-weight: 500; font-style: normal; font-family: 'Inter', sans-serif; font-size: 0.875rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--forest); }
+
+        /* ===== FLOW (Ideas. Execution. Review.) ===== */
+        .flow {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+            margin-top: 3rem;
+            border-top: 1px solid var(--gray-200);
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .flow-stage {
+            padding: 2.25rem 1.75rem;
+            background: var(--white);
+            position: relative;
+        }
+
+        .flow-stage + .flow-stage {
+            box-shadow: -1px 0 0 var(--gray-200);
+        }
+
+        .flow-stage--ai {
+            background: var(--forest-05);
+        }
+
+        .stage-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.6875rem;
+            font-weight: 500;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--forest);
+            margin-bottom: 1.25rem;
+        }
+
+        .flow-stage h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 500;
+            font-size: 1.375rem;
+            line-height: 1.25;
+            color: var(--ink);
+            margin-bottom: 0.75rem;
+        }
+
+        .flow-stage p {
+            font-size: 0.9375rem;
+            line-height: 1.65;
+            color: var(--gray-600);
+        }
+
+        .flow-note {
+            margin-top: 2.5rem;
+            font-family: 'Playfair Display', serif;
+            font-weight: 300;
+            font-style: italic;
+            font-size: 1.25rem;
+            line-height: 1.55;
+            color: var(--ink);
+            max-width: 760px;
+        }
+
+        /* ===== PRINCIPLES (Three pieces) ===== */
+        .principles {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 3rem;
+        }
+
+        .principle {
+            padding: 2rem 1.75rem;
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 12px;
+            transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+        }
+
+        .principle:hover {
+            border-color: var(--forest);
+            box-shadow: 0 8px 30px rgba(11, 61, 46, 0.06);
+        }
+
+        .principle .num {
+            font-family: 'Playfair Display', serif;
+            font-weight: 300;
+            font-size: 2rem;
+            line-height: 1;
+            color: var(--forest);
+            margin-bottom: 1.25rem;
+            letter-spacing: -0.02em;
+        }
+
+        .principle h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 500;
+            font-size: 1.25rem;
+            line-height: 1.25;
+            color: var(--ink);
+            margin-bottom: 0.75rem;
+        }
+
+        .principle p {
+            font-size: 0.9375rem;
+            line-height: 1.65;
+            color: var(--gray-600);
+        }
+
+        .tool-note {
+            margin-top: 2.5rem;
+            padding: 1.75rem 1.75rem;
+            background: var(--ink);
+            color: var(--off-white);
+            border-radius: 12px;
+            max-width: 800px;
+        }
+
+        .tool-note .stage-label { color: var(--forest-light); margin-bottom: 0.875rem; }
+
+        .tool-note p:not(.stage-label) {
+            font-size: 0.9375rem;
+            line-height: 1.65;
+            color: rgba(247, 247, 245, 0.85);
+        }
+
+        .tool-note strong { color: var(--off-white); font-weight: 500; }
+
+        /* ===== PHASES ===== */
+        .phases {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin-top: 3rem;
+        }
+
+        .phase {
+            padding: 2.25rem 2rem;
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 12px;
+            transition: border-color var(--dur) var(--ease);
+        }
+
+        .phase:hover { border-color: var(--forest); }
+
+        .phase-head {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .phase-pill {
+            display: inline-block;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.6875rem;
+            font-weight: 500;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--white);
+            background: var(--forest);
+            padding: 0.375rem 0.875rem;
+            border-radius: 4px;
+        }
+
+        .phase h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 500;
+            font-size: clamp(1.5rem, 2.4vw, 1.875rem);
+            line-height: 1.2;
+            letter-spacing: -0.005em;
+            color: var(--ink);
+            margin-bottom: 0.875rem;
+        }
+
+        .phase-desc {
+            font-size: 1rem;
+            line-height: 1.65;
+            color: var(--gray-600);
+            margin-bottom: 1.75rem;
+            max-width: 760px;
+        }
+
+        .phase-items {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.25rem;
+        }
+
+        .phase-items li {
+            padding: 1rem 1.125rem;
+            background: var(--off-white);
+            border-radius: 8px;
+            border: 1px solid var(--gray-200);
+        }
+
+        .phase-items li div strong {
+            display: block;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 0.9375rem;
+            color: var(--ink);
+            margin-bottom: 0.375rem;
+        }
+
+        .phase-items li.file div strong,
+        .phase-items--files li div strong {
+            font-family: 'JetBrains Mono', ui-monospace, monospace;
+            font-weight: 500;
+            font-size: 0.8125rem;
+            color: var(--forest);
+            background: var(--forest-05);
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+
+        .phase-items li div span {
+            font-size: 0.875rem;
+            line-height: 1.55;
+            color: var(--gray-600);
+        }
+
+        .phase-examples {
+            margin-top: 2rem;
+            padding-top: 1.75rem;
+            border-top: 1px solid var(--gray-200);
+        }
+
+        .phase-examples-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.6875rem;
+            font-weight: 500;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--forest);
+            margin-bottom: 0.5rem;
+        }
+
+        .phase-examples-label:not(:first-child) { margin-top: 1.5rem; }
+
+        .phase-examples-intro {
+            font-size: 0.875rem;
+            line-height: 1.6;
+            color: var(--gray-600);
+            margin-bottom: 1rem;
+        }
+
+        .example-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .example-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.875rem;
+            padding: 0.875rem 1rem;
+            background: var(--off-white);
+            border-radius: 8px;
+            border: 1px solid var(--gray-200);
+        }
+
+        .example-tag {
+            display: inline-block;
+            flex-shrink: 0;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.625rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--forest);
+            background: var(--white);
+            padding: 0.375rem 0.625rem;
+            border-radius: 3px;
+            border: 1px solid var(--gray-200);
+            margin-top: 2px;
+        }
+
+        .example-list li div {
+            font-size: 0.875rem;
+            line-height: 1.6;
+            color: var(--gray-600);
+        }
+
+        .example-list li div strong {
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            color: var(--ink);
+            display: inline;
+        }
+
+        /* ===== PHASE FLOW (Phase 5 three-step cards) ===== */
+        .phase-flow {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .phase-flow-card {
+            padding: 1.5rem 1.25rem;
+            background: var(--off-white);
+            border: 1px solid var(--gray-200);
+            border-radius: 10px;
+        }
+
+        .flow-card-kicker {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.6875rem;
+            font-weight: 500;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--forest);
+            margin-bottom: 0.75rem;
+        }
+
+        .phase-flow-card h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 500;
+            font-size: 1.125rem;
+            line-height: 1.25;
+            color: var(--ink);
+            margin-bottom: 0.625rem;
+        }
+
+        .phase-flow-card p {
+            font-size: 0.875rem;
+            line-height: 1.6;
+            color: var(--gray-600);
+        }
+
+        /* ===== SUMMARY ===== */
+        .summary { margin-top: 3rem; }
+
+        .summary-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            counter-reset: summary;
+            border-top: 1px solid var(--gray-200);
+        }
+
+        .summary-list li {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            gap: 2rem;
+            padding: 1.75rem 0;
+            border-bottom: 1px solid var(--gray-200);
+            counter-increment: summary;
+            align-items: baseline;
+        }
+
+        .summary-list li::before {
+            content: counter(summary, decimal-leading-zero);
+            font-family: 'Playfair Display', serif;
+            font-weight: 300;
+            font-size: 2rem;
+            line-height: 1;
+            color: var(--forest);
+            letter-spacing: -0.02em;
+        }
+
+        .summary-list li div strong {
+            display: block;
+            font-family: 'Playfair Display', serif;
+            font-weight: 500;
+            font-size: 1.25rem;
+            line-height: 1.25;
+            color: var(--ink);
+            margin-bottom: 0.375rem;
+        }
+
+        .summary-list li div {
+            font-size: 0.9375rem;
+            line-height: 1.65;
+            color: var(--gray-600);
+        }
+
+        .summary-payoff {
+            margin-top: 2.5rem;
+            font-family: 'Playfair Display', serif;
+            font-weight: 300;
+            font-style: italic;
+            font-size: 1.375rem;
+            line-height: 1.45;
+            color: var(--ink);
+            max-width: 760px;
+        }
+
+        /* ===== CLOSING EMPHASIS ===== */
+        .emphasis {
+            padding: 4rem 2rem;
+            background: var(--off-white);
+            text-align: center;
+        }
+
+        .emphasis p {
+            font-family: 'Playfair Display', serif;
+            font-weight: 300;
+            font-size: clamp(1.75rem, 3.6vw, 2.75rem);
+            line-height: 1.2;
+            letter-spacing: -0.01em;
+            color: var(--ink);
+            max-width: 820px;
+            margin: 0 auto;
+        }
+
+        .emphasis p em {
+            font-style: italic;
+            font-weight: 400;
+            color: var(--forest);
+        }
+
+        /* ===== CTA ===== */
+        .cta {
+            padding: 6rem 2rem;
+            background: var(--forest-dark);
+            color: var(--off-white);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at 10% 110%, rgba(138, 191, 168, 0.10) 0%, transparent 50%),
+                radial-gradient(ellipse at 90% -10%, rgba(138, 191, 168, 0.08) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .cta-inner {
+            max-width: 720px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta .kicker { margin-bottom: 1.5rem; }
+
+        .cta h2 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 300;
+            font-size: clamp(2rem, 4.5vw, 3rem);
+            line-height: 1.1;
+            letter-spacing: -0.015em;
+            color: var(--off-white);
+            margin-bottom: 1.25rem;
+        }
+
+        .cta p {
+            font-size: 1.0625rem;
+            line-height: 1.65;
+            color: rgba(247, 247, 245, 0.72);
+            max-width: 540px;
+            margin: 0 auto 2.5rem;
+        }
+
+        /* ===== FOOTER ===== */
+        .site-footer {
+            background: var(--ink);
+            color: rgba(247, 247, 245, 0.6);
+            padding: 3rem 2rem 1.75rem;
+            font-size: 0.875rem;
+        }
+
+        .footer-inner {
+            max-width: var(--container-narrow);
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .footer-logo {
+            height: 1.5rem;
+            width: auto;
+            filter: brightness(0) invert(1);
+            opacity: 0.85;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: rgba(247, 247, 245, 0.7);
+            font-size: 0.875rem;
+            transition: color var(--dur-fast) var(--ease);
+        }
+
+        .footer-links a:hover { color: var(--off-white); }
+
+        .footer-copyright {
+            font-size: 0.8125rem;
+            color: rgba(247, 247, 245, 0.4);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .flow { grid-template-columns: 1fr; }
+            .flow-stage + .flow-stage { box-shadow: 0 -1px 0 var(--gray-200); }
+            .principles { grid-template-columns: 1fr; }
+            .phase-items { grid-template-columns: 1fr; }
+            .phase-flow { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-container { padding: 1rem 1.5rem; }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                background: var(--off-white);
+                gap: 0;
+                padding: 1rem 0 1.5rem;
+                border-top: 1px solid var(--gray-200);
+                margin-left: 0;
+            }
+
+            .nav-links.open { display: flex; }
+            .nav-links > li { width: 100%; }
+
+            .nav-links > li > a {
+                display: block;
+                padding: 0.875rem 1.5rem;
+                font-size: 1rem;
+            }
+
+            .nav-links > li > a::after { display: none; }
+
+            .nav-cta {
+                margin: 0.5rem 1.5rem;
+                padding: 0.75rem 1.25rem !important;
+                justify-content: center;
+            }
+
+            .hamburger { display: flex; }
+
+            .playbook-hero { padding: 6rem 1.5rem 4rem; }
+            .section { padding: 4rem 1.5rem; }
+
+            .meta { gap: 1.5rem; }
+            .meta-number { font-size: 2rem; }
+
+            .summary-list li {
+                grid-template-columns: 60px 1fr;
+                gap: 1.25rem;
+                padding: 1.25rem 0;
+            }
+            .summary-list li::before { font-size: 1.5rem; }
+
+            .emphasis { padding: 3rem 1.5rem; }
+            .cta { padding: 4rem 1.5rem; }
+
+            .footer-inner { flex-direction: column; align-items: flex-start; }
+        }
+
+        a:focus-visible, button:focus-visible, .btn:focus-visible {
+            outline: 2px solid var(--forest);
+            outline-offset: 3px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ================ NAVIGATION ================ -->
+    <nav>
+        <div class="nav-container">
+            <a class="logo" href="/" aria-label="Material home">
+                <img src="images/material-logo-lockup.svg" alt="Material">
+            </a>
+            <button class="hamburger" aria-label="Open navigation" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="nav-links">
+                <li><a href="/build">Build with us</a></li>
+                <li><a href="/modernize">Modernize &amp; scale</a></li>
+                <li><a href="/playbook" class="active">Playbook</a></li>
+                <li><a href="/team">Team</a></li>
+                <li><a href="#" class="nav-cta" data-fillout-id="p8cqDmytcAus" data-fillout-embed-type="popup" data-fillout-dynamic-resize data-fillout-inherit-parameters data-fillout-popup-size="medium">Book a call</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ================ HERO ================ -->
+    <header class="playbook-hero">
+        <div class="playbook-hero-inner">
+            <div class="playbook-hero-kicker">
+                <span class="kicker">The playbook</span>
+            </div>
+            <h1>How to build an <em>AI-Native</em> company in 2026.</h1>
+            <p class="lede">A practical walkthrough for founders and operators. Humans lead the strategy. AI runs the execution. Experts shape the review. The <em class="brand-em">order you build things in</em> matters more than the tools you pick.</p>
+            <div class="meta">
+                <div class="meta-item"><span class="meta-number">5</span><span class="meta-label">phases</span></div>
+                <div class="meta-item"><span class="meta-number">3</span><span class="meta-label">pieces</span></div>
+                <div class="meta-item"><span class="meta-number">1</span><span class="meta-label">feedback loop</span></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ================ HOW BUILDING HAPPENS NOW ================ -->
+    <section class="section section--pearl">
+        <div class="section-inner">
+            <div class="section-header reveal">
+                <span class="accent-bar"></span>
+                <span class="kicker" style="margin-bottom: 1.25rem;">How building happens now</span>
+                <h2>Ideas. Execution. Review.</h2>
+                <p>Every piece of work a company produces, a pitch, a landing page, an email sequence, a product feature, a dashboard, moves through these three stages. The shift of the last two years: the middle stage now runs on AI, while <em class="brand-em">strategy and judgment</em> stay with people. That changes what a small team can do.</p>
+            </div>
+
+            <div class="flow">
+                <div class="flow-stage reveal">
+                    <p class="stage-label">Stage 01 · Human</p>
+                    <h4>Ideas and strategy</h4>
+                    <p>Positioning, narrative, priorities, product vision, what to build next. The things AI still can't do well. This is where experienced operators earn their keep.</p>
+                </div>
+                <div class="flow-stage flow-stage--ai reveal">
+                    <p class="stage-label">Stage 02 · AI</p>
+                    <h4>Execution</h4>
+                    <p>Drafts the email, writes the brief, generates the landing page, cleans the data, enriches the lead, updates the CRM, ships the first cut of code. The 80% that used to consume a team.</p>
+                </div>
+                <div class="flow-stage reveal">
+                    <p class="stage-label">Stage 03 · Human + experts</p>
+                    <h4>Review and judgment</h4>
+                    <p>Approves the sequence, tunes the copy, picks the winning variant, shapes what actually ships. Experts across brand, product, sales, and marketing guide the work, rather than do the work.</p>
+                </div>
+            </div>
+
+            <p class="flow-note reveal">This is how Material works. Our team leads strategy and review. AI handles execution in between. You get the quality of a seasoned operator with the velocity of a ten-person team.</p>
+        </div>
+    </section>
+
+    <!-- ================ THREE PIECES ================ -->
+    <section class="section">
+        <div class="section-inner">
+            <div class="section-header reveal">
+                <span class="accent-bar"></span>
+                <span class="kicker" style="margin-bottom: 1.25rem;">Where AI fits in</span>
+                <h2>Three pieces do the work.</h2>
+                <p>To put AI into the execution stage, you give it three things. Treat it like a new hire on their first day: they need to know what the company is, how you do specific things, and when to do them. The whole playbook is built on these three pieces.</p>
+            </div>
+
+            <div class="principles">
+                <article class="principle reveal">
+                    <p class="num">01</p>
+                    <h4>Context, the files the AI reads.</h4>
+                    <p>Your positioning, tone of voice, ICP, processes, and playbooks live as plain text files in a shared folder (Google Drive works well). Point Claude Cowork or Claude Code at that folder, and every team member and every agent builds off the same decisions. Change a file once, every downstream output updates. No re-explaining the company with every new prompt.</p>
+                </article>
+                <article class="principle reveal">
+                    <p class="num">02</p>
+                    <h4>Skills, reusable ways of doing.</h4>
+                    <p>A skill is a trained recipe for one thing. "Write an outbound email in our voice." "Qualify a lead against our ICP." "Draft a blog post from a brief." You define it once and the AI decides when to load it on its own, based on what you're asking. You don't have to specify which skill to use. Skills turn one-off prompts into repeatable, consistent work.</p>
+                </article>
+                <article class="principle reveal">
+                    <p class="num">03</p>
+                    <h4>Agents, routines that run on their own.</h4>
+                    <p>An agent is a scheduled or triggered routine that combines context and skills into a process. An agent can kickstart your tasks each morning, keep your CRM clean throughout the day, or qualify every inbound lead the moment it arrives. You set the job once and it runs without you, every day, at the pace of the business.</p>
+                </article>
+            </div>
+
+            <div class="tool-note reveal">
+                <p class="stage-label">Tooling</p>
+                <p><strong>Use Claude Cowork and/or Claude Code for execution.</strong> They give you context, skills, and agents in one workspace, and sit on top of the tools your team already uses: Google Drive, Notion, HubSpot, Gmail, Slack, whatever. The agents reach into those tools on your behalf. Nothing to rip and replace, no engineering team required to get started.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================ PHASES ================ -->
+    <section class="section section--pearl">
+        <div class="section-inner">
+            <div class="section-header reveal">
+                <span class="accent-bar"></span>
+                <span class="kicker" style="margin-bottom: 1.25rem;">The five phases</span>
+                <h2>Built in order, one layer at a time.</h2>
+                <p>Skip a phase and the later ones break. Follow them and the system compounds. Start small, expand based on what's working.</p>
+                <div class="order-note reveal">
+                    <strong>The order matters</strong><br>
+                    more than any single step. Each phase earns the next. If you only take one thing from this playbook, take the order.
+                </div>
+            </div>
+
+            <div class="phases">
+                <!-- Phase 1 -->
+                <article class="phase reveal">
+                    <div class="phase-head">
+                        <span class="phase-pill">Phase 1</span>
+                    </div>
+                    <h3>Strategic core</h3>
+                    <p class="phase-desc">Start by writing the markdown files that describe what your company is. These files become the foundation every phase downstream reads from. Keep them in one shared folder so every person and every agent works from the same source.</p>
+                    <ul class="phase-items phase-items--files">
+                        <li><div><strong>core-concept.md</strong><span>The soul of the offering in one page. What it is, what it does, and why it exists.</span></div></li>
+                        <li><div><strong>icp.md</strong><span>Your ideal customer. Who you sell to, how to recognize them, and what makes a tier-one fit.</span></div></li>
+                        <li><div><strong>competitive-landscape.md</strong><span>How alternatives position themselves. Where the messaging gaps are. Where you can play.</span></div></li>
+                        <li><div><strong>positioning.md</strong><span>How you frame yourself inside that landscape. Your place in the market and your claim on it.</span></div></li>
+                        <li><div><strong>narrative-design.md</strong><span>The story arc behind every pitch, page, and post. Setup, conflict, resolution, proof.</span></div></li>
+                    </ul>
+                </article>
+
+                <!-- Phase 2 -->
+                <article class="phase reveal">
+                    <div class="phase-head">
+                        <span class="phase-pill">Phase 2</span>
+                    </div>
+                    <h3>Brand, materials, and marketing website</h3>
+                    <p class="phase-desc">Turn the strategic core into the things a customer or investor actually sees. Identity, voice, collateral, a simple landing page. Each piece is generated from the same markdown, so they stay consistent with each other and with what you'll build next.</p>
+                    <ul class="phase-items">
+                        <li class="file"><div><strong>brand-style-guide.md</strong><span>The complete brand system in one file. Colors, type, marks, logo usage rules, and visual do and don't examples. Every agent and designer reads from it.</span></div></li>
+                        <li class="file"><div><strong>tone-of-voice.md</strong><span>How the brand sounds. Voice principles, word bank, do and don't examples. Becomes the voice every agent writes in.</span></div></li>
+                        <li><div><strong>Pitch deck</strong><span>Narrative-driven deck for sales, investors, and partnerships. Derived directly from the positioning and narrative files.</span></div></li>
+                        <li><div><strong>One-pager</strong><span>Single-page leave-behind. Email attachments, event follow-ups, post-meeting recaps.</span></div></li>
+                        <li><div><strong>Marketing website</strong><span>Start with a simple landing page. Iterate from there as the story sharpens and the audience clarifies.</span></div></li>
+                    </ul>
+                    <div class="order-note" style="margin-top: 1.5rem;">
+                        <strong>Pro tip</strong><br>
+                        After an advisor call, paste the transcript or your notes into your AI workspace as context. It can read your core files, weigh the advisor's feedback against them, and update the right markdown files (and the website copy) to reflect what changed. No more "good advice" that never actually ships.
+                    </div>
+                </article>
+
+                <!-- Phase 3 -->
+                <article class="phase reveal">
+                    <div class="phase-head">
+                        <span class="phase-pill">Phase 3</span>
+                    </div>
+                    <h3>Minimum loveable product or service</h3>
+                    <p class="phase-desc">Get the systems, tech, and team in place to actually deliver the thing you sell. Not a barely-working MVP, but the minimum version customers will love. AI is baked in where it makes the experience faster, sharper, or more personal, not as a feature tacked on the side.</p>
+                    <ul class="phase-items">
+                        <li><div><strong>Product or service itself</strong><span>The minimum loveable version of what you sell. Scoped small enough to ship, good enough that a real customer would happily pay for it.</span></div></li>
+                        <li><div><strong>AI enablement layer</strong><span>The AI working inside the product or service. What it does for the customer, where it speeds up delivery, how it personalizes the experience. Part of the value, not a feature.</span></div></li>
+                        <li><div><strong>Design partners</strong><span>Two to five early customers who agree to use the product, give feedback often, and help shape what gets built. They get early access and a direct line to the team. You get real-world validation before launch.</span></div></li>
+                        <li><div><strong>Team to deliver</strong><span>The humans needed to ship and run it. Strategy, delivery, support, whatever the shape of the business demands.</span></div></li>
+                        <li><div><strong>CRM and onboarding pipelines</strong><span>System of record plus the flows that take a new customer from sign-up to successfully using the product.</span></div></li>
+                        <li><div><strong>Internal tooling</strong><span>Dashboards, admin interfaces, and analytics so the team can see what's happening and act on it. GA4, PostHog, Meta Pixel, Search Console wired up from day one.</span></div></li>
+                    </ul>
+                </article>
+
+                <!-- Phase 4 -->
+                <article class="phase reveal">
+                    <div class="phase-head">
+                        <span class="phase-pill">Phase 4</span>
+                    </div>
+                    <h3>Activate traction channels</h3>
+                    <p class="phase-desc">Phases 1 through 3 used AI to help you build the foundation. Phase 4 is where AI starts doing repeatable work for the business. Each channel is a self-contained engine: a short strategy, a few skills, a few agents, and the human checkpoints that keep quality high. Pick two or three to start. Expand based on what the reporting layer tells you is working.</p>
+                    <ul class="phase-items">
+                        <li><div><strong>Outbound</strong><span>Cold email and cold call. Reach prospects you've identified directly.</span></div></li>
+                        <li><div><strong>Content engine</strong><span>Blog, newsletter, social. One good draft recycled into many formats.</span></div></li>
+                        <li><div><strong>SEO</strong><span>On-page, programmatic, and technical. Discoverable over time, tracked week over week.</span></div></li>
+                        <li><div><strong>Social engagement</strong><span>Commenting, DMs, and connection building on the platforms your buyers live on.</span></div></li>
+                        <li><div><strong>Paid acquisition</strong><span>Google, Meta, LinkedIn ads pointed at landing pages built from your positioning.</span></div></li>
+                        <li><div><strong>Community and listening</strong><span>Reddit, HN, industry Slacks. Show up with value, catch buying signals, show up again.</span></div></li>
+                        <li><div><strong>Partnerships</strong><span>Strategic, integration, and co-marketing. Different cadence and tone than sales.</span></div></li>
+                        <li><div><strong>Go-to-network</strong><span>Warm intros through team, investor, and advisor graphs mapped against your ICP.</span></div></li>
+                        <li><div><strong>Referral program</strong><span>Happy customers identified. Asks surfaced to sales at the right moments.</span></div></li>
+                        <li><div><strong>Events and speaking</strong><span>Scouting, prep, follow-up, and turning every recording into more content.</span></div></li>
+                        <li><div><strong>Sales enablement</strong><span>Transcript mining, deal acceleration, content surfacing, and close notifications.</span></div></li>
+                        <li><div><strong>PR and reviews</strong><span>Journalist outreach and review-site generation. Highest-stakes comms.</span></div></li>
+                    </ul>
+
+                    <div class="phase-examples">
+                        <p class="phase-examples-label">Example skills</p>
+                        <p class="phase-examples-intro">Reusable recipes the AI produces on demand. You ask, it writes.</p>
+                        <ul class="example-list">
+                            <li><span class="example-tag">Outbound</span><div><strong>Outbound copywriter.</strong> Writes a cold email in your voice using core, positioning, and tone files.</div></li>
+                            <li><span class="example-tag">Content</span><div><strong>Content brief generator.</strong> Turns a topic into a full brief with keyword map, outline, and angle.</div></li>
+                            <li><span class="example-tag">Paid</span><div><strong>Landing page generator.</strong> Conversion-optimized page built from positioning and a specific ad or campaign.</div></li>
+                        </ul>
+
+                        <p class="phase-examples-label">Example agents</p>
+                        <p class="phase-examples-intro">Routines that run on a schedule or a trigger. You don't ask, they just do it. Output is a ranked shortlist, not a firehose of alerts.</p>
+                        <ul class="example-list">
+                            <li><span class="example-tag">Outbound</span><div><strong>Buying-signal hunter.</strong> Scans target accounts for funding rounds, job changes, tech stack shifts, and competitor churn. Every morning, surfaces the top five accounts worth outreach today with the angle for each.</div></li>
+                            <li><span class="example-tag">Content</span><div><strong>Content drafter.</strong> Watches the editorial calendar and drafts every upcoming post a few days before it's due. Your team starts from a near-final draft, not a blank page.</div></li>
+                            <li><span class="example-tag">SEO</span><div><strong>Content gap finder.</strong> Each week, finds topics your competitors rank for but you don't cover. Drafts briefs for the handful worth pursuing.</div></li>
+                        </ul>
+                    </div>
+                </article>
+
+                <!-- Phase 5 -->
+                <article class="phase reveal">
+                    <div class="phase-head">
+                        <span class="phase-pill">Phase 5</span>
+                    </div>
+                    <h3>Reporting and feedback loop</h3>
+                    <p class="phase-desc">Every week, the system does three things. It reports on what's working. It recommends what to change. It writes the approved changes back into the core files and the channel skills. This is how a company that launched last month keeps getting sharper every month after.</p>
+
+                    <div class="phase-flow">
+                        <div class="phase-flow-card">
+                            <p class="flow-card-kicker">01 · Reports</p>
+                            <h4>A weekly pulse to the team</h4>
+                            <p>A one-page summary every Monday morning. Metrics by channel, pipeline status, live experiments, agent output. The team reads it in two minutes and knows what's moving.</p>
+                        </div>
+                        <div class="phase-flow-card">
+                            <p class="flow-card-kicker">02 · Recommendations</p>
+                            <h4>Proposed revisions for review</h4>
+                            <p>ICP refinements, winning copy patterns, channel shifts, new objections worth addressing. The team sees each recommendation with the data behind it and approves, edits, or dismisses.</p>
+                        </div>
+                        <div class="phase-flow-card">
+                            <p class="flow-card-kicker">03 · Feedback loop</p>
+                            <h4>Approved changes update the system</h4>
+                            <p>Updates write into the Phase 1 markdown files and the Phase 4 skills. Where a pattern recurs, a new agent spins up for it. Next week's execution runs on the sharper version.</p>
+                        </div>
+                    </div>
+
+                    <div class="phase-examples">
+                        <p class="phase-examples-label">Example skills</p>
+                        <p class="phase-examples-intro">Reusable recipes the AI produces on demand. One per stage.</p>
+                        <ul class="example-list">
+                            <li><span class="example-tag">Report</span><div><strong>Pulse report writer.</strong> Turns raw metrics from CRM and analytics tools into a two-minute readable summary for the team.</div></li>
+                            <li><span class="example-tag">Recommend</span><div><strong>Recommendation writer.</strong> Structures a proposed change with the evidence behind it. Easy to approve, edit, or dismiss.</div></li>
+                            <li><span class="example-tag">Feedback</span><div><strong>Transcript analyzer.</strong> Reads a sales call and extracts objections, pain language, and win signals worth capturing.</div></li>
+                        </ul>
+
+                        <p class="phase-examples-label">Example agents</p>
+                        <p class="phase-examples-intro">Routines that run on a schedule, without being asked. One per stage.</p>
+                        <ul class="example-list">
+                            <li><span class="example-tag">Report</span><div><strong>Weekly pulse.</strong> Every Monday, pulls channel metrics, pipeline, and live experiments. Writes a one-page summary that explains what changed and why, not just the numbers.</div></li>
+                            <li><span class="example-tag">Recommend</span><div><strong>Channel rebalancer.</strong> Tracks CAC, pipeline velocity, and win rate across channels. When one shifts meaningfully for two weeks in a row, proposes a reallocation with the evidence to back it up.</div></li>
+                            <li><span class="example-tag">Feedback</span><div><strong>ICP learner.</strong> Each month, studies closed-won and closed-lost deals. Proposes updates to your ICP file based on which segments actually converted.</div></li>
+                        </ul>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================ SUMMARY ================ -->
+    <section class="section">
+        <div class="section-inner">
+            <div class="section-header reveal">
+                <span class="accent-bar"></span>
+                <span class="kicker" style="margin-bottom: 1.25rem;">The full picture</span>
+                <h2>Put it all together.</h2>
+                <p>This is what building a company AI-Native actually looks like when you stop thinking about tools and start thinking about <em class="brand-em">order</em>.</p>
+            </div>
+
+            <div class="summary reveal">
+                <ol class="summary-list">
+                    <li><div><strong>Write the strategic core.</strong>A handful of markdown files that explain what the company is, who it's for, and how it wins. Everything downstream reads from them.</div></li>
+                    <li><div><strong>Dress it up.</strong>Brand, voice, pitch deck, one-pager, and a simple marketing website. All generated from the same core, so they stay in sync.</div></li>
+                    <li><div><strong>Build the minimum loveable product or service.</strong>The thing you actually sell, with AI baked in where it makes the experience better, a team to deliver it, and the systems that run the operation.</div></li>
+                    <li><div><strong>Turn on two or three channels.</strong>Reusable skills and agents do the execution. Humans and experts guide strategy and review. Scale what works.</div></li>
+                    <li><div><strong>Close the loop.</strong>Weekly reports show what's working. Feedback agents update the core files and the channel skills. The whole system gets smarter on its own.</div></li>
+                </ol>
+
+                <p class="summary-payoff">Do this, in this order, and you get the quality of a seasoned operator with the velocity of a ten-person team, on a system that gets sharper every week instead of staler.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================ CLOSING EMPHASIS ================ -->
+    <div class="emphasis reveal">
+        <p>The edge isn't the AI. It's the <em>strategic core</em> the AI is built on.</p>
+    </div>
+
+    <!-- ================ CTA ================ -->
+    <section class="cta">
+        <div class="cta-inner reveal">
+            <span class="kicker kicker--light" style="color: var(--forest-light); margin-bottom: 1.5rem;">Build this with us</span>
+            <h2>Want to build this for your company?</h2>
+            <p>Book a call. We'll walk through where you are, which phase to start in, and what comes next.</p>
+            <a href="#" class="btn btn--on-dark" data-fillout-id="p8cqDmytcAus" data-fillout-embed-type="popup" data-fillout-dynamic-resize data-fillout-inherit-parameters data-fillout-popup-size="medium">
+                Map your growth plan
+                <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- ================ FOOTER ================ -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <img src="images/material-logo-lockup.svg" alt="Material" class="footer-logo">
+            <div class="footer-links">
+                <a href="/">Home</a>
+                <a href="/team">Team</a>
+                <a href="/playbook">Playbook</a>
+                <a href="https://www.linkedin.com/company/materialbuilt" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            </div>
+            <p class="footer-copyright">&copy; 2026 Material</p>
+        </div>
+    </footer>
+
+    <script>
+        'use strict';
+
+        // Nav scroll border
+        const navEl = document.querySelector('nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 24) navEl.classList.add('scrolled');
+            else navEl.classList.remove('scrolled');
+        }, { passive: true });
+
+        // Hamburger
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        if (hamburger && navLinks) {
+            hamburger.addEventListener('click', () => {
+                const open = hamburger.classList.toggle('active');
+                navLinks.classList.toggle('open', open);
+                hamburger.setAttribute('aria-expanded', String(open));
+            });
+        }
+
+        // Reveal on scroll
+        document.documentElement.classList.add('reveal-ready');
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (prefersReducedMotion) {
+            document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+        } else if ('IntersectionObserver' in window) {
+            const obs = new IntersectionObserver((entries) => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) {
+                        e.target.classList.add('visible');
+                        obs.unobserve(e.target);
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+            document.querySelectorAll('.reveal').forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight + 40 && rect.bottom > 0) {
+                    el.classList.add('visible');
+                } else {
+                    obs.observe(el);
+                }
+            });
+        } else {
+            document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+        }
+    </script>
+
+    <!-- Fillout popup embed -->
+    <script src="https://server.fillout.com/embed/v1/"></script>
+</body>
+
+</html>

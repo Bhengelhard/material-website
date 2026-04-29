@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Native — Editorial directions (v2)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap">
+<style>
+  /* ==========================================================
+     NATIVE — EDITORIAL DIRECTIONS v2
+     Three expressions off Direction 01. All green.
+     Each raises confidence without losing trust.
+     ========================================================== */
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --page-bg: #EEEBE4;
+    --page-ink: #16130E;
+    --page-muted: #6E665A;
+    --page-line: rgba(22,19,14,0.12);
+    --container: 1280px;
+    --gutter: 2rem;
+  }
+
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--page-bg);
+    color: var(--page-ink);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 15px;
+    line-height: 1.55;
+  }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; background: none; border: none; cursor: pointer; color: inherit; }
+
+  /* ================ MASTHEAD ================ */
+  .masthead {
+    position: sticky; top: 0; z-index: 50;
+    background: var(--page-bg);
+    border-bottom: 1px solid var(--page-line);
+  }
+  .masthead-inner {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 1.25rem var(--gutter);
+    display: flex; align-items: center; gap: 2rem;
+  }
+  .masthead-brand {
+    display: flex; align-items: baseline; gap: 0.625rem;
+    font-family: 'Cormorant Garamond', serif; font-weight: 500;
+    font-size: 1.5rem; letter-spacing: -0.015em;
+  }
+  .masthead-brand span {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6875rem; font-weight: 500;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--page-muted);
+    padding: 0.25rem 0.5rem;
+    border: 1px solid var(--page-line); border-radius: 3px;
+  }
+  .masthead-nav {
+    margin-left: auto;
+    display: flex; align-items: center; gap: 0.25rem;
+    padding: 0.25rem; background: rgba(22,19,14,0.04); border-radius: 999px;
+  }
+  .masthead-nav a {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.5rem 1rem; font-size: 0.8125rem; font-weight: 500;
+    border-radius: 999px; color: var(--page-ink);
+    transition: background 200ms ease;
+  }
+  .masthead-nav a:hover { background: rgba(22,19,14,0.08); }
+  .masthead-nav a .dot { width: 10px; height: 10px; border-radius: 999px; display: inline-block; }
+
+  /* ================ INTRO ================ */
+  .intro {
+    max-width: var(--container); margin: 0 auto;
+    padding: 4.5rem var(--gutter) 3rem;
+    display: grid; grid-template-columns: 1fr; gap: 2.5rem;
+  }
+  @media (min-width: 900px) { .intro { grid-template-columns: 1.15fr 1fr; gap: 5rem; align-items: end; } }
+  .intro-kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6875rem; font-weight: 500;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--page-muted);
+    margin-bottom: 1.5rem;
+    display: inline-flex; align-items: center; gap: 0.625rem;
+  }
+  .intro-kicker::before { content: ''; width: 24px; height: 1px; background: var(--page-ink); }
+  .intro h1 {
+    font-family: 'Cormorant Garamond', serif; font-weight: 300;
+    font-size: clamp(2.5rem, 5.2vw, 4.25rem); line-height: 1.02;
+    letter-spacing: -0.018em; margin-bottom: 1.25rem;
+  }
+  .intro h1 em { font-style: italic; font-weight: 400; color: #0E3B2E; }
+  .intro p.lede {
+    font-size: 1.0625rem; line-height: 1.65;
+    color: var(--page-muted); max-width: 52ch;
+  }
+  .intro-aside {
+    border-top: 1px solid var(--page-line);
+    padding-top: 1.75rem;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem;
+  }
+  .intro-aside-item .num {
+    font-family: 'Cormorant Garamond', serif; font-weight: 400;
+    font-size: 2.25rem; line-height: 1; letter-spacing: -0.02em;
+    display: block; margin-bottom: 0.5rem;
+  }
+  .intro-aside-item .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6875rem; color: var(--page-muted);
+    letter-spacing: 0.08em; text-transform: uppercase;
+  }
+
+  /* ================ DIRECTION FRAME ================ */
+  .direction { border-top: 1px solid var(--page-line); scroll-margin-top: 80px; }
+  .direction-inner {
+    max-width: var(--container); margin: 0 auto;
+    padding: 4.5rem var(--gutter) 5.5rem;
+  }
+  .direction-head {
+    display: grid; grid-template-columns: 1fr; gap: 1.75rem;
+    margin-bottom: 3.5rem; padding-bottom: 2rem;
+    border-bottom: 1px solid var(--page-line);
+  }
+  @media (min-width: 900px) {
+    .direction-head { grid-template-columns: auto 1fr auto; gap: 2.5rem; align-items: end; }
+  }
+  .direction-index {
+    font-family: 'Cormorant Garamond', serif; font-weight: 300;
+    font-size: 4.75rem; line-height: 0.9; letter-spacing: -0.04em;
+  }
+  .direction-title-group .dkicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6875rem; font-weight: 500;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--page-muted); margin-bottom: 0.75rem;
+  }
+  .direction-title-group h2 {
+    font-family: 'Cormorant Garamond', serif; font-weight: 400;
+    font-size: clamp(2rem, 3.8vw, 2.875rem);
+    line-height: 1.06; letter-spacing: -0.018em;
+    margin-bottom: 0.625rem;
+  }
+  .direction-title-group h2 em { font-style: italic; font-weight: 500; }
+  .direction-title-group p {
+    font-size: 1rem; line-height: 1.6;
+    color: var(--page-muted); max-width: 58ch;
+  }
+  .direction-badge {
+    align-self: start;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6875rem; letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.5rem 0.875rem;
+    border: 1px solid var(--page-line); border-radius: 4px;
+    white-space: nowrap;
+  }
+
+  .specimen-grid {
+    display: grid; grid-template-columns: 1fr; gap: 2rem;
+  }
+  @media (min-width: 1000px) {
+    .specimen-grid { grid-template-columns: 1.2fr 1fr; gap: 2.25rem; }
+  }
+
+  /* ================ PANELS ================ */
+  .panel { border-radius: 14px; padding: 1.75rem; position: relative; overflow: hidden; }
+  .panel h3 {
+    font-size: 0.6875rem; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    margin-bottom: 1.25rem;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .panel h3 .panel-meta {
+    font-family: 'JetBrains Mono', monospace; font-weight: 400;
+    letter-spacing: 0.08em; opacity: 0.55; font-size: 0.6875rem;
+  }
+
+  /* Palette */
+  .swatches { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.625rem; }
+  .swatch {
+    aspect-ratio: 1 / 1.25; border-radius: 8px; padding: 0.625rem;
+    display: flex; flex-direction: column; justify-content: space-between;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.625rem;
+    letter-spacing: 0.06em; overflow: hidden;
+  }
+  .swatch .sw-label { opacity: 0.9; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; }
+  .swatch .sw-hex { font-weight: 500; }
+  .swatch.has-border { box-shadow: inset 0 0 0 1px rgba(0,0,0,0.08); }
+
+  /* Type rows */
+  .type-block { display: grid; gap: 1.25rem; }
+  .type-row {
+    display: grid; grid-template-columns: 90px 1fr; gap: 1.25rem;
+    align-items: baseline; padding: 0.75rem 0;
+    border-bottom: 1px dashed;
+  }
+  .type-row:last-child { border-bottom: none; }
+  .type-row .tr-meta {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.6875rem;
+    letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.6;
+  }
+
+  /* Components */
+  .components { display: grid; gap: 1.25rem; }
+  .btn-row { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
+  .chip-row { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .mini-card { border-radius: 12px; padding: 1.25rem; }
+  .mini-card .mc-kicker {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.6875rem;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    opacity: 0.7; margin-bottom: 0.625rem;
+  }
+  .mini-card .mc-title {
+    font-size: 1.0625rem; font-weight: 600;
+    letter-spacing: -0.01em; margin-bottom: 0.375rem;
+  }
+  .mini-card .mc-body { font-size: 0.875rem; line-height: 1.5; opacity: 0.78; }
+
+  /* Hero */
+  .hero-specimen {
+    border-radius: 14px; padding: 3rem 2.5rem; min-height: 480px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    position: relative; overflow: hidden;
+  }
+  .hero-specimen .hs-top { display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 2; }
+  .hero-specimen .hs-logo { display: flex; align-items: center; gap: 0.625rem; }
+  .hero-specimen .hs-nav-mini { display: flex; gap: 1.25rem; font-size: 0.8125rem; }
+  .hero-specimen .hs-body-wrap { position: relative; z-index: 2; }
+  .hero-specimen .hs-kicker {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.6875rem;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    margin-bottom: 1rem;
+    display: inline-flex; align-items: center; gap: 0.5rem;
+  }
+  .hero-specimen h4 {
+    font-size: clamp(1.75rem, 3.4vw, 2.875rem);
+    line-height: 1.04; letter-spacing: -0.02em;
+    margin-bottom: 1rem; max-width: 20ch;
+  }
+  .hero-specimen .hs-body {
+    font-size: 1rem; line-height: 1.6;
+    max-width: 46ch; opacity: 0.82; margin-bottom: 1.75rem;
+  }
+  .hero-specimen .hs-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+  /* Logo marks */
+  .logo-wordmark { display: inline-flex; align-items: baseline; gap: 0.375rem; }
+  .logo-glyph {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 28px; height: 28px; border-radius: 6px;
+    font-weight: 600; font-size: 0.9375rem;
+  }
+  .arrow { width: 0.9em; height: 0.9em; stroke-width: 2; }
+
+  a:focus-visible, button:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; border-radius: 4px; }
+
+  /* ========================================================
+     DIRECTION 1A — CLASSIC EDITORIAL
+     Refined, quiet confidence. Forest + brass + parchment.
+     ======================================================== */
+  #classic {
+    --e-bg: #F1EDE3;
+    --e-paper: #FBF7EC;
+    --e-ink: #0F0D0B;
+    --e-ink-60: rgba(15,13,11,0.64);
+    --e-line: rgba(15,13,11,0.14);
+    --e-forest: #0E3B2E;
+    --e-forest-deep: #07281E;
+    --e-forest-light: #7FA793;
+    --e-brass: #9B7340;
+    background: var(--e-bg); color: var(--e-ink);
+  }
+  #classic .direction-index { color: var(--e-forest); }
+  #classic .direction-title-group h2 em { color: var(--e-forest); }
+  #classic .direction-title-group .dkicker { color: var(--e-forest); }
+  #classic .direction-badge { color: var(--e-ink-60); border-color: var(--e-line); background: var(--e-paper); }
+  #classic .direction-title-group p { color: var(--e-ink-60); }
+  #classic .direction-head { border-bottom-color: var(--e-line); }
+
+  #classic .panel { background: var(--e-paper); border: 1px solid var(--e-line); }
+  #classic .panel h3 { color: var(--e-forest); }
+  #classic .type-row { border-bottom-color: var(--e-line); }
+  #classic .type-row .tr-meta { color: var(--e-ink-60); }
+
+  #classic .e-display { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 3rem; line-height: 1; letter-spacing: -0.018em; }
+  #classic .e-display em { font-style: italic; font-weight: 400; color: var(--e-forest); }
+  #classic .e-h2 { font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: 1.875rem; line-height: 1.15; letter-spacing: -0.01em; }
+  #classic .e-lede { font-family: 'Inter', sans-serif; font-weight: 400; font-size: 1.0625rem; line-height: 1.65; color: var(--e-ink-60); }
+  #classic .e-body { font-family: 'Inter', sans-serif; font-weight: 400; font-size: 0.9375rem; line-height: 1.65; }
+  #classic .e-kicker { font-family: 'Inter', sans-serif; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--e-forest); }
+
+  #classic .btn-primary {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--e-forest); color: var(--e-paper);
+    padding: 0.75rem 1.375rem; border-radius: 999px;
+    font-size: 0.8125rem; font-weight: 500;
+    transition: background 200ms ease, transform 200ms ease;
+  }
+  #classic .btn-primary:hover { background: var(--e-forest-deep); transform: translateY(-1px); }
+  #classic .btn-ghost {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.75rem 1.375rem; border-radius: 999px;
+    font-size: 0.8125rem; font-weight: 500;
+    border: 1px solid var(--e-line);
+  }
+  #classic .btn-ghost:hover { border-color: var(--e-forest); background: rgba(14,59,46,0.04); }
+  #classic .btn-link {
+    display: inline-flex; align-items: center; gap: 0.375rem;
+    color: var(--e-forest);
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: 1.0625rem; font-weight: 500;
+    border-bottom: 1px solid var(--e-forest-light); padding-bottom: 2px;
+  }
+
+  #classic .pill {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.375rem 0.75rem; border-radius: 999px;
+    background: rgba(14,59,46,0.06); color: var(--e-forest);
+    font-size: 0.75rem; font-weight: 500;
+  }
+  #classic .pill::before { content: ''; width: 6px; height: 6px; border-radius: 999px; background: var(--e-forest); }
+  #classic .pill.brass { background: rgba(155,115,64,0.12); color: var(--e-brass); }
+  #classic .pill.brass::before { background: var(--e-brass); }
+
+  #classic .mini-card { background: var(--e-bg); border: 1px solid var(--e-line); }
+  #classic .mini-card .mc-kicker { color: var(--e-forest); }
+  #classic .mini-card .mc-title { font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: 1.25rem; }
+
+  #classic .logo-wordmark { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 1.5rem; letter-spacing: -0.015em; }
+  #classic .logo-wordmark em { font-style: italic; color: var(--e-forest); }
+  #classic .logo-glyph { background: var(--e-forest); color: var(--e-paper); font-family: 'Cormorant Garamond', serif; font-weight: 500; }
+
+  #classic .hero-specimen { background: var(--e-paper); border: 1px solid var(--e-line); color: var(--e-ink); }
+  #classic .hero-specimen::after {
+    content: ''; position: absolute; top: 20%; right: -15%;
+    width: 55%; height: 80%;
+    background: radial-gradient(ellipse at center, rgba(14,59,46,0.08) 0%, transparent 62%);
+    filter: blur(20px); pointer-events: none;
+  }
+  #classic .hero-specimen .hs-kicker { color: var(--e-forest); }
+  #classic .hero-specimen h4 { font-family: 'Cormorant Garamond', serif; font-weight: 500; }
+  #classic .hero-specimen h4 em { font-style: italic; font-weight: 500; color: var(--e-forest); }
+  #classic .hero-specimen .hs-body { color: var(--e-ink-60); }
+
+  /* ========================================================
+     DIRECTION 1B — BOLD EDITORIAL
+     Magazine-cover confidence. Deeper green, huge display,
+     punchy cinnabar accent. Still trustworthy, clearly louder.
+     ======================================================== */
+  #bold {
+    --b-bg: #EFE9D8;
+    --b-paper: #F7F1DF;
+    --b-ink: #0A0907;
+    --b-ink-60: rgba(10,9,7,0.66);
+    --b-line: rgba(10,9,7,0.16);
+    --b-forest: #062920;
+    --b-forest-mid: #0C4233;
+    --b-sage: #83A68E;
+    --b-cinnabar: #C04A2B;
+    --b-cinnabar-deep: #8F3319;
+    background: var(--b-bg); color: var(--b-ink);
+  }
+  #bold .direction-index { color: var(--b-forest); font-weight: 500; }
+  #bold .direction-title-group h2 em { color: var(--b-cinnabar); }
+  #bold .direction-title-group .dkicker { color: var(--b-cinnabar); }
+  #bold .direction-badge { color: var(--b-ink-60); border-color: var(--b-line); background: var(--b-paper); }
+  #bold .direction-title-group p { color: var(--b-ink-60); }
+  #bold .direction-head { border-bottom-color: var(--b-line); }
+
+  #bold .panel { background: var(--b-paper); border: 1px solid var(--b-line); }
+  #bold .panel h3 { color: var(--b-forest); }
+  #bold .type-row { border-bottom-color: var(--b-line); }
+  #bold .type-row .tr-meta { color: var(--b-ink-60); }
+
+  #bold .b-display { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 4rem; line-height: 0.92; letter-spacing: -0.03em; }
+  #bold .b-display em { font-style: italic; font-weight: 500; color: var(--b-cinnabar); }
+  #bold .b-h2 { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 2rem; line-height: 1.1; letter-spacing: -0.015em; color: var(--b-forest); }
+  #bold .b-lede { font-family: 'Inter', sans-serif; font-weight: 400; font-size: 1.0625rem; line-height: 1.6; color: var(--b-ink-60); }
+  #bold .b-body { font-family: 'Inter', sans-serif; font-weight: 400; font-size: 0.9375rem; line-height: 1.65; }
+  #bold .b-kicker { font-family: 'Inter', sans-serif; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--b-cinnabar); }
+
+  #bold .btn-primary {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--b-forest); color: var(--b-paper);
+    padding: 0.9rem 1.5rem; border-radius: 4px;
+    font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.02em;
+    text-transform: uppercase;
+    transition: background 200ms ease, transform 200ms ease;
+    box-shadow: 0 2px 0 var(--b-cinnabar);
+  }
+  #bold .btn-primary:hover { background: var(--b-forest-mid); transform: translateY(-1px); box-shadow: 0 3px 0 var(--b-cinnabar); }
+  #bold .btn-ghost {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.9rem 1.5rem; border-radius: 4px;
+    font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.02em;
+    text-transform: uppercase;
+    border: 1.5px solid var(--b-forest); color: var(--b-forest);
+  }
+  #bold .btn-ghost:hover { background: var(--b-forest); color: var(--b-paper); }
+  #bold .btn-link {
+    display: inline-flex; align-items: center; gap: 0.375rem;
+    color: var(--b-cinnabar);
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: 1.125rem; font-weight: 600;
+    border-bottom: 2px solid var(--b-cinnabar); padding-bottom: 2px;
+  }
+
+  #bold .pill {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.4375rem 0.875rem; border-radius: 3px;
+    background: var(--b-forest); color: var(--b-paper);
+    font-size: 0.6875rem; font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase;
+  }
+  #bold .pill.cinnabar { background: var(--b-cinnabar); color: var(--b-paper); }
+  #bold .pill.ghost { background: transparent; color: var(--b-forest); border: 1px solid var(--b-forest); }
+
+  #bold .mini-card { background: var(--b-bg); border: 1px solid var(--b-line); border-left: 4px solid var(--b-cinnabar); border-radius: 4px; }
+  #bold .mini-card .mc-kicker { color: var(--b-cinnabar); font-weight: 600; }
+  #bold .mini-card .mc-title { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 1.375rem; color: var(--b-forest); }
+
+  #bold .logo-wordmark { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 1.625rem; letter-spacing: -0.02em; color: var(--b-forest); }
+  #bold .logo-wordmark em { font-style: italic; color: var(--b-cinnabar); font-weight: 500; }
+  #bold .logo-glyph { background: var(--b-forest); color: var(--b-paper); font-family: 'Cormorant Garamond', serif; font-weight: 600; border-radius: 3px; width: 32px; height: 32px; font-size: 1.125rem; }
+
+  #bold .hero-specimen {
+    background: var(--b-forest); color: var(--b-paper);
+    border: 1px solid var(--b-forest);
+  }
+  #bold .hero-specimen::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 90% 0%, rgba(192,74,43,0.25) 0%, transparent 45%),
+      radial-gradient(ellipse at 10% 100%, rgba(131,166,142,0.14) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  #bold .hero-specimen::after {
+    content: ''; position: absolute; left: 2.5rem; top: 50%;
+    width: 48px; height: 3px; background: var(--b-cinnabar);
+    transform: translateY(-1px);
+    z-index: 1; display: none;
+  }
+  #bold .hero-specimen .hs-kicker { color: var(--b-cinnabar); font-weight: 600; }
+  #bold .hero-specimen .hs-kicker::before {
+    content: ''; width: 24px; height: 2px; background: var(--b-cinnabar); display: inline-block; margin-right: 0.125rem;
+  }
+  #bold .hero-specimen h4 { font-family: 'Cormorant Garamond', serif; font-weight: 400; letter-spacing: -0.022em; }
+  #bold .hero-specimen h4 em { font-style: italic; font-weight: 500; color: #E6B39B; }
+  #bold .hero-specimen .hs-body { color: rgba(247,241,223,0.78); }
+  #bold .hero-specimen .hs-nav-mini { color: rgba(247,241,223,0.7); }
+  #bold .hero-specimen .logo-wordmark { color: var(--b-paper); }
+  #bold .hero-specimen .logo-wordmark em { color: #E6B39B; }
+  #bold .hero-specimen .logo-glyph { background: var(--b-cinnabar); color: var(--b-paper); }
+  #bold .hero-specimen .btn-primary { background: var(--b-cinnabar); color: var(--b-paper); box-shadow: 0 2px 0 #6A1F0C; }
+  #bold .hero-specimen .btn-primary:hover { background: var(--b-cinnabar-deep); }
+  #bold .hero-specimen .btn-ghost { border-color: rgba(247,241,223,0.35); color: var(--b-paper); }
+  #bold .hero-specimen .btn-ghost:hover { background: var(--b-paper); color: var(--b-forest); }
+
+  /* ========================================================
+     DIRECTION 1C — MODERNIST EDITORIAL
+     Editorial × system. Structured grid, architectural type,
+     signal-green accent. Contemporary, confident, composed.
+     ======================================================== */
+  #modernist {
+    --m-bg: #F0EEE6;
+    --m-paper: #FFFFFF;
+    --m-ink: #0E0F0D;
+    --m-ink-60: rgba(14,15,13,0.62);
+    --m-line: rgba(14,15,13,0.14);
+    --m-forest: #0F4338;
+    --m-forest-deep: #083029;
+    --m-signal: #8FC252;
+    --m-stone: #D3CEC3;
+    background: var(--m-bg); color: var(--m-ink);
+  }
+  #modernist .direction-index { color: var(--m-forest); font-family: 'Instrument Serif', 'Cormorant Garamond', serif; font-style: italic; font-weight: 400; }
+  #modernist .direction-title-group h2 { font-family: 'Instrument Serif', 'Cormorant Garamond', serif; font-weight: 400; letter-spacing: -0.022em; }
+  #modernist .direction-title-group h2 em { color: var(--m-forest); font-style: italic; }
+  #modernist .direction-title-group .dkicker { color: var(--m-forest); }
+  #modernist .direction-badge { color: var(--m-ink-60); border-color: var(--m-line); background: var(--m-paper); }
+  #modernist .direction-title-group p { color: var(--m-ink-60); }
+  #modernist .direction-head { border-bottom-color: var(--m-line); }
+
+  #modernist .panel { background: var(--m-paper); border: 1px solid var(--m-line); }
+  #modernist .panel h3 { color: var(--m-forest); }
+  #modernist .type-row { border-bottom-color: var(--m-line); }
+  #modernist .type-row .tr-meta { color: var(--m-ink-60); }
+
+  #modernist .m-display { font-family: 'Instrument Serif', 'Cormorant Garamond', serif; font-weight: 400; font-size: 3.5rem; line-height: 0.96; letter-spacing: -0.028em; }
+  #modernist .m-display em { font-style: italic; color: var(--m-forest); }
+  #modernist .m-h2 { font-family: 'Inter', sans-serif; font-weight: 500; font-size: 1.625rem; line-height: 1.18; letter-spacing: -0.025em; }
+  #modernist .m-lede { font-family: 'Inter', sans-serif; font-weight: 400; font-size: 1.0625rem; line-height: 1.6; color: var(--m-ink-60); }
+  #modernist .m-body { font-family: 'Inter', sans-serif; font-weight: 400; font-size: 0.9375rem; line-height: 1.65; }
+  #modernist .m-kicker { font-family: 'JetBrains Mono', monospace; font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--m-forest); }
+
+  #modernist .btn-primary {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--m-forest); color: var(--m-paper);
+    padding: 0.8125rem 1.375rem; border-radius: 2px;
+    font-size: 0.8125rem; font-weight: 500; letter-spacing: 0.01em;
+    transition: background 200ms ease, transform 200ms ease;
+  }
+  #modernist .btn-primary:hover { background: var(--m-forest-deep); transform: translateY(-1px); }
+  #modernist .btn-ghost {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.8125rem 1.375rem; border-radius: 2px;
+    font-size: 0.8125rem; font-weight: 500;
+    border: 1px solid var(--m-ink);
+  }
+  #modernist .btn-ghost:hover { background: var(--m-ink); color: var(--m-paper); }
+  #modernist .btn-link {
+    display: inline-flex; align-items: center; gap: 0.375rem;
+    color: var(--m-forest);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8125rem; font-weight: 500; letter-spacing: 0.04em;
+    text-transform: lowercase;
+  }
+  #modernist .btn-link::after { content: '↗'; }
+
+  #modernist .pill {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.3125rem 0.625rem; border-radius: 2px;
+    background: rgba(15,67,56,0.08); color: var(--m-forest);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.06em;
+  }
+  #modernist .pill::before { content: ''; width: 6px; height: 6px; background: var(--m-forest); }
+  #modernist .pill.signal { background: rgba(143,194,82,0.18); color: #537839; }
+  #modernist .pill.signal::before { background: var(--m-signal); }
+  #modernist .pill.stone { background: var(--m-stone); color: var(--m-ink); }
+  #modernist .pill.stone::before { background: var(--m-ink); }
+
+  #modernist .mini-card { background: var(--m-bg); border: 1px solid var(--m-line); border-radius: 4px; }
+  #modernist .mini-card .mc-kicker { color: var(--m-forest); }
+  #modernist .mini-card .mc-title { font-family: 'Inter', sans-serif; font-weight: 600; font-size: 1.125rem; letter-spacing: -0.015em; }
+
+  #modernist .logo-wordmark { font-family: 'Instrument Serif', 'Cormorant Garamond', serif; font-weight: 400; font-size: 1.75rem; letter-spacing: -0.025em; }
+  #modernist .logo-wordmark em { font-style: italic; color: var(--m-forest); }
+  #modernist .logo-glyph { background: var(--m-forest); color: var(--m-paper); font-family: 'Instrument Serif', serif; font-weight: 400; font-style: italic; font-size: 1.125rem; border-radius: 3px; }
+
+  /* Modernist hero — structured grid, architectural */
+  #modernist .hero-specimen {
+    background: var(--m-paper); color: var(--m-ink);
+    border: 1px solid var(--m-line);
+    padding: 0; overflow: hidden;
+    display: grid; grid-template-rows: auto 1fr auto;
+  }
+  #modernist .hero-specimen .hs-top {
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid var(--m-line);
+  }
+  #modernist .hero-specimen .hs-main {
+    padding: 3rem 2rem 2.5rem;
+    position: relative;
+    display: grid; grid-template-columns: 1fr; gap: 0;
+  }
+  #modernist .hero-specimen .hs-main::before {
+    content: ''; position: absolute; left: 2rem; top: 3rem;
+    width: 40px; height: 4px; background: var(--m-signal);
+  }
+  #modernist .hero-specimen .hs-main::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, transparent 40%, rgba(15,67,56,0.04) 100%);
+    pointer-events: none;
+  }
+  #modernist .hero-specimen .hs-body-wrap { padding-top: 2rem; }
+  #modernist .hero-specimen .hs-kicker { color: var(--m-forest); font-family: 'JetBrains Mono', monospace; font-weight: 500; }
+  #modernist .hero-specimen h4 {
+    font-family: 'Instrument Serif', 'Cormorant Garamond', serif; font-weight: 400;
+    letter-spacing: -0.025em;
+  }
+  #modernist .hero-specimen h4 em { font-style: italic; color: var(--m-forest); }
+  #modernist .hero-specimen .hs-body { color: var(--m-ink-60); }
+  #modernist .hero-specimen .hs-actions {
+    padding: 1.5rem 2rem;
+    border-top: 1px solid var(--m-line);
+    background: var(--m-bg);
+    display: flex; gap: 0.75rem;
+  }
+  #modernist .hero-specimen .hs-meta-strip {
+    position: absolute; right: 2rem; top: 3rem;
+    display: flex; flex-direction: column; gap: 0.375rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6875rem; letter-spacing: 0.08em;
+    color: var(--m-ink-60); text-transform: uppercase;
+    text-align: right;
+  }
+
+  /* ================ FOOTER ================ */
+  .end { border-top: 1px solid var(--page-line); padding: 3rem var(--gutter); text-align: center; }
+  .end p { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; letter-spacing: 0.08em; color: var(--page-muted); text-transform: uppercase; }
+</style>
+</head>
+<body>
+
+  <!-- ========= MASTHEAD ========= -->
+  <header class="masthead">
+    <div class="masthead-inner">
+      <div class="masthead-brand">
+        Native
+        <span>Editorial · v0.2</span>
+      </div>
+      <nav class="masthead-nav" aria-label="Editorial directions">
+        <a href="#classic"><span class="dot" style="background:#0E3B2E"></span> 1A · Classic</a>
+        <a href="#bold"><span class="dot" style="background:#C04A2B"></span> 1B · Bold</a>
+        <a href="#modernist"><span class="dot" style="background:#8FC252"></span> 1C · Modernist</a>
+        <a href="#premium"><span class="dot" style="background:#9B7340"></span> 1A+ · Premium</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ========= INTRO ========= -->
+  <section class="intro">
+    <div>
+      <span class="intro-kicker">Three editorial variants · all green · rising confidence</span>
+      <h1>Same soul. <em>Three volumes.</em></h1>
+      <p class="lede">Each variant stays inside the editorial family and keeps green at the center. <strong>1A</strong> is the refined baseline. <strong>1B</strong> turns the volume up with magazine-cover confidence and a punchy cinnabar accent. <strong>1C</strong> pushes the system contemporary — structured grids, architectural type, a signal-green punctuation. All three read trustworthy. All three feel like something will change.</p>
+    </div>
+    <aside class="intro-aside">
+      <div class="intro-aside-item"><span class="num">1A</span><span class="label">Classic</span></div>
+      <div class="intro-aside-item"><span class="num">1B</span><span class="label">Bold</span></div>
+      <div class="intro-aside-item"><span class="num">1C</span><span class="label">Modernist</span></div>
+    </aside>
+  </section>
+
+  <!-- =====================================================
+       1A — CLASSIC EDITORIAL
+       ===================================================== -->
+  <section id="classic" class="direction">
+    <div class="direction-inner">
+      <div class="direction-head">
+        <div class="direction-index">1A</div>
+        <div class="direction-title-group">
+          <div class="dkicker">Variant · Classic</div>
+          <h2>Refined. <em>The trusted advisor in the room.</em></h2>
+          <p>Forest green, parchment, and a soft brass accent. Cormorant carries the voice; Inter does the work. The closest to Material's current DNA — polished, literary, unmistakably premium. For buyers who decide slowly and expect their partners to be seasoned.</p>
+        </div>
+        <span class="direction-badge">Premium · Advisory</span>
+      </div>
+
+      <div class="specimen-grid">
+        <div class="hero-specimen">
+          <div class="hs-top">
+            <div class="hs-logo">
+              <span class="logo-glyph">N</span>
+              <span class="logo-wordmark">Native<em>.</em></span>
+            </div>
+            <div class="hs-nav-mini" style="color: var(--e-ink-60);">
+              <span>Build</span><span>Modernize</span><span>Playbook</span>
+            </div>
+          </div>
+          <div class="hs-body-wrap">
+            <div class="hs-kicker">Built by operators, native by design</div>
+            <h4>The operator team that builds <em>AI-Native</em> companies.</h4>
+            <p class="hs-body">Humans lead strategy. AI runs execution. Experts shape review. The order you build things in matters more than the tools you pick.</p>
+            <div class="hs-actions">
+              <a href="#" class="btn-primary">Map your growth plan
+                <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+              </a>
+              <a href="#" class="btn-ghost">Read the playbook</a>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:grid; gap:1.25rem;">
+          <div class="panel">
+            <h3>Palette <span class="panel-meta">5 tokens</span></h3>
+            <div class="swatches">
+              <div class="swatch" style="background:#0E3B2E; color:#FBF7EC"><span class="sw-label">Forest</span><span class="sw-hex">#0E3B2E</span></div>
+              <div class="swatch" style="background:#07281E; color:#FBF7EC"><span class="sw-label">Forest/Deep</span><span class="sw-hex">#07281E</span></div>
+              <div class="swatch" style="background:#9B7340; color:#FBF7EC"><span class="sw-label">Brass</span><span class="sw-hex">#9B7340</span></div>
+              <div class="swatch has-border" style="background:#F1EDE3; color:#0F0D0B"><span class="sw-label">Parchment</span><span class="sw-hex">#F1EDE3</span></div>
+              <div class="swatch" style="background:#0F0D0B; color:#FBF7EC"><span class="sw-label">Ink</span><span class="sw-hex">#0F0D0B</span></div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h3>Type · Cormorant + Inter <span class="panel-meta">Quiet</span></h3>
+            <div class="type-block">
+              <div class="type-row"><span class="tr-meta">Display</span><span class="e-display">Strategy, <em>installed.</em></span></div>
+              <div class="type-row"><span class="tr-meta">Heading</span><span class="e-h2">Built in order, one layer at a time.</span></div>
+              <div class="type-row"><span class="tr-meta">Kicker</span><span class="e-kicker">The playbook · Phase one</span></div>
+              <div class="type-row"><span class="tr-meta">Body</span><span class="e-body">We embed inside the business. Write the strategic core. Install the loop. Then stay in until the system is running on its own.</span></div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h3>Components <span class="panel-meta">Button · Pill · Card</span></h3>
+            <div class="components">
+              <div class="btn-row">
+                <a href="#" class="btn-primary">Book a call <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+                <a href="#" class="btn-ghost">Read the playbook</a>
+                <a href="#" class="btn-link">See the approach →</a>
+              </div>
+              <div class="chip-row">
+                <span class="pill">Build with us</span>
+                <span class="pill">Modernize &amp; scale</span>
+                <span class="pill brass">On the cap table</span>
+              </div>
+              <div class="mini-card">
+                <div class="mc-kicker">Phase 01 · Strategic core</div>
+                <div class="mc-title">The markdown files that make the system compound.</div>
+                <div class="mc-body">Positioning, ICP, narrative. Every downstream output reads from the same source.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       1B — BOLD EDITORIAL
+       ===================================================== -->
+  <section id="bold" class="direction">
+    <div class="direction-inner">
+      <div class="direction-head">
+        <div class="direction-index">1B</div>
+        <div class="direction-title-group">
+          <div class="dkicker">Variant · Bold</div>
+          <h2>Confident. <em>The operator who's done it before.</em></h2>
+          <p>Deeper forest, paper ivory, a cinnabar accent that lands like a masthead red. Heavier Cormorant display type, shorter buttons with an underline shadow in the accent, more white space around bigger ideas. Still editorial, unmistakably louder. The variant that signals <em>things are about to change.</em></p>
+        </div>
+        <span class="direction-badge">Bold · Decisive</span>
+      </div>
+
+      <div class="specimen-grid">
+        <div class="hero-specimen">
+          <div class="hs-top">
+            <div class="hs-logo">
+              <span class="logo-glyph">N</span>
+              <span class="logo-wordmark">Native<em>.</em></span>
+            </div>
+            <div class="hs-nav-mini">
+              <span>Build</span><span>Modernize</span><span>Playbook</span>
+            </div>
+          </div>
+          <div class="hs-body-wrap">
+            <div class="hs-kicker">The playbook · Issue no. 01</div>
+            <h4>Build your company <em>AI-Native.</em> Or get passed.</h4>
+            <p class="hs-body">The companies that will matter in 2028 are being built this year. We're the operator team that gets you there — strategy first, systems installed, agents running, feedback loop on.</p>
+            <div class="hs-actions">
+              <a href="#" class="btn-primary">Map the plan
+                <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+              </a>
+              <a href="#" class="btn-ghost">The playbook</a>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:grid; gap:1.25rem;">
+          <div class="panel">
+            <h3>Palette <span class="panel-meta">5 tokens</span></h3>
+            <div class="swatches">
+              <div class="swatch" style="background:#062920; color:#F7F1DF"><span class="sw-label">Forest/Deep</span><span class="sw-hex">#062920</span></div>
+              <div class="swatch" style="background:#0C4233; color:#F7F1DF"><span class="sw-label">Forest</span><span class="sw-hex">#0C4233</span></div>
+              <div class="swatch" style="background:#C04A2B; color:#F7F1DF"><span class="sw-label">Cinnabar</span><span class="sw-hex">#C04A2B</span></div>
+              <div class="swatch" style="background:#83A68E; color:#0A0907"><span class="sw-label">Sage</span><span class="sw-hex">#83A68E</span></div>
+              <div class="swatch has-border" style="background:#F7F1DF; color:#0A0907"><span class="sw-label">Ivory</span><span class="sw-hex">#F7F1DF</span></div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h3>Type · Cormorant + Inter <span class="panel-meta">Louder</span></h3>
+            <div class="type-block">
+              <div class="type-row"><span class="tr-meta">Display</span><span class="b-display">Install the <em>edge.</em></span></div>
+              <div class="type-row"><span class="tr-meta">Heading</span><span class="b-h2">The order is the product.</span></div>
+              <div class="type-row"><span class="tr-meta">Kicker</span><span class="b-kicker">— Issue no. 01 · Spring</span></div>
+              <div class="type-row"><span class="tr-meta">Body</span><span class="b-body">We operate inside the business. Rebuild the strategic core. Turn on the channels. Close the feedback loop. The company gets sharper every week.</span></div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h3>Components <span class="panel-meta">Button · Pill · Card</span></h3>
+            <div class="components">
+              <div class="btn-row">
+                <a href="#" class="btn-primary">Book a call <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+                <a href="#" class="btn-ghost">The playbook</a>
+                <a href="#" class="btn-link">See the approach →</a>
+              </div>
+              <div class="chip-row">
+                <span class="pill">Build with us</span>
+                <span class="pill cinnabar">New · Modernize &amp; scale</span>
+                <span class="pill ghost">Operators only</span>
+              </div>
+              <div class="mini-card">
+                <div class="mc-kicker">Phase 01 · Strategic core</div>
+                <div class="mc-title">The edge isn't the AI. It's the core the AI is built on.</div>
+                <div class="mc-body">Positioning. ICP. Narrative. Brand. Written as markdown, read by every operator and every agent.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       1C — MODERNIST EDITORIAL
+       ===================================================== -->
+  <section id="modernist" class="direction">
+    <div class="direction-inner">
+      <div class="direction-head">
+        <div class="direction-index">1C</div>
+        <div class="direction-title-group">
+          <div class="dkicker">Variant · Modernist</div>
+          <h2>Contemporary. <em>The operating system in editorial form.</em></h2>
+          <p>Instrument Serif for display, Inter for headings, JetBrains Mono for system labels. Tight forest green, a signal-green accent used like a highlighter pen, stone neutrals, architectural grid. Still editorial at its core — but the layout reads like a living system. The variant for buyers who want the polish <em>and</em> the machine.</p>
+        </div>
+        <span class="direction-badge">Modernist · Systemic</span>
+      </div>
+
+      <div class="specimen-grid">
+        <div class="hero-specimen">
+          <div class="hs-top">
+            <div class="hs-logo">
+              <span class="logo-glyph">N</span>
+              <span class="logo-wordmark">Native<em>.</em></span>
+            </div>
+            <div class="hs-nav-mini" style="font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--m-ink-60);">
+              <span>01 / Build</span><span>02 / Modernize</span><span>03 / Playbook</span>
+            </div>
+          </div>
+          <div class="hs-main">
+            <div class="hs-body-wrap">
+              <div class="hs-kicker">Section 01 — the operating system</div>
+              <h4>Strategy, installed. <em>Systems, native.</em></h4>
+              <p class="hs-body">An operator team that writes the strategic core, installs the loop, and stays in until the business is running AI-Native on its own.</p>
+            </div>
+            <div class="hs-meta-strip">
+              <span>Operator-led</span>
+              <span>Est. 2026</span>
+              <span>nativebuilt.com</span>
+            </div>
+          </div>
+          <div class="hs-actions">
+            <a href="#" class="btn-primary">Map your growth plan
+              <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
+            <a href="#" class="btn-ghost">Read the playbook</a>
+          </div>
+        </div>
+
+        <div style="display:grid; gap:1.25rem;">
+          <div class="panel">
+            <h3>Palette <span class="panel-meta">5 tokens</span></h3>
+            <div class="swatches">
+              <div class="swatch" style="background:#0F4338; color:#FFFFFF"><span class="sw-label">Forest</span><span class="sw-hex">#0F4338</span></div>
+              <div class="swatch" style="background:#083029; color:#FFFFFF"><span class="sw-label">Forest/Deep</span><span class="sw-hex">#083029</span></div>
+              <div class="swatch" style="background:#8FC252; color:#0E0F0D"><span class="sw-label">Signal</span><span class="sw-hex">#8FC252</span></div>
+              <div class="swatch" style="background:#D3CEC3; color:#0E0F0D"><span class="sw-label">Stone</span><span class="sw-hex">#D3CEC3</span></div>
+              <div class="swatch has-border" style="background:#FFFFFF; color:#0E0F0D"><span class="sw-label">Paper</span><span class="sw-hex">#FFFFFF</span></div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h3>Type · Instrument + Inter + Mono <span class="panel-meta">System</span></h3>
+            <div class="type-block">
+              <div class="type-row"><span class="tr-meta">Display</span><span class="m-display">Native, <em>by design.</em></span></div>
+              <div class="type-row"><span class="tr-meta">Heading</span><span class="m-h2">Operating system, editorial finish.</span></div>
+              <div class="type-row"><span class="tr-meta">Kicker</span><span class="m-kicker">sec.01 — strategic core</span></div>
+              <div class="type-row"><span class="tr-meta">Body</span><span class="m-body">Positioning, ICP, narrative, brand — written as markdown. Skills and agents read from the same source. The loop updates the core every week.</span></div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h3>Components <span class="panel-meta">Button · Pill · Card</span></h3>
+            <div class="components">
+              <div class="btn-row">
+                <a href="#" class="btn-primary">Book a call <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+                <a href="#" class="btn-ghost">The playbook</a>
+                <a href="#" class="btn-link">view.spec</a>
+              </div>
+              <div class="chip-row">
+                <span class="pill">sec.01 · core</span>
+                <span class="pill signal">agent · live</span>
+                <span class="pill stone">phase.04</span>
+              </div>
+              <div class="mini-card">
+                <div class="mc-kicker">agent.weekly-pulse</div>
+                <div class="mc-title">Metrics → recommendations → feedback.</div>
+                <div class="mc-body">Every Monday. Approved changes write back into the strategic core and the channel skills.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       1A+ — PREMIUM TEXTURES
+       Applied treatments: paper grain · masthead chrome ·
+       italic numeral watermark · drop cap · marginalia
+       ===================================================== -->
+  <style>
+    #premium {
+      --p-bg: #EFE9DB;
+      --p-paper: #F8F2E2;
+      --p-paper-2: #FBF6E7;
+      --p-ink: #0E0B07;
+      --p-ink-70: rgba(14,11,7,0.72);
+      --p-ink-50: rgba(14,11,7,0.50);
+      --p-line: rgba(14,11,7,0.14);
+      --p-hair: rgba(14,11,7,0.22);
+      --p-forest: #0E3B2E;
+      --p-forest-deep: #062921;
+      --p-brass: #9B7340;
+
+      background: var(--p-bg);
+      color: var(--p-ink);
+      position: relative;
+    }
+
+    /* Paper grain on the whole section */
+    #premium::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' seed='7'/><feColorMatrix values='0 0 0 0 0.08  0 0 0 0 0.07  0 0 0 0 0.04  0 0 0 0.45 0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.55'/></svg>");
+      opacity: 0.5;
+      pointer-events: none; mix-blend-mode: multiply;
+      z-index: 0;
+    }
+    #premium > * { position: relative; z-index: 1; }
+
+    #premium .direction-index { color: var(--p-forest); font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 500; }
+    #premium .direction-title-group h2 em { color: var(--p-forest); }
+    #premium .direction-title-group .dkicker { color: var(--p-brass); }
+    #premium .direction-badge { color: var(--p-ink-70); border-color: var(--p-line); background: var(--p-paper); }
+    #premium .direction-title-group p { color: var(--p-ink-70); }
+    #premium .direction-head { border-bottom-color: var(--p-line); }
+
+    /* ==== Premium hero ==== */
+    #premium .premium-hero {
+      position: relative;
+      background: var(--p-paper);
+      border: 1px solid var(--p-line);
+      border-radius: 2px;
+      overflow: hidden;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      min-height: 640px;
+    }
+    /* Inner hairline frame */
+    #premium .premium-hero::after {
+      content: ''; position: absolute; inset: 18px;
+      border: 1px solid var(--p-hair);
+      border-radius: 0;
+      pointer-events: none;
+    }
+    /* Paper grain on the hero itself for extra tactility */
+    #premium .premium-hero::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='2' seed='3'/><feColorMatrix values='0 0 0 0 0.09  0 0 0 0 0.07  0 0 0 0 0.04  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+      opacity: 0.35;
+      mix-blend-mode: multiply;
+      pointer-events: none;
+    }
+
+    /* ---- Masthead chrome ---- */
+    #premium .ph-masthead {
+      position: relative; z-index: 2;
+      padding: 1.75rem 2.75rem 1.25rem;
+      display: grid; grid-template-columns: 1fr auto 1fr;
+      gap: 2rem; align-items: center;
+      border-bottom: 1px solid var(--p-hair);
+    }
+    #premium .ph-masthead-left,
+    #premium .ph-masthead-right {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6875rem; letter-spacing: 0.18em;
+      color: var(--p-ink-70); text-transform: uppercase;
+    }
+    #premium .ph-masthead-right { text-align: right; }
+    #premium .ph-masthead-center {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 500; font-size: 1.75rem;
+      letter-spacing: -0.02em;
+      display: flex; align-items: baseline; gap: 0.375rem;
+    }
+    #premium .ph-masthead-center em { font-style: italic; color: var(--p-forest); }
+
+    /* ---- Main content area ---- */
+    #premium .ph-body {
+      position: relative; z-index: 2;
+      padding: 4rem 2.75rem 3rem;
+      display: grid; grid-template-columns: 1fr; gap: 0;
+    }
+    @media (min-width: 780px) {
+      #premium .ph-body { grid-template-columns: minmax(0, 58%) 1fr; gap: 3rem; }
+    }
+
+    /* Oversized italic numeral watermark */
+    #premium .ph-watermark {
+      position: absolute;
+      right: 2rem; top: -0.5rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-weight: 300;
+      font-size: clamp(10rem, 22vw, 18rem);
+      line-height: 0.8;
+      color: var(--p-forest);
+      opacity: 0.07;
+      pointer-events: none;
+      z-index: 1;
+      letter-spacing: -0.04em;
+      user-select: none;
+    }
+
+    /* Marginalia label in outer gutter */
+    #premium .ph-marginalia {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.625rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--p-brass);
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      position: absolute; left: 0.75rem; top: 50%;
+      transform-origin: center;
+      transform: translateY(-50%) rotate(180deg);
+      z-index: 2;
+    }
+
+    #premium .ph-kicker {
+      display: inline-flex; align-items: center; gap: 0.625rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6875rem; font-weight: 500;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--p-forest);
+      margin-bottom: 1.75rem;
+    }
+    #premium .ph-kicker::before {
+      content: ''; width: 28px; height: 1px; background: var(--p-forest);
+    }
+
+    #premium .ph-headline {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 500;
+      font-size: clamp(2rem, 4.2vw, 3.375rem);
+      line-height: 1.02;
+      letter-spacing: -0.022em;
+      color: var(--p-ink);
+      margin-bottom: 1.25rem;
+      max-width: 22ch;
+    }
+    #premium .ph-headline em {
+      font-style: italic; font-weight: 500;
+      color: var(--p-forest);
+    }
+
+    /* Hairline rule under headline */
+    #premium .ph-rule {
+      width: 48px; height: 1px;
+      background: var(--p-forest);
+      margin-bottom: 1.5rem;
+    }
+
+    /* Drop cap opening paragraph */
+    #premium .ph-lede {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.0625rem; line-height: 1.65;
+      color: var(--p-ink-70);
+      max-width: 48ch;
+      margin-bottom: 2rem;
+    }
+    #premium .ph-lede::first-letter {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 500; font-style: italic;
+      font-size: 3.25rem;
+      line-height: 0.85;
+      float: left;
+      padding: 0.35rem 0.625rem 0 0;
+      color: var(--p-forest);
+    }
+
+    #premium .ph-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+    #premium .btn-primary {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--p-forest); color: var(--p-paper);
+      padding: 0.85rem 1.5rem; border-radius: 999px;
+      font-size: 0.8125rem; font-weight: 500;
+      transition: background 200ms ease, transform 200ms ease;
+      box-shadow: 0 0 0 1px rgba(14,59,46,0.05), 0 6px 18px rgba(14,59,46,0.14);
+    }
+    #premium .btn-primary:hover { background: var(--p-forest-deep); transform: translateY(-1px); }
+    #premium .btn-ghost {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.85rem 1.5rem; border-radius: 999px;
+      font-size: 0.8125rem; font-weight: 500;
+      border: 1px solid var(--p-hair); color: var(--p-ink);
+      background: transparent;
+    }
+    #premium .btn-ghost:hover { background: rgba(14,59,46,0.04); border-color: var(--p-forest); }
+
+    /* Right column — editorial pull-quote + meta */
+    #premium .ph-aside {
+      position: relative; z-index: 2;
+      display: flex; flex-direction: column; gap: 1.75rem;
+      padding-top: 0.5rem;
+    }
+    #premium .ph-pullquote {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-weight: 400;
+      font-size: 1.375rem; line-height: 1.35;
+      color: var(--p-ink);
+      letter-spacing: -0.005em;
+      padding-left: 1rem;
+      border-left: 1px solid var(--p-forest);
+    }
+    #premium .ph-pullquote strong {
+      display: block; margin-top: 0.625rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 500; font-style: normal;
+      font-size: 0.6875rem; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--p-brass);
+    }
+    #premium .ph-meta-list {
+      list-style: none;
+      border-top: 1px solid var(--p-hair);
+      padding-top: 1rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--p-ink-70);
+      letter-spacing: 0.06em;
+    }
+    #premium .ph-meta-list li {
+      display: grid; grid-template-columns: 90px 1fr; gap: 1rem;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--p-hair);
+    }
+    #premium .ph-meta-list li:last-child { border-bottom: none; }
+    #premium .ph-meta-list .ml-label { color: var(--p-brass); text-transform: uppercase; }
+
+    /* Footer strip of the hero */
+    #premium .ph-foot {
+      position: relative; z-index: 2;
+      padding: 1rem 2.75rem;
+      border-top: 1px solid var(--p-hair);
+      display: flex; justify-content: space-between; align-items: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6875rem; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--p-ink-50);
+    }
+    #premium .ph-foot nav { display: flex; gap: 1.75rem; color: var(--p-ink-70); }
+
+    /* Technique key — annotate what's happening */
+    #premium .tech-key {
+      margin-top: 2.5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+    #premium .tech-item {
+      padding: 1.25rem 1.25rem;
+      background: var(--p-paper-2);
+      border: 1px solid var(--p-line);
+      border-radius: 2px;
+      position: relative;
+    }
+    #premium .tech-item .tk-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-weight: 400;
+      font-size: 1.625rem; line-height: 1;
+      color: var(--p-forest);
+      margin-bottom: 0.5rem;
+    }
+    #premium .tech-item .tk-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8125rem; font-weight: 600;
+      letter-spacing: -0.005em; color: var(--p-ink);
+      margin-bottom: 0.25rem;
+    }
+    #premium .tech-item .tk-body {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6875rem; letter-spacing: 0.04em;
+      color: var(--p-ink-70); line-height: 1.55;
+    }
+  </style>
+
+  <section id="premium" class="direction">
+    <div class="direction-inner">
+      <div class="direction-head">
+        <div class="direction-index">1A+</div>
+        <div class="direction-title-group">
+          <div class="dkicker">Premium treatment · applied to 1A</div>
+          <h2>The same bones. <em>With the finish of a magazine.</em></h2>
+          <p>Four tactile moves added to Classic: a subtle paper grain across the page, a masthead-style chrome with issue meta, an oversized italic numeral watermark sitting behind the headline, and a drop-cap on the opening line. Restrained — you feel them, you don't see them working.</p>
+        </div>
+        <span class="direction-badge">1A + textures</span>
+      </div>
+
+      <div class="premium-hero">
+
+        <!-- Masthead chrome -->
+        <header class="ph-masthead">
+          <div class="ph-masthead-left">Native · Est. MMXXVI</div>
+          <div class="ph-masthead-center">Native<em>.</em></div>
+          <div class="ph-masthead-right">Vol. I · No. 01 · Spring</div>
+        </header>
+
+        <!-- Vertical marginalia -->
+        <span class="ph-marginalia">The playbook · Chapter one</span>
+
+        <!-- Oversized italic numeral watermark -->
+        <span class="ph-watermark" aria-hidden="true"><em>01</em></span>
+
+        <!-- Main body -->
+        <div class="ph-body">
+          <div>
+            <div class="ph-kicker">Built by operators, native by design</div>
+            <h1 class="ph-headline">The operator team that builds <em>AI-Native</em> companies.</h1>
+            <span class="ph-rule"></span>
+            <p class="ph-lede">Humans lead strategy. AI runs execution. Experts shape review. Native is the team that writes the playbook, installs the system, and stays in until the business is running on its own.</p>
+            <div class="ph-actions">
+              <a href="#" class="btn-primary">Map your growth plan
+                <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+              </a>
+              <a href="#" class="btn-ghost">Read the playbook</a>
+            </div>
+          </div>
+
+          <aside class="ph-aside">
+            <div class="ph-pullquote">
+              "The edge isn't the AI. It's the strategic core the AI is built on."
+              <strong>— the playbook</strong>
+            </div>
+            <ul class="ph-meta-list">
+              <li><span class="ml-label">Est.</span><span>2026 · Brooklyn &amp; remote</span></li>
+              <li><span class="ml-label">Operators</span><span>Wharton · YC · Palantir · Uber</span></li>
+              <li><span class="ml-label">Two ways</span><span>Build with us / Modernize &amp; scale</span></li>
+            </ul>
+          </aside>
+        </div>
+
+        <!-- Footer strip -->
+        <footer class="ph-foot">
+          <span>nativebuilt.com</span>
+          <nav>
+            <span>01 · Build</span>
+            <span>02 · Modernize</span>
+            <span>03 · Playbook</span>
+          </nav>
+          <span>Operator-led</span>
+        </footer>
+      </div>
+
+      <!-- Technique annotations -->
+      <div class="tech-key">
+        <div class="tech-item">
+          <div class="tk-num">i.</div>
+          <div class="tk-title">Paper grain</div>
+          <div class="tk-body">SVG fractal noise, 35–50% opacity, multiply blend. Tactile without being visible.</div>
+        </div>
+        <div class="tech-item">
+          <div class="tk-num">ii.</div>
+          <div class="tk-title">Masthead chrome</div>
+          <div class="tk-body">Issue number, date, establishment line. Reads as publication, not website.</div>
+        </div>
+        <div class="tech-item">
+          <div class="tk-num">iii.</div>
+          <div class="tk-title">Italic numeral watermark</div>
+          <div class="tk-body">Oversized Cormorant italic "01" at 7% opacity. Editorial-chapter anchor.</div>
+        </div>
+        <div class="tech-item">
+          <div class="tk-num">iv.</div>
+          <div class="tk-title">Drop cap + hairline rule</div>
+          <div class="tk-body">Classic editorial openers. Paired with a 48px accent rule under the headline.</div>
+        </div>
+        <div class="tech-item">
+          <div class="tk-num">v.</div>
+          <div class="tk-title">Marginalia</div>
+          <div class="tk-body">Vertical mono label in the outer gutter. Book-manuscript reference.</div>
+        </div>
+        <div class="tech-item">
+          <div class="tk-num">vi.</div>
+          <div class="tk-title">Inner hairline frame</div>
+          <div class="tk-body">A second border inset 18px from the edge. Gives the hero the weight of a framed print.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="end">
+    <p>Native · Editorial variants v0.2 · nativebuilt.com</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Native — Brand Directions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Geist:wght@300;400;500;600;700&display=swap">
+<style>
+  /* ==========================================================
+     NATIVE — BRAND DIRECTIONS — v1.0
+     A single-page exploration of three distinct brand systems.
+     ========================================================== */
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --page-bg: #EEEBE4;
+    --page-ink: #16130E;
+    --page-muted: #6E665A;
+    --page-line: rgba(22,19,14,0.12);
+    --page-chip-bg: rgba(22,19,14,0.04);
+    --container: 1280px;
+    --gutter: 2rem;
+  }
+
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--page-bg);
+    color: var(--page-ink);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 15px;
+    line-height: 1.55;
+  }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; background: none; border: none; cursor: pointer; color: inherit; }
+
+  /* ================ MASTHEAD / NAV ================ */
+  .masthead {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--page-bg);
+    border-bottom: 1px solid var(--page-line);
+  }
+  .masthead-inner {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 1.25rem var(--gutter);
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  .masthead-brand {
+    display: flex;
+    align-items: baseline;
+    gap: 0.625rem;
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 1.375rem;
+    letter-spacing: -0.015em;
+  }
+  .masthead-brand span {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--page-muted);
+    padding: 0.25rem 0.5rem;
+    border: 1px solid var(--page-line);
+    border-radius: 3px;
+  }
+  .masthead-nav {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.25rem;
+    background: rgba(22,19,14,0.04);
+    border-radius: 999px;
+  }
+  .masthead-nav a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    border-radius: 999px;
+    color: var(--page-ink);
+    transition: background 200ms ease, color 200ms ease;
+  }
+  .masthead-nav a:hover { background: rgba(22,19,14,0.08); }
+  .masthead-nav a .dot {
+    width: 8px; height: 8px; border-radius: 999px;
+    display: inline-block;
+  }
+  .masthead-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6875rem;
+    color: var(--page-muted);
+    letter-spacing: 0.04em;
+    display: none;
+  }
+  @media (min-width: 900px) { .masthead-meta { display: inline-flex; gap: 1rem; } }
+
+  /* ================ INTRO ================ */
+  .intro {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 4.5rem var(--gutter) 3rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  @media (min-width: 900px) {
+    .intro { grid-template-columns: 1.15fr 1fr; gap: 5rem; align-items: end; }
+  }
+  .intro-kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--page-muted);
+    margin-bottom: 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+  }
+  .intro-kicker::before {
+    content: '';
+    width: 24px; height: 1px;
+    background: var(--page-ink);
+    display: inline-block;
+  }
+  .intro h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: clamp(2.5rem, 5.2vw, 4.25rem);
+    line-height: 1.02;
+    letter-spacing: -0.025em;
+    margin-bottom: 1.25rem;
+  }
+  .intro h1 em { font-style: italic; font-weight: 400; }
+  .intro p.lede {
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    color: var(--page-muted);
+    max-width: 46ch;
+  }
+  .intro-aside {
+    border-top: 1px solid var(--page-line);
+    padding-top: 1.75rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+  .intro-aside-item .num {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: 2.25rem;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  .intro-aside-item .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6875rem;
+    color: var(--page-muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* ================ DIRECTION FRAME ================ */
+  .direction {
+    border-top: 1px solid var(--page-line);
+    scroll-margin-top: 80px;
+  }
+  .direction-inner {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 4.5rem var(--gutter) 5.5rem;
+  }
+  .direction-head {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+    margin-bottom: 3.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--page-line);
+  }
+  @media (min-width: 900px) {
+    .direction-head { grid-template-columns: auto 1fr auto; gap: 2.5rem; align-items: end; }
+  }
+  .direction-index {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: 4.5rem;
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+  }
+  .direction-title-group .dkicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--page-muted);
+    margin-bottom: 0.75rem;
+  }
+  .direction-title-group h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: clamp(2rem, 3.6vw, 2.75rem);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.625rem;
+  }
+  .direction-title-group h2 em { font-style: italic; font-weight: 400; }
+  .direction-title-group p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--page-muted);
+    max-width: 56ch;
+  }
+  .direction-badge {
+    align-self: start;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6875rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.5rem 0.875rem;
+    border: 1px solid var(--page-line);
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+
+  /* Two-column layout for each direction: left = specimen, right = system */
+  .specimen-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  @media (min-width: 1000px) {
+    .specimen-grid { grid-template-columns: 1.2fr 1fr; gap: 2.25rem; }
+  }
+
+  /* ================ CARD (system panel) ================ */
+  .panel {
+    border-radius: 14px;
+    padding: 1.75rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .panel h3 {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .panel h3 .panel-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    opacity: 0.55;
+    font-size: 0.6875rem;
+  }
+
+  /* Palette row */
+  .swatches {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.625rem;
+  }
+  .swatch {
+    aspect-ratio: 1 / 1.25;
+    border-radius: 8px;
+    padding: 0.625rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.625rem;
+    letter-spacing: 0.06em;
+    overflow: hidden;
+    position: relative;
+  }
+  .swatch .sw-label { opacity: 0.9; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; }
+  .swatch .sw-hex { font-weight: 500; }
+  .swatch.has-border { box-shadow: inset 0 0 0 1px rgba(0,0,0,0.08); }
+
+  /* Type specimens */
+  .type-block { display: grid; gap: 1.25rem; }
+  .type-row {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 1.25rem;
+    align-items: baseline;
+    padding: 0.75rem 0;
+    border-bottom: 1px dashed;
+  }
+  .type-row:last-child { border-bottom: none; }
+  .type-row .tr-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.6;
+  }
+
+  /* Components: button + pill + card */
+  .components {
+    display: grid;
+    gap: 1.25rem;
+  }
+  .btn-row { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
+  .chip-row { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+  .mini-card {
+    border-radius: 12px;
+    padding: 1.25rem;
+  }
+  .mini-card .mc-kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6875rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin-bottom: 0.625rem;
+  }
+  .mini-card .mc-title {
+    font-size: 1.0625rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.375rem;
+  }
+  .mini-card .mc-body {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    opacity: 0.75;
+  }
+
+  /* Hero specimen */
+  .hero-specimen {
+    border-radius: 14px;
+    padding: 3rem 2.5rem;
+    min-height: 460px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-specimen .hs-top { display: flex; justify-content: space-between; align-items: center; }
+  .hero-specimen .hs-logo { display: flex; align-items: center; gap: 0.625rem; }
+  .hero-specimen .hs-nav-mini {
+    display: flex; gap: 1.25rem;
+    font-size: 0.8125rem;
+  }
+  .hero-specimen .hs-kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6875rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .hero-specimen h4 {
+    font-size: clamp(1.75rem, 3.2vw, 2.625rem);
+    line-height: 1.06;
+    letter-spacing: -0.022em;
+    margin-bottom: 1rem;
+    max-width: 18ch;
+  }
+  .hero-specimen .hs-body {
+    font-size: 1rem;
+    line-height: 1.6;
+    max-width: 44ch;
+    opacity: 0.8;
+    margin-bottom: 1.75rem;
+  }
+  .hero-specimen .hs-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+  /* Logo marks */
+  .logo-wordmark { display: inline-flex; align-items: baseline; gap: 0.375rem; }
+  .logo-glyph {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 28px; height: 28px; border-radius: 6px;
+    font-weight: 700; font-size: 0.875rem;
+  }
+
+  /* =====================================================
+     DIRECTION 01 — EDITORIAL
+     ===================================================== */
+  #editorial {
+    --e-bg: #F5F1E8;
+    --e-paper: #FBF8F1;
+    --e-ink: #141110;
+    --e-ink-60: rgba(20,17,16,0.65);
+    --e-ink-30: rgba(20,17,16,0.30);
+    --e-line: rgba(20,17,16,0.14);
+    --e-forest: #0E3B2E;
+    --e-forest-deep: #07271C;
+    --e-forest-light: #7FA793;
+    --e-brass: #A47845;
+
+    background: var(--e-bg);
+    color: var(--e-ink);
+  }
+  #editorial .direction-index,
+  #editorial .direction-title-group h2 { color: var(--e-ink); }
+  #editorial .direction-index { color: var(--e-forest); }
+  #editorial .direction-title-group h2 em { color: var(--e-forest); font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 500; font-size: 1.04em; }
+  #editorial .direction-title-group .dkicker { color: var(--e-forest); }
+  #editorial .direction-badge { color: var(--e-ink-60); border-color: var(--e-line); background: var(--e-paper); }
+  #editorial .direction-title-group p { color: var(--e-ink-60); }
+
+  #editorial .panel { background: var(--e-paper); border: 1px solid var(--e-line); }
+  #editorial .panel h3 { color: var(--e-forest); }
+  #editorial .type-row { border-bottom-color: var(--e-line); }
+  #editorial .type-row .tr-meta { color: var(--e-ink-60); }
+
+  /* Editorial type specimens */
+  #editorial .e-display { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 3rem; line-height: 1; letter-spacing: -0.02em; }
+  #editorial .e-display em { font-style: italic; font-weight: 400; color: var(--e-forest); }
+  #editorial .e-h2 { font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: 1.875rem; line-height: 1.15; letter-spacing: -0.01em; }
+  #editorial .e-lede { font-family: 'Inter', sans-serif; font-weight: 400; font-size: 1.0625rem; line-height: 1.65; color: var(--e-ink-60); }
+  #editorial .e-body { font-family: 'Inter', sans-serif; font-weight: 400; font-size: 0.9375rem; line-height: 1.65; }
+  #editorial .e-kicker {
+    font-family: 'Inter', sans-serif; font-size: 0.75rem; font-weight: 500;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--e-forest);
+  }
+
+  /* Editorial buttons */
+  #editorial .btn-primary {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--e-forest); color: var(--e-paper);
+    padding: 0.75rem 1.375rem; border-radius: 999px;
+    font-size: 0.8125rem; font-weight: 500;
+    transition: background 200ms ease, transform 200ms ease;
+  }
+  #editorial .btn-primary:hover { background: var(--e-forest-deep); transform: translateY(-1px); }
+  #editorial .btn-ghost {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: transparent; color: var(--e-ink);
+    padding: 0.75rem 1.375rem; border-radius: 999px;
+    font-size: 0.8125rem; font-weight: 500;
+    border: 1px solid var(--e-line);
+    transition: border-color 200ms ease, background 200ms ease;
+  }
+  #editorial .btn-ghost:hover { border-color: var(--e-forest); background: rgba(14,59,46,0.04); }
+  #editorial .btn-link {
+    display: inline-flex; align-items: center; gap: 0.375rem;
+    color: var(--e-forest);
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: 1.0625rem; font-weight: 500;
+    border-bottom: 1px solid var(--e-forest-light);
+    padding-bottom: 2px;
+  }
+
+  /* Editorial pill */
+  #editorial .pill {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.375rem 0.75rem; border-radius: 999px;
+    background: rgba(14,59,46,0.06); color: var(--e-forest);
+    font-size: 0.75rem; font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+  #editorial .pill::before { content: ''; width: 6px; height: 6px; border-radius: 999px; background: var(--e-forest); }
+  #editorial .pill.brass { background: rgba(164,120,69,0.10); color: var(--e-brass); }
+  #editorial .pill.brass::before { background: var(--e-brass); }
+
+  /* Editorial mini-card */
+  #editorial .mini-card { background: var(--e-bg); border: 1px solid var(--e-line); }
+  #editorial .mini-card .mc-kicker { color: var(--e-forest); }
+  #editorial .mini-card .mc-title { font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: 1.25rem; }
+
+  /* Editorial logo */
+  #editorial .logo-wordmark { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 1.5rem; letter-spacing: -0.015em; color: var(--e-ink); }
+  #editorial .logo-wordmark em { font-style: italic; color: var(--e-forest); }
+  #editorial .logo-glyph { background: var(--e-forest); color: var(--e-paper); font-family: 'Cormorant Garamond', serif; font-weight: 500; }
+
+  /* Editorial hero */
+  #editorial .hero-specimen {
+    background: var(--e-paper);
+    border: 1px solid var(--e-line);
+    color: var(--e-ink);
+  }
+  #editorial .hero-specimen::after {
+    content: ''; position: absolute;
+    top: 25%; right: -20%; width: 55%; height: 70%;
+    background: radial-gradient(ellipse at center, rgba(14,59,46,0.09) 0%, transparent 62%);
+    filter: blur(20px); pointer-events: none;
+  }
+  #editorial .hero-specimen .hs-kicker { color: var(--e-forest); }
+  #editorial .hero-specimen h4 { font-family: 'Cormorant Garamond', serif; font-weight: 300; }
+  #editorial .hero-specimen h4 em { font-style: italic; font-weight: 400; color: var(--e-forest); }
+  #editorial .hero-specimen .hs-body { color: var(--e-ink-60); }
+
+  /* =====================================================
+     DIRECTION 02 — TECHNICAL
+     ===================================================== */
+  #technical {
+    --t-bg: #0A0A0B;
+    --t-surface: #121316;
+    --t-surface-2: #1A1C20;
+    --t-line: rgba(255,255,255,0.10);
+    --t-ink: #F3F3F3;
+    --t-ink-60: rgba(243,243,243,0.65);
+    --t-ink-30: rgba(243,243,243,0.30);
+    --t-accent: #B6FF3B;
+    --t-accent-dim: rgba(182,255,59,0.16);
+    --t-signal: #6E78FF;
+
+    background: var(--t-bg);
+    color: var(--t-ink);
+  }
+  #technical .direction-index { color: var(--t-accent); font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 3rem; letter-spacing: -0.02em; }
+  #technical .direction-title-group h2 { color: var(--t-ink); font-family: 'Inter', sans-serif; font-weight: 600; letter-spacing: -0.025em; }
+  #technical .direction-title-group h2 em {
+    font-family: 'JetBrains Mono', monospace;
+    font-style: normal;
+    color: var(--t-accent);
+    font-size: 0.95em;
+    background: var(--t-accent-dim);
+    padding: 0 0.375rem;
+    border-radius: 4px;
+    margin: 0 0.1em;
+  }
+  #technical .direction-title-group .dkicker { color: var(--t-accent); }
+  #technical .direction-badge { color: var(--t-ink-60); border-color: var(--t-line); background: var(--t-surface); font-family: 'JetBrains Mono', monospace; }
+  #technical .direction-title-group p { color: var(--t-ink-60); }
+  #technical .direction { border-top-color: rgba(255,255,255,0.08); }
+  #technical .direction-head { border-bottom-color: var(--t-line); }
+
+  #technical .panel { background: var(--t-surface); border: 1px solid var(--t-line); }
+  #technical .panel h3 { color: var(--t-accent); font-family: 'JetBrains Mono', monospace; }
+  #technical .type-row { border-bottom-color: var(--t-line); }
+  #technical .type-row .tr-meta { color: var(--t-ink-60); }
+
+  /* Technical type specimens — sharp, tight */
+  #technical .t-display { font-family: 'Inter', sans-serif; font-weight: 600; font-size: 2.75rem; line-height: 1.02; letter-spacing: -0.03em; }
+  #technical .t-display em { font-style: normal; color: var(--t-accent); font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 0.9em; }
+  #technical .t-h2 { font-family: 'Inter', sans-serif; font-weight: 600; font-size: 1.75rem; line-height: 1.15; letter-spacing: -0.02em; }
+  #technical .t-lede { font-family: 'Inter', sans-serif; font-weight: 400; font-size: 1rem; line-height: 1.6; color: var(--t-ink-60); }
+  #technical .t-body { font-family: 'JetBrains Mono', monospace; font-weight: 400; font-size: 0.875rem; line-height: 1.65; }
+  #technical .t-kicker {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.6875rem; font-weight: 500;
+    letter-spacing: 0.18em; text-transform: uppercase; color: var(--t-accent);
+  }
+
+  /* Technical buttons */
+  #technical .btn-primary {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--t-accent); color: #0A0A0B;
+    padding: 0.75rem 1.25rem; border-radius: 6px;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.8125rem; font-weight: 600;
+    letter-spacing: 0.02em;
+    transition: background 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+    box-shadow: 0 0 0 1px var(--t-accent), 0 0 24px rgba(182,255,59,0.15);
+  }
+  #technical .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 0 0 1px var(--t-accent), 0 0 32px rgba(182,255,59,0.35); }
+  #technical .btn-ghost {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: transparent; color: var(--t-ink);
+    padding: 0.75rem 1.25rem; border-radius: 6px;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.8125rem; font-weight: 500;
+    letter-spacing: 0.02em;
+    border: 1px solid var(--t-line);
+    transition: border-color 160ms ease, background 160ms ease;
+  }
+  #technical .btn-ghost:hover { border-color: var(--t-accent); background: var(--t-accent-dim); color: var(--t-accent); }
+  #technical .btn-link {
+    display: inline-flex; align-items: center; gap: 0.375rem;
+    color: var(--t-accent); font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8125rem; font-weight: 500; letter-spacing: 0.04em;
+  }
+  #technical .btn-link::after { content: '→'; }
+
+  /* Technical pill */
+  #technical .pill {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.25rem 0.625rem; border-radius: 4px;
+    background: var(--t-accent-dim); color: var(--t-accent);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.06em;
+  }
+  #technical .pill::before { content: ''; width: 6px; height: 6px; border-radius: 999px; background: var(--t-accent); box-shadow: 0 0 8px var(--t-accent); }
+  #technical .pill.signal { background: rgba(110,120,255,0.14); color: var(--t-signal); }
+  #technical .pill.signal::before { background: var(--t-signal); box-shadow: 0 0 8px var(--t-signal); }
+
+  /* Technical mini-card */
+  #technical .mini-card { background: var(--t-surface-2); border: 1px solid var(--t-line); font-family: 'JetBrains Mono', monospace; }
+  #technical .mini-card .mc-kicker { color: var(--t-accent); }
+  #technical .mini-card .mc-title { font-family: 'Inter', sans-serif; font-weight: 600; font-size: 1.0625rem; }
+  #technical .mini-card .mc-body { font-family: 'JetBrains Mono', monospace; font-size: 0.8125rem; }
+
+  /* Technical logo */
+  #technical .logo-wordmark { font-family: 'Inter', sans-serif; font-weight: 600; font-size: 1.25rem; letter-spacing: -0.03em; color: var(--t-ink); }
+  #technical .logo-wordmark em { font-style: normal; color: var(--t-accent); font-family: 'JetBrains Mono', monospace; font-size: 0.9em; }
+  #technical .logo-glyph { background: var(--t-accent); color: #0A0A0B; font-family: 'JetBrains Mono', monospace; font-weight: 700; border-radius: 4px; }
+
+  /* Technical grid background for hero */
+  #technical .hero-specimen {
+    background: var(--t-surface);
+    border: 1px solid var(--t-line);
+    color: var(--t-ink);
+    background-image:
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+  #technical .hero-specimen::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 80% 20%, rgba(182,255,59,0.12) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  #technical .hero-specimen .hs-top, #technical .hero-specimen .hs-kicker, #technical .hero-specimen h4, #technical .hero-specimen .hs-body, #technical .hero-specimen .hs-actions { position: relative; z-index: 1; }
+  #technical .hero-specimen .hs-kicker { color: var(--t-accent); }
+  #technical .hero-specimen h4 { font-family: 'Inter', sans-serif; font-weight: 600; letter-spacing: -0.03em; }
+  #technical .hero-specimen h4 em { font-style: normal; color: var(--t-accent); font-family: 'JetBrains Mono', monospace; font-size: 0.88em; font-weight: 500; }
+  #technical .hero-specimen .hs-body { color: var(--t-ink-60); }
+  #technical .hero-specimen .hs-nav-mini { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--t-ink-60); }
+
+  /* =====================================================
+     DIRECTION 03 — ORGANIC
+     ===================================================== */
+  #organic {
+    --o-bg: #F2E9D8;
+    --o-paper: #FAF4E6;
+    --o-ink: #2A2118;
+    --o-ink-60: rgba(42,33,24,0.64);
+    --o-ink-30: rgba(42,33,24,0.28);
+    --o-line: rgba(42,33,24,0.14);
+    --o-clay: #B35D3F;
+    --o-clay-deep: #7E3D28;
+    --o-moss: #556B4D;
+    --o-ochre: #C68A3A;
+
+    background: var(--o-bg);
+    color: var(--o-ink);
+  }
+  #organic .direction-index { color: var(--o-clay); font-family: 'Fraunces', serif; font-weight: 400; }
+  #organic .direction-title-group h2 { color: var(--o-ink); font-family: 'Fraunces', serif; }
+  #organic .direction-title-group h2 em { font-style: italic; color: var(--o-clay); font-family: 'Fraunces', serif; font-weight: 500; }
+  #organic .direction-title-group .dkicker { color: var(--o-clay); }
+  #organic .direction-badge { color: var(--o-ink-60); border-color: var(--o-line); background: var(--o-paper); }
+  #organic .direction-title-group p { color: var(--o-ink-60); }
+  #organic .direction-head { border-bottom-color: var(--o-line); }
+
+  #organic .panel { background: var(--o-paper); border: 1px solid var(--o-line); }
+  #organic .panel h3 { color: var(--o-clay); }
+  #organic .type-row { border-bottom-color: var(--o-line); }
+  #organic .type-row .tr-meta { color: var(--o-ink-60); }
+
+  /* Organic type specimens */
+  #organic .o-display { font-family: 'Fraunces', serif; font-weight: 400; font-size: 2.875rem; line-height: 1.02; letter-spacing: -0.025em; font-variation-settings: 'opsz' 144, 'SOFT' 100; }
+  #organic .o-display em { font-style: italic; font-weight: 500; color: var(--o-clay); }
+  #organic .o-h2 { font-family: 'Fraunces', serif; font-weight: 500; font-size: 1.75rem; line-height: 1.15; letter-spacing: -0.015em; }
+  #organic .o-lede { font-family: 'Geist', 'Inter', sans-serif; font-weight: 400; font-size: 1.0625rem; line-height: 1.65; color: var(--o-ink-60); }
+  #organic .o-body { font-family: 'Geist', 'Inter', sans-serif; font-weight: 400; font-size: 0.9375rem; line-height: 1.7; }
+  #organic .o-kicker {
+    font-family: 'Geist', 'Inter', sans-serif; font-size: 0.75rem; font-weight: 500;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--o-clay);
+  }
+
+  /* Organic buttons */
+  #organic .btn-primary {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--o-clay); color: var(--o-paper);
+    padding: 0.875rem 1.5rem; border-radius: 10px;
+    font-family: 'Geist', 'Inter', sans-serif; font-size: 0.875rem; font-weight: 500;
+    transition: background 240ms ease, transform 240ms ease;
+    box-shadow: 0 1px 0 rgba(42,33,24,0.08), 0 6px 16px rgba(179,93,63,0.18);
+  }
+  #organic .btn-primary:hover { background: var(--o-clay-deep); transform: translateY(-1px); }
+  #organic .btn-ghost {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: transparent; color: var(--o-ink);
+    padding: 0.875rem 1.5rem; border-radius: 10px;
+    font-family: 'Geist', 'Inter', sans-serif; font-size: 0.875rem; font-weight: 500;
+    border: 1px solid var(--o-line);
+    transition: background 240ms ease, border-color 240ms ease;
+  }
+  #organic .btn-ghost:hover { background: var(--o-bg); border-color: var(--o-clay); }
+  #organic .btn-link {
+    display: inline-flex; align-items: center; gap: 0.375rem;
+    color: var(--o-clay);
+    font-family: 'Fraunces', serif; font-style: italic;
+    font-size: 1.0625rem; font-weight: 500;
+  }
+  #organic .btn-link::after { content: '↗'; font-style: normal; }
+
+  /* Organic pill */
+  #organic .pill {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.4375rem 0.875rem; border-radius: 999px;
+    background: rgba(179,93,63,0.10); color: var(--o-clay);
+    font-size: 0.75rem; font-weight: 500;
+    font-family: 'Geist', 'Inter', sans-serif;
+  }
+  #organic .pill::before { content: ''; width: 6px; height: 6px; border-radius: 999px; background: var(--o-clay); }
+  #organic .pill.moss { background: rgba(85,107,77,0.14); color: var(--o-moss); }
+  #organic .pill.moss::before { background: var(--o-moss); }
+  #organic .pill.ochre { background: rgba(198,138,58,0.16); color: #8a5f24; }
+  #organic .pill.ochre::before { background: var(--o-ochre); }
+
+  /* Organic mini-card */
+  #organic .mini-card { background: var(--o-bg); border: 1px solid var(--o-line); border-radius: 14px; }
+  #organic .mini-card .mc-kicker { color: var(--o-clay); }
+  #organic .mini-card .mc-title { font-family: 'Fraunces', serif; font-weight: 500; font-size: 1.25rem; letter-spacing: -0.01em; }
+
+  /* Organic logo */
+  #organic .logo-wordmark { font-family: 'Fraunces', serif; font-weight: 500; font-size: 1.5rem; letter-spacing: -0.02em; color: var(--o-ink); font-variation-settings: 'SOFT' 100; }
+  #organic .logo-wordmark em { font-style: italic; color: var(--o-clay); }
+  #organic .logo-glyph { background: var(--o-clay); color: var(--o-paper); font-family: 'Fraunces', serif; font-weight: 600; border-radius: 50%; }
+
+  /* Organic hero */
+  #organic .hero-specimen {
+    background:
+      radial-gradient(ellipse at 0% 100%, rgba(198,138,58,0.22) 0%, transparent 55%),
+      radial-gradient(ellipse at 100% 0%, rgba(85,107,77,0.16) 0%, transparent 55%),
+      var(--o-paper);
+    border: 1px solid var(--o-line);
+    color: var(--o-ink);
+  }
+  #organic .hero-specimen .hs-kicker { color: var(--o-clay); }
+  #organic .hero-specimen h4 { font-family: 'Fraunces', serif; font-weight: 400; font-variation-settings: 'opsz' 144, 'SOFT' 100; }
+  #organic .hero-specimen h4 em { font-style: italic; color: var(--o-clay); font-weight: 500; }
+  #organic .hero-specimen .hs-body { color: var(--o-ink-60); font-family: 'Geist', 'Inter', sans-serif; }
+  #organic .hero-specimen .hs-nav-mini { font-family: 'Geist', 'Inter', sans-serif; color: var(--o-ink-60); }
+
+  /* ================ FOOTER ================ */
+  .end {
+    border-top: 1px solid var(--page-line);
+    padding: 3rem var(--gutter);
+    text-align: center;
+  }
+  .end p {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    color: var(--page-muted);
+    text-transform: uppercase;
+  }
+
+  /* ================ SHARED ================ */
+  .arrow { width: 0.9em; height: 0.9em; stroke-width: 2; }
+
+  /* Focus styles */
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+</style>
+</head>
+<body>
+
+  <!-- ========= MASTHEAD ========= -->
+  <header class="masthead">
+    <div class="masthead-inner">
+      <div class="masthead-brand">
+        Native
+        <span>Brand directions · v0.1</span>
+      </div>
+      <nav class="masthead-nav" aria-label="Direction navigation">
+        <a href="#editorial"><span class="dot" style="background:#0E3B2E"></span> Editorial</a>
+        <a href="#technical"><span class="dot" style="background:#B6FF3B"></span> Technical</a>
+        <a href="#organic"><span class="dot" style="background:#B35D3F"></span> Organic</a>
+      </nav>
+      <div class="masthead-meta">
+        <span>nativebuilt.com</span>
+        <span>2026</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========= INTRO ========= -->
+  <section class="intro">
+    <div>
+      <span class="intro-kicker">Three directions · one positioning</span>
+      <h1>A rebrand from <em>Material</em> to Native.</h1>
+      <p class="lede">Native is the operator team that builds AI-Native companies, and makes the ones you already run native too. Below, three expressions of the same strategic core — each with its own palette, typography, and voice. Pick the one that best carries the work forward.</p>
+    </div>
+    <aside class="intro-aside">
+      <div class="intro-aside-item">
+        <span class="num">01</span>
+        <span class="label">Editorial</span>
+      </div>
+      <div class="intro-aside-item">
+        <span class="num">02</span>
+        <span class="label">Technical</span>
+      </div>
+      <div class="intro-aside-item">
+        <span class="num">03</span>
+        <span class="label">Organic</span>
+      </div>
+    </aside>
+  </section>
+
+  <!-- =====================================================
+       DIRECTION 01 — EDITORIAL
+       ===================================================== -->
+  <section id="editorial" class="direction">
+    <div class="direction-inner">
+      <div class="direction-head">
+        <div class="direction-index">01</div>
+        <div class="direction-title-group">
+          <div class="dkicker">Direction one</div>
+          <h2>Editorial. <em>Considered, premium, written.</em></h2>
+          <p>An evolution of Material's current language. Cormorant Garamond sets a literary register; Inter carries the operating system beneath. Forest green deepens, brass enters as an editorial accent. Best for buyers who value craft, longevity, and trust earned through restraint.</p>
+        </div>
+        <span class="direction-badge">Premium · Advisory</span>
+      </div>
+
+      <div class="specimen-grid">
+        <!-- Left: hero specimen -->
+        <div class="hero-specimen">
+          <div class="hs-top">
+            <div class="hs-logo">
+              <span class="logo-glyph">N</span>
+              <span class="logo-wordmark">Native<em>.</em></span>
+            </div>
+            <div class="hs-nav-mini">
+              <span style="opacity:.6">Build</span>
+              <span style="opacity:.6">Modernize</span>
+              <span style="opacity:.6">Playbook</span>
+            </div>
+          </div>
+          <div>
+            <div class="hs-kicker">Built by operators, native by design</div>
+            <h4>The operator team that builds <em>AI-Native</em> companies.</h4>
+            <p class="hs-body">Humans lead strategy. AI runs execution. Experts shape review. The order you build things in matters more than the tools you pick.</p>
+            <div class="hs-actions">
+              <a href="#" class="btn-primary">Map your growth plan
+                <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+              </a>
+              <a href="#" class="btn-ghost">Read the playbook</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: system -->
+        <div style="display:grid; gap: 1.25rem;">
+          <!-- Palette -->
+          <div class="panel">
+            <h3>Palette <span class="panel-meta">5 tokens</span></h3>
+            <div class="swatches">
+              <div class="swatch" style="background:#0E3B2E; color:#FBF8F1">
+                <span class="sw-label">Forest</span>
+                <span class="sw-hex">#0E3B2E</span>
+              </div>
+              <div class="swatch" style="background:#07271C; color:#FBF8F1">
+                <span class="sw-label">Forest/Deep</span>
+                <span class="sw-hex">#07271C</span>
+              </div>
+              <div class="swatch" style="background:#A47845; color:#FBF8F1">
+                <span class="sw-label">Brass</span>
+                <span class="sw-hex">#A47845</span>
+              </div>
+              <div class="swatch has-border" style="background:#F5F1E8; color:#141110">
+                <span class="sw-label">Parchment</span>
+                <span class="sw-hex">#F5F1E8</span>
+              </div>
+              <div class="swatch" style="background:#141110; color:#FBF8F1">
+                <span class="sw-label">Ink</span>
+                <span class="sw-hex">#141110</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Type -->
+          <div class="panel">
+            <h3>Type · Cormorant + Inter <span class="panel-meta">Display / UI</span></h3>
+            <div class="type-block">
+              <div class="type-row">
+                <span class="tr-meta">Display</span>
+                <span class="e-display">Strategy, <em>installed.</em></span>
+              </div>
+              <div class="type-row">
+                <span class="tr-meta">Heading</span>
+                <span class="e-h2">Built in order, one layer at a time.</span>
+              </div>
+              <div class="type-row">
+                <span class="tr-meta">Kicker</span>
+                <span class="e-kicker">The playbook · Phase one</span>
+              </div>
+              <div class="type-row">
+                <span class="tr-meta">Body</span>
+                <span class="e-body">We embed inside the business. Write the strategic core. Install the loop. Then stay in until the system is running on its own.</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Components -->
+          <div class="panel">
+            <h3>Components <span class="panel-meta">Button · Pill · Card</span></h3>
+            <div class="components">
+              <div class="btn-row">
+                <a href="#" class="btn-primary">Book a call
+                  <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+                </a>
+                <a href="#" class="btn-ghost">Read the playbook</a>
+                <a href="#" class="btn-link">See the approach →</a>
+              </div>
+              <div class="chip-row">
+                <span class="pill">Build with us</span>
+                <span class="pill">Modernize &amp; scale</span>
+                <span class="pill brass">On the cap table</span>
+              </div>
+              <div class="mini-card">
+                <div class="mc-kicker">Phase 01 · Strategic core</div>
+                <div class="mc-title">The markdown files that make the system compound.</div>
+                <div class="mc-body">Positioning, ICP, narrative. Every downstream output reads from the same source.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       DIRECTION 02 — TECHNICAL
+       ===================================================== -->
+  <section id="technical" class="direction">
+    <div class="direction-inner">
+      <div class="direction-head">
+        <div class="direction-index">02</div>
+        <div class="direction-title-group">
+          <div class="dkicker">Direction two</div>
+          <h2>Technical. <em>native.operators()</em></h2>
+          <p>AI-Native, terminal-adjacent. Inter for voice, JetBrains Mono for signal. Ink-black canvas, electric lime accent, soft indigo for secondary signal. Reads like a command line in the hands of operators who ship. Best for founders who think in systems and buyers who ship code.</p>
+        </div>
+        <span class="direction-badge">AI-Native · Operator-led</span>
+      </div>
+
+      <div class="specimen-grid">
+        <!-- Left: hero specimen -->
+        <div class="hero-specimen">
+          <div class="hs-top">
+            <div class="hs-logo">
+              <span class="logo-glyph">◆</span>
+              <span class="logo-wordmark">native<em>.co</em></span>
+            </div>
+            <div class="hs-nav-mini">
+              <span>/build</span>
+              <span>/modernize</span>
+              <span>/playbook</span>
+            </div>
+          </div>
+          <div>
+            <div class="hs-kicker"><span style="color:currentColor">●</span> ai-native by default</div>
+            <h4>We install the operating system. <em>You run the company.</em></h4>
+            <p class="hs-body">Context. Skills. Agents. A feedback loop that updates the core every week. Shipped by operators, not outsiders.</p>
+            <div class="hs-actions">
+              <a href="#" class="btn-primary">./map-growth-plan
+                <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+              </a>
+              <a href="#" class="btn-ghost">view the playbook</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: system -->
+        <div style="display:grid; gap: 1.25rem;">
+          <!-- Palette -->
+          <div class="panel">
+            <h3>Palette <span class="panel-meta">5 tokens</span></h3>
+            <div class="swatches">
+              <div class="swatch" style="background:#0A0A0B; color:#F3F3F3; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1)">
+                <span class="sw-label">Ink</span>
+                <span class="sw-hex">#0A0A0B</span>
+              </div>
+              <div class="swatch" style="background:#1A1C20; color:#F3F3F3">
+                <span class="sw-label">Surface</span>
+                <span class="sw-hex">#1A1C20</span>
+              </div>
+              <div class="swatch" style="background:#B6FF3B; color:#0A0A0B">
+                <span class="sw-label">Signal</span>
+                <span class="sw-hex">#B6FF3B</span>
+              </div>
+              <div class="swatch" style="background:#6E78FF; color:#F3F3F3">
+                <span class="sw-label">Electric</span>
+                <span class="sw-hex">#6E78FF</span>
+              </div>
+              <div class="swatch has-border" style="background:#F3F3F3; color:#0A0A0B">
+                <span class="sw-label">Paper</span>
+                <span class="sw-hex">#F3F3F3</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Type -->
+          <div class="panel">
+            <h3>Type · Inter + JetBrains Mono <span class="panel-meta">UI / System</span></h3>
+            <div class="type-block">
+              <div class="type-row">
+                <span class="tr-meta">Display</span>
+                <span class="t-display">Ship the <em>{playbook}</em></span>
+              </div>
+              <div class="type-row">
+                <span class="tr-meta">Heading</span>
+                <span class="t-h2">Strategy &gt; tools. Order &gt; hype.</span>
+              </div>
+              <div class="type-row">
+                <span class="tr-meta">Kicker</span>
+                <span class="t-kicker">// phase.01 — strategic.core</span>
+              </div>
+              <div class="type-row">
+                <span class="tr-meta">Mono</span>
+                <span class="t-body">$ native init &amp;&amp; native run --phase 1</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Components -->
+          <div class="panel">
+            <h3>Components <span class="panel-meta">Button · Pill · Card</span></h3>
+            <div class="components">
+              <div class="btn-row">
+                <a href="#" class="btn-primary">run playbook
+                  <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+                </a>
+                <a href="#" class="btn-ghost">./docs</a>
+                <a href="#" class="btn-link">view spec</a>
+              </div>
+              <div class="chip-row">
+                <span class="pill">v0.1 · live</span>
+                <span class="pill signal">agent · running</span>
+                <span class="pill">phase · 01</span>
+              </div>
+              <div class="mini-card">
+                <div class="mc-kicker">// agent.weekly-pulse</div>
+                <div class="mc-title">Metrics → recommendations → feedback.</div>
+                <div class="mc-body">runs every Monday 09:00. writes approved changes back into the strategic core.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       DIRECTION 03 — ORGANIC
+       ===================================================== -->
+  <section id="organic" class="direction">
+    <div class="direction-inner">
+      <div class="direction-head">
+        <div class="direction-index">03</div>
+        <div class="direction-title-group">
+          <div class="dkicker">Direction three</div>
+          <h2>Organic. <em>Rooted, warm, human.</em></h2>
+          <p>Leans into the other meaning of Native — native to the industry, native to the business, native to the people inside it. Fraunces brings humanist warmth to the wordmark; Geist grounds the operating system. Clay, moss, and ochre replace tech-blue. Best for buyers who value trust, craft, and a team that feels like an extension of their own.</p>
+        </div>
+        <span class="direction-badge">Human · Embedded</span>
+      </div>
+
+      <div class="specimen-grid">
+        <!-- Left: hero specimen -->
+        <div class="hero-specimen">
+          <div class="hs-top">
+            <div class="hs-logo">
+              <span class="logo-glyph">N</span>
+              <span class="logo-wordmark">Native<em>.</em></span>
+            </div>
+            <div class="hs-nav-mini">
+              <span style="opacity:.65">Build</span>
+              <span style="opacity:.65">Modernize</span>
+              <span style="opacity:.65">Playbook</span>
+            </div>
+          </div>
+          <div>
+            <div class="hs-kicker">—— Native to your industry, native to your business</div>
+            <h4>Operators, <em>embedded.</em> Growth that actually takes root.</h4>
+            <p class="hs-body">We don't hand over decks. We don't hand over code. We embed, rebuild the core, and stay in until the playbook is running on its own.</p>
+            <div class="hs-actions">
+              <a href="#" class="btn-primary">Map your growth plan
+                <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+              </a>
+              <a href="#" class="btn-ghost">Meet the team</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: system -->
+        <div style="display:grid; gap: 1.25rem;">
+          <!-- Palette -->
+          <div class="panel">
+            <h3>Palette <span class="panel-meta">5 tokens</span></h3>
+            <div class="swatches">
+              <div class="swatch" style="background:#B35D3F; color:#FAF4E6">
+                <span class="sw-label">Clay</span>
+                <span class="sw-hex">#B35D3F</span>
+              </div>
+              <div class="swatch" style="background:#556B4D; color:#FAF4E6">
+                <span class="sw-label">Moss</span>
+                <span class="sw-hex">#556B4D</span>
+              </div>
+              <div class="swatch" style="background:#C68A3A; color:#2A2118">
+                <span class="sw-label">Ochre</span>
+                <span class="sw-hex">#C68A3A</span>
+              </div>
+              <div class="swatch has-border" style="background:#FAF4E6; color:#2A2118">
+                <span class="sw-label">Linen</span>
+                <span class="sw-hex">#FAF4E6</span>
+              </div>
+              <div class="swatch" style="background:#2A2118; color:#FAF4E6">
+                <span class="sw-label">Ink</span>
+                <span class="sw-hex">#2A2118</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Type -->
+          <div class="panel">
+            <h3>Type · Fraunces + Geist <span class="panel-meta">Display / UI</span></h3>
+            <div class="type-block">
+              <div class="type-row">
+                <span class="tr-meta">Display</span>
+                <span class="o-display">Grow <em>natively.</em></span>
+              </div>
+              <div class="type-row">
+                <span class="tr-meta">Heading</span>
+                <span class="o-h2">An operator team that takes root in the business.</span>
+              </div>
+              <div class="type-row">
+                <span class="tr-meta">Kicker</span>
+                <span class="o-kicker">Native to your industry</span>
+              </div>
+              <div class="type-row">
+                <span class="tr-meta">Body</span>
+                <span class="o-body">We partner with industry-native operators. Founders who have already sat in the seats they're building for, and earned the right to the shortcut.</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Components -->
+          <div class="panel">
+            <h3>Components <span class="panel-meta">Button · Pill · Card</span></h3>
+            <div class="components">
+              <div class="btn-row">
+                <a href="#" class="btn-primary">Book a call
+                  <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+                </a>
+                <a href="#" class="btn-ghost">Read the playbook</a>
+                <a href="#" class="btn-link">Meet the operators</a>
+              </div>
+              <div class="chip-row">
+                <span class="pill">Industry-native</span>
+                <span class="pill moss">Embedded team</span>
+                <span class="pill ochre">Shared upside</span>
+              </div>
+              <div class="mini-card">
+                <div class="mc-kicker">The approach · Modernize &amp; scale</div>
+                <div class="mc-title">Strategy first. Structure next. Systems last.</div>
+                <div class="mc-body">We meet the company where it is and take it AI-Native at the pace the business can absorb.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========= END ========= -->
+  <footer class="end">
+    <p>Native · Brand directions v0.1 · nativebuilt.com · 2026</p>
+  </footer>
+
+</body>
+</html>

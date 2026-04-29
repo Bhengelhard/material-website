@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Build with Material | Material</title>
+    <meta name="description" content="Material builds new companies with operators, bringing new business ideas to life. You bring the idea. We bring the team, the playbook, and the systems to get it to market.">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap">
+
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .mode-hero { padding-top: var(--space-3xl); padding-bottom: var(--space-2xl); min-height: auto; }
+        .mode-hero .hero-title { max-width: 20ch; }
+        .mode-hero .hero-subtitle { max-width: 640px; }
+
+        .feature {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+        .feature-lede {
+            font-family: 'Playfair Display', serif;
+            font-weight: 300;
+            font-style: italic;
+            font-size: clamp(1.5rem, 2.4vw, 1.875rem);
+            line-height: 1.35;
+            color: var(--ink);
+        }
+        .feature-body p + p { margin-top: 1rem; }
+        .feature-body p { font-size: 1rem; line-height: 1.75; color: var(--gray-600); }
+        .feature-body strong { color: var(--ink); font-weight: 500; }
+
+        /* Two-column "you bring / we bring" */
+        .split-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 3rem;
+        }
+        .split-card {
+            padding: 2.25rem 2rem 2.5rem;
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 16px;
+        }
+        .split-card--dark {
+            background: var(--forest-dark);
+            color: var(--off-white);
+            border-color: var(--forest-dark);
+        }
+        .split-card .kicker { margin-bottom: 1rem; }
+        .split-card--dark .kicker { color: var(--forest-light); }
+        .split-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 500;
+            font-size: 1.625rem;
+            line-height: 1.2;
+            margin-bottom: 1.25rem;
+            color: var(--ink);
+        }
+        .split-card--dark h3 { color: var(--off-white); }
+        .split-card ul { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+        .split-card li {
+            display: flex;
+            gap: 0.75rem;
+            font-size: 0.9375rem;
+            line-height: 1.55;
+            color: var(--gray-600);
+        }
+        .split-card--dark li { color: rgba(247, 247, 245, 0.75); }
+        .split-card li::before {
+            content: '';
+            display: block;
+            width: 6px;
+            height: 6px;
+            margin-top: 0.55rem;
+            background: var(--forest);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .split-card--dark li::before { background: var(--forest-light); }
+
+        /* Phase rail — visual model for the studio process */
+        .phase-rail {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+            margin-top: 3rem;
+            position: relative;
+        }
+        .phase-rail-card {
+            padding: 2rem 1.5rem 2.25rem;
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 12px;
+            position: relative;
+            transition: border-color var(--dur) var(--ease), transform var(--dur) var(--ease);
+        }
+        .phase-rail-card:hover { border-color: var(--forest); transform: translateY(-2px); }
+        .phase-rail-card--handoff {
+            background: var(--forest-05);
+            border-color: var(--forest-light);
+        }
+        .phase-rail-pill {
+            display: inline-block;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--forest);
+            padding: 0.3rem 0.7rem;
+            border: 1px solid var(--forest);
+            border-radius: 999px;
+            margin-bottom: 1.25rem;
+        }
+        .phase-rail-card h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 500;
+            font-size: 1.25rem;
+            line-height: 1.25;
+            color: var(--ink);
+            margin-bottom: 0.5rem;
+        }
+        .phase-rail-card p {
+            font-size: 0.9rem;
+            line-height: 1.55;
+            color: var(--gray-600);
+        }
+
+        /* Mode switcher */
+        .mode-switch { display: grid; grid-template-columns: 1fr; gap: 1rem; margin-top: 3rem; }
+        .mode-switch-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 2.25rem;
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 12px;
+            transition: border-color var(--dur) var(--ease), transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+            gap: 2rem;
+        }
+        .mode-switch-card:hover {
+            border-color: var(--forest);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(11, 61, 46, 0.06);
+        }
+        .mode-switch-card .kicker { color: var(--forest); margin-bottom: 0.5rem; }
+        .mode-switch-card h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 500;
+            font-size: 1.375rem;
+            line-height: 1.2;
+            color: var(--ink);
+            margin-bottom: 0.375rem;
+        }
+        .mode-switch-card p {
+            font-size: 0.9375rem;
+            color: var(--gray-600);
+            line-height: 1.55;
+        }
+        .mode-switch-arrow {
+            color: var(--forest);
+            font-size: 1.5rem;
+            line-height: 1;
+            transition: transform var(--dur) var(--ease);
+            flex-shrink: 0;
+        }
+        .mode-switch-card:hover .mode-switch-arrow { transform: translateX(4px); }
+
+        @media (max-width: 1024px) {
+            .phase-rail { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .feature { grid-template-columns: 1fr; gap: 2rem; }
+            .split-grid { grid-template-columns: 1fr; }
+            .phase-rail { grid-template-columns: 1fr; }
+            .mode-switch-card { padding: 1.5rem 1.75rem; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ================ NAVIGATION ================ -->
+    <nav>
+        <div class="nav-container">
+            <a class="logo" href="/" aria-label="Material home">
+                <img src="images/material-logo-lockup.svg" alt="Material">
+            </a>
+            <button class="hamburger" aria-label="Open navigation" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="nav-links">
+                <li><a href="/build" class="active">Build with us</a></li>
+                <li><a href="/modernize">Modernize &amp; scale</a></li>
+                <li><a href="/playbook">Playbook</a></li>
+                <li><a href="/team">Team</a></li>
+                <li><a href="#" class="nav-cta" data-fillout-id="p8cqDmytcAus" data-fillout-embed-type="popup" data-fillout-dynamic-resize data-fillout-inherit-parameters data-fillout-popup-size="medium">Book a call</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Mobile floating CTA -->
+    <a href="#" class="mobile-floating-cta" data-fillout-id="p8cqDmytcAus" data-fillout-embed-type="popup" data-fillout-dynamic-resize data-fillout-inherit-parameters data-fillout-popup-size="medium">Partner with us</a>
+
+    <!-- ================ HERO ================ -->
+    <section class="hero mode-hero">
+        <div class="hero-inner">
+            <div class="hero-kicker">
+                <span class="kicker">Build with Material</span>
+            </div>
+            <h1 class="hero-title">
+                Have an idea for a new business? <span class="italic">Let's build it together.</span>
+            </h1>
+            <p class="hero-subtitle">
+                We help operators <em class="brand-em">bring a new business idea to life</em>. Whether it's a standalone company or an ancillary business alongside the one you already run, you bring the vision. We bring the team, the playbook, and the systems to build it.
+            </p>
+            <div class="hero-actions">
+                <a href="#" class="btn btn--primary" data-fillout-id="p8cqDmytcAus" data-fillout-embed-type="popup" data-fillout-dynamic-resize data-fillout-inherit-parameters data-fillout-popup-size="medium">
+                    Partner with us
+                    <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+                </a>
+                <a href="/playbook" class="hero-link">See the playbook &rarr;</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================ WHAT THIS IS ================ -->
+    <section class="section section--white">
+        <div class="section-inner">
+            <div class="section-header reveal">
+                <span class="accent-bar"></span>
+                <span class="kicker" style="margin-bottom: 1.25rem;">What this is</span>
+                <h2 class="section-title">A co-builder. A partner on the cap table from day one.</h2>
+                <p class="section-description">Most new companies stall for the same reason: the person with the industry insight doesn't have the bandwidth to also build the brand, the product, and the systems. We bring that bandwidth. You stay focused on the market you know. We build the company around it, and we stay involved after launch to help it thrive.</p>
+            </div>
+            <div class="feature reveal">
+                <p class="feature-lede">We take on a small number of ventures each year and go deep on each one, alongside a partner with a real edge in the market we're entering.</p>
+                <div class="feature-body">
+                    <p><strong>Co-built from day one.</strong> We work beside you as co-builders. Our team is your founding team while the company is being built.</p>
+                    <p><strong>Shared risk, shared upside.</strong> Engagements combine cash and equity, structured so we're aligned on building a great business together.</p>
+                    <p><strong>Built to last.</strong> Once the venture has traction, we help recruit a full-time CEO, spin the company out, and stay on to oversee the CEO and help the business keep driving forward.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================ PARTNERSHIP MODEL ================ -->
+    <section class="section section--pearl">
+        <div class="section-inner">
+            <div class="section-header reveal">
+                <span class="accent-bar"></span>
+                <span class="kicker" style="margin-bottom: 1.25rem;">How we partner</span>
+                <h2 class="section-title">You bring the insight. We bring the build.</h2>
+                <p class="section-description">This kind of partnership only works when both sides show up with something the other can't buy. Here's what each side brings to the table.</p>
+            </div>
+            <div class="split-grid reveal">
+                <div class="split-card">
+                    <span class="kicker">What you bring</span>
+                    <h3>Distribution, domain, and conviction.</h3>
+                    <ul>
+                        <li>Deep operating experience in a specific industry</li>
+                        <li>An existing network or distribution channel in that market</li>
+                        <li>A specific, well-formed thesis about what needs to exist</li>
+                        <li>Skin in the game as the domain expert on the cap table</li>
+                        <li>Willingness to be the voice of the customer through build</li>
+                    </ul>
+                </div>
+                <div class="split-card split-card--dark">
+                    <span class="kicker">What we bring</span>
+                    <h3>The playbook, the team, the systems.</h3>
+                    <ul>
+                        <li>The full build team across brand, demand, product, and ops</li>
+                        <li>A proven playbook for going from thesis to revenue</li>
+                        <li>AI-native systems that compress what used to take years</li>
+                        <li>An embedded operator who runs point on the whole venture</li>
+                        <li>A hiring engine to find and install the right CEO when the time is right</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================ WHO WE BUILD WITH ================ -->
+    <section class="section section--white">
+        <div class="section-inner">
+            <div class="section-header reveal">
+                <span class="accent-bar"></span>
+                <span class="kicker" style="margin-bottom: 1.25rem;">Who we build with</span>
+                <h2 class="section-title">Operators with a real edge in their market.</h2>
+                <p class="section-description">The common thread across our partners: they've already earned the right to build in a specific industry. We're not here to teach you your market. We're here to turn the company you can already see into one that exists.</p>
+            </div>
+            <div class="pillars-grid">
+                <article class="pillar reveal stagger-1">
+                    <p class="pillar-number">01</p>
+                    <h3>You want to build a new company alongside the one you run</h3>
+                    <p>You're already running or have run a successful company, and you see a new business worth building alongside or on top of it. You want a partner to build that new venture while you stay focused on your main thing.</p>
+                </article>
+                <article class="pillar reveal stagger-2">
+                    <p class="pillar-number">02</p>
+                    <h3>You have an audience or channel ready for a new product</h3>
+                    <p>You have an audience, channel, or customer base, like a content brand, a marketplace, a practice, or a portfolio, that's ready to be productized into a standalone company.</p>
+                </article>
+                <article class="pillar reveal stagger-3">
+                    <p class="pillar-number">03</p>
+                    <h3>You've spent years in an industry and see a gap</h3>
+                    <p>You've spent a decade or more inside an industry. You see a gap the market hasn't built for yet. You're looking for a co-builder to take that conviction to revenue with you.</p>
+                </article>
+            </div>
+            <p class="pillar-closing reveal">You bring the market. We bring the build.</p>
+        </div>
+    </section>
+
+    <!-- ================ PROCESS ================ -->
+    <section class="section section--pearl">
+        <div class="section-inner">
+            <div class="section-header reveal">
+                <span class="accent-bar"></span>
+                <span class="kicker" style="margin-bottom: 1.25rem;">How we build</span>
+                <h2 class="section-title">How we build a company together, from first conversation to spinout.</h2>
+                <p class="section-description">Every venture moves through the same five stages together. We run it side by side with you, then recruit a full-time CEO and oversee them after the business spins out.</p>
+            </div>
+            <div class="process-grid">
+                <div class="process-step reveal stagger-1">
+                    <p class="process-step-number">01</p>
+                    <div class="process-step-body">
+                        <h4>Explore &amp; validate the concept</h4>
+                        <p>We dig into the idea together. Who the customer is, why now, what would have to be true for this to work, and what the first twelve months could actually look like.</p>
+                    </div>
+                </div>
+                <div class="process-step reveal stagger-2">
+                    <p class="process-step-number">02</p>
+                    <div class="process-step-body">
+                        <h4>Structure the partnership</h4>
+                        <p>If both sides want to move forward, we agree on economics, equity, roles, and scope. Clear enough to hold up, flexible enough to learn as the venture takes shape.</p>
+                    </div>
+                </div>
+                <div class="process-step reveal stagger-3">
+                    <p class="process-step-number">03</p>
+                    <div class="process-step-body">
+                        <h4>Build the strategy and materials</h4>
+                        <p>Positioning, brand, and the first set of things the market sees, including the website, financial model, customer pitch deck, and investor pitch deck, all built off one coherent story.</p>
+                    </div>
+                </div>
+                <div class="process-step reveal stagger-4">
+                    <p class="process-step-number">04</p>
+                    <div class="process-step-body">
+                        <h4>Ship the minimum loveable product or service</h4>
+                        <p>The thing customers actually pay for, delivered by a real team on real systems. A working product or service the market is ready to buy, built to be loved by its first users.</p>
+                    </div>
+                </div>
+                <div class="process-step reveal stagger-5">
+                    <p class="process-step-number">05</p>
+                    <div class="process-step-body">
+                        <h4>Recruit the CEO and spin the company out</h4>
+                        <p>We find and install the full-time CEO, spin the venture out, and continue to oversee the CEO to help the business keep driving forward after launch.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================ PORTFOLIO ================ -->
+    <section class="section section--white">
+        <div class="section-inner">
+            <div class="section-header reveal">
+                <span class="accent-bar"></span>
+                <span class="kicker" style="margin-bottom: 1.25rem;">The portfolio</span>
+                <h2 class="section-title">Ventures we've built with operator partners.</h2>
+            </div>
+            <div class="case-studies-grid">
+                <a href="https://www.transformative.studio" class="case-study-card reveal stagger-1" target="_blank" rel="noopener noreferrer">
+                    <div class="case-study-top">
+                        <img src="images/transformative-logo.png" alt="Transformative Studio" class="case-study-logo" loading="lazy" decoding="async">
+                        <span class="case-study-arrow" aria-hidden="true">&#8599;</span>
+                    </div>
+                    <div class="case-study-metric">3 cos.</div>
+                    <div class="case-study-metric-label">Built from zero</div>
+                    <p class="case-study-description">Took <em class="brand-em">3 companies</em> from 0 to 1 in 2 years.</p>
+                </a>
+                <a href="https://www.harmonyworks.com" class="case-study-card reveal stagger-2" target="_blank" rel="noopener noreferrer">
+                    <div class="case-study-top">
+                        <img src="images/harmony-logo.png" alt="Harmony" class="case-study-logo" loading="lazy" decoding="async">
+                        <span class="case-study-arrow" aria-hidden="true">&#8599;</span>
+                    </div>
+                    <div class="case-study-metric">0&rarr;1</div>
+                    <div class="case-study-metric-label">Venture initiation</div>
+                    <p class="case-study-description">From concept to <em class="brand-em">strategically funded venture spin-out</em>.</p>
+                </a>
+                <a href="https://www.barklyliving.com" class="case-study-card reveal stagger-3" target="_blank" rel="noopener noreferrer">
+                    <div class="case-study-top">
+                        <img src="images/barkly-living-logo.png" alt="Barkly Living" class="case-study-logo" loading="lazy" decoding="async">
+                        <span class="case-study-arrow" aria-hidden="true">&#8599;</span>
+                    </div>
+                    <div class="case-study-metric">Building</div>
+                    <div class="case-study-metric-label">Active venture</div>
+                    <p class="case-study-description">A consumer brand in <em class="brand-em">active development</em>, being built with an embedded team across brand, product, and operations.</p>
+                </a>
+                <a href="https://www.signedleasing.com" class="case-study-card reveal stagger-1" target="_blank" rel="noopener noreferrer">
+                    <div class="case-study-top">
+                        <img src="images/signed-leasing-logo.png" alt="Signed Leasing" class="case-study-logo" loading="lazy" decoding="async">
+                        <span class="case-study-arrow" aria-hidden="true">&#8599;</span>
+                    </div>
+                    <div class="case-study-metric">Building</div>
+                    <div class="case-study-metric-label">Active venture</div>
+                    <p class="case-study-description">A modern leasing platform in <em class="brand-em">active development</em>, being built alongside the operator team.</p>
+                </a>
+                <a href="https://bookkeepingconnect.pwc.com" class="case-study-card reveal stagger-2" target="_blank" rel="noopener noreferrer">
+                    <div class="case-study-top">
+                        <img src="images/pwc-logo.png" alt="PwC" class="case-study-logo" loading="lazy" decoding="async">
+                        <span class="case-study-arrow" aria-hidden="true">&#8599;</span>
+                    </div>
+                    <div class="case-study-metric">$1M</div>
+                    <div class="case-study-metric-label">Annual recurring revenue</div>
+                    <p class="case-study-description">Created PwC Bookkeeping Connect, grew it from <em class="brand-em">$0 to $1M ARR</em>.</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================ INLINE CTA ================ -->
+    <section class="inline-cta">
+        <div class="inline-cta-inner reveal">
+            <div class="inline-cta-copy">
+                <div class="inline-cta-kicker">
+                    <span class="kicker">Have an idea and an edge?</span>
+                </div>
+                <h3 class="inline-cta-title">Let's pressure-test it together.</h3>
+            </div>
+            <a href="#" class="btn btn--primary" data-fillout-id="p8cqDmytcAus" data-fillout-embed-type="popup" data-fillout-dynamic-resize data-fillout-inherit-parameters data-fillout-popup-size="medium">
+                Partner with us
+                <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- ================ MODE SWITCH ================ -->
+    <section class="section section--white">
+        <div class="section-inner">
+            <div class="section-header reveal">
+                <span class="accent-bar"></span>
+                <span class="kicker" style="margin-bottom: 1.25rem;">Already have a company?</span>
+                <h2 class="section-title">We also help existing operators scale.</h2>
+            </div>
+            <div class="mode-switch reveal">
+                <a href="/modernize" class="mode-switch-card">
+                    <div>
+                        <span class="kicker">Modernize &amp; scale</span>
+                        <h4>Strategy, structure, and systems to scale what you've built.</h4>
+                        <p>For CEOs of growing companies bringing in an embedded team of operators to help scale the business across go-to-market, systems, and operations.</p>
+                    </div>
+                    <span class="mode-switch-arrow" aria-hidden="true">&rarr;</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================ FINAL CTA ================ -->
+    <section class="cta">
+        <div class="cta-inner reveal">
+            <span class="kicker kicker--light kicker--centered" style="color: var(--forest-light); margin-bottom: 1.5rem;">Build with Material</span>
+            <h2 class="cta-title">Have an idea for a new business?</h2>
+            <p class="cta-description">If you see a company that needs to exist in your industry, let's talk. A short call to get to know you and the idea.</p>
+            <div class="cta-actions">
+                <a href="#" class="btn btn--on-dark" data-fillout-id="p8cqDmytcAus" data-fillout-embed-type="popup" data-fillout-dynamic-resize data-fillout-inherit-parameters data-fillout-popup-size="medium">
+                    Partner with us
+                    <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+                </a>
+                <a href="/playbook" class="btn btn--on-dark-secondary">
+                    See the playbook
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================ FOOTER ================ -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <img src="images/material-logo-lockup.svg" alt="Material" class="footer-logo">
+                    <p class="footer-tagline">A build partner and embedded operator team for operators and growing companies.</p>
+                </div>
+                <div class="footer-col">
+                    <p class="footer-col-heading">Ways we work</p>
+                    <ul>
+                        <li><a href="/build">Build with us</a></li>
+                        <li><a href="/modernize">Modernize &amp; scale</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <p class="footer-col-heading">Material</p>
+                    <ul>
+                        <li><a href="/playbook">Playbook</a></li>
+                        <li><a href="/team">Team</a></li>
+                        <li><a href="#" data-fillout-id="p8cqDmytcAus" data-fillout-embed-type="popup" data-fillout-dynamic-resize data-fillout-inherit-parameters data-fillout-popup-size="medium">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <p class="footer-col-heading">Connect</p>
+                    <ul>
+                        <li><a href="https://www.linkedin.com/company/materialbuilt" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Material. All rights reserved.</p>
+                <p>materialbuilt.com</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        'use strict';
+        const navEl = document.querySelector('nav');
+        const onScroll = () => {
+            if (window.scrollY > 24) navEl.classList.add('scrolled');
+            else navEl.classList.remove('scrolled');
+        };
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        if (hamburger && navLinks) {
+            hamburger.addEventListener('click', () => {
+                const open = hamburger.classList.toggle('active');
+                navLinks.classList.toggle('open', open);
+                hamburger.setAttribute('aria-expanded', String(open));
+            });
+        }
+
+        const floatingCta = document.querySelector('.mobile-floating-cta');
+        const hero = document.querySelector('.hero');
+        if (floatingCta && hero) {
+            window.addEventListener('scroll', () => {
+                const heroBottom = hero.offsetTop + hero.offsetHeight;
+                const scrolled = window.scrollY + window.innerHeight * 0.4;
+                if (scrolled > heroBottom) floatingCta.classList.add('visible');
+                else floatingCta.classList.remove('visible');
+            }, { passive: true });
+        }
+
+        document.documentElement.classList.add('reveal-ready');
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (prefersReducedMotion) {
+            document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+        } else if ('IntersectionObserver' in window) {
+            const obs = new IntersectionObserver((entries) => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) {
+                        e.target.classList.add('visible');
+                        obs.unobserve(e.target);
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+            document.querySelectorAll('.reveal').forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight + 40 && rect.bottom > 0) {
+                    el.classList.add('visible');
+                } else {
+                    obs.observe(el);
+                }
+            });
+        } else {
+            document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+        }
+    </script>
+
+    <script src="https://server.fillout.com/embed/v1/"></script>
+</body>
+</html>
