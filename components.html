@@ -1,0 +1,1693 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Material — Brand Showcase</title>
+<link rel="icon" type="image/png" href="images/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   MATERIAL — BRAND SHOWCASE
+   A single-page artifact mirroring Brand Directions conventions,
+   rendered in the Material system (Cormorant Garamond + Inter,
+   forest on off-white).
+   ============================================================ */
+
+:root {
+  --forest:       #0B3D2E;
+  --forest-dark:  #03281A;
+  --forest-light: #8ABFA8;
+  --forest-05:    rgba(11, 61, 46, 0.05);
+  --forest-10:    rgba(11, 61, 46, 0.10);
+  --ink:          #111111;
+  --ink-60:       rgba(17, 17, 17, 0.60);
+  --gray-700:     #4A4A4A;
+  --gray-600:     #6B6B6B;
+  --gray-400:     #9B9B9B;
+  --gray-300:     #D1D1D1;
+  --gray-200:     #E4E4E0;
+  --off-white:    #F7F7F5;
+  --white:        #FFFFFF;
+
+  --container: 1240px;
+  --pad: 48px;
+
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--ink);
+  background: var(--off-white);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; background: none; border: none; cursor: pointer; color: inherit; }
+
+.wrap { max-width: var(--container); margin: 0 auto; padding: 0 var(--pad); }
+.mono {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gray-600);
+}
+
+/* ===== INTRO ===== */
+.intro {
+  padding: 96px 0 72px;
+  background: var(--off-white);
+  border-bottom: 1px solid var(--gray-200);
+}
+.intro .eyebrow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 72px;
+}
+.intro h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: clamp(40px, 6.4vw, 92px);
+  line-height: 1.02;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  margin: 0 0 40px;
+  max-width: 18ch;
+}
+.intro h1 em {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--forest);
+}
+.intro .brief {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 72px;
+  margin-top: 56px;
+  padding-top: 32px;
+  border-top: 1px solid var(--gray-200);
+}
+.intro .brief p {
+  max-width: 58ch;
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--gray-600);
+  margin: 0;
+}
+.intro .brief p + p { margin-top: 16px; }
+.intro .brief h3 {
+  margin: 0 0 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--forest);
+}
+
+.axis {
+  margin-top: 72px;
+  padding: 28px 32px;
+  border: 1px solid var(--gray-200);
+  background: var(--white);
+  display: grid;
+  grid-template-columns: 200px 1fr 200px;
+  align-items: center;
+  gap: 32px;
+}
+.axis .end {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 1.25;
+  color: var(--ink);
+}
+.axis .end.right { text-align: right; }
+.axis .end small {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-style: normal;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gray-600);
+  margin-top: 8px;
+  font-weight: 500;
+}
+.axis .bar { position: relative; height: 48px; }
+.axis .bar::before {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; top: 50%;
+  height: 1px;
+  background: linear-gradient(90deg, var(--gray-300) 0%, var(--forest) 50%, var(--forest-dark) 100%);
+}
+.axis .bar .mark {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--forest);
+  border: 3px solid var(--off-white);
+  box-shadow: 0 0 0 1px var(--forest);
+}
+.axis .bar .mark span {
+  position: absolute;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--ink);
+}
+.axis .bar .m1 { left: 82%; }
+
+/* ===== SECTION DIVIDERS ===== */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  padding: 48px 48px 32px;
+  max-width: var(--container);
+  margin: 0 auto;
+}
+.divider .num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 72px;
+  line-height: 1;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--forest);
+}
+.divider .label {
+  flex: 1;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gray-600);
+}
+.divider .rule {
+  flex: 1;
+  height: 1px;
+  background: var(--gray-300);
+}
+
+/* ===== MATERIAL SECTION ===== */
+.material { padding: 48px 0 120px; }
+
+.title-row {
+  display: grid;
+  grid-template-columns: 96px 1fr auto;
+  gap: 32px;
+  align-items: baseline;
+  margin-bottom: 16px;
+}
+.title-row .marker {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-weight: 300;
+  font-size: 56px;
+  line-height: 1;
+  color: var(--forest);
+}
+.title-row .dname {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  font-size: 44px;
+  letter-spacing: -0.01em;
+  line-height: 1.05;
+  color: var(--ink);
+  margin: 0;
+}
+.title-row .dname em {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--forest);
+}
+.title-row .tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--forest);
+  text-transform: uppercase;
+}
+
+.thesis {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 1.55;
+  max-width: 62ch;
+  margin: 24px 0 56px 128px;
+  color: var(--gray-600);
+}
+.thesis em {
+  font-style: normal;
+  color: var(--forest);
+}
+
+.values {
+  display: flex;
+  gap: 48px;
+  margin: 0 0 72px 128px;
+  padding: 18px 0;
+  border-top: 1px solid var(--gray-200);
+  border-bottom: 1px solid var(--gray-200);
+  align-items: baseline;
+  flex-wrap: wrap;
+}
+.values .lbl {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gray-600);
+  flex-shrink: 0;
+}
+.values .n {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px;
+  font-weight: 500;
+  color: var(--ink);
+}
+.values .n em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--forest);
+}
+.values .n + .n {
+  border-left: 1px solid var(--gray-200);
+  padding-left: 48px;
+}
+
+/* ===== WORDMARK STAGE ===== */
+.wordmark-stage {
+  margin: 0 0 72px;
+  padding: 96px 48px;
+  background: var(--forest-dark);
+  color: var(--off-white);
+  position: relative;
+  overflow: hidden;
+}
+.wordmark-stage::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 10% 110%, rgba(138, 191, 168, 0.10) 0%, transparent 50%),
+    radial-gradient(ellipse at 90% -10%, rgba(138, 191, 168, 0.08) 0%, transparent 50%);
+  pointer-events: none;
+}
+.wordmark-lockup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+.wordmark-lockup img {
+  height: 80px;
+  width: auto;
+  filter: brightness(0) invert(1);
+  opacity: 0.95;
+}
+.wordmark-meta {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 48px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--forest-light);
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== COLORS ===== */
+.colors {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  margin-bottom: 72px;
+  gap: 0;
+  border: 1px solid var(--gray-200);
+  background: var(--white);
+}
+.swatch {
+  padding: 0;
+  border-right: 1px solid var(--gray-200);
+  display: flex;
+  flex-direction: column;
+}
+.swatch:last-child { border-right: 0; }
+.swatch .fill {
+  height: 160px;
+  border-bottom: 1px solid var(--gray-200);
+  position: relative;
+}
+.swatch .meta { padding: 20px 22px 24px; flex: 1; }
+.swatch .nm {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 4px;
+  color: var(--ink);
+}
+.swatch .hex {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--gray-600);
+}
+.swatch .role {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gray-600);
+  margin-top: 14px;
+}
+
+/* ===== TYPE SYSTEM ===== */
+.typesys {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  margin-bottom: 72px;
+  border: 1px solid var(--gray-200);
+  background: var(--white);
+}
+.typecol {
+  padding: 40px;
+  border-right: 1px solid var(--gray-200);
+}
+.typecol:last-child { border-right: 0; background: var(--off-white); }
+.typecol .role {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gray-600);
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+.typecol .face {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 36px;
+  font-weight: 500;
+  margin-bottom: 4px;
+  color: var(--ink);
+}
+.typecol .face em {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--forest);
+}
+.typecol .face-sans {
+  font-family: 'Inter', sans-serif;
+  font-size: 32px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  margin-bottom: 4px;
+  color: var(--ink);
+}
+.typecol .face-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--gray-600);
+  margin-bottom: 28px;
+}
+.typecol .sample {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 56px;
+  line-height: 1.06;
+  font-weight: 300;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+}
+.typecol .sample em {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--forest);
+}
+.typecol .sample-sm {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  line-height: 1.3;
+  margin-top: 20px;
+  color: var(--gray-600);
+  font-weight: 400;
+}
+.typecol .sample-sans-lg {
+  font-family: 'Inter', sans-serif;
+  font-size: 32px;
+  line-height: 1.2;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+}
+.typecol .sample-sans-sm {
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  line-height: 1.65;
+  margin-top: 20px;
+  color: var(--gray-600);
+  max-width: 46ch;
+}
+.typecol .scale-row {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  align-items: baseline;
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid var(--gray-200);
+}
+.typecol .scale-row span {
+  font-family: 'Inter', sans-serif;
+  color: var(--ink);
+}
+.typecol .s-12 { font-size: 12px; color: var(--gray-600) !important; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; }
+.typecol .s-14 { font-size: 14px; }
+.typecol .s-16 { font-size: 16px; font-weight: 500; }
+.typecol .s-20 { font-size: 20px; font-weight: 600; letter-spacing: -0.01em; }
+
+/* ===== HERO ===== */
+.hero {
+  margin-bottom: 72px;
+  background: var(--off-white);
+  border: 1px solid var(--gray-200);
+  padding: 0;
+  overflow: hidden;
+  position: relative;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 10%;
+  right: -20%;
+  width: 70%;
+  height: 70%;
+  background: radial-gradient(ellipse at center, var(--forest-05) 0%, transparent 60%);
+  filter: blur(20px);
+  z-index: 0;
+  pointer-events: none;
+}
+.hero-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  border-bottom: 1px solid var(--gray-200);
+  background: rgba(247, 247, 245, 0.92);
+  position: relative;
+  z-index: 2;
+}
+.hero-topbar .wm img {
+  height: 24px;
+  width: auto;
+}
+.hero-topbar nav {
+  display: flex;
+  gap: 32px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--gray-600);
+}
+.hero-topbar .nav-cta {
+  background: var(--forest);
+  color: var(--white);
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 10px 20px;
+  border-radius: 999px;
+}
+.hero-body {
+  padding: 88px 64px 96px;
+  position: relative;
+  z-index: 1;
+  max-width: 1080px;
+}
+.hero-kicker {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--forest);
+  margin-bottom: 32px;
+  display: inline-block;
+}
+.hero h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: clamp(44px, 6.2vw, 76px);
+  line-height: 1.06;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  max-width: 18ch;
+  margin: 0 0 28px;
+}
+.hero h2 em {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--forest);
+}
+.hero-sub {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  line-height: 1.65;
+  color: var(--gray-600);
+  max-width: 600px;
+  margin: 0 0 44px;
+}
+.hero-sub em {
+  font-style: normal;
+  color: var(--forest);
+}
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.005em;
+  line-height: 1;
+  padding: 15px 28px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  transition: background 200ms var(--ease), color 200ms var(--ease), border-color 200ms var(--ease), transform 200ms var(--ease);
+  cursor: pointer;
+  text-decoration: none;
+}
+.btn--primary { background: var(--forest); color: var(--white); border-color: var(--forest); }
+.btn--primary:hover { background: var(--forest-dark); border-color: var(--forest-dark); transform: translateY(-1px); }
+.btn--secondary { background: transparent; color: var(--forest); border-color: var(--forest); }
+.btn--secondary:hover { background: var(--forest); color: var(--white); transform: translateY(-1px); }
+.btn--on-dark { background: var(--off-white); color: var(--ink); }
+.btn--on-dark:hover { background: var(--white); transform: translateY(-1px); }
+.btn--on-dark-secondary { background: transparent; color: var(--off-white); border-color: rgba(247, 247, 245, 0.3); }
+.btn--on-dark-secondary:hover { background: rgba(247, 247, 245, 0.1); border-color: rgba(247, 247, 245, 0.6); color: var(--white); }
+.btn-arrow {
+  width: 0.95em;
+  height: 0.95em;
+  transition: transform 200ms var(--ease);
+}
+.btn:hover .btn-arrow { transform: translateX(2px); }
+.hero-link {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--gray-600);
+  transition: color 200ms var(--ease);
+}
+.hero-link:hover { color: var(--ink); }
+
+.hero-proof {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  padding: 28px 64px;
+  border-top: 1px solid var(--gray-200);
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
+  background: rgba(247, 247, 245, 0.92);
+}
+.hero-proof-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gray-600);
+  white-space: nowrap;
+}
+.hero-proof-logos {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+.hero-proof-logos img {
+  height: 22px;
+  width: auto;
+  opacity: 0.5;
+  filter: grayscale(1);
+  transition: opacity 400ms var(--ease);
+}
+.hero-proof-logos:hover img { opacity: 0.75; }
+
+/* ===== FRAGMENT WRAPPER ===== */
+.frag-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 64px;
+  align-items: center;
+  margin-bottom: 72px;
+}
+.frag-wrap .explainer { padding-right: 24px; }
+.frag-wrap .explainer .lbl {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gray-600);
+  margin-bottom: 16px;
+}
+.frag-wrap .explainer h4 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 1.2;
+  margin: 0 0 16px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.frag-wrap .explainer h4 em {
+  font-style: normal;
+  color: var(--forest);
+}
+.frag-wrap .explainer p {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--gray-600);
+  margin: 0;
+}
+
+/* ===== SMALL PRIMITIVES (kicker, accent bar, brand-em) ===== */
+.primitives {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  padding: 40px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+}
+.primitives .cell {
+  padding: 24px 28px;
+  border-right: 1px solid var(--gray-200);
+}
+.primitives .cell:last-child { border-right: 0; }
+.primitives .cell .lbl {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gray-600);
+  margin-bottom: 20px;
+}
+.primitives .kicker {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--forest);
+  margin-bottom: 16px;
+  display: inline-block;
+}
+.primitives .accent-bar {
+  display: block;
+  width: 32px;
+  height: 2px;
+  background: var(--forest);
+  border-radius: 1px;
+  margin-bottom: 16px;
+}
+.primitives .primitive-sample {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 1.25;
+  color: var(--ink);
+  letter-spacing: -0.005em;
+}
+.primitives .primitive-body {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--gray-600);
+}
+.primitives .primitive-body em {
+  font-style: normal;
+  color: var(--forest);
+}
+
+/* ===== BUTTONS ROW ===== */
+.buttons-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  margin-bottom: 72px;
+  border: 1px solid var(--gray-200);
+}
+.buttons-row .pane {
+  padding: 48px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.buttons-row .pane--light { background: var(--white); }
+.buttons-row .pane--dark { background: var(--forest-dark); border-left: 1px solid var(--gray-200); }
+.buttons-row .pane-lbl {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gray-600);
+  margin-bottom: 12px;
+}
+.buttons-row .pane--dark .pane-lbl { color: var(--forest-light); }
+.buttons-row .btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+}
+.nav-cta-demo {
+  background: var(--forest);
+  color: var(--white);
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 10px 20px;
+  border-radius: 999px;
+  display: inline-block;
+  text-decoration: none;
+  transition: background 200ms var(--ease), transform 200ms var(--ease);
+}
+.nav-cta-demo:hover { background: var(--forest-dark); transform: translateY(-1px); }
+
+/* ===== PILLARS ===== */
+.pillars-showcase { margin-bottom: 72px; }
+.pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--gray-200);
+  border-bottom: 1px solid var(--gray-200);
+  background: var(--white);
+}
+.pillar {
+  padding: 40px 32px;
+  background: var(--white);
+  transition: background 400ms var(--ease);
+  position: relative;
+}
+.pillar + .pillar { box-shadow: -1px 0 0 var(--gray-200); }
+.pillar:hover { background: var(--off-white); }
+.pillar-number {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: 40px;
+  line-height: 1;
+  color: var(--forest);
+  margin-bottom: 28px;
+  letter-spacing: -0.02em;
+}
+.pillar h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 1.25;
+  letter-spacing: -0.005em;
+  color: var(--ink);
+  margin: 0 0 14px;
+}
+.pillar p {
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--gray-600);
+  margin: 0;
+}
+.pillar-closing {
+  margin-top: 48px;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-style: italic;
+  font-size: clamp(20px, 2vw, 24px);
+  line-height: 1.4;
+  color: var(--ink);
+  max-width: 600px;
+}
+
+/* ===== MODE CARDS ===== */
+.mode-showcase { margin-bottom: 72px; }
+.mode-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.mode-card {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 40px 36px 44px;
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: 16px;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 400ms var(--ease), transform 400ms var(--ease), box-shadow 400ms var(--ease);
+}
+.mode-card:hover {
+  border-color: var(--forest);
+  transform: translateY(-3px);
+  box-shadow: 0 16px 50px rgba(11, 61, 46, 0.08);
+}
+.mode-card--dark {
+  background: var(--forest-dark);
+  color: var(--off-white);
+  border-color: var(--forest-dark);
+}
+.mode-card--dark:hover {
+  border-color: var(--forest-light);
+  box-shadow: 0 16px 50px rgba(3, 40, 26, 0.35);
+}
+.mode-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--gray-200);
+}
+.mode-card--dark .mode-card-head {
+  border-bottom-color: rgba(247, 247, 245, 0.15);
+}
+.mode-card-tag {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--forest);
+  padding: 6px 14px;
+  border: 1px solid var(--forest);
+  border-radius: 999px;
+}
+.mode-card--dark .mode-card-tag {
+  color: var(--forest-light);
+  border-color: var(--forest-light);
+}
+.mode-card-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: 32px;
+  line-height: 1;
+  color: var(--forest);
+  letter-spacing: -0.02em;
+}
+.mode-card--dark .mode-card-num { color: var(--forest-light); }
+.mode-card h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin: 0;
+}
+.mode-card--dark h3 { color: var(--off-white); }
+.mode-card > p {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--gray-600);
+  margin: 0;
+}
+.mode-card--dark > p { color: rgba(247, 247, 245, 0.78); }
+.mode-card--dark > p em { color: var(--forest-light); font-style: normal; }
+.mode-card > p em { color: var(--forest); font-style: normal; }
+.mode-card-meta {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0;
+  margin: 0;
+}
+.mode-card-meta li {
+  display: flex;
+  gap: 12px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--gray-600);
+}
+.mode-card--dark .mode-card-meta li { color: rgba(247, 247, 245, 0.65); }
+.mode-card-meta li::before {
+  content: '';
+  display: block;
+  width: 5px;
+  height: 5px;
+  margin-top: 8px;
+  background: var(--forest);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.mode-card--dark .mode-card-meta li::before { background: var(--forest-light); }
+.mode-card-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  padding-top: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: var(--forest);
+  transition: gap 400ms var(--ease);
+}
+.mode-card--dark .mode-card-cta { color: var(--off-white); }
+.mode-card:hover .mode-card-cta { gap: 14px; }
+
+/* ===== CASE STUDY CARDS ===== */
+.case-showcase { margin-bottom: 72px; }
+.case-studies-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.case-study-card {
+  display: flex;
+  flex-direction: column;
+  padding: 32px;
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: 12px;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 400ms var(--ease), transform 400ms var(--ease), box-shadow 400ms var(--ease);
+  min-height: 280px;
+}
+.case-study-card:hover {
+  border-color: var(--forest);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(11, 61, 46, 0.08);
+}
+.case-study-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 40px;
+}
+.case-study-logo {
+  height: 26px;
+  width: auto;
+  max-width: 140px;
+  object-fit: contain;
+  opacity: 0.72;
+  filter: grayscale(1);
+  transition: opacity 400ms var(--ease), filter 400ms var(--ease);
+}
+.case-study-card:hover .case-study-logo { opacity: 1; filter: grayscale(0); }
+.case-study-arrow {
+  color: var(--gray-400);
+  font-size: 20px;
+  line-height: 1;
+  transition: color 400ms var(--ease), transform 400ms var(--ease);
+}
+.case-study-card:hover .case-study-arrow {
+  color: var(--forest);
+  transform: translate(3px, -3px);
+}
+.case-study-metric {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  font-size: 52px;
+  line-height: 1;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  margin-top: auto;
+}
+.case-study-metric-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--forest);
+  margin-top: 10px;
+}
+.case-study-description {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--gray-600);
+  margin-top: 14px;
+}
+.case-study-description em {
+  font-style: normal;
+  color: var(--forest);
+}
+
+/* ===== INLINE CTA ===== */
+.inline-cta {
+  margin-bottom: 72px;
+  padding: 48px 48px;
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+.inline-cta-copy { flex: 1 1 360px; }
+.inline-cta-kicker {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--forest);
+  margin-bottom: 12px;
+  display: inline-block;
+}
+.inline-cta h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  font-size: 30px;
+  line-height: 1.2;
+  letter-spacing: -0.005em;
+  color: var(--ink);
+  margin: 0;
+}
+
+/* ===== MARQUEE ===== */
+.marquee-showcase { margin-bottom: 72px; }
+.marquee {
+  overflow: hidden;
+  padding: 20px 0;
+  position: relative;
+  width: 100%;
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  mask-image: linear-gradient(90deg, transparent 0%, black 10%, black 90%, transparent 100%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 10%, black 90%, transparent 100%);
+}
+.marquee-track {
+  display: flex;
+  align-items: center;
+  gap: 64px;
+  animation: scroll-x 48s linear infinite;
+  width: max-content;
+}
+.marquee-track img {
+  height: 26px;
+  width: auto;
+  opacity: 0.45;
+  filter: grayscale(1);
+  flex-shrink: 0;
+  transition: opacity 400ms var(--ease), filter 400ms var(--ease);
+}
+.marquee:hover .marquee-track { animation-play-state: paused; }
+.marquee:hover .marquee-track img { opacity: 0.85; filter: grayscale(0); }
+@keyframes scroll-x {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ===== CTA SECTION ===== */
+.cta {
+  margin-bottom: 0;
+  padding: 96px 64px;
+  background: var(--forest-dark);
+  color: var(--off-white);
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+}
+.cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 10% 110%, rgba(138, 191, 168, 0.10) 0%, transparent 50%),
+    radial-gradient(ellipse at 90% -10%, rgba(138, 191, 168, 0.08) 0%, transparent 50%);
+  pointer-events: none;
+}
+.cta-inner {
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+.cta-kicker {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--forest-light);
+  margin-bottom: 24px;
+  display: inline-block;
+}
+.cta h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: clamp(36px, 4.5vw, 56px);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  color: var(--off-white);
+  margin: 0 0 20px;
+}
+.cta p {
+  font-family: 'Inter', sans-serif;
+  font-size: 17px;
+  line-height: 1.65;
+  color: rgba(247, 247, 245, 0.72);
+  max-width: 560px;
+  margin: 0 auto 40px;
+}
+.cta-actions {
+  display: inline-flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* ===== SPEC FOOTER ===== */
+.spec-footer {
+  background: var(--ink);
+  color: rgba(247, 247, 245, 0.6);
+  padding: 40px 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.spec-footer .wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  .colors { grid-template-columns: repeat(3, 1fr); }
+  .typesys { grid-template-columns: 1fr; }
+  .buttons-row { grid-template-columns: 1fr; }
+  .buttons-row .pane--dark { border-left: 0; border-top: 1px solid var(--gray-200); }
+  .pillars-grid { grid-template-columns: 1fr; }
+  .pillar + .pillar { box-shadow: 0 -1px 0 var(--gray-200); }
+  .mode-cards { grid-template-columns: 1fr; }
+  .case-studies-grid { grid-template-columns: 1fr; gap: 12px; }
+  .frag-wrap { grid-template-columns: 1fr; gap: 32px; }
+  .primitives { grid-template-columns: 1fr; }
+  .primitives .cell { border-right: 0; border-bottom: 1px solid var(--gray-200); }
+  .primitives .cell:last-child { border-bottom: 0; }
+}
+
+@media (max-width: 720px) {
+  :root { --pad: 24px; }
+  .intro { padding: 56px 0 48px; }
+  .intro .brief { grid-template-columns: 1fr; gap: 24px; }
+  .axis { grid-template-columns: 1fr; gap: 16px; padding: 20px; }
+  .axis .end.right { text-align: left; }
+  .title-row { grid-template-columns: 64px 1fr; gap: 20px; }
+  .title-row .tag { display: none; }
+  .thesis, .values { margin-left: 0; }
+  .values { flex-wrap: wrap; gap: 20px; }
+  .values .n + .n { border-left: 0; padding-left: 0; }
+  .colors { grid-template-columns: repeat(2, 1fr); }
+  .wordmark-stage { padding: 64px 32px; }
+  .wordmark-lockup img { height: 52px; }
+  .hero-topbar { padding: 16px 24px; flex-wrap: wrap; gap: 12px; }
+  .hero-topbar nav { display: none; }
+  .hero-body { padding: 56px 28px 64px; }
+  .hero-proof { padding: 24px 28px; }
+  .cta { padding: 64px 28px; }
+  .inline-cta { padding: 32px 28px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============ INTRO ============ -->
+<section class="intro">
+  <div class="wrap">
+    <div class="eyebrow">
+      <span class="mono">Material · Brand Showcase · Internal Review</span>
+      <span class="mono">Apr 2026 · v1.3</span>
+    </div>
+
+    <h1>The Material brand system, <em>in one page.</em></h1>
+
+    <div class="brief">
+      <div>
+        <h3>The brief, one paragraph</h3>
+        <p>Material is a venture studio and embedded operator team. The brand should read as the smartest person at the table who also happens to be the most approachable — warm, authoritative, direct. Editorial restraint, generous whitespace, a single signature green, and a serif display voice that signals craft without nostalgia.</p>
+      </div>
+      <div>
+        <h3>How to read this page</h3>
+        <p>The same five artifacts from the Brand Directions format — wordmark, color, type, hero, component fragment — rendered in Material's actual system. Plus the full component library behind the site: pillars, mode cards, case studies, buttons, CTA, marquee. One page, every primitive, every combination.</p>
+      </div>
+    </div>
+
+    <div class="axis" aria-label="warmth to tech axis">
+      <div class="end">The editorial quarterly<small>Serif · Memory · Craft</small></div>
+      <div class="bar">
+        <div class="mark m1"><span>Material</span></div>
+      </div>
+      <div class="end right">The modern marketplace<small>Sans · Speed · Clarity</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DIRECTION MARKER ============ -->
+<div class="divider">
+  <span class="num">Nº</span>
+  <span class="label">— Material · Editorial operator, modern backbone —</span>
+  <span class="rule"></span>
+</div>
+
+<section class="material">
+  <div class="wrap">
+    <div class="title-row">
+      <div class="marker">M.</div>
+      <h2 class="dname">A studio, <em>not an agency.</em></h2>
+      <div class="tag">Warmth ●●●○ · Tech ●●●○</div>
+    </div>
+    <p class="thesis">Cormorant Garamond for the headline moments, Inter for everything else. A single forest green as the one signature color, used in kickers, buttons, and one <em>italic accent</em> in the hero. Generous whitespace. No decoration for decoration's sake.</p>
+
+    <div class="values">
+      <span class="lbl">Core voice</span>
+      <span class="n">Warm, <em>direct</em></span>
+      <span class="n">Operators, <em>not consultants</em></span>
+      <span class="n">Strategy, <em>structure, systems</em></span>
+    </div>
+
+    <!-- ============ WORDMARK ============ -->
+    <div class="wordmark-stage">
+      <div class="wordmark-lockup">
+        <img src="images/material-logo-lockup.svg" alt="Material">
+      </div>
+      <div class="wordmark-meta">
+        <span>Wordmark · icon + wordmark lockup</span>
+        <span>Primary · inverted on forest-dark</span>
+      </div>
+    </div>
+
+    <!-- ============ COLORS ============ -->
+    <div class="colors">
+      <div class="swatch">
+        <div class="fill" style="background: #F7F7F5; border-bottom-color: var(--gray-300);"></div>
+        <div class="meta">
+          <div class="nm">Off-white</div>
+          <div class="hex">#F7F7F5</div>
+          <div class="role">Base · page ground</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="fill" style="background: #FFFFFF; border-bottom-color: var(--gray-300);"></div>
+        <div class="meta">
+          <div class="nm">White</div>
+          <div class="hex">#FFFFFF</div>
+          <div class="role">Surface · cards</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="fill" style="background: #0B3D2E;"></div>
+        <div class="meta">
+          <div class="nm">Forest</div>
+          <div class="hex">#0B3D2E</div>
+          <div class="role">Signature · single accent</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="fill" style="background: #03281A;"></div>
+        <div class="meta">
+          <div class="nm">Forest dark</div>
+          <div class="hex">#03281A</div>
+          <div class="role">Dark surfaces · closing CTA</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="fill" style="background: #111111;"></div>
+        <div class="meta">
+          <div class="nm">Ink</div>
+          <div class="hex">#111111</div>
+          <div class="role">Text · headlines</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ TYPE SYSTEM ============ -->
+    <div class="typesys">
+      <div class="typecol">
+        <div class="role"><span>Display · serif</span><span>Hero · H2 · H3</span></div>
+        <div class="face">Cormorant <em>Garamond</em></div>
+        <div class="face-meta">300 · 400 · 500 · italic for hero accent only</div>
+        <div class="sample">Stop waiting for bandwidth. <em>Start building for scale.</em></div>
+        <div class="sample-sm">— The hero italic accent: second half of the headline, italic 300, forest green. One moment per page.</div>
+      </div>
+      <div class="typecol">
+        <div class="role"><span>Interface · sans</span><span>Body · UI · Labels</span></div>
+        <div class="face-sans">Inter</div>
+        <div class="face-meta">400 · 500 · 600 · 14–17px body · 12px kicker 0.14em</div>
+        <div class="sample-sans-lg">Operators, not outside help.</div>
+        <div class="sample-sans-sm">We've built, run, scaled, and exited companies ourselves. Every engagement is led by operators who've done the work — not analysts passing recommendations over the wall.</div>
+        <div class="scale-row">
+          <span class="s-12">12 · kicker</span>
+          <span class="s-14">14 · body</span>
+          <span class="s-16">16 · ui</span>
+          <span class="s-20">20 · h4</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ HERO ============ -->
+    <div class="hero">
+      <div class="hero-topbar">
+        <div class="wm"><img src="images/material-logo-lockup.svg" alt="Material"></div>
+        <nav>
+          <span>Build with us</span>
+          <span>Modernize &amp; scale</span>
+          <span>Playbook</span>
+          <span>Team</span>
+        </nav>
+        <span class="nav-cta">Book a call</span>
+      </div>
+      <div class="hero-body">
+        <span class="hero-kicker">Strategic operators for growing companies</span>
+        <h2>Stop waiting for bandwidth. <em>Start building for scale.</em></h2>
+        <p class="hero-sub">Material partners with founders and operators to build new companies and modernize existing ones, with the <em>strategy, structure, and systems</em> that drive durable growth.</p>
+        <div class="hero-actions">
+          <a href="#" class="btn btn--primary">
+            Map your growth plan
+            <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#" class="hero-link">See our playbook →</a>
+        </div>
+      </div>
+      <div class="hero-proof">
+        <span class="hero-proof-label">Built by operators from</span>
+        <div class="hero-proof-logos">
+          <img src="images/wharton-logo.png" alt="Wharton">
+          <img src="images/harvard-logo.png" alt="Harvard">
+          <img src="images/Stanford_logo.png" alt="Stanford">
+          <img src="images/ycombinator-logo.png" alt="Y Combinator">
+          <img src="images/Palantir_logo.png" alt="Palantir">
+          <img src="images/uber-logo.png" alt="Uber">
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ PRIMITIVES ============ -->
+    <div class="frag-wrap">
+      <div class="explainer">
+        <div class="lbl">Primitives · atoms of the system</div>
+        <h4>Kicker, accent bar, <em>brand-em</em>.</h4>
+        <p>The three smallest signature devices. The kicker names the section. The accent bar opens it. The brand-em — color-only, no italic — highlights the load-bearing phrase inside a paragraph of body copy.</p>
+      </div>
+      <div class="primitives">
+        <div class="cell">
+          <div class="lbl">Kicker</div>
+          <span class="kicker">Strategic operators</span>
+          <div class="primitive-sample">Inter 500 · 12px · 0.14em</div>
+        </div>
+        <div class="cell">
+          <div class="lbl">Accent bar</div>
+          <span class="accent-bar"></span>
+          <div class="primitive-sample">32×2px · forest</div>
+        </div>
+        <div class="cell">
+          <div class="lbl">Brand-em</div>
+          <p class="primitive-body">We build <em>strategy, structure, and systems</em> — the three things that compound.</p>
+          <div class="primitive-sample" style="font-size: 13px; color: var(--gray-600); font-family: 'JetBrains Mono', monospace; letter-spacing: 0.1em;">COLOR ONLY · NO ITALIC</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ BUTTONS ============ -->
+    <div class="frag-wrap">
+      <div class="explainer">
+        <div class="lbl">Buttons · every variant</div>
+        <h4>One shape, <em>five variants</em>.</h4>
+        <p>All buttons share the same 8px radius, 15/28 padding, Inter 500 14px label, and trailing arrow that translates 2px right on hover. The nav CTA is the exception — pill-shaped for a different weight of emphasis.</p>
+      </div>
+      <div class="buttons-row">
+        <div class="pane pane--light">
+          <div class="pane-lbl">On light</div>
+          <div class="btn-group">
+            <a href="#" class="btn btn--primary">
+              Primary
+              <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
+            <a href="#" class="btn btn--secondary">
+              Secondary
+              <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
+            <a href="#" class="nav-cta-demo">Nav CTA</a>
+          </div>
+        </div>
+        <div class="pane pane--dark">
+          <div class="pane-lbl">On dark</div>
+          <div class="btn-group">
+            <a href="#" class="btn btn--on-dark">
+              On dark primary
+              <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
+            <a href="#" class="btn btn--on-dark-secondary">On dark secondary</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ PILLARS ============ -->
+    <div class="pillars-showcase">
+      <div class="frag-wrap" style="margin-bottom: 32px;">
+        <div class="explainer">
+          <div class="lbl">Pillar grid · numbered argument</div>
+          <h4>Three-part thesis, <em>one closing line</em>.</h4>
+          <p>Numbered Cormorant 300 pillars separated by a 1px rule — used anywhere a three-part principle set needs to land. The italic closing line underneath is the one place italic Cormorant is allowed outside the hero.</p>
+        </div>
+        <div></div>
+      </div>
+      <div class="pillars-grid">
+        <article class="pillar">
+          <p class="pillar-number">01</p>
+          <h3>Operators, not outside help</h3>
+          <p>We've built, run, scaled, and exited companies ourselves. Every engagement is led by operators who've done the work, not analysts passing recommendations over the wall.</p>
+        </article>
+        <article class="pillar">
+          <p class="pillar-number">02</p>
+          <h3>One team, full stack</h3>
+          <p>Brand, go-to-market, product, and systems delivered by a single team, not coordinated across five vendors who don't talk to each other.</p>
+        </article>
+        <article class="pillar">
+          <p class="pillar-number">03</p>
+          <h3>A playbook that compounds</h3>
+          <p>The same refined approach behind every build and every scale, sharpened by real revenue and reused from one engagement to the next.</p>
+        </article>
+      </div>
+      <p class="pillar-closing">Builders who embed, ship, and stick around until the thing we built is working.</p>
+    </div>
+
+    <!-- ============ MODE CARDS ============ -->
+    <div class="mode-showcase">
+      <div class="frag-wrap" style="margin-bottom: 32px;">
+        <div class="explainer">
+          <div class="lbl">Mode card · light + dark variants</div>
+          <h4>Two ways to route, <em>one card shape</em>.</h4>
+          <p>The only component that ships a dark variant by default. Used on the home page to route to the two primary offerings. The dark variant signals "the other path" without changing silhouette.</p>
+        </div>
+        <div></div>
+      </div>
+      <div class="mode-cards">
+        <a class="mode-card mode-card--dark" href="#">
+          <div class="mode-card-head">
+            <span class="mode-card-tag">Have an idea for a new business?</span>
+            <span class="mode-card-num">01</span>
+          </div>
+          <h3>Build with us</h3>
+          <p>Material Venture Studio builds new companies with operators. You bring the <em>domain, distribution, or conviction</em>. We bring the team, the playbook, and the systems.</p>
+          <ul class="mode-card-meta">
+            <li>For operators launching new or ancillary businesses</li>
+            <li>Shared risk and upside as a partner on the cap table</li>
+            <li>We build it, then spin it out with a full-time CEO</li>
+          </ul>
+          <span class="mode-card-cta">
+            Explore Building with Us
+            <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </span>
+        </a>
+        <a class="mode-card" href="#">
+          <div class="mode-card-head">
+            <span class="mode-card-tag">Scaling an existing company?</span>
+            <span class="mode-card-num">02</span>
+          </div>
+          <h3>Modernize &amp; scale</h3>
+          <p>We embed as the team that builds <em>strategy, structure, and systems</em> into your growing business — across go-to-market, operations, and the systems underneath.</p>
+          <ul class="mode-card-meta">
+            <li>For CEOs and operators of growing 7–9 figure businesses</li>
+            <li>Strategy first, then go-to-market, systems, or both</li>
+            <li>An embedded operator with a full build team behind them</li>
+          </ul>
+          <span class="mode-card-cta">
+            Explore Modernize &amp; scale
+            <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </span>
+        </a>
+      </div>
+    </div>
+
+    <!-- ============ CASE STUDY CARDS ============ -->
+    <div class="case-showcase">
+      <div class="frag-wrap" style="margin-bottom: 32px;">
+        <div class="explainer">
+          <div class="lbl">Case study card · metric-led</div>
+          <h4>The number <em>is</em> the card.</h4>
+          <p>A Cormorant 500 metric sits at the bottom of each card, label in forest uppercase, one-sentence description in Gray 600. The logo grayscales to color on hover. Nothing else.</p>
+        </div>
+        <div></div>
+      </div>
+      <div class="case-studies-grid">
+        <a href="#" class="case-study-card">
+          <div class="case-study-top">
+            <img src="images/goodr-logo.png" alt="Goodr" class="case-study-logo">
+            <span class="case-study-arrow" aria-hidden="true">↗</span>
+          </div>
+          <div class="case-study-metric">20x</div>
+          <div class="case-study-metric-label">Revenue growth</div>
+          <p class="case-study-description">Scaled revenue <em>20x in 3 years</em>.</p>
+        </a>
+        <a href="#" class="case-study-card">
+          <div class="case-study-top">
+            <img src="images/grovara-logo.png" alt="Grovara" class="case-study-logo">
+            <span class="case-study-arrow" aria-hidden="true">↗</span>
+          </div>
+          <div class="case-study-metric">7.5x</div>
+          <div class="case-study-metric-label">Client growth</div>
+          <p class="case-study-description">Grew enterprise clients <em>7.5x in 2 years</em>.</p>
+        </a>
+        <a href="#" class="case-study-card">
+          <div class="case-study-top">
+            <img src="images/pwc-logo.png" alt="PwC" class="case-study-logo">
+            <span class="case-study-arrow" aria-hidden="true">↗</span>
+          </div>
+          <div class="case-study-metric">$1M</div>
+          <div class="case-study-metric-label">Annual recurring revenue</div>
+          <p class="case-study-description">Grew PwC Bookkeeping Connect from <em>$0 to $1M ARR</em>.</p>
+        </a>
+      </div>
+    </div>
+
+    <!-- ============ INLINE CTA ============ -->
+    <div class="inline-cta">
+      <div class="inline-cta-copy">
+        <span class="inline-cta-kicker">See if Material is a fit</span>
+        <h3>A short call, <em style="font-style: normal; color: var(--forest);">a clear next step.</em></h3>
+      </div>
+      <a href="#" class="btn btn--primary">
+        Map your growth plan
+        <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+
+    <!-- ============ MARQUEE ============ -->
+    <div class="marquee-showcase">
+      <div class="frag-wrap" style="margin-bottom: 32px;">
+        <div class="explainer">
+          <div class="lbl">Logo marquee · infinite scroll</div>
+          <h4>Partners in grayscale, <em>warmed on hover</em>.</h4>
+          <p>48-second linear loop, grayscale at 45% opacity, lifts to full color on pause. Edges fade via linear-gradient mask so the seam is invisible.</p>
+        </div>
+        <div></div>
+      </div>
+      <div class="marquee">
+        <div class="marquee-track">
+          <img src="images/wharton-logo.png" alt="Wharton">
+          <img src="images/accenture-logo.png" alt="Accenture">
+          <img src="images/uber-logo.png" alt="Uber">
+          <img src="images/harvard-logo.png" alt="Harvard">
+          <img src="images/Palantir_logo.png" alt="Palantir">
+          <img src="images/ycombinator-logo.png" alt="Y Combinator">
+          <img src="images/Stanford_logo.png" alt="Stanford">
+          <img src="images/kpmg-logo.png" alt="KPMG">
+          <img src="images/citi-logo.png" alt="Citi">
+          <img src="images/pwc-logo.png" alt="PwC">
+          <img src="images/twilio-logo.png" alt="Twilio">
+          <img src="images/invision-logo.png" alt="InVision">
+          <img src="images/wharton-logo.png" alt="" aria-hidden="true">
+          <img src="images/accenture-logo.png" alt="" aria-hidden="true">
+          <img src="images/uber-logo.png" alt="" aria-hidden="true">
+          <img src="images/harvard-logo.png" alt="" aria-hidden="true">
+          <img src="images/Palantir_logo.png" alt="" aria-hidden="true">
+          <img src="images/ycombinator-logo.png" alt="" aria-hidden="true">
+          <img src="images/Stanford_logo.png" alt="" aria-hidden="true">
+          <img src="images/kpmg-logo.png" alt="" aria-hidden="true">
+          <img src="images/citi-logo.png" alt="" aria-hidden="true">
+          <img src="images/pwc-logo.png" alt="" aria-hidden="true">
+          <img src="images/twilio-logo.png" alt="" aria-hidden="true">
+          <img src="images/invision-logo.png" alt="" aria-hidden="true">
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ CTA ============ -->
+    <section class="cta">
+      <div class="cta-inner">
+        <span class="cta-kicker">Get started</span>
+        <h3>Ready to build or scale with Material?</h3>
+        <p>Book a discovery call. We'll learn about your business, identify opportunities, and map out your strategic roadmap to scale.</p>
+        <div class="cta-actions">
+          <a href="#" class="btn btn--on-dark">
+            Map your growth plan
+            <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#" class="btn btn--on-dark-secondary">See our playbook</a>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</section>
+
+<!-- ============ SPEC FOOTER ============ -->
+<footer class="spec-footer">
+  <div class="wrap">
+    <span>Material · Brand Showcase · v1.3</span>
+    <span>— Internal · Not for distribution —</span>
+  </div>
+</footer>
+
+</body>
+</html>

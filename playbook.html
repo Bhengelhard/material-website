@@ -10,7 +10,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400;1,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
 
     <style>
         /* ============================================================
@@ -21,24 +21,25 @@
 
         :root {
             --forest:       #0B3D2E;
-            --forest-dark:  #03281A;
-            --forest-light: #8ABFA8;
+            --forest-dark:  #062116;
+            --forest-light: #9BB2A2;
             --forest-05:    rgba(11, 61, 46, 0.05);
             --forest-10:    rgba(11, 61, 46, 0.10);
+            --brass:        #B08848;
 
-            --ink:      #111111;
-            --ink-80:   rgba(17, 17, 17, 0.80);
-            --ink-60:   rgba(17, 17, 17, 0.60);
+            --ink:      #0B0A07;
+            --ink-80:   rgba(11, 10, 7, 0.82);
+            --ink-60:   rgba(11, 10, 7, 0.62);
 
-            --gray-700: #4A4A4A;
-            --gray-600: #6B6B6B;
-            --gray-400: #9B9B9B;
-            --gray-300: #D1D1D1;
-            --gray-200: #E4E4E0;
-            --gray-100: #EDEDEA;
+            --gray-700: rgba(11, 10, 7, 0.78);
+            --gray-600: rgba(11, 10, 7, 0.62);
+            --gray-400: rgba(11, 10, 7, 0.40);
+            --gray-300: rgba(11, 10, 7, 0.30);
+            --gray-200: rgba(11, 10, 7, 0.22);
+            --gray-100: rgba(11, 10, 7, 0.10);
 
-            --off-white: #F7F7F5;
-            --white:     #FFFFFF;
+            --off-white: #F1EBDD;
+            --white:     #FAF6EC;
 
             --container:        1200px;
             --container-narrow: 1080px;
@@ -100,7 +101,7 @@
 
         em.brand-em,
         .brand-em {
-            font-family: 'Cormorant Garamond', serif;
+            font-family: 'Playfair Display', serif;
             font-style: italic;
             font-weight: 500;
             color: var(--forest);
@@ -297,7 +298,7 @@
         .playbook-hero-kicker { margin-bottom: 2rem; }
 
         .playbook-hero h1 {
-            font-family: 'Cormorant Garamond', serif;
+            font-family: 'Playfair Display', serif;
             font-weight: 300;
             font-size: clamp(2.5rem, 6vw, 4.5rem);
             line-height: 1.06;
@@ -337,7 +338,7 @@
         }
 
         .meta-number {
-            font-family: 'Cormorant Garamond', serif;
+            font-family: 'Playfair Display', serif;
             font-weight: 500;
             font-size: 2.5rem;
             line-height: 1;
@@ -371,7 +372,7 @@
         }
 
         .section-header h2 {
-            font-family: 'Cormorant Garamond', serif;
+            font-family: 'Playfair Display', serif;
             font-weight: 500;
             font-size: clamp(2rem, 3.6vw, 2.75rem);
             line-height: 1.15;
@@ -391,7 +392,7 @@
         }
 
         .order-note {
-            font-family: 'Cormorant Garamond', serif;
+            font-family: 'Playfair Display', serif;
             font-weight: 400;
             font-size: 1.125rem;
             line-height: 1.5;
@@ -441,7 +442,7 @@
         }
 
         .flow-stage h4 {
-            font-family: 'Cormorant Garamond', serif;
+            font-family: 'Playfair Display', serif;
             font-weight: 500;
             font-size: 1.375rem;
             line-height: 1.25;
@@ -457,7 +458,7 @@
 
         .flow-note {
             margin-top: 2.5rem;
-            font-family: 'Cormorant Garamond', serif;
+            font-family: 'Playfair Display', serif;
             font-weight: 300;
             font-style: italic;
             font-size: 1.25rem;
@@ -488,7 +489,7 @@
         }
 
         .principle .num {
-            font-family: 'Cormorant Garamond', serif;
+            font-family: 'Playfair Display', serif;
             font-weight: 300;
             font-size: 2rem;
             line-height: 1;
@@ -498,7 +499,7 @@
         }
 
         .principle h4 {
-            font-family: 'Cormorant Garamond', serif;
+            font-family: 'Playfair Display', serif;
             font-weight: 500;
             font-size: 1.25rem;
             line-height: 1.25;
@@ -570,7 +571,7 @@
         }
 
         .phase h3 {
-            font-family: 'Cormorant Garamond', serif;
+            font-family: 'Playfair Display', serif;
             font-weight: 500;
             font-size: clamp(1.5rem, 2.4vw, 1.875rem);
             line-height: 1.2;
@@ -724,7 +725,7 @@
         }
 
         .phase-flow-card h4 {
-            font-family: 'Cormorant Garamond', serif;
+            font-family: 'Playfair Display', serif;
             font-weight: 500;
             font-size: 1.125rem;
             line-height: 1.25;
@@ -762,7 +763,7 @@
 
         .summary-list li::before {
             content: counter(summary, decimal-leading-zero);
-            font-family: 'Cormorant Garamond', serif;
+            font-family: 'Playfair Display', serif;
             font-weight: 300;
             font-size: 2rem;
             line-height: 1;
@@ -772,7 +773,7 @@
 
         .summary-list li div strong {
             display: block;
-            font-family: 'Cormorant Garamond', serif;
+            font-family: 'Playfair Display', serif;
             font-weight: 500;
             font-size: 1.25rem;
             line-height: 1.25;
@@ -788,7 +789,7 @@
 
         .summary-payoff {
             margin-top: 2.5rem;
-            font-family: 'Cormorant Garamond', serif;
+            font-family: 'Playfair Display', serif;
             font-weight: 300;
             font-style: italic;
             font-size: 1.375rem;
@@ -805,7 +806,7 @@
         }
 
         .emphasis p {
-            font-family: 'Cormorant Garamond', serif;
+            font-family: 'Playfair Display', serif;
             font-weight: 300;
             font-size: clamp(1.75rem, 3.6vw, 2.75rem);
             line-height: 1.2;
@@ -851,7 +852,7 @@
         .cta .kicker { margin-bottom: 1.5rem; }
 
         .cta h2 {
-            font-family: 'Cormorant Garamond', serif;
+            font-family: 'Playfair Display', serif;
             font-weight: 300;
             font-size: clamp(2rem, 4.5vw, 3rem);
             line-height: 1.1;
