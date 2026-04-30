@@ -7,6 +7,9 @@
     <title>Material — Strategic Operators for Growing Companies</title>
     <meta name="description" content="Material embeds strategic operators into growing companies to execute the initiatives that actually move the needle.">
     <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         /* ===== RESET ===== */
         * {
@@ -23,12 +26,30 @@
             --pearl: #F7F7F5;
             --cream: #FFFEF9;
             --accent: #E5E5E0;
+            --hairline: rgba(10, 10, 10, 0.08);
+            --signal: #1F4DDB;
             --max-width: 1400px;
             --page-padding: 3rem;
             --ink-90: rgba(10, 10, 10, 0.9);
             --ink-05: rgba(10, 10, 10, 0.05);
             --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
             --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+            --font-display: 'Space Grotesk', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-mono: 'JetBrains Mono', 'SF Mono', ui-monospace, Menlo, Consolas, monospace;
+            --grain: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='matrix' values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.05 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+        }
+
+        /* ===== GRAIN / TEXTURE OVERLAY ===== */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 9998;
+            background-image: var(--grain);
+            opacity: 0.55;
+            mix-blend-mode: multiply;
         }
 
         html {
@@ -41,13 +62,20 @@
         }
 
         body {
-            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: var(--font-body);
             color: var(--ink);
             background: var(--cream);
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
             padding-bottom: env(safe-area-inset-bottom);
             cursor: none;
+            font-feature-settings: 'ss01', 'cv11';
+        }
+
+        h1, h2, h3, h4 {
+            font-family: var(--font-display);
+            font-feature-settings: 'ss01', 'ss02';
         }
 
         /* ===== CUSTOM CURSOR ===== */
@@ -235,12 +263,24 @@
         .section--gradient { background: linear-gradient(180deg, var(--cream) 0%, var(--pearl) 100%); }
 
         .section-label {
+            font-family: var(--font-mono);
             font-size: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 0.12em;
+            letter-spacing: 0.16em;
             color: var(--silver);
             margin-bottom: 1.5rem;
             font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .section-label::before {
+            content: '';
+            display: inline-block;
+            width: 24px;
+            height: 1px;
+            background: var(--silver);
         }
 
         .section-header {
@@ -248,10 +288,11 @@
         }
 
         .section-title {
+            font-family: var(--font-display);
             font-size: clamp(2.5rem, 5vw, 4rem);
             font-weight: 500;
             line-height: 1.05;
-            letter-spacing: -0.03em;
+            letter-spacing: -0.025em;
             margin-bottom: 1.5rem;
         }
 
@@ -281,19 +322,70 @@
         .hero::before {
             content: '';
             position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
-            background-size: 50px 50px;
-            animation: drift 20s linear infinite;
-            opacity: 0.5;
+            inset: 0;
+            background-image:
+                linear-gradient(to right, rgba(10, 10, 10, 0.035) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(10, 10, 10, 0.035) 1px, transparent 1px),
+                radial-gradient(circle, rgba(10, 10, 10, 0.06) 1px, transparent 1px);
+            background-size: 80px 80px, 80px 80px, 80px 80px;
+            background-position: 0 0, 0 0, 0 0;
+            mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, #000 40%, transparent 100%);
+            -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, #000 40%, transparent 100%);
+            animation: drift 30s linear infinite;
+            opacity: 0.85;
+            pointer-events: none;
         }
 
         @keyframes drift {
-            from { transform: translate(0, 0); }
-            to { transform: translate(50px, 50px); }
+            from { background-position: 0 0, 0 0, 0 0; }
+            to { background-position: 80px 80px, 80px 80px, 80px 80px; }
+        }
+
+        /* Hero crosshair / corner markers */
+        .hero-frame {
+            position: absolute;
+            inset: 7rem 3rem 3rem 3rem;
+            pointer-events: none;
+            border: 0;
+            z-index: 0;
+        }
+
+        .hero-frame::before,
+        .hero-frame::after,
+        .hero-frame > span::before,
+        .hero-frame > span::after {
+            content: '';
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            border-color: var(--ink);
+            opacity: 0.35;
+        }
+
+        .hero-frame::before {
+            top: 0; left: 0;
+            border-top: 1px solid; border-left: 1px solid;
+        }
+
+        .hero-frame::after {
+            top: 0; right: 0;
+            border-top: 1px solid; border-right: 1px solid;
+        }
+
+        .hero-frame > span {
+            position: absolute;
+            inset: 0;
+            display: block;
+        }
+
+        .hero-frame > span::before {
+            bottom: 0; left: 0;
+            border-bottom: 1px solid; border-left: 1px solid;
+        }
+
+        .hero-frame > span::after {
+            bottom: 0; right: 0;
+            border-bottom: 1px solid; border-right: 1px solid;
         }
 
         .hero-content {
@@ -307,21 +399,47 @@
         }
 
         .hero-eyebrow {
-            font-size: 0.75rem;
-            letter-spacing: 0.15em;
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            letter-spacing: 0.18em;
             text-transform: uppercase;
-            color: var(--silver);
+            color: var(--smoke);
             margin-bottom: 2rem;
             font-weight: 500;
             opacity: 0;
             animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.65rem;
+            padding: 0.5rem 0.9rem;
+            border: 1px solid var(--hairline);
+            border-radius: 999px;
+            background: rgba(255, 254, 249, 0.6);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .hero-eyebrow .signal-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--signal);
+            box-shadow: 0 0 0 0 rgba(31, 77, 219, 0.4);
+            animation: signalPulse 2.4s ease-out infinite;
+        }
+
+        @keyframes signalPulse {
+            0% { box-shadow: 0 0 0 0 rgba(31, 77, 219, 0.45); }
+            70% { box-shadow: 0 0 0 8px rgba(31, 77, 219, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(31, 77, 219, 0); }
         }
 
         .hero h1 {
+            font-family: var(--font-display);
             font-size: clamp(3rem, 7vw, 5.5rem);
             font-weight: 500;
             line-height: 1;
-            letter-spacing: -0.03em;
+            letter-spacing: -0.035em;
             margin-bottom: 2rem;
             opacity: 0;
             animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1) 0.1s forwards;
@@ -329,13 +447,14 @@
 
         .hero h1 span {
             display: block;
-            font-weight: 300;
+            font-weight: 400;
             color: var(--smoke);
             margin-top: 0.25rem;
+            font-style: italic;
         }
 
         .hero-subtitle {
-            font-size: 1.3rem;
+            font-size: 1.25rem;
             color: var(--smoke);
             margin-bottom: 3rem;
             max-width: 640px;
@@ -343,6 +462,39 @@
             font-weight: 400;
             opacity: 0;
             animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1) 0.2s forwards;
+        }
+
+        .hero-meta {
+            position: absolute;
+            left: 3rem;
+            right: 3rem;
+            bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--silver);
+            pointer-events: none;
+            opacity: 0;
+            animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1) 0.5s forwards;
+            z-index: 1;
+        }
+
+        .hero-meta span {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .hero-meta .divider {
+            color: var(--accent);
+        }
+
+        @media (max-width: 640px) {
+            .hero-meta { display: none; }
         }
 
         .hero-cta {
@@ -497,9 +649,10 @@
         }
 
         .playbook-label {
+            font-family: var(--font-mono);
             font-size: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 0.12em;
+            letter-spacing: 0.16em;
             color: var(--silver);
             margin-bottom: 0.75rem;
             font-weight: 500;
@@ -572,12 +725,24 @@
         }
 
         .pillar-number {
+            font-family: var(--font-mono);
             font-size: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 0.15em;
+            letter-spacing: 0.18em;
             color: var(--silver);
             margin-bottom: 1.5rem;
             font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .pillar-number::before {
+            content: '';
+            width: 16px;
+            height: 1px;
+            background: currentColor;
+            opacity: 0.6;
         }
 
         .pillar h3 {
@@ -638,10 +803,26 @@
             align-items: center;
             justify-content: center;
             margin: 0 auto 1.5rem;
-            font-size: 1.25rem;
+            font-family: var(--font-mono);
+            font-size: 1rem;
             font-weight: 500;
-            letter-spacing: -0.02em;
+            letter-spacing: 0;
             transition: all 0.3s var(--ease-in-out);
+            position: relative;
+        }
+
+        .step-number::after {
+            content: '';
+            position: absolute;
+            inset: -6px;
+            border-radius: 50%;
+            border: 1px dashed var(--hairline);
+            opacity: 0;
+            transition: opacity 0.3s var(--ease-in-out);
+        }
+
+        .step:hover .step-number::after {
+            opacity: 1;
         }
 
         .step:hover .step-number {
@@ -815,17 +996,20 @@
         }
 
         .case-study-metric {
-            font-size: 2.5rem;
+            font-family: var(--font-display);
+            font-size: 2.75rem;
             font-weight: 500;
-            letter-spacing: -0.03em;
+            letter-spacing: -0.04em;
             color: var(--ink);
             line-height: 1;
+            font-feature-settings: 'tnum';
         }
 
         .case-study-metric-label {
-            font-size: 0.75rem;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.16em;
             color: var(--silver);
             margin-top: 0.5rem;
         }
@@ -1383,6 +1567,15 @@
                 padding-bottom: env(safe-area-inset-bottom, 2rem);
             }
 
+            .hero-frame {
+                inset: 5.5rem 1.5rem 4rem 1.5rem;
+            }
+
+            .hero-eyebrow {
+                font-size: 0.65rem;
+                letter-spacing: 0.16em;
+            }
+
             .hero h1 {
                 font-size: clamp(2.5rem, 8vw, 3.5rem);
             }
@@ -1684,12 +1877,19 @@
 
         <!-- Section 1: Hero -->
         <section class="hero">
+            <div class="hero-frame" aria-hidden="true"><span></span></div>
             <div class="hero-content">
+                <p class="hero-eyebrow"><span class="signal-dot" aria-hidden="true"></span>Strategic Operators &middot; Engagements Open</p>
                 <h1>Stop waiting for bandwidth.<span>Start building for scale.</span></h1>
                 <p class="hero-subtitle">Material grows B2B companies by building brands, demand engines, products, and systems that last.</p>
                 <div class="hero-cta">
                     <a href="https://forms.fillout.com/t/p8cqDmytcAus" class="btn-hero" target="_blank" rel="noopener noreferrer">Book a Discovery Call</a>
                 </div>
+            </div>
+            <div class="hero-meta" aria-hidden="true">
+                <span>v.04 &middot; Material Studio</span>
+                <span>Brand &middot; Demand &middot; Product &middot; Systems</span>
+                <span>Est. 2016 &mdash; NYC</span>
             </div>
         </section>
 
