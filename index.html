@@ -1,20 +1,853 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Material, strategic operators for growing companies</title>
-    <meta name="description" content="Material embeds strategic operators into growing companies to execute the initiatives that actually move the needle.">
+    <title>Native Partners — Strategic operators for growing companies</title>
+    <meta name="description" content="Native Partners builds new companies with founders and modernizes existing ones with their CEOs. Strategy and execution, with the same senior team.">
     <link rel="icon" type="image/png" href="images/favicon.png">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400;1,500&family=Inter:wght@400;500;600&display=swap">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400;1,500&family=Inter:wght@400;500;600&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="styles.css">
+    <style>
+      :root {
+        --bg: #ffffff;
+        --bg-soft: #fafaf9;
+        --bg-alt: #f5f5f4;
+        --bg-dark: #0a0a0a;
+        --bg-darker: #050505;
+        --text: #0a0a0a;
+        --text-muted: #525252;
+        --text-faint: #737373;
+        --border: #e7e5e4;
+        --border-strong: #d6d3d1;
+        --on-dark: #fafaf9;
+        --on-dark-muted: #a3a3a3;
+      }
 
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html { scroll-behavior: smooth; }
+
+      body {
+        font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        color: var(--text);
+        background: var(--bg);
+        font-size: 17px;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        font-feature-settings: "ss01", "cv11";
+      }
+
+      img { max-width: 100%; height: auto; display: block; }
+
+      .container { max-width: 1240px; margin: 0 auto; padding: 0 28px; }
+      .container-narrow { max-width: 980px; margin: 0 auto; padding: 0 28px; }
+
+      /* ─────────── Navigation ─────────── */
+      nav {
+        position: sticky;
+        top: 0;
+        background: rgba(255, 255, 255, 0.78);
+        backdrop-filter: saturate(180%) blur(20px);
+        -webkit-backdrop-filter: saturate(180%) blur(20px);
+        z-index: 100;
+        border-bottom: 1px solid transparent;
+        transition: border-color 0.2s;
+      }
+      nav.scrolled { border-bottom-color: var(--border); }
+
+      .nav-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 18px 28px;
+        max-width: 1240px;
+        margin: 0 auto;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 17px;
+        font-weight: 600;
+        letter-spacing: -0.012em;
+        text-decoration: none;
+        color: var(--text);
+      }
+
+      .logo-mark {
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background: var(--text);
+        position: relative;
+      }
+      .logo-mark::after {
+        content: "";
+        position: absolute;
+        inset: 6px;
+        border-radius: 50%;
+        background: var(--bg);
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 36px;
+        align-items: center;
+        list-style: none;
+      }
+
+      .nav-links a {
+        color: var(--text);
+        text-decoration: none;
+        font-size: 14.5px;
+        font-weight: 500;
+        opacity: 0.75;
+        transition: opacity 0.2s;
+      }
+      .nav-links a:hover { opacity: 1; }
+
+      .nav-cta {
+        opacity: 1 !important;
+        background: var(--bg-dark);
+        color: white !important;
+        padding: 10px 20px;
+        border-radius: 100px;
+        font-size: 14.5px;
+        font-weight: 500;
+        transition: background 0.2s;
+      }
+      .nav-cta:hover { background: #1f1f1f; }
+
+      .hamburger {
+        display: none;
+        background: transparent;
+        border: 0;
+        width: 32px;
+        height: 32px;
+        cursor: pointer;
+        flex-direction: column;
+        justify-content: center;
+        gap: 5px;
+        padding: 0;
+      }
+      .hamburger span {
+        display: block;
+        height: 2px;
+        background: var(--text);
+        border-radius: 2px;
+        transition: transform 0.2s, opacity 0.2s;
+      }
+      .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+      .hamburger.active span:nth-child(2) { opacity: 0; }
+      .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+      /* ─────────── Buttons ─────────── */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 13px 24px;
+        border-radius: 100px;
+        font-size: 14.5px;
+        font-weight: 500;
+        text-decoration: none;
+        transition: all 0.2s ease;
+        border: 1px solid transparent;
+        cursor: pointer;
+        white-space: nowrap;
+        font-family: inherit;
+      }
+
+      .btn--primary { background: var(--bg-dark); color: white; }
+      .btn--primary:hover { background: #1f1f1f; transform: translateY(-1px); }
+
+      .btn--secondary {
+        background: transparent;
+        color: var(--text);
+        border-color: var(--border-strong);
+      }
+      .btn--secondary:hover { border-color: var(--text); background: var(--bg-soft); }
+
+      .btn--on-dark { background: white; color: var(--bg-dark); }
+      .btn--on-dark:hover { background: #f5f5f4; }
+
+      .btn--on-dark-secondary {
+        background: transparent;
+        color: white;
+        border-color: rgba(255,255,255,0.25);
+      }
+      .btn--on-dark-secondary:hover { border-color: rgba(255,255,255,0.6); }
+
+      .btn-arrow { width: 16px; height: 16px; transition: transform 0.2s; }
+      .btn:hover .btn-arrow { transform: translateX(3px); }
+
+      /* ─────────── Hero ─────────── */
+      .hero {
+        padding: 100px 0 80px;
+        text-align: center;
+      }
+
+      .hero-inner {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 28px;
+      }
+
+      .hero-kicker {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 32px;
+        padding: 7px 14px;
+        border: 1px solid var(--border);
+        border-radius: 100px;
+        background: var(--bg-soft);
+      }
+
+      .hero-kicker::before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #16a34a;
+        box-shadow: 0 0 0 3px rgba(22,163,74,0.15);
+      }
+
+      .kicker {
+        font-size: 13.5px;
+        font-weight: 500;
+        color: var(--text-muted);
+        letter-spacing: 0.005em;
+      }
+
+      .hero-title {
+        font-size: clamp(40px, 6.2vw, 76px);
+        font-weight: 500;
+        line-height: 1.05;
+        letter-spacing: -0.028em;
+        max-width: 980px;
+        margin: 0 auto 28px;
+      }
+
+      .hero-title .italic {
+        font-style: italic;
+        font-weight: 400;
+      }
+
+      .hero-subtitle {
+        font-size: 19.5px;
+        color: var(--text-muted);
+        max-width: 660px;
+        margin: 0 auto 40px;
+        line-height: 1.55;
+      }
+
+      .brand-em { color: var(--text); font-weight: 500; font-style: normal; }
+
+      .hero-actions {
+        display: inline-flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-bottom: 72px;
+      }
+
+      .hero-proof {
+        margin-top: 56px;
+        padding-top: 44px;
+        border-top: 1px solid var(--border);
+      }
+
+      .hero-proof-label {
+        display: block;
+        font-size: 12.5px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        color: var(--text-faint);
+        margin-bottom: 28px;
+      }
+
+      .hero-proof-logos {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 48px;
+        opacity: 0.68;
+      }
+
+      .hero-proof-logos img {
+        height: 28px;
+        width: auto;
+        filter: grayscale(1) brightness(0.4);
+        opacity: 0.85;
+      }
+
+      /* ─────────── Section primitives ─────────── */
+      .section { padding: 120px 0; }
+      .section--white { background: var(--bg); }
+      .section--pearl { background: var(--bg-soft); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+      .section--dark { background: var(--bg-dark); color: var(--on-dark); }
+
+      .section-inner {
+        max-width: 1240px;
+        margin: 0 auto;
+        padding: 0 28px;
+      }
+
+      .section-header { margin-bottom: 64px; max-width: 760px; }
+      .section-header--centered { text-align: center; margin-left: auto; margin-right: auto; }
+
+      .accent-bar {
+        display: block;
+        width: 32px;
+        height: 2px;
+        background: var(--text);
+        margin-bottom: 20px;
+      }
+      .accent-bar--centered { margin-left: auto; margin-right: auto; }
+
+      .kicker--centered { display: block; text-align: center; }
+      .kicker--light { color: rgba(255,255,255,0.7) !important; }
+
+      .section-title {
+        font-size: clamp(32px, 4.5vw, 52px);
+        font-weight: 500;
+        line-height: 1.1;
+        letter-spacing: -0.025em;
+        margin-bottom: 20px;
+      }
+
+      .section-description {
+        font-size: 19px;
+        color: var(--text-muted);
+        line-height: 1.55;
+        max-width: 620px;
+      }
+      .section-header--centered .section-description { margin-left: auto; margin-right: auto; }
+
+      /* ─────────── Mode cards (Two ways we work) ─────────── */
+      .mode-cards {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+      }
+
+      .mode-card {
+        display: flex;
+        flex-direction: column;
+        padding: 48px;
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        background: var(--bg-soft);
+        text-decoration: none;
+        color: inherit;
+        transition: all 0.3s;
+        min-height: 520px;
+      }
+      .mode-card:hover {
+        border-color: var(--border-strong);
+        transform: translateY(-2px);
+      }
+
+      .mode-card--dark {
+        background: var(--bg-dark);
+        color: white;
+        border-color: var(--bg-dark);
+      }
+      .mode-card--dark:hover { border-color: #262626; }
+      .mode-card--dark .brand-em { color: #fafaf9; }
+
+      .mode-card-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 36px;
+      }
+
+      .mode-card-tag {
+        font-size: 12.5px;
+        font-weight: 500;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+      }
+      .mode-card--dark .mode-card-tag { color: rgba(255,255,255,0.55); }
+
+      .mode-card-num {
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--text-faint);
+        letter-spacing: 0.04em;
+      }
+      .mode-card--dark .mode-card-num { color: rgba(255,255,255,0.4); }
+
+      .mode-card h3 {
+        font-size: 32px;
+        font-weight: 500;
+        line-height: 1.15;
+        letter-spacing: -0.022em;
+        margin-bottom: 16px;
+      }
+
+      .mode-card p {
+        color: var(--text-muted);
+        font-size: 16.5px;
+        line-height: 1.6;
+        margin-bottom: 28px;
+      }
+      .mode-card--dark p { color: rgba(255,255,255,0.7); }
+
+      .mode-card-meta {
+        list-style: none;
+        margin-bottom: 32px;
+      }
+      .mode-card-meta li {
+        position: relative;
+        padding-left: 18px;
+        font-size: 15px;
+        color: var(--text-muted);
+        line-height: 1.55;
+        margin-bottom: 8px;
+      }
+      .mode-card-meta li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 9px;
+        width: 8px;
+        height: 1px;
+        background: currentColor;
+        opacity: 0.6;
+      }
+      .mode-card--dark .mode-card-meta li { color: rgba(255,255,255,0.7); }
+
+      .mode-card-cta {
+        margin-top: auto;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 15px;
+        font-weight: 500;
+      }
+      .mode-card-cta .btn-arrow {
+        width: 16px;
+        height: 16px;
+        transition: transform 0.2s;
+      }
+      .mode-card:hover .mode-card-cta .btn-arrow { transform: translateX(4px); }
+
+      /* ─────────── Pillars ─────────── */
+      .pillars-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1px;
+        background: var(--border);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        overflow: hidden;
+      }
+
+      .pillar {
+        background: white;
+        padding: 40px 32px;
+        display: flex;
+        flex-direction: column;
+        min-height: 240px;
+      }
+
+      .pillar-number {
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--text-faint);
+        letter-spacing: 0.04em;
+        margin-bottom: 28px;
+      }
+
+      .pillar h3 {
+        font-size: 19px;
+        font-weight: 600;
+        letter-spacing: -0.015em;
+        margin-bottom: 12px;
+        line-height: 1.3;
+      }
+
+      .pillar p {
+        font-size: 15px;
+        color: var(--text-muted);
+        line-height: 1.55;
+      }
+
+      .pillar-closing {
+        margin-top: 48px;
+        text-align: center;
+        font-size: 17px;
+        color: var(--text-muted);
+        font-style: italic;
+      }
+
+      /* ─────────── Capabilities ─────────── */
+      .categories-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 32px;
+      }
+
+      .category-block {
+        padding-top: 24px;
+        border-top: 1px solid var(--border);
+      }
+
+      .category-block h4 {
+        font-size: 17px;
+        font-weight: 600;
+        letter-spacing: -0.012em;
+        margin-bottom: 18px;
+      }
+
+      .category-list {
+        list-style: none;
+      }
+
+      .category-list li {
+        padding: 8px 0;
+        font-size: 15px;
+        color: var(--text-muted);
+        border-bottom: 1px solid var(--bg-alt);
+      }
+      .category-list li:last-child { border-bottom: 0; }
+
+      /* ─────────── Case studies ─────────── */
+      .case-studies-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 16px;
+      }
+
+      .case-study-card {
+        display: flex;
+        flex-direction: column;
+        padding: 28px 24px;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        background: var(--bg-soft);
+        text-decoration: none;
+        color: inherit;
+        transition: all 0.25s;
+        min-height: 220px;
+      }
+      .case-study-card:hover {
+        border-color: var(--border-strong);
+        transform: translateY(-2px);
+        background: white;
+      }
+
+      .case-study-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 28px;
+      }
+
+      .case-study-logo {
+        height: 24px;
+        width: auto;
+        max-width: 90px;
+        object-fit: contain;
+        filter: grayscale(1) brightness(0.4);
+        opacity: 0.8;
+      }
+
+      .case-study-arrow {
+        font-size: 16px;
+        color: var(--text-faint);
+      }
+
+      .case-study-metric {
+        font-size: 38px;
+        font-weight: 500;
+        letter-spacing: -0.03em;
+        line-height: 1;
+        margin-bottom: 6px;
+      }
+
+      .case-study-metric-label {
+        font-size: 12.5px;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--text-faint);
+        margin-bottom: 14px;
+      }
+
+      .case-study-description {
+        margin-top: auto;
+        font-size: 13.5px;
+        color: var(--text-muted);
+        line-height: 1.5;
+      }
+
+      /* ─────────── Inline CTA ─────────── */
+      .inline-cta {
+        padding: 80px 0;
+        background: var(--bg);
+      }
+
+      .inline-cta-inner {
+        max-width: 1240px;
+        margin: 0 auto;
+        padding: 48px;
+        background: var(--bg-soft);
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 32px;
+        flex-wrap: wrap;
+      }
+
+      .inline-cta-kicker { margin-bottom: 16px; }
+
+      .inline-cta-title {
+        font-size: clamp(24px, 3vw, 32px);
+        font-weight: 500;
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+      }
+
+      /* ─────────── Team marquee ─────────── */
+      .marquee {
+        margin: 64px 0 48px;
+        position: relative;
+        overflow: hidden;
+        mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
+        -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
+      }
+
+      .marquee-track {
+        display: flex;
+        gap: 64px;
+        align-items: center;
+        animation: scroll-marquee 40s linear infinite;
+        width: max-content;
+      }
+
+      @keyframes scroll-marquee {
+        from { transform: translateX(0); }
+        to { transform: translateX(-50%); }
+      }
+
+      .marquee-track img {
+        height: 32px;
+        width: auto;
+        filter: grayscale(1) brightness(0.4);
+        opacity: 0.7;
+      }
+
+      .team-preview { text-align: center; }
+
+      /* ─────────── Final CTA ─────────── */
+      .cta {
+        padding: 140px 0;
+        background: var(--bg-dark);
+        color: white;
+        text-align: center;
+      }
+
+      .cta-inner {
+        max-width: 760px;
+        margin: 0 auto;
+        padding: 0 28px;
+      }
+
+      .cta-title {
+        font-size: clamp(40px, 5.5vw, 64px);
+        font-weight: 500;
+        line-height: 1.05;
+        letter-spacing: -0.032em;
+        margin-bottom: 24px;
+        color: white;
+      }
+
+      .cta-description {
+        font-size: 19px;
+        color: rgba(255,255,255,0.7);
+        margin-bottom: 40px;
+        line-height: 1.55;
+      }
+
+      .cta-actions {
+        display: inline-flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      /* ─────────── Footer ─────────── */
+      .site-footer {
+        background: var(--bg-darker);
+        color: var(--on-dark);
+        padding: 80px 0 36px;
+      }
+
+      .footer-inner {
+        max-width: 1240px;
+        margin: 0 auto;
+        padding: 0 28px;
+      }
+
+      .footer-top {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+        gap: 40px;
+        margin-bottom: 80px;
+      }
+
+      .footer-brand .logo {
+        color: white;
+        margin-bottom: 20px;
+      }
+      .footer-brand .logo-mark { background: white; }
+      .footer-brand .logo-mark::after { background: var(--bg-darker); }
+
+      .footer-tagline {
+        color: var(--on-dark-muted);
+        font-size: 15px;
+        max-width: 320px;
+        line-height: 1.55;
+      }
+
+      .footer-col-heading {
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--on-dark-muted);
+        margin-bottom: 18px;
+      }
+
+      .footer-col ul { list-style: none; }
+      .footer-col li { margin-bottom: 10px; }
+      .footer-col a {
+        color: var(--on-dark);
+        text-decoration: none;
+        font-size: 14.5px;
+        opacity: 0.85;
+        transition: opacity 0.2s;
+      }
+      .footer-col a:hover { opacity: 1; }
+
+      .footer-bottom {
+        border-top: 1px solid rgba(255,255,255,0.1);
+        padding-top: 28px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 16px;
+      }
+      .footer-bottom p { font-size: 13.5px; color: var(--on-dark-muted); }
+
+      /* ─────────── Reveal animation ─────────── */
+      .reveal-ready .reveal {
+        opacity: 0;
+        transform: translateY(18px);
+        transition: opacity 0.7s ease, transform 0.7s ease;
+      }
+      .reveal-ready .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .reveal.stagger-1 { transition-delay: 0.05s; }
+      .reveal.stagger-2 { transition-delay: 0.12s; }
+      .reveal.stagger-3 { transition-delay: 0.19s; }
+      .reveal.stagger-4 { transition-delay: 0.26s; }
+
+      /* ─────────── Mobile floating CTA ─────────── */
+      .mobile-floating-cta {
+        display: none;
+        position: fixed;
+        bottom: 16px;
+        left: 16px;
+        right: 16px;
+        z-index: 50;
+        padding: 14px 20px;
+        background: var(--bg-dark);
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 100px;
+        font-size: 15px;
+        font-weight: 500;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.3s, transform 0.3s;
+        pointer-events: none;
+      }
+      .mobile-floating-cta.visible {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+      }
+
+      /* ─────────── Responsive ─────────── */
+      @media (max-width: 980px) {
+        .case-studies-grid { grid-template-columns: repeat(2, 1fr); }
+        .categories-grid { grid-template-columns: repeat(2, 1fr); }
+      }
+
+      @media (max-width: 880px) {
+        .nav-links {
+          display: none;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          background: white;
+          flex-direction: column;
+          gap: 0;
+          padding: 16px 28px;
+          border-bottom: 1px solid var(--border);
+          box-shadow: 0 8px 24px rgba(0,0,0,0.04);
+        }
+        .nav-links.open { display: flex; }
+        .nav-links li { width: 100%; padding: 12px 0; border-bottom: 1px solid var(--bg-alt); }
+        .nav-links li:last-child { border-bottom: 0; }
+        .nav-links a { font-size: 16px; }
+        .hamburger { display: flex; }
+        .nav-cta { display: none; }
+
+        .mode-cards { grid-template-columns: 1fr; }
+        .pillars-grid { grid-template-columns: 1fr; }
+        .pillar { min-height: auto; }
+        .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+
+        .hero { padding: 72px 0 56px; }
+        .section { padding: 80px 0; }
+        .cta { padding: 96px 0; }
+
+        .mobile-floating-cta { display: block; }
+      }
+
+      @media (max-width: 560px) {
+        .case-studies-grid { grid-template-columns: 1fr; }
+        .categories-grid { grid-template-columns: 1fr; }
+        .footer-top { grid-template-columns: 1fr; }
+        .hero-proof-logos { gap: 28px; }
+        .hero-proof-logos img { height: 22px; }
+        .marquee-track img { height: 24px; }
+        .inline-cta-inner { padding: 32px; }
+        .mode-card { padding: 32px; min-height: auto; }
+      }
+    </style>
 </head>
 
 <body>
@@ -22,8 +855,9 @@
     <!-- ================ NAVIGATION ================ -->
     <nav>
         <div class="nav-container">
-            <a class="logo" href="/" aria-label="Material home">
-                <img src="images/material-logo-lockup.svg" alt="Material">
+            <a class="logo" href="/" aria-label="Native Partners home">
+                <span class="logo-mark"></span>
+                <span>Native Partners</span>
             </a>
             <button class="hamburger" aria-label="Open navigation" aria-expanded="false">
                 <span></span><span></span><span></span>
@@ -33,15 +867,14 @@
                 <li><a href="/modernize" class="nav-link">Modernize &amp; scale</a></li>
                 <li><a href="/playbook" class="nav-link">Playbook</a></li>
                 <li><a href="/team" class="nav-link">Team</a></li>
-                <li><a href="#" class="nav-link nav-cta" data-fillout-id="p8cqDmytcAus" data-fillout-embed-type="popup" data-fillout-dynamic-resize data-fillout-inherit-parameters data-fillout-popup-size="medium">Book a call</a></li>
+                <li><a href="#" class="nav-cta" data-fillout-id="p8cqDmytcAus" data-fillout-embed-type="popup" data-fillout-dynamic-resize data-fillout-inherit-parameters data-fillout-popup-size="medium">Book a call</a></li>
             </ul>
         </div>
     </nav>
 
-    <!-- Mobile floating CTA (shows after hero scroll on mobile) -->
+    <!-- Mobile floating CTA -->
     <a href="#" class="mobile-floating-cta" data-fillout-id="p8cqDmytcAus" data-fillout-embed-type="popup" data-fillout-dynamic-resize data-fillout-inherit-parameters data-fillout-popup-size="medium">Map your growth plan</a>
 
-    <!-- ================ HOME ================ -->
     <main class="page">
 
         <!-- Hero -->
@@ -54,13 +887,14 @@
                     Stop waiting for bandwidth. <span class="italic">Start building for scale.</span>
                 </h1>
                 <p class="hero-subtitle">
-                    Material partners with founders and operators to build new companies and modernize existing ones, with the <em class="brand-em">strategy, structure, and systems</em> that drive durable growth.
+                    Native Partners works with founders and operators to build new companies and modernize existing ones, with the <em class="brand-em">strategy, structure, and systems</em> that drive durable growth.
                 </p>
                 <div class="hero-actions">
                     <a href="#" class="btn btn--primary" data-fillout-id="p8cqDmytcAus" data-fillout-embed-type="popup" data-fillout-dynamic-resize data-fillout-inherit-parameters data-fillout-popup-size="medium">
                         Map your growth plan
                         <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
                     </a>
+                    <a href="#modes" class="btn btn--secondary">How we work</a>
                 </div>
                 <div class="hero-proof">
                     <span class="hero-proof-label">Built by operators from</span>
@@ -82,9 +916,9 @@
             <div class="section-inner">
                 <div class="section-header reveal">
                     <span class="accent-bar"></span>
-                    <span class="kicker" style="margin-bottom: 1.25rem;">Two ways we work</span>
+                    <span class="kicker" style="margin-bottom: 1.25rem; display:block;">Two ways we work</span>
                     <h2 class="section-title">Build a new company with us. Or scale the one you already have.</h2>
-                    <p class="section-description">Material engages two ways. As a <em class="brand-em">venture studio</em> for operators starting new companies, and as an <em class="brand-em">embedded operator team</em> for CEOs scaling existing ones. Pick the path that fits where you are.</p>
+                    <p class="section-description">Native Partners engages two ways. As a <em class="brand-em">venture studio</em> for operators starting new companies, and as an <em class="brand-em">embedded operator team</em> for CEOs scaling existing ones. Pick the path that fits where you are.</p>
                 </div>
                 <div class="mode-cards">
                     <a class="mode-card mode-card--dark reveal stagger-1 nav-link" href="/build">
@@ -93,7 +927,7 @@
                             <span class="mode-card-num">01</span>
                         </div>
                         <h3>Build with us</h3>
-                        <p>Material Venture Studio builds new companies with operators. You bring the <em class="brand-em" style="color: var(--forest-light);">domain, distribution, or conviction</em>. We bring the team, the playbook, and the systems &mdash; and we stay on to oversee the CEO after spinout.</p>
+                        <p>Our venture studio builds new companies with operators. You bring the <em class="brand-em">domain, distribution, or conviction</em>. We bring the team, the playbook, and the systems, and we stay on to oversee the CEO after spinout.</p>
                         <ul class="mode-card-meta">
                             <li>For operators launching new or ancillary businesses</li>
                             <li>Shared risk and upside as a partner on the cap table</li>
@@ -110,7 +944,7 @@
                             <span class="mode-card-num">02</span>
                         </div>
                         <h3>Modernize &amp; scale</h3>
-                        <p>We embed as the team that builds <em class="brand-em">strategy, structure, and systems</em> into your growing business. We build the strategy, and then we build it into the company &mdash; across go-to-market, operations, and the systems underneath.</p>
+                        <p>We embed as the team that builds <em class="brand-em">strategy, structure, and systems</em> into your growing business. We build the strategy, then we build it into the company, across go-to-market, operations, and the systems underneath.</p>
                         <ul class="mode-card-meta">
                             <li>For CEOs and operators of growing 7&ndash;9 figure businesses</li>
                             <li>Strategy first, then go-to-market, systems, or both</li>
@@ -125,28 +959,28 @@
             </div>
         </section>
 
-        <!-- The approach -->
+        <!-- Why Native Partners -->
         <section id="services" class="section section--pearl">
             <div class="section-inner">
                 <div class="section-header reveal">
                     <span class="accent-bar"></span>
-                    <span class="kicker" style="margin-bottom: 1.25rem;">Why Material</span>
+                    <span class="kicker" style="margin-bottom: 1.25rem; display:block;">Why Native Partners</span>
                     <h2 class="section-title">Two ways to work with us. One standard behind both.</h2>
                     <p class="section-description">Whether we're building a new company with you or scaling the one you already run, the same people, the same playbook, and the same <em class="brand-em">strategy, structure, and systems</em> sit behind the work.</p>
                 </div>
                 <div class="pillars-grid">
                     <article class="pillar reveal stagger-1">
-                        <p class="pillar-number">01</p>
+                        <p class="pillar-number">/ 01</p>
                         <h3>Operators, not outside help</h3>
                         <p>We've built, run, scaled, and exited companies ourselves. Every engagement is led by operators who've done the work, not analysts passing recommendations over the wall.</p>
                     </article>
                     <article class="pillar reveal stagger-2">
-                        <p class="pillar-number">02</p>
+                        <p class="pillar-number">/ 02</p>
                         <h3>One team, full stack</h3>
                         <p>Brand, go-to-market, product, and systems delivered by a single team, not coordinated across five vendors who don't talk to each other.</p>
                     </article>
                     <article class="pillar reveal stagger-3">
-                        <p class="pillar-number">03</p>
+                        <p class="pillar-number">/ 03</p>
                         <h3>A playbook that compounds</h3>
                         <p>The same refined approach behind every build and every scale, sharpened by real revenue and reused from one engagement to the next.</p>
                     </article>
@@ -160,7 +994,7 @@
             <div class="section-inner">
                 <div class="section-header reveal">
                     <span class="accent-bar"></span>
-                    <span class="kicker" style="margin-bottom: 1.25rem;">Capabilities</span>
+                    <span class="kicker" style="margin-bottom: 1.25rem; display:block;">Capabilities</span>
                     <h2 class="section-title">The full bench. One team of strategic builders.</h2>
                 </div>
                 <div class="categories-grid">
@@ -209,11 +1043,11 @@
         </section>
 
         <!-- Our work -->
-        <section id="work" class="section section--white">
+        <section id="work" class="section section--pearl">
             <div class="section-inner">
                 <div class="section-header reveal">
                     <span class="accent-bar"></span>
-                    <span class="kicker" style="margin-bottom: 1.25rem;">Our work</span>
+                    <span class="kicker" style="margin-bottom: 1.25rem; display:block;">Our work</span>
                     <h2 class="section-title">Built on a decade of building and scaling.</h2>
                 </div>
                 <div class="case-studies-grid">
@@ -266,12 +1100,12 @@
             </div>
         </section>
 
-        <!-- Inline CTA (mid-page re-engagement) -->
+        <!-- Inline CTA -->
         <section class="inline-cta">
             <div class="inline-cta-inner reveal">
                 <div class="inline-cta-copy">
                     <div class="inline-cta-kicker">
-                        <span class="kicker">See if Material is a fit</span>
+                        <span class="kicker">See if Native Partners is a fit</span>
                     </div>
                     <h3 class="inline-cta-title">A short call, a clear next step.</h3>
                 </div>
@@ -287,7 +1121,7 @@
             <div class="section-inner">
                 <div class="section-header section-header--centered reveal">
                     <span class="accent-bar accent-bar--centered"></span>
-                    <span class="kicker kicker--centered" style="margin-bottom: 1.25rem;">The team</span>
+                    <span class="kicker kicker--centered" style="margin-bottom: 1.25rem; display:block;">The team</span>
                     <h2 class="section-title">Operators and builders from the institutions that set the standard.</h2>
                 </div>
                 <div class="marquee reveal">
@@ -332,8 +1166,8 @@
         <!-- Final CTA -->
         <section class="cta">
             <div class="cta-inner reveal">
-                <span class="kicker kicker--light kicker--centered" style="color: var(--forest-light); margin-bottom: 1.5rem;">Get started</span>
-                <h2 class="cta-title">Ready to build or scale with Material?</h2>
+                <span class="kicker kicker--light kicker--centered" style="margin-bottom: 1.5rem; display:block;">Get started</span>
+                <h2 class="cta-title">Ready to build or scale with us?</h2>
                 <p class="cta-description">Book a discovery call. We'll learn about your business, identify opportunities, and map out your strategic roadmap to scale.</p>
                 <div class="cta-actions">
                     <a href="#" class="btn btn--on-dark" data-fillout-id="p8cqDmytcAus" data-fillout-embed-type="popup" data-fillout-dynamic-resize data-fillout-inherit-parameters data-fillout-popup-size="medium">
@@ -354,7 +1188,10 @@
         <div class="footer-inner">
             <div class="footer-top">
                 <div class="footer-brand">
-                    <img src="images/material-logo-lockup.svg" alt="Material" class="footer-logo">
+                    <a href="/" class="logo">
+                        <span class="logo-mark"></span>
+                        <span>Native Partners</span>
+                    </a>
                     <p class="footer-tagline">A venture studio and embedded operator team for operators and growing companies.</p>
                 </div>
                 <div class="footer-col">
@@ -365,7 +1202,7 @@
                     </ul>
                 </div>
                 <div class="footer-col">
-                    <p class="footer-col-heading">Material</p>
+                    <p class="footer-col-heading">Native Partners</p>
                     <ul>
                         <li><a href="/playbook" class="nav-link">Playbook</a></li>
                         <li><a href="/team" class="nav-link">Team</a></li>
@@ -380,8 +1217,8 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 Material. All rights reserved.</p>
-                <p>materialbuilt.com</p>
+                <p>&copy; 2026 Native Partners. All rights reserved.</p>
+                <p>nativepartners.com</p>
             </div>
         </div>
     </footer>
@@ -478,5 +1315,4 @@
     <!-- Fillout popup embed — wires up elements with data-fillout-id -->
     <script src="https://server.fillout.com/embed/v1/"></script>
 </body>
-
 </html>
