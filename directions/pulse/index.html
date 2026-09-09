@@ -13,7 +13,9 @@
   <style>
     /* Direction B · Pulse
        Reading: a climb, a reset, then a heartbeat. Light, off-center,
-       rhythmic. A field of dots that pings. Text that mints itself. */
+       rhythmic. A field that pings. Text that mints itself.
+       Field modes: dots · marks · reveal · sparse · sources
+       (the four deck marks: build, scale, partner, systems). */
     :root {
       --forest:#0F2B22; --moss:#345B48; --sage:#A3B29E; --stone:#E7E2D7; --ink:#0D0E0E; --fog:#F0F5F2;
       --sage-soft:rgba(163,178,158,.3); --line:rgba(15,43,34,.14);
@@ -26,6 +28,7 @@
     body { margin:0; background:var(--fog); color:var(--ink); font-family:var(--sans); font-size:15px; line-height:1.6; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
     a { color:inherit; text-decoration:none; }
     p { margin:0; }
+    button { font:inherit; color:inherit; background:none; border:0; padding:0; cursor:pointer; }
     ::selection { background:var(--forest); color:var(--stone); }
 
     header { position:sticky; top:0; z-index:20; background:rgba(240,245,242,.82); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); }
@@ -49,7 +52,8 @@
     .hero canvas { position:absolute; inset:0; width:100%; height:100%; display:block; z-index:0; }
     .hero .wrap { position:relative; z-index:2; max-width:var(--max); margin:0 auto; width:100%; flex:1; padding:clamp(56px,9vw,120px) var(--pad) 56px; display:grid; grid-template-columns:minmax(0,4fr) minmax(0,8fr); gap:40px; align-items:center; pointer-events:none; }
     .hero .wrap > * { pointer-events:auto; }
-    .hero .left { align-self:end; font-size:11px; letter-spacing:.24em; text-transform:uppercase; color:var(--moss); line-height:2; }
+    .hero .left { align-self:end; display:flex; flex-direction:column; gap:26px; }
+    .hero .labels { font-size:11px; letter-spacing:.24em; text-transform:uppercase; color:var(--moss); line-height:2; }
     .hero .right { display:flex; flex-direction:column; gap:30px; }
     h1 { font-family:var(--serif); font-weight:300; font-size:clamp(46px,7.6vw,104px); line-height:.98; letter-spacing:-.016em; margin:0; max-width:12ch; color:var(--ink); }
     h1 .accent { color:var(--moss); }
@@ -62,7 +66,25 @@
     .btn .arr { font-family:var(--serif); font-size:15px; }
     .link { font-size:13px; font-weight:500; letter-spacing:.04em; color:var(--forest); border-bottom:1px solid var(--sage); padding-bottom:2px; }
     .link:hover { border-color:var(--forest); }
-    .hint { font-size:10.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--sage); }
+    .hint { font-size:10.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--sage); transition:opacity .4s; }
+
+    /* the four marks as sources (mode: sources) */
+    .sources { display:none; width:clamp(150px,16vw,220px); aspect-ratio:1; border:1px solid rgba(52,91,72,.38); grid-template-columns:1fr 1fr; grid-template-rows:1fr 1fr; }
+    .hero.mode-sources .sources { display:grid; }
+    .sources button { display:flex; align-items:center; justify-content:center; border-right:1px solid rgba(52,91,72,.38); border-bottom:1px solid rgba(52,91,72,.38); color:var(--moss); position:relative; transition:background .3s; }
+    .sources button:nth-child(2n) { border-right:0; }
+    .sources button:nth-child(n+3) { border-bottom:0; }
+    .sources button:hover { background:rgba(163,178,158,.18); }
+    .sources button.fire { background:rgba(163,178,158,.28); }
+    .sources svg { width:46%; height:46%; stroke:currentColor; fill:none; stroke-width:2.2; stroke-linecap:square; }
+    .sources .nm { position:absolute; left:8px; bottom:6px; font-size:8px; font-weight:700; letter-spacing:.22em; text-transform:uppercase; color:var(--sage); }
+
+    /* field switcher */
+    .modes { display:flex; align-items:center; gap:2px 14px; flex-wrap:wrap; font-size:10px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; color:var(--sage); }
+    .modes .k { color:var(--moss); margin-right:4px; }
+    .modes button { color:var(--sage); padding:4px 0; border-bottom:1px solid transparent; letter-spacing:.22em; text-transform:uppercase; font-size:10px; font-weight:600; transition:color .2s, border-color .2s; }
+    .modes button:hover { color:var(--ink); }
+    .modes button.on { color:var(--ink); border-bottom-color:var(--moss); }
 
     /* ticker */
     .ticker { position:relative; z-index:2; border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:var(--fog); overflow:hidden; white-space:nowrap; }
@@ -86,11 +108,9 @@
     .services h2 .accent { color:var(--moss); }
     .rows { border-top:1px solid var(--moss); }
     .row { display:grid; grid-template-columns:28px 64px minmax(0,.9fr) minmax(0,1.2fr); gap:0 24px; align-items:start; padding:28px 0; border-bottom:1px solid var(--line); transition:background .3s; }
-    .row .dot { width:8px; height:8px; border-radius:50%; background:var(--sage); margin-top:16px; position:relative; }
-    .row .dot::after { content:""; position:absolute; inset:-6px; border-radius:50%; border:1px solid var(--moss); opacity:0; transform:scale(.4); }
-    .row:hover .dot { background:var(--moss); }
-    .row:hover .dot::after { animation:ring 1.1s ease-out infinite; }
-    @keyframes ring { 0% { opacity:.8; transform:scale(.4); } 100% { opacity:0; transform:scale(2.6); } }
+    .row .mk { width:14px; height:14px; margin-top:12px; color:var(--sage); transition:color .3s, transform .4s cubic-bezier(.16,1,.3,1); }
+    .row .mk svg { width:100%; height:100%; display:block; stroke:currentColor; fill:none; stroke-width:9; stroke-linecap:square; }
+    .row:hover .mk { color:var(--moss); transform:scale(1.35) rotate(90deg); }
     .row .num { font-size:11px; font-weight:700; letter-spacing:.26em; color:var(--moss); padding-top:8px; }
     .row .name { font-family:var(--serif); font-weight:300; font-size:clamp(24px,2.6vw,32px); line-height:1.1; letter-spacing:-.01em; margin:0; }
     .row .desc { max-width:52ch; padding-top:6px; }
@@ -134,14 +154,21 @@
       nav a { font-size:10.5px; }
       .hero { min-height:0; cursor:auto; }
       .row { grid-template-columns:1fr; gap:8px; }
-      .row .dot { display:none; }
+      .row .mk { display:none; }
       .row .desc { grid-column:1; }
       .switch { left:10px; bottom:10px; }
     }
-    @media (prefers-reduced-motion:reduce) { .ticker .track { animation:none; } .row:hover .dot::after { animation:none; } }
+    @media (prefers-reduced-motion:reduce) { .ticker .track { animation:none; } }
   </style>
 </head>
 <body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="g-build" viewBox="0 0 100 100"><line x1="50" y1="14" x2="50" y2="86"/><line x1="14" y1="50" x2="86" y2="50"/><line x1="24" y1="24" x2="76" y2="76"/><line x1="76" y1="24" x2="24" y2="76"/></symbol>
+    <symbol id="g-scale" viewBox="0 0 100 100"><line x1="20" y1="20" x2="80" y2="80"/><line x1="80" y1="20" x2="20" y2="80"/></symbol>
+    <symbol id="g-partner" viewBox="0 0 100 100"><line x1="22" y1="78" x2="78" y2="22"/><polyline points="42,22 78,22 78,58"/></symbol>
+    <symbol id="g-systems" viewBox="0 0 100 100"><line x1="50" y1="14" x2="50" y2="42"/><line x1="50" y1="58" x2="50" y2="86"/><line x1="14" y1="50" x2="42" y2="50"/><line x1="58" y1="50" x2="86" y2="50"/></symbol>
+  </svg>
+
   <header>
     <div class="bar">
       <a class="wm" href="/" aria-label="Minted Signals, home"><span class="a">Minted</span><span class="b">Signals</span></a>
@@ -153,13 +180,29 @@
   </header>
 
   <main>
-    <section class="hero" aria-labelledby="h1">
+    <section class="hero" id="hero" aria-labelledby="h1">
       <canvas id="field" aria-hidden="true"></canvas>
       <div class="wrap">
         <div class="left">
-          <div>Minted Signals</div>
-          <div>AI-native agency</div>
-          <div class="hint" id="hint">Click anywhere to send a signal</div>
+          <div class="sources" id="sources" aria-label="The four marks">
+            <button type="button" data-src="0" aria-label="Build"><svg viewBox="0 0 100 100"><use href="#g-build"/></svg><span class="nm">Build</span></button>
+            <button type="button" data-src="1" aria-label="Scale"><svg viewBox="0 0 100 100"><use href="#g-scale"/></svg><span class="nm">Scale</span></button>
+            <button type="button" data-src="2" aria-label="Partner"><svg viewBox="0 0 100 100"><use href="#g-partner"/></svg><span class="nm">Partner</span></button>
+            <button type="button" data-src="3" aria-label="Systems"><svg viewBox="0 0 100 100"><use href="#g-systems"/></svg><span class="nm">Systems</span></button>
+          </div>
+          <div class="labels">
+            <div>Minted Signals</div>
+            <div>AI-native agency</div>
+            <div class="hint" id="hint">Click anywhere to send a signal</div>
+          </div>
+          <div class="modes" id="modes" aria-label="Field options">
+            <span class="k">Field</span>
+            <button type="button" data-mode="dots">Dots</button>
+            <button type="button" data-mode="marks">Marks</button>
+            <button type="button" data-mode="reveal">Reveal</button>
+            <button type="button" data-mode="sparse">Sparse</button>
+            <button type="button" data-mode="sources">Sources</button>
+          </div>
         </div>
         <div class="right">
           <div class="eyebrow"><span class="morse"></span> Be first</div>
@@ -187,15 +230,15 @@
         <div class="eyebrow"><span class="morse"></span> What we do</div>
         <h2 id="h2">Analysis, product, engineering, <span class="accent">growth.</span></h2>
         <div class="rows">
-          <div class="row"><span class="dot"></span><div class="num">01</div><h3 class="name">Workforce analysis</h3><p class="desc">We map the work your team does today, then design the version where agents run execution and your people make the calls.</p></div>
-          <div class="row"><span class="dot"></span><div class="num">02</div><h3 class="name">Product transformation</h3><p class="desc">We turn what your company already knows into products customers pay for. Inside the products you have, we find the moments agentic AI should run.</p></div>
-          <div class="row"><span class="dot"></span><div class="num">03</div><h3 class="name">Engineering</h3><p class="desc">We build with the newest models and tools and ship at production grade. Systems of record, agents, internal tools, and the integrations between them.</p></div>
-          <div class="row"><span class="dot"></span><div class="num">04</div><h3 class="name">Growth systems</h3><p class="desc">CRM, outbound, and content, set up once and run by agents with humans in the loop. We own the strategy, then run it with you.</p></div>
+          <div class="row"><span class="mk"><svg viewBox="0 0 100 100"><use href="#g-build"/></svg></span><div class="num">01</div><h3 class="name">Workforce analysis</h3><p class="desc">We map the work your team does today, then design the version where agents run execution and your people make the calls.</p></div>
+          <div class="row"><span class="mk"><svg viewBox="0 0 100 100"><use href="#g-scale"/></svg></span><div class="num">02</div><h3 class="name">Product transformation</h3><p class="desc">We turn what your company already knows into products customers pay for. Inside the products you have, we find the moments agentic AI should run.</p></div>
+          <div class="row"><span class="mk"><svg viewBox="0 0 100 100"><use href="#g-systems"/></svg></span><div class="num">03</div><h3 class="name">Engineering</h3><p class="desc">We build with the newest models and tools and ship at production grade. Systems of record, agents, internal tools, and the integrations between them.</p></div>
+          <div class="row"><span class="mk"><svg viewBox="0 0 100 100"><use href="#g-partner"/></svg></span><div class="num">04</div><h3 class="name">Growth systems</h3><p class="desc">CRM, outbound, and content, set up once and run by agents with humans in the loop. We own the strategy, then run it with you.</p></div>
         </div>
       </div>
     </section>
 
-    <section class="close" aria-labelledby="h3">
+    <section class="close" id="close" aria-labelledby="h3">
       <canvas id="field2" aria-hidden="true"></canvas>
       <div class="wrap">
         <div class="eyebrow"><span class="morse"></span> Next steps</div>
@@ -225,36 +268,93 @@
   (function () {
     var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+    /* the four marks, as line segments in unit space (centered, -0.5..0.5) */
+    function seg(a, b, c, d) { return [(a - 50) / 100, (b - 50) / 100, (c - 50) / 100, (d - 50) / 100]; }
+    var MARKS = [
+      [seg(50, 14, 50, 86), seg(14, 50, 86, 50), seg(24, 24, 76, 76), seg(76, 24, 24, 76)],          /* build */
+      [seg(20, 20, 80, 80), seg(80, 20, 20, 80)],                                                      /* scale */
+      [seg(22, 78, 78, 22), seg(42, 22, 78, 22), seg(78, 22, 78, 58)],                                 /* partner */
+      [seg(50, 14, 50, 42), seg(50, 58, 50, 86), seg(14, 50, 42, 50), seg(58, 50, 86, 50)]             /* systems */
+    ];
+
+    var MODES = {
+      /* gap: cell spacing. rest: what a cell is at rest. hot: what it becomes inside a ring. */
+      dots:    { gap: 24, rest: 'dot',  hot: 'dot',  base: 1.1, gain: 2.6, mark: 0,  markHot: 0 },
+      marks:   { gap: 30, rest: 'mark', hot: 'mark', base: 0,   gain: 0,   mark: 7,  markHot: 15 },
+      reveal:  { gap: 24, rest: 'dot',  hot: 'mark', base: 1.1, gain: 0,   mark: 0,  markHot: 16 },
+      sparse:  { gap: 24, rest: 'mix',  hot: 'mix',  base: 1.1, gain: 2.4, mark: 8,  markHot: 15 },
+      sources: { gap: 24, rest: 'dot',  hot: 'dot',  base: 1.1, gain: 2.6, mark: 0,  markHot: 0 }
+    };
+    var mode = 'dots';
+    var q = new URLSearchParams(location.search).get('field');
+    if (q && MODES[q]) mode = q;
+
+    function hash(i) { var x = (i * 2654435761) >>> 0; x ^= x >>> 15; x = (x * 2246822519) >>> 0; x ^= x >>> 13; return x; }
+
     /* ping field */
     function field(canvas, opts) {
       var ctx = canvas.getContext('2d'), dpr = Math.min(window.devicePixelRatio || 1, 2);
-      var W = 0, H = 0, dots = [], pings = [], last = 0, gap = opts.gap || 24;
+      var W = 0, H = 0, cells = [], pings = [], last = 0, gap = 24, autoOn = true;
+      function build() {
+        var cfg = MODES[mode]; gap = cfg.gap; cells = [];
+        var cols = Math.floor(W / gap) + 1, rows = Math.floor(H / gap) + 1;
+        var ox = (W - (cols - 1) * gap) / 2, oy = (H - (rows - 1) * gap) / 2;
+        for (var r = 0; r < rows; r++) for (var c = 0; c < cols; c++) {
+          var i = r * cols + c, h = hash(i + 7);
+          var isMark = cfg.rest === 'mark' || (cfg.rest === 'mix' && (h % 9 === 0));
+          cells.push({ x: ox + c * gap, y: oy + r * gap, m: (c + r * 3) % 4, mark: isMark, k: h });
+        }
+      }
       function resize() {
         var r = canvas.parentElement.getBoundingClientRect(); W = Math.floor(r.width); H = Math.floor(r.height);
         canvas.width = W * dpr; canvas.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-        dots = [];
-        var ox = (W % gap) / 2, oy = (H % gap) / 2;
-        for (var y = oy; y <= H; y += gap) for (var x = ox; x <= W; x += gap) dots.push(x, y);
-        draw(performance.now());
+        build(); draw(performance.now());
       }
       function ping(x, y) { pings.push({ x: x, y: y, t: performance.now() }); if (pings.length > 6) pings.shift(); }
+      function strokeMark(m, x, y, s) {
+        var segs = MARKS[m];
+        for (var j = 0; j < segs.length; j++) { var g = segs[j]; ctx.moveTo(x + g[0] * s, y + g[1] * s); ctx.lineTo(x + g[2] * s, y + g[3] * s); }
+      }
       function draw(now) {
         ctx.clearRect(0, 0, W, H);
-        var speed = 0.16, band = 70, i, p, active = [];
-        for (i = 0; i < pings.length; i++) { p = pings[i]; p.r = (now - p.t) * speed; if (p.r < Math.max(W, H) * 1.2) active.push(p); }
+        var cfg = MODES[mode], speed = 0.16, band = 70, i, p, active = [], maxR = Math.max(W, H) * 1.15;
+        for (i = 0; i < pings.length; i++) { p = pings[i]; p.r = (now - p.t) * speed; if (p.r < maxR) active.push(p); }
         pings = active;
-        for (i = 0; i < dots.length; i += 2) {
-          var x = dots[i], y = dots[i + 1], s = 0;
+        /* pass 1: cold cells in two batched paths (dots, marks) */
+        var hot = [];
+        ctx.beginPath();
+        var markPath = new Path2D();
+        for (i = 0; i < cells.length; i++) {
+          var cl = cells[i], e = 0;
           for (var k = 0; k < active.length; k++) {
-            p = active[k]; var d = Math.abs(Math.hypot(x - p.x, y - p.y) - p.r);
-            if (d < band) { var e = 1 - d / band; s = Math.max(s, e * e * (1 - Math.min(p.r / (Math.max(W, H) * 1.1), 1))); }
+            p = active[k]; var d = Math.abs(Math.hypot(cl.x - p.x, cl.y - p.y) - p.r);
+            if (d < band) { var t = 1 - d / band; e = Math.max(e, t * t * (1 - Math.min(p.r / maxR, 1))); }
           }
-          var rad = opts.base + s * opts.gain;
-          ctx.fillStyle = s > 0.04 ? opts.hot + (0.25 + s * 0.75) + ')' : opts.cold;
-          ctx.beginPath(); ctx.arc(x, y, rad, 0, Math.PI * 2); ctx.fill();
+          if (e > 0.04) { hot.push(cl, e); continue; }
+          if (cl.mark) { var sm = MARKS[cl.m]; for (var j = 0; j < sm.length; j++) { var g = sm[j]; markPath.moveTo(cl.x + g[0] * cfg.mark, cl.y + g[1] * cfg.mark); markPath.lineTo(cl.x + g[2] * cfg.mark, cl.y + g[3] * cfg.mark); } }
+          else { ctx.moveTo(cl.x + cfg.base, cl.y); ctx.arc(cl.x, cl.y, cfg.base, 0, Math.PI * 2); }
+        }
+        ctx.fillStyle = opts.cold; ctx.fill();
+        ctx.strokeStyle = opts.coldStroke; ctx.lineWidth = 1; ctx.lineCap = 'square'; ctx.stroke(markPath);
+        /* pass 2: hot cells, drawn individually */
+        for (i = 0; i < hot.length; i += 2) {
+          var c2 = hot[i], en = hot[i + 1], a = 0.25 + en * 0.75;
+          var asMark = cfg.hot === 'mark' || (cfg.hot === 'mix' && c2.mark) || (cfg.hot === 'mark' && c2.mark);
+          if (cfg.hot === 'mix' && !c2.mark) asMark = false;
+          if (asMark) {
+            var size = (cfg.mark || 6) + (cfg.markHot - (cfg.mark || 6)) * en;
+            ctx.beginPath(); strokeMark(c2.m, c2.x, c2.y, size);
+            ctx.strokeStyle = opts.hot + a + ')'; ctx.lineWidth = 1 + en * 0.6; ctx.stroke();
+          } else {
+            ctx.fillStyle = opts.hot + a + ')';
+            ctx.beginPath(); ctx.arc(c2.x, c2.y, cfg.base + en * cfg.gain, 0, Math.PI * 2); ctx.fill();
+          }
         }
       }
-      function loop(now) { if (now - last > 2800 + Math.random() * 900) { last = now; ping(Math.random() * W, Math.random() * H); } draw(now); requestAnimationFrame(loop); }
+      function loop(now) {
+        if (autoOn && now - last > 2800 + Math.random() * 900) { last = now; ping(Math.random() * W, Math.random() * H); }
+        draw(now); requestAnimationFrame(loop);
+      }
       canvas.parentElement.addEventListener('pointerdown', function (e) {
         if (e.target.closest('a, button')) return;
         var r = canvas.getBoundingClientRect(); ping(e.clientX - r.left, e.clientY - r.top);
@@ -263,9 +363,32 @@
       window.addEventListener('resize', resize);
       resize();
       if (!reduced) { last = performance.now() - 2000; requestAnimationFrame(loop); } else { ping(W * 0.7, H * 0.4); draw(performance.now() + 1200); }
+      return { rebuild: function () { build(); }, ping: ping, pingAt: function (el) { var r = canvas.getBoundingClientRect(), b = el.getBoundingClientRect(); ping(b.left + b.width / 2 - r.left, b.top + b.height / 2 - r.top); }, setAuto: function (v) { autoOn = v; } };
     }
-    field(document.getElementById('field'), { gap: 24, base: 1.1, gain: 2.6, cold: 'rgba(163,178,158,0.55)', hot: 'rgba(52,91,72,' });
-    field(document.getElementById('field2'), { gap: 24, base: 1, gain: 2.4, cold: 'rgba(163,178,158,0.28)', hot: 'rgba(231,226,215,' });
+    var f1 = field(document.getElementById('field'), { cold: 'rgba(163,178,158,0.55)', coldStroke: 'rgba(163,178,158,0.62)', hot: 'rgba(52,91,72,' });
+    var f2 = field(document.getElementById('field2'), { cold: 'rgba(163,178,158,0.28)', coldStroke: 'rgba(163,178,158,0.34)', hot: 'rgba(231,226,215,' });
+
+    /* mode switcher */
+    var hero = document.getElementById('hero'), modesEl = document.getElementById('modes');
+    var srcBtns = Array.prototype.slice.call(document.querySelectorAll('#sources button'));
+    var srcTimer = null;
+    function setMode(m) {
+      mode = m;
+      hero.className = 'hero mode-' + m;
+      Array.prototype.forEach.call(modesEl.querySelectorAll('button'), function (b) { b.classList.toggle('on', b.getAttribute('data-mode') === m); });
+      f1.rebuild(); f2.rebuild();
+      var url = new URL(location.href); if (m === 'dots') url.searchParams.delete('field'); else url.searchParams.set('field', m); history.replaceState(null, '', url);
+      f1.setAuto(m !== 'sources');
+      if (srcTimer) { clearInterval(srcTimer); srcTimer = null; }
+      if (m === 'sources' && !reduced) {
+        var n = 0;
+        var fire = function () { var b = srcBtns[n % 4]; n++; b.classList.add('fire'); setTimeout(function () { b.classList.remove('fire'); }, 500); f1.pingAt(b); };
+        fire(); srcTimer = setInterval(fire, 2600);
+      }
+    }
+    modesEl.addEventListener('click', function (e) { var b = e.target.closest('button[data-mode]'); if (b) setMode(b.getAttribute('data-mode')); });
+    srcBtns.forEach(function (b) { b.addEventListener('click', function () { b.classList.add('fire'); setTimeout(function () { b.classList.remove('fire'); }, 500); f1.pingAt(b); }); });
+    setMode(mode);
 
     /* headline mints itself from noise */
     var h1 = document.querySelector('[data-decode]');
