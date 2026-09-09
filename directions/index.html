@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minted Signals · Directions</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="/images/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,200;8..60,300;8..60,400&family=Inter:wght@400;500;600&display=swap">
+  <style>
+    :root { --forest:#0F2B22; --moss:#345B48; --sage:#A3B29E; --stone:#E7E2D7; --ink:#0D0E0E; --fog:#F0F5F2; --sage-soft:rgba(163,178,158,.3);
+      --serif:"Test Domaine Text Light","Domaine Text Light","Source Serif 4",Georgia,serif; --sans:"Inter",-apple-system,BlinkMacSystemFont,sans-serif; }
+    * { box-sizing: border-box; }
+    body { margin:0; background:var(--stone); color:var(--ink); font-family:var(--sans); font-size:15px; line-height:1.6; -webkit-font-smoothing:antialiased; }
+    a { color:inherit; text-decoration:none; }
+    .wrap { max-width:1100px; margin:0 auto; padding: clamp(48px,8vw,110px) clamp(20px,6vw,80px); }
+    .eyebrow { font-size:11px; font-weight:600; letter-spacing:.28em; text-transform:uppercase; color:var(--moss); }
+    h1 { font-family:var(--serif); font-weight:300; font-size:clamp(36px,5vw,60px); line-height:1.02; letter-spacing:-.012em; margin:14px 0 18px; max-width:18ch; }
+    h1 span { color:var(--moss); }
+    p.lead { font-family:var(--serif); font-weight:300; font-size:20px; color:var(--moss); max-width:52ch; margin:0 0 56px; }
+    .list { border-top:1px solid var(--sage); }
+    .dir { display:grid; grid-template-columns: 90px minmax(0,.8fr) minmax(0,1.3fr) auto; gap:28px; align-items:center; padding:28px 0; border-bottom:1px solid var(--sage-soft); transition:background .3s; }
+    .dir:hover { background:var(--fog); margin:0 -20px; padding-left:20px; padding-right:20px; }
+    .dir .k { font-size:11px; font-weight:700; letter-spacing:.26em; color:var(--moss); }
+    .dir .n { font-family:var(--serif); font-weight:300; font-size:30px; line-height:1.1; letter-spacing:-.01em; }
+    .dir .d { font-size:14px; color:var(--ink); max-width:56ch; }
+    .dir .d b { font-weight:600; color:var(--forest); }
+    .dir .go { font-size:12px; font-weight:500; letter-spacing:.12em; text-transform:uppercase; color:var(--forest); border-bottom:1px solid var(--sage); padding-bottom:2px; white-space:nowrap; }
+    .note { margin-top:48px; font-size:13px; color:var(--moss); max-width:60ch; }
+    .note code { font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:12px; background:var(--fog); padding:2px 6px; border-radius:3px; }
+    @media (max-width:760px) { .dir { grid-template-columns:1fr; gap:10px; } .dir:hover { margin:0; padding-left:0; padding-right:0; background:none; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="eyebrow">Minted Signals · Design directions</div>
+    <h1>Three readings of <span>the same brand.</span></h1>
+    <p class="lead">Each direction started as a random string of digits, read like a signal. The digits never appear. The shape of each one does.</p>
+
+    <div class="list">
+      <a class="dir" href="/directions/ridgeline/">
+        <div class="k">A</div>
+        <div class="n">Ridgeline</div>
+        <div class="d"><b>High plateaus, sudden floors, then it settles.</b> Dark and dense at the top, quiet stone by the end. A strip chart draws a live ridge under the headline. Film grain, a blueprint grid, and a light that follows the cursor.</div>
+        <div class="go">Open</div>
+      </a>
+      <a class="dir" href="/directions/pulse/">
+        <div class="k">B</div>
+        <div class="n">Pulse</div>
+        <div class="d"><b>A climb, a reset, then a heartbeat.</b> Light and off-center. A field of dots that pings outward on a rhythm and wherever you click. The headline mints itself from noise on load. A slow ticker with the local time.</div>
+        <div class="go">Open</div>
+      </a>
+      <a class="dir" href="/directions/plateau/">
+        <div class="k">C</div>
+        <div class="n">Plateau</div>
+        <div class="d"><b>Sustained, smooth, then very quiet.</b> One long gradient from stone to forest across the whole page. Enormous words, tiny labels, nothing in between. A dithered band, a line that tracks the real time of day, and a flashlight at the bottom.</div>
+        <div class="go">Open</div>
+      </a>
+    </div>
+
+    <p class="note">The seeds came from <code>node directions/seed.js</code>. Run it again for three new ones. The base site at <a href="/" style="border-bottom:1px solid var(--sage)">/</a> is unchanged.</p>
+  </div>
+</body>
+</html>
