@@ -110,29 +110,18 @@
     var f1 = field(heroCanvas, { cold: 'rgba(163,178,158,0.55)', coldStroke: 'rgba(163,178,158,0.62)', hot: 'rgba(52,91,72,' });
     setTimeout(function () { f1.pingAt(0.62, 0.46); }, 500);
   }
-  /* services: pick a treatment (review only), and link rows to the strip */
-  var svc = document.querySelector('.services');
-  if (svc) {
-    var pick = document.getElementById('pick');
-    var q = new URLSearchParams(location.search).get('services');
-    function setV(v) {
-      svc.className = svc.className.replace(/\bv-[abc]\b/g, '').trim() + ' v-' + v;
-      if (pick) Array.prototype.forEach.call(pick.querySelectorAll('button'), function (b) { b.classList.toggle('on', b.getAttribute('data-v') === v); });
-      var url = new URL(location.href); url.searchParams.set('services', v); history.replaceState(null, '', url);
-    }
-    setV(/^[abc]$/.test(q || '') ? q : 'a');
-    if (pick) pick.addEventListener('click', function (e) { var b = e.target.closest('button[data-v]'); if (b) setV(b.getAttribute('data-v')); });
-    var strip = svc.querySelector('.strip');
-    Array.prototype.forEach.call(svc.querySelectorAll('.row[data-mark]'), function (row) {
-      var cell = strip && strip.querySelector('[data-mark="' + row.getAttribute('data-mark') + '"]');
-      if (!cell) return;
-      row.addEventListener('pointerenter', function () { cell.classList.add('on'); });
-      row.addEventListener('pointerleave', function () { cell.classList.remove('on'); });
-    });
-  }
-
   var closeCanvas = document.getElementById('field2');
   if (closeCanvas) {
-    field(closeCanvas, { cold: 'rgba(163,178,158,0.28)', coldStroke: 'rgba(163,178,158,0.34)', hot: 'rgba(231,226,215,' });
+    var f2 = field(closeCanvas, { cold: 'rgba(163,178,158,0.28)', coldStroke: 'rgba(163,178,158,0.34)', hot: 'rgba(231,226,215,' });
+    /* one ring when the section comes into view, then still */
+    if ('IntersectionObserver' in window) {
+      var seen = false;
+      var io = new IntersectionObserver(function (entries) {
+        if (seen || !entries.some(function (e) { return e.isIntersecting; })) return;
+        seen = true; io.disconnect();
+        setTimeout(function () { f2.pingAt(0.72, 0.5); }, 350);
+      }, { threshold: 0.4 });
+      io.observe(closeCanvas.parentElement);
+    }
   }
 })();
