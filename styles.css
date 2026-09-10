@@ -124,25 +124,46 @@ img { max-width: 100%; display: block; }
 .origin .sub { font-size: 14px; color: var(--moss); max-width: 44ch; line-height: 1.6; }
 
 /* ------------------------------------------------------------
-   Services: intro + the 2x2 mark grid, rows beside it
+   Services. Three treatments under review: v-a big marks,
+   v-b textured cards, v-c mark strip.
    ------------------------------------------------------------ */
-.services .wrap { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 48px 64px; align-items: start; }
-.services .intro { display: flex; flex-direction: column; gap: clamp(28px, 4vw, 48px); }
-.services .head { margin-bottom: 0; }
-.services .title { max-width: 18ch; }
-.services .rows { border-top-color: var(--line-strong); }
-.services .row { grid-template-columns: 40px minmax(0, 1fr); gap: 6px 24px; padding: 26px 0; }
-.services .row .name { grid-column: 2; }
-.services .row .desc { grid-column: 2; padding-top: 0; max-width: 46ch; }
-.services .row .mark { grid-row: 1 / span 2; }
-.markgrid { width: clamp(180px, 20vw, 260px); aspect-ratio: 1 / 1; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; border: 1px solid var(--line-strong); }
-.markgrid .cell { display: flex; align-items: center; justify-content: center; border-right: 1px solid var(--line-strong); border-bottom: 1px solid var(--line-strong); transition: background 0.35s; }
-.markgrid .cell:nth-child(2n) { border-right: 0; }
-.markgrid .cell:nth-child(n+3) { border-bottom: 0; }
-.markgrid .cell .mark { width: 36%; height: 36%; color: var(--sage); transition: color 0.35s, transform 0.6s var(--ease); }
-.markgrid .cell .mark svg { stroke-width: 4; }
-.markgrid .cell.on { background: var(--fog); }
-.markgrid .cell.on .mark { color: var(--moss); transform: rotate(90deg); }
+.services .title { max-width: 20ch; }
+.services .strip { display: none; }
+
+/* v-a: big marks */
+.services.v-a .rows { border-top-color: var(--line-strong); }
+.services.v-a .row { grid-template-columns: 96px minmax(0, 0.9fr) minmax(0, 1.2fr); gap: 0 28px; padding: 32px 0; align-items: start; }
+.services.v-a .row .mark { width: 44px; height: 44px; margin-top: 0; }
+.services.v-a .row .mark svg { stroke-width: 4.5; }
+.services.v-a .row:hover .mark { transform: rotate(90deg); }
+
+/* v-b: textured cards */
+.services.v-b .rows { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; border-top: 0; }
+.services.v-b .row { display: flex; flex-direction: column; gap: 14px; padding: 30px 28px 32px; border: 1px solid var(--line-strong); border-bottom: 1px solid var(--line-strong); position: relative; overflow: hidden; background: var(--stone); }
+.services.v-b .row::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0.55;
+  background-image: radial-gradient(circle, rgba(163, 178, 158, 0.6) 0 1px, transparent 1.5px); background-size: 24px 24px; background-position: 12px 12px;
+  -webkit-mask-image: linear-gradient(180deg, rgba(0,0,0,0.9), transparent 70%); mask-image: linear-gradient(180deg, rgba(0,0,0,0.9), transparent 70%); }
+.services.v-b .row > * { position: relative; }
+.services.v-b .row .mark { width: 22px; height: 22px; margin: 0 0 8px; }
+.services.v-b .row .mark svg { stroke-width: 6; }
+.services.v-b .row .desc { padding-top: 0; }
+.services.v-b .row:hover { background: var(--fog); }
+
+/* v-c: mark strip */
+.services.v-c .strip { display: grid; grid-template-columns: repeat(4, 76px); border: 1px solid var(--line-strong); width: max-content; margin: -12px 0 clamp(28px, 4vw, 44px); }
+.services.v-c .strip .cell { aspect-ratio: 1 / 1; display: flex; align-items: center; justify-content: center; border-right: 1px solid var(--line-strong); transition: background 0.35s; }
+.services.v-c .strip .cell:last-child { border-right: 0; }
+.services.v-c .strip .cell .mark { width: 38%; height: 38%; color: var(--sage); transition: color 0.35s, transform 0.6s var(--ease); }
+.services.v-c .strip .cell .mark svg { stroke-width: 5; }
+.services.v-c .strip .cell.on { background: var(--fog); }
+.services.v-c .strip .cell.on .mark { color: var(--moss); transform: rotate(90deg); }
+.services.v-c .rows { border-top-color: var(--line-strong); }
+.services.v-c .row { grid-template-columns: 40px minmax(0, 0.9fr) minmax(0, 1.2fr); }
+
+/* review chip */
+.pick { position: fixed; left: 14px; bottom: 14px; z-index: 70; display: flex; align-items: center; gap: 8px; padding: 8px 10px 8px 12px; background: rgba(13, 14, 14, 0.72); color: var(--stone); border: 1px solid rgba(163, 178, 158, 0.3); border-radius: 999px; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; backdrop-filter: blur(8px); }
+.pick button { padding: 4px 8px; border-radius: 999px; color: var(--sage); font-size: 10px; letter-spacing: 0.18em; }
+.pick button.on, .pick button:hover { background: var(--sage); color: var(--forest); }
 
 /* ------------------------------------------------------------
    Rows: services, portfolio
@@ -232,8 +253,11 @@ img { max-width: 100%; display: block; }
    Responsive
    ------------------------------------------------------------ */
 @media (max-width: 960px) {
-  .services .wrap { grid-template-columns: 1fr; gap: 36px; }
-  .markgrid { width: 180px; }
+  .services.v-a .row { grid-template-columns: 64px minmax(0, 1fr); }
+  .services.v-a .row .desc { grid-column: 2; }
+  .services.v-a .row .mark { width: 32px; height: 32px; }
+  .services.v-c .row { grid-template-columns: 30px minmax(0, 1fr); }
+  .services.v-c .row .desc { grid-column: 2; }
   .hero .wrap { grid-template-columns: 1fr; }
   .hero .content { grid-column: 1; }
   .row { grid-template-columns: 30px minmax(0, 1fr); }
@@ -255,9 +279,15 @@ img { max-width: 100%; display: block; }
   .display { max-width: 11ch; }
   .row { grid-template-columns: 1fr; gap: 8px; padding: 22px 0; }
   .row .mark { display: none; }
-  .services .row { grid-template-columns: 1fr; }
-  .services .row .name, .services .row .desc { grid-column: 1; }
-  .markgrid { width: 150px; }
+  .services.v-a .row { grid-template-columns: 44px minmax(0, 1fr); gap: 4px 16px; padding: 24px 0; }
+  .services.v-a .row .mark { display: block; width: 24px; height: 24px; margin-top: 4px; grid-row: 1 / span 2; }
+  .services.v-a .row .name, .services.v-a .row .desc { grid-column: 2; }
+  .services.v-b .rows { grid-template-columns: 1fr; gap: 12px; }
+  .services.v-b .row { padding: 24px 20px 26px; }
+  .services.v-b .row .mark { display: block; }
+  .services.v-c .strip { grid-template-columns: repeat(4, 60px); }
+  .services.v-c .row { grid-template-columns: 1fr; }
+  .services.v-c .row .desc { grid-column: 1; }
   .row .desc { grid-column: 1; }
   .row.with-status { grid-template-columns: 1fr; }
   .row.with-status .desc, .row.with-status .status { grid-column: 1; grid-row: auto; justify-self: start; }
