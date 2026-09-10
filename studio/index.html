@@ -8,21 +8,25 @@
   <meta property="og:title" content="Minted Signals · Studio">
   <meta property="og:description" content="New companies, AI-native from day one. Three in stealth.">
   <meta property="og:type" content="website">
-  <meta name="theme-color" content="#E7E2D7">
+  <meta name="theme-color" content="#F0F5F2">
   <link rel="icon" href="/images/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,200;8..60,300;8..60,400;8..60,500&family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,200;8..60,300;8..60,400&family=Inter:wght@400;500;600;700&display=swap">
   <link rel="stylesheet" href="/styles.css">
   <script src="/site.js" defer></script>
 </head>
 <body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="g-build" viewBox="0 0 100 100"><line x1="50" y1="14" x2="50" y2="86"/><line x1="14" y1="50" x2="86" y2="50"/><line x1="24" y1="24" x2="76" y2="76"/><line x1="76" y1="24" x2="24" y2="76"/></symbol>
+    <symbol id="g-scale" viewBox="0 0 100 100"><line x1="20" y1="20" x2="80" y2="80"/><line x1="80" y1="20" x2="20" y2="80"/></symbol>
+    <symbol id="g-partner" viewBox="0 0 100 100"><line x1="22" y1="78" x2="78" y2="22"/><polyline points="42,22 78,22 78,58"/></symbol>
+    <symbol id="g-systems" viewBox="0 0 100 100"><line x1="50" y1="14" x2="50" y2="42"/><line x1="50" y1="58" x2="50" y2="86"/><line x1="14" y1="50" x2="42" y2="50"/><line x1="58" y1="50" x2="86" y2="50"/></symbol>
+  </svg>
 
   <header class="site-header">
     <div class="bar">
-      <a class="wordmark" href="/" aria-label="Minted Signals, home">
-        <span class="wm-a">Minted</span><span class="wm-b">Signals</span>
-      </a>
+      <a class="wordmark" href="/" aria-label="Minted Signals, home"><span class="wm-a">Minted</span><span class="wm-b">Signals</span></a>
       <nav class="nav" aria-label="Primary">
         <a href="/">Agency</a>
         <a href="/studio/" aria-current="page">Studio</a>
@@ -35,43 +39,46 @@
   <main>
 
     <!-- Hero -->
-    <section class="hero" aria-labelledby="hero-title">
-      <svg class="signal" viewBox="0 0 800 800" aria-hidden="true" focusable="false">
-        <circle class="r5" cx="400" cy="400" r="392"/>
-        <circle class="r4" cx="400" cy="400" r="312"/>
-        <circle class="r3" cx="400" cy="400" r="232"/>
-        <circle class="r2" cx="400" cy="400" r="152"/>
-        <circle class="r1" cx="400" cy="400" r="72"/>
-        <circle class="dot" cx="400" cy="400" r="4"/>
-      </svg>
+    <section class="hero short" aria-labelledby="hero-title">
+      <canvas class="field" id="field" aria-hidden="true"></canvas>
       <div class="wrap">
-        <div class="eyebrow reveal">Minted Signals <span class="sep">·</span> Venture studio</div>
-        <h1 class="display reveal d1" id="hero-title">New companies, <span class="accent">AI-native from day one.</span></h1>
-        <p class="tagline reveal d2">We create businesses with partners who bring industry expertise and distribution. We bring the product, the agents, and the operating model.</p>
+        <div class="left">
+          <div>Minted Signals</div>
+          <div>Venture studio</div>
+          <div class="hint" id="hint">Click anywhere to send a signal</div>
+        </div>
+        <div class="right">
+          <div class="eyebrow"><span class="morse"></span> Studio</div>
+          <h1 class="display" id="hero-title" data-decode>New companies, <span class="accent">AI-native from day one.</span></h1>
+          <p class="tagline">We create businesses with partners who bring industry expertise and distribution. We bring the product, the agents, and the operating model.</p>
+        </div>
       </div>
     </section>
 
     <!-- Portfolio -->
-    <section class="section" id="portfolio" aria-labelledby="portfolio-title">
+    <section class="section stone" id="portfolio" aria-labelledby="portfolio-title">
       <div class="wrap">
         <div class="head">
-          <div class="eyebrow reveal">Portfolio</div>
-          <h2 class="title reveal d1" id="portfolio-title">Three companies. <span class="accent">All in stealth.</span></h2>
+          <div class="eyebrow"><span class="morse"></span> Portfolio</div>
+          <h2 class="title" id="portfolio-title">Three companies. <span class="accent">All in stealth.</span></h2>
         </div>
-        <div class="rows portfolio">
-          <div class="row reveal">
+        <div class="rows">
+          <div class="row with-status">
+            <span class="mark"><svg viewBox="0 0 100 100"><use href="#g-build"/></svg></span>
             <div class="num">01</div>
             <h3 class="name">Student housing</h3>
             <div class="desc"><p>Short-term rentals, built for student housing.</p></div>
             <span class="tag status">Stealth</span>
           </div>
-          <div class="row reveal">
+          <div class="row with-status">
+            <span class="mark"><svg viewBox="0 0 100 100"><use href="#g-systems"/></svg></span>
             <div class="num">02</div>
             <h3 class="name">Healthcare</h3>
             <div class="desc"><p>A marketplace for care.</p></div>
             <span class="tag status">Stealth</span>
           </div>
-          <div class="row reveal">
+          <div class="row with-status">
+            <span class="mark"><svg viewBox="0 0 100 100"><use href="#g-partner"/></svg></span>
             <div class="num">03</div>
             <h3 class="name"><a href="https://hiliteu.com" target="_blank" rel="noopener noreferrer">HiliteU</a></h3>
             <div class="desc">
@@ -84,26 +91,35 @@
       </div>
     </section>
 
+    <div class="markline" aria-hidden="true" style="margin-top:clamp(56px,7vw,90px)">
+      <div class="set">
+        <span class="mark"><svg viewBox="0 0 100 100"><use href="#g-build"/></svg></span>
+        <span class="mark"><svg viewBox="0 0 100 100"><use href="#g-scale"/></svg></span>
+        <span class="mark"><svg viewBox="0 0 100 100"><use href="#g-partner"/></svg></span>
+        <span class="mark"><svg viewBox="0 0 100 100"><use href="#g-systems"/></svg></span>
+      </div>
+    </div>
+
     <!-- Model -->
-    <section class="section fog" id="model" aria-labelledby="model-title">
+    <section class="section" id="model" aria-labelledby="model-title">
       <div class="wrap">
         <div class="head">
-          <div class="eyebrow reveal">The model</div>
-          <h2 class="title reveal d1" id="model-title">You bring the industry. <span class="accent">We bring the build.</span></h2>
+          <div class="eyebrow"><span class="morse"></span> The model</div>
+          <h2 class="title" id="model-title">You bring the industry. <span class="accent">We bring the build.</span></h2>
         </div>
         <div class="three">
-          <div class="cell reveal">
-            <div class="who">Partner</div>
+          <div class="cell">
+            <div class="top"><span class="who">Partner</span><span class="mark"><svg viewBox="0 0 100 100"><use href="#g-partner"/></svg></span></div>
             <h3>Industry and distribution.</h3>
             <p>An operator who knows the market and already has customers to sell to.</p>
           </div>
-          <div class="cell reveal d1">
-            <div class="who">Minted Signals</div>
+          <div class="cell">
+            <div class="top"><span class="who">Minted Signals</span><span class="mark"><svg viewBox="0 0 100 100"><use href="#g-build"/></svg></span></div>
             <h3>Product, agents, operating model.</h3>
             <p>The company is designed for agents from the first day. People on the calls, agents on the work.</p>
           </div>
-          <div class="cell reveal d2">
-            <div class="who">Together</div>
+          <div class="cell">
+            <div class="top"><span class="who">Together</span><span class="mark"><svg viewBox="0 0 100 100"><use href="#g-systems"/></svg></span></div>
             <h3>A company that lasts.</h3>
             <p>We hold equity, stay operational, and build to keep.</p>
           </div>
@@ -113,11 +129,12 @@
 
     <!-- Close -->
     <section class="close on-forest" id="contact" aria-labelledby="close-title">
+      <canvas class="field" id="field2" aria-hidden="true"></canvas>
       <div class="wrap">
-        <div class="eyebrow reveal">Partners</div>
-        <h2 class="reveal d1" id="close-title">Have the distribution and an idea? <span class="accent">Build it with us.</span></h2>
-        <p class="reveal d2">We take on a few partners a year. The agency exists because these companies needed it first.</p>
-        <div class="cta-row reveal d3">
+        <div class="eyebrow"><span class="morse"></span> Partners</div>
+        <h2 id="close-title">Have the distribution and an idea? <span class="accent">Build it with us.</span></h2>
+        <p>We take on a few partners a year. The agency exists because these companies needed it first.</p>
+        <div class="cta-row">
           <a class="btn" href="https://forms.fillout.com/t/p8cqDmytcAus" target="_blank" rel="noopener noreferrer">Build with us <span class="arr">→</span></a>
           <div class="contact">Blake Engelhard <span aria-hidden="true">·</span> <a href="mailto:blake@materialbuilt.com">blake@materialbuilt.com</a></div>
         </div>
@@ -128,18 +145,15 @@
 
   <footer class="site-footer on-forest">
     <div class="wrap">
-      <a class="wordmark" href="/" aria-label="Minted Signals, home">
-        <span class="wm-a">Minted</span><span class="wm-b">Signals</span>
-      </a>
+      <a class="wordmark" href="/" aria-label="Minted Signals, home"><span class="wm-a">Minted</span><span class="wm-b">Signals</span></a>
       <div class="links">
         <a href="/">Agency</a>
         <a href="/studio/">Studio</a>
         <a href="/team/">Team</a>
         <a href="https://www.linkedin.com/company/materialbuilt" target="_blank" rel="noopener noreferrer">LinkedIn</a>
       </div>
-      <div class="copy">© 2026 Minted Signals</div>
+      <div class="clock">Signal received <b id="clock">--:--</b> local</div>
     </div>
   </footer>
-
 </body>
 </html>

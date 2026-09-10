@@ -8,21 +8,25 @@
   <meta property="og:title" content="Minted Signals · Be first to AI-native">
   <meta property="og:description" content="Every company in your category will rebuild around AI. One of them will get there first. We make sure it is you.">
   <meta property="og:type" content="website">
-  <meta name="theme-color" content="#E7E2D7">
+  <meta name="theme-color" content="#F0F5F2">
   <link rel="icon" href="/images/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,200;8..60,300;8..60,400;8..60,500&family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,200;8..60,300;8..60,400&family=Inter:wght@400;500;600;700&display=swap">
   <link rel="stylesheet" href="/styles.css">
   <script src="/site.js" defer></script>
 </head>
 <body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="g-build" viewBox="0 0 100 100"><line x1="50" y1="14" x2="50" y2="86"/><line x1="14" y1="50" x2="86" y2="50"/><line x1="24" y1="24" x2="76" y2="76"/><line x1="76" y1="24" x2="24" y2="76"/></symbol>
+    <symbol id="g-scale" viewBox="0 0 100 100"><line x1="20" y1="20" x2="80" y2="80"/><line x1="80" y1="20" x2="20" y2="80"/></symbol>
+    <symbol id="g-partner" viewBox="0 0 100 100"><line x1="22" y1="78" x2="78" y2="22"/><polyline points="42,22 78,22 78,58"/></symbol>
+    <symbol id="g-systems" viewBox="0 0 100 100"><line x1="50" y1="14" x2="50" y2="42"/><line x1="50" y1="58" x2="50" y2="86"/><line x1="14" y1="50" x2="42" y2="50"/><line x1="58" y1="50" x2="86" y2="50"/></symbol>
+  </svg>
 
   <header class="site-header">
     <div class="bar">
-      <a class="wordmark" href="/" aria-label="Minted Signals, home">
-        <span class="wm-a">Minted</span><span class="wm-b">Signals</span>
-      </a>
+      <a class="wordmark" href="/" aria-label="Minted Signals, home"><span class="wm-a">Minted</span><span class="wm-b">Signals</span></a>
       <nav class="nav" aria-label="Primary">
         <a href="/" aria-current="page">Agency</a>
         <a href="/studio/">Studio</a>
@@ -36,46 +40,55 @@
 
     <!-- Hero -->
     <section class="hero" aria-labelledby="hero-title">
-      <svg class="signal" viewBox="0 0 800 800" aria-hidden="true" focusable="false">
-        <circle class="r5" cx="400" cy="400" r="392"/>
-        <circle class="r4" cx="400" cy="400" r="312"/>
-        <circle class="r3" cx="400" cy="400" r="232"/>
-        <circle class="r2" cx="400" cy="400" r="152"/>
-        <circle class="r1" cx="400" cy="400" r="72"/>
-        <circle class="dot" cx="400" cy="400" r="4"/>
-      </svg>
+      <canvas class="field" id="field" aria-hidden="true"></canvas>
       <div class="wrap">
-        <div class="eyebrow reveal">Minted Signals <span class="sep">·</span> AI-native agency</div>
-        <h1 class="display reveal d1" id="hero-title">Be first to <span class="accent">AI-native.</span></h1>
-        <p class="tagline reveal d2">Every company in your category will rebuild around AI. One of them will get there first, and that lead compounds. We make sure it is you.</p>
-        <div class="cta-row reveal d3">
-          <a class="btn" href="https://forms.fillout.com/t/p8cqDmytcAus" target="_blank" rel="noopener noreferrer">Build with us <span class="arr">→</span></a>
-          <a class="link" href="#services">What we do</a>
+        <div class="left">
+          <div>Minted Signals</div>
+          <div>AI-native agency</div>
+          <div class="hint" id="hint">Click anywhere to send a signal</div>
         </div>
+        <div class="right">
+          <div class="eyebrow"><span class="morse"></span> Be first</div>
+          <h1 class="display" id="hero-title" data-decode>Be first to <span class="accent">AI-native.</span></h1>
+          <p class="tagline">Every company in your category will rebuild around AI. One of them will get there first, and that lead compounds. We make sure it is you.</p>
+          <div class="cta-row">
+            <a class="btn" href="https://forms.fillout.com/t/p8cqDmytcAus" target="_blank" rel="noopener noreferrer">Build with us <span class="arr">→</span></a>
+            <a class="link" href="#services">What we do</a>
+          </div>
+        </div>
+      </div>
+      <div class="ticker" aria-hidden="true">
+        <div class="track" id="track" data-items="Minted Signals|AI-native agency|Built for our own companies first|AI Transformation|AI Product Transformation|AI Engineering|GTM Engineering"></div>
       </div>
     </section>
 
-    <!-- Origin note -->
-    <section class="section" id="origin" aria-label="Where this came from">
-      <div class="wrap origin">
-        <p class="lead reveal">We built all of this for our own companies first.</p>
-        <div class="side reveal d1">
-          <p>Minted Signals runs a venture studio. Every service below started there, because our companies had to run AI-native from day one.</p>
-          <p>Now we run the same playbook for yours.</p>
-          <a class="link" href="/studio/">See the studio</a>
-        </div>
-      </div>
+    <!-- Origin -->
+    <section class="origin" aria-label="Where this came from">
+      <div class="eyebrow"><span class="morse"></span> Where this came from</div>
+      <p class="big">We built all of this for <span class="accent">our own companies first.</span></p>
+      <p class="sub">Minted Signals runs a venture studio. Every service below started there, because our companies had to run AI-native from day one. Now we run the same playbook for yours.</p>
+      <a class="link" href="/studio/">See the studio</a>
     </section>
+
+    <div class="markline" aria-hidden="true">
+      <div class="set">
+        <span class="mark"><svg viewBox="0 0 100 100"><use href="#g-build"/></svg></span>
+        <span class="mark"><svg viewBox="0 0 100 100"><use href="#g-scale"/></svg></span>
+        <span class="mark"><svg viewBox="0 0 100 100"><use href="#g-partner"/></svg></span>
+        <span class="mark"><svg viewBox="0 0 100 100"><use href="#g-systems"/></svg></span>
+      </div>
+    </div>
 
     <!-- Services -->
-    <section class="section fog" id="services" aria-labelledby="services-title">
+    <section class="section" id="services" aria-labelledby="services-title">
       <div class="wrap">
         <div class="head">
-          <div class="eyebrow reveal">What we do</div>
-          <h2 class="title reveal d1" id="services-title">From AI transformation <span class="accent">to GTM engineering.</span></h2>
+          <div class="eyebrow"><span class="morse"></span> What we do</div>
+          <h2 class="title" id="services-title">From AI transformation <span class="accent">to GTM engineering.</span></h2>
         </div>
         <div class="rows">
-          <div class="row reveal">
+          <div class="row">
+            <span class="mark"><svg viewBox="0 0 100 100"><use href="#g-build"/></svg></span>
             <div class="num">01</div>
             <h3 class="name">AI Transformation</h3>
             <div class="desc">
@@ -83,7 +96,8 @@
               <div class="tags"><span class="tag">Org design</span><span class="tag">Agent roadmap</span><span class="tag">Shared context</span></div>
             </div>
           </div>
-          <div class="row reveal">
+          <div class="row">
+            <span class="mark"><svg viewBox="0 0 100 100"><use href="#g-scale"/></svg></span>
             <div class="num">02</div>
             <h3 class="name">AI Product Transformation</h3>
             <div class="desc">
@@ -91,7 +105,8 @@
               <div class="tags"><span class="tag">Opportunity assessment</span><span class="tag">Agentic experience</span><span class="tag">Prototypes</span></div>
             </div>
           </div>
-          <div class="row reveal">
+          <div class="row">
+            <span class="mark"><svg viewBox="0 0 100 100"><use href="#g-systems"/></svg></span>
             <div class="num">03</div>
             <h3 class="name">AI Engineering</h3>
             <div class="desc">
@@ -99,7 +114,8 @@
               <div class="tags"><span class="tag">Platforms</span><span class="tag">Agents</span><span class="tag">Internal tools</span></div>
             </div>
           </div>
-          <div class="row reveal">
+          <div class="row">
+            <span class="mark"><svg viewBox="0 0 100 100"><use href="#g-partner"/></svg></span>
             <div class="num">04</div>
             <h3 class="name">GTM Engineering</h3>
             <div class="desc">
@@ -112,25 +128,25 @@
     </section>
 
     <!-- How we work -->
-    <section class="section" id="how" aria-labelledby="how-title">
+    <section class="section stone" id="how" aria-labelledby="how-title">
       <div class="wrap">
         <div class="head">
-          <div class="eyebrow reveal">How we work</div>
-          <h2 class="title reveal d1" id="how-title">Humans plan and review. <span class="accent">AI executes.</span></h2>
+          <div class="eyebrow"><span class="morse"></span> How we work</div>
+          <h2 class="title" id="how-title">Humans plan and review. <span class="accent">AI executes.</span></h2>
         </div>
         <div class="three">
-          <div class="cell reveal">
-            <div class="who">Humans + AI</div>
+          <div class="cell">
+            <div class="top"><span class="who">Humans + AI</span><span class="mark"><svg viewBox="0 0 100 100"><use href="#g-build"/></svg></span></div>
             <h3>Plan.</h3>
             <p>Done by the people closest to the work, with AI as a thinking partner. The plan belongs to your team.</p>
           </div>
-          <div class="cell reveal d1">
-            <div class="who">AI</div>
+          <div class="cell">
+            <div class="top"><span class="who">AI</span><span class="mark"><svg viewBox="0 0 100 100"><use href="#g-systems"/></svg></span></div>
             <h3>Execute.</h3>
             <p>Drafting, building, researching, following up. Once the plan is set, agents run it.</p>
           </div>
-          <div class="cell reveal d2">
-            <div class="who">Humans</div>
+          <div class="cell">
+            <div class="top"><span class="who">Humans</span><span class="mark"><svg viewBox="0 0 100 100"><use href="#g-partner"/></svg></span></div>
             <h3>Review.</h3>
             <p>Your team stays on the calls that matter. Approved changes make the system smarter each week.</p>
           </div>
@@ -138,49 +154,62 @@
       </div>
     </section>
 
-    <!-- Work -->
-    <section class="section fog" id="work" aria-labelledby="work-title">
+    <!-- Proof -->
+    <section class="section" id="work" aria-labelledby="work-title">
       <div class="wrap">
         <div class="head">
-          <div class="eyebrow reveal">Recent work</div>
-          <h2 class="title reveal d1" id="work-title">Built, shipped, <span class="accent">still running.</span></h2>
+          <div class="eyebrow"><span class="morse"></span> Recent work</div>
+          <h2 class="title" id="work-title">Built, shipped, <span class="accent">still running.</span></h2>
         </div>
-        <div class="stats">
-          <div class="stat reveal">
+        <div class="proof">
+          <a class="cell" href="https://www.goodr.co" target="_blank" rel="noopener noreferrer">
+            <img class="logo" src="/images/goodr-logo.png" alt="Goodr" loading="lazy" decoding="async">
+            <span class="mark"><svg viewBox="0 0 100 100"><use href="#g-build"/></svg></span>
             <div class="n">20x</div>
-            <div class="d"><b>Revenue growth</b> across portfolio companies in three years.</div>
-          </div>
-          <div class="stat reveal d1">
+            <div class="d"><b>Revenue</b> in three years.</div>
+          </a>
+          <a class="cell" href="https://www.grovara.com" target="_blank" rel="noopener noreferrer">
+            <img class="logo" src="/images/grovara-logo.png" alt="Grovara" loading="lazy" decoding="async">
+            <span class="mark"><svg viewBox="0 0 100 100"><use href="#g-scale"/></svg></span>
+            <div class="n">7.5x</div>
+            <div class="d"><b>Clients</b> in two years.</div>
+          </a>
+          <a class="cell" href="https://bookkeepingconnect.pwc.com" target="_blank" rel="noopener noreferrer">
+            <img class="logo tall" src="/images/pwc-logo.png" alt="PwC" loading="lazy" decoding="async">
+            <span class="mark"><svg viewBox="0 0 100 100"><use href="#g-systems"/></svg></span>
             <div class="n">$0 to $1M</div>
-            <div class="d"><b>ARR</b> for PwC Bookkeeping Connect, from concept to launch.</div>
-          </div>
-          <div class="stat reveal d2">
+            <div class="d"><b>ARR</b> for Bookkeeping Connect, concept to launch.</div>
+          </a>
+          <a class="cell" href="https://www.barklyliving.com" target="_blank" rel="noopener noreferrer">
+            <img class="logo tall" src="/images/barkly-living-logo.png" alt="Barkly Living" loading="lazy" decoding="async">
+            <span class="mark"><svg viewBox="0 0 100 100"><use href="#g-partner"/></svg></span>
             <div class="n">71</div>
-            <div class="d"><b>Properties onboarded</b> in six months for Barkly Living.</div>
-          </div>
-        </div>
-        <div class="logos reveal">
-          <span class="xlabel">Selected clients</span>
-          <div class="set">
-            <a href="https://www.goodr.co" target="_blank" rel="noopener noreferrer"><img src="/images/goodr-logo.png" alt="Goodr" loading="lazy" decoding="async"></a>
-            <a href="https://www.grovara.com" target="_blank" rel="noopener noreferrer"><img src="/images/grovara-logo.png" alt="Grovara" loading="lazy" decoding="async"></a>
-            <a href="https://bookkeepingconnect.pwc.com" target="_blank" rel="noopener noreferrer"><img src="/images/pwc-logo.png" alt="PwC" loading="lazy" decoding="async"></a>
-            <a href="https://www.barklyliving.com" target="_blank" rel="noopener noreferrer"><img src="/images/barkly-living-logo.png" alt="Barkly Living" loading="lazy" decoding="async"></a>
-            <a href="https://www.harmonyworks.com" target="_blank" rel="noopener noreferrer"><img src="/images/harmony-logo.png" alt="Harmony" loading="lazy" decoding="async"></a>
-            <a href="https://www.fordrisk.com" target="_blank" rel="noopener noreferrer"><img src="/images/ford-risk-logo.png" alt="Ford Risk" loading="lazy" decoding="async"></a>
-            <a href="https://www.transformative.studio" target="_blank" rel="noopener noreferrer"><img src="/images/transformative-logo.png" alt="Transformative Studio" loading="lazy" decoding="async"></a>
-          </div>
+            <div class="d"><b>Properties</b> onboarded in six months.</div>
+          </a>
+          <a class="cell" href="https://www.transformative.studio" target="_blank" rel="noopener noreferrer">
+            <img class="logo" src="/images/transformative-logo.png" alt="Transformative Studio" loading="lazy" decoding="async">
+            <span class="mark"><svg viewBox="0 0 100 100"><use href="#g-build"/></svg></span>
+            <div class="n">3</div>
+            <div class="d"><b>Companies</b> from zero to one in two years.</div>
+          </a>
+          <a class="cell" href="https://www.harmonyworks.com" target="_blank" rel="noopener noreferrer">
+            <img class="logo tall" src="/images/harmony-logo.png" alt="Harmony" loading="lazy" decoding="async">
+            <span class="mark"><svg viewBox="0 0 100 100"><use href="#g-scale"/></svg></span>
+            <div class="n">0 to 1</div>
+            <div class="d"><b>Concept</b> to a funded venture spin-out.</div>
+          </a>
         </div>
       </div>
     </section>
 
     <!-- Close -->
     <section class="close on-forest" id="contact" aria-labelledby="close-title">
+      <canvas class="field" id="field2" aria-hidden="true"></canvas>
       <div class="wrap">
-        <div class="eyebrow reveal">Next steps</div>
-        <h2 class="reveal d1" id="close-title">Tell us what you run. <span class="accent">We will tell you where to start.</span></h2>
-        <p class="reveal d2">One call. We look at how the work happens today and come back with the first thing worth building.</p>
-        <div class="cta-row reveal d3">
+        <div class="eyebrow"><span class="morse"></span> Next steps</div>
+        <h2 id="close-title">Tell us what you run. <span class="accent">We will tell you where to start.</span></h2>
+        <p>One call. We look at how the work happens today and come back with the first thing worth building.</p>
+        <div class="cta-row">
           <a class="btn" href="https://forms.fillout.com/t/p8cqDmytcAus" target="_blank" rel="noopener noreferrer">Build with us <span class="arr">→</span></a>
           <div class="contact">Blake Engelhard <span aria-hidden="true">·</span> <a href="mailto:blake@materialbuilt.com">blake@materialbuilt.com</a></div>
         </div>
@@ -191,18 +220,15 @@
 
   <footer class="site-footer on-forest">
     <div class="wrap">
-      <a class="wordmark" href="/" aria-label="Minted Signals, home">
-        <span class="wm-a">Minted</span><span class="wm-b">Signals</span>
-      </a>
+      <a class="wordmark" href="/" aria-label="Minted Signals, home"><span class="wm-a">Minted</span><span class="wm-b">Signals</span></a>
       <div class="links">
         <a href="/">Agency</a>
         <a href="/studio/">Studio</a>
         <a href="/team/">Team</a>
         <a href="https://www.linkedin.com/company/materialbuilt" target="_blank" rel="noopener noreferrer">LinkedIn</a>
       </div>
-      <div class="copy">© 2026 Minted Signals</div>
+      <div class="clock">Signal received <b id="clock">--:--</b> local</div>
     </div>
   </footer>
-
 </body>
 </html>
