@@ -124,6 +124,27 @@ img { max-width: 100%; display: block; }
 .origin .sub { font-size: 14px; color: var(--moss); max-width: 44ch; line-height: 1.6; }
 
 /* ------------------------------------------------------------
+   Services: intro + the 2x2 mark grid, rows beside it
+   ------------------------------------------------------------ */
+.services .wrap { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 48px 64px; align-items: start; }
+.services .intro { display: flex; flex-direction: column; gap: clamp(28px, 4vw, 48px); }
+.services .head { margin-bottom: 0; }
+.services .title { max-width: 18ch; }
+.services .rows { border-top-color: var(--line-strong); }
+.services .row { grid-template-columns: 40px minmax(0, 1fr); gap: 6px 24px; padding: 26px 0; }
+.services .row .name { grid-column: 2; }
+.services .row .desc { grid-column: 2; padding-top: 0; max-width: 46ch; }
+.services .row .mark { grid-row: 1 / span 2; }
+.markgrid { width: clamp(180px, 20vw, 260px); aspect-ratio: 1 / 1; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; border: 1px solid var(--line-strong); }
+.markgrid .cell { display: flex; align-items: center; justify-content: center; border-right: 1px solid var(--line-strong); border-bottom: 1px solid var(--line-strong); transition: background 0.35s; }
+.markgrid .cell:nth-child(2n) { border-right: 0; }
+.markgrid .cell:nth-child(n+3) { border-bottom: 0; }
+.markgrid .cell .mark { width: 36%; height: 36%; color: var(--sage); transition: color 0.35s, transform 0.6s var(--ease); }
+.markgrid .cell .mark svg { stroke-width: 4; }
+.markgrid .cell.on { background: var(--fog); }
+.markgrid .cell.on .mark { color: var(--moss); transform: rotate(90deg); }
+
+/* ------------------------------------------------------------
    Rows: services, portfolio
    ------------------------------------------------------------ */
 .rows { border-top: 1px solid var(--moss); }
@@ -211,6 +232,8 @@ img { max-width: 100%; display: block; }
    Responsive
    ------------------------------------------------------------ */
 @media (max-width: 960px) {
+  .services .wrap { grid-template-columns: 1fr; gap: 36px; }
+  .markgrid { width: 180px; }
   .hero .wrap { grid-template-columns: 1fr; }
   .hero .content { grid-column: 1; }
   .row { grid-template-columns: 30px minmax(0, 1fr); }
@@ -232,6 +255,9 @@ img { max-width: 100%; display: block; }
   .display { max-width: 11ch; }
   .row { grid-template-columns: 1fr; gap: 8px; padding: 22px 0; }
   .row .mark { display: none; }
+  .services .row { grid-template-columns: 1fr; }
+  .services .row .name, .services .row .desc { grid-column: 1; }
+  .markgrid { width: 150px; }
   .row .desc { grid-column: 1; }
   .row.with-status { grid-template-columns: 1fr; }
   .row.with-status .desc, .row.with-status .status { grid-column: 1; grid-row: auto; justify-self: start; }

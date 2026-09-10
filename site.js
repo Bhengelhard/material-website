@@ -110,6 +110,18 @@
     var f1 = field(heroCanvas, { cold: 'rgba(163,178,158,0.55)', coldStroke: 'rgba(163,178,158,0.62)', hot: 'rgba(52,91,72,' });
     setTimeout(function () { f1.pingAt(0.62, 0.46); }, 500);
   }
+  /* services: hovering a row lights its mark in the grid */
+  var grid = document.querySelector('.markgrid');
+  if (grid) {
+    var rows = document.querySelectorAll('.services .row[data-mark]');
+    Array.prototype.forEach.call(rows, function (row) {
+      var cell = grid.querySelector('[data-mark="' + row.getAttribute('data-mark') + '"]');
+      if (!cell) return;
+      row.addEventListener('pointerenter', function () { cell.classList.add('on'); });
+      row.addEventListener('pointerleave', function () { cell.classList.remove('on'); });
+    });
+  }
+
   var closeCanvas = document.getElementById('field2');
   if (closeCanvas) {
     field(closeCanvas, { cold: 'rgba(163,178,158,0.28)', coldStroke: 'rgba(163,178,158,0.34)', hot: 'rgba(231,226,215,' });
