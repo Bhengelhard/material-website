@@ -14,39 +14,52 @@
   function hash(i) { var x = (i * 2654435761) >>> 0; x ^= x >>> 15; x = (x * 2246822519) >>> 0; x ^= x >>> 13; return x; }
 
   /* A sparse field: dots on a grid, one in nine a mark. Still by default.
-     One ring on load. Under the cursor, nearby cells lift a little and
-     follow it, slowly. A click sends a ring. The loop only runs while
-     something is moving. */
+     A ring lifts what it passes. Under the cursor, nearby cells lift a
+     little and follow it, slowly. A click sends a ring. The loop only
+     runs while something is moving.
+     opts.quiet() may return rectangles (canvas coords) the field keeps
+     clear, fading in over a short distance around them. */
   function field(canvas, opts) {
     var ctx = canvas.getContext('2d'), dpr = Math.min(window.devicePixelRatio || 1, 2);
-    var W = 0, H = 0, cells = [], pings = [], running = false, gap = 24;
+    var W = 0, H = 0, cells = [], pings = [], running = false, gap = 24, PAD = 26;
     var cfg = { base: 1.1, gain: 2.2, mark: 8, markHot: 14 };
+    var speed = opts.speed || 0.16, band = 70;
     var cur = { x: -9999, y: -9999, tx: -9999, ty: -9999, on: false, str: 0 };
     var R = 130;
+    var host = canvas.parentElement;
     function build() {
       cells = [];
+      var zones = opts.quiet ? opts.quiet() : [];
       var cols = Math.floor(W / gap) + 1, rows = Math.floor(H / gap) + 1;
       var ox = (W - (cols - 1) * gap) / 2, oy = (H - (rows - 1) * gap) / 2;
       for (var r = 0; r < rows; r++) for (var c = 0; c < cols; c++) {
-        var i = r * cols + c, h = hash(i + 7);
-        cells.push({ x: ox + c * gap, y: oy + r * gap, m: (c + r * 3) % 4, mark: h % 9 === 0 });
+        var i = r * cols + c, h = hash(i + 7), x = ox + c * gap, y = oy + r * gap, q = 1;
+        for (var z = 0; z < zones.length && q > 0; z++) {
+          var zn = zones[z];
+          var dx = Math.max(zn.x - x, 0, x - (zn.x + zn.w)), dy = Math.max(zn.y - y, 0, y - (zn.y + zn.h));
+          var d = Math.hypot(dx, dy);
+          if (d < PAD) q = Math.min(q, d / PAD);
+        }
+        if (q > 0.04) cells.push({ x: x, y: y, m: (c + r * 3) % 4, mark: h % 9 === 0, q: q });
       }
     }
     function resize() {
-      var r = canvas.parentElement.getBoundingClientRect(); W = Math.floor(r.width); H = Math.floor(r.height);
+      var r = host.getBoundingClientRect(); W = Math.floor(r.width); H = Math.floor(r.height);
       canvas.width = W * dpr; canvas.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       build(); draw(performance.now());
     }
     function draw(now) {
       ctx.clearRect(0, 0, W, H);
-      var speed = 0.16, band = 70, i, p, active = [], maxR = Math.max(W, H) * 1.15, hot = [];
+      var i, p, active = [], maxR = Math.max(W, H) * 1.15, hot = [];
       for (i = 0; i < pings.length; i++) { p = pings[i]; p.r = (now - p.t) * speed; if (p.r < maxR) active.push(p); }
       pings = active;
       /* the cursor eases toward the pointer, and its strength eases in and out */
       cur.x += (cur.tx - cur.x) * 0.08; cur.y += (cur.ty - cur.y) * 0.08;
       cur.str += ((cur.on ? 1 : 0) - cur.str) * 0.06;
       var cursorLive = cur.str > 0.01;
-      var dots = new Path2D(), marks = new Path2D();
+      /* cold cells are batched by how quiet they are: four alpha steps */
+      var dots = [new Path2D(), new Path2D(), new Path2D(), new Path2D()];
+      var marks = [new Path2D(), new Path2D(), new Path2D(), new Path2D()];
       for (i = 0; i < cells.length; i++) {
         var cl = cells[i], e = 0;
         for (var k = 0; k < active.length; k++) {
@@ -58,13 +71,19 @@
           if (dc < R) { var u = 1 - dc / R; e = Math.max(e, u * u * 0.85 * cur.str); }
         }
         if (e > 0.04) { hot.push(cl, e); continue; }
-        if (cl.mark) { var sm = MARKS[cl.m]; for (var j = 0; j < sm.length; j++) { var g = sm[j]; marks.moveTo(cl.x + g[0] * cfg.mark, cl.y + g[1] * cfg.mark); marks.lineTo(cl.x + g[2] * cfg.mark, cl.y + g[3] * cfg.mark); } }
-        else { dots.moveTo(cl.x + cfg.base, cl.y); dots.arc(cl.x, cl.y, cfg.base, 0, Math.PI * 2); }
+        var b = Math.min(3, Math.floor(cl.q * 4 - 0.001));
+        if (cl.mark) { var sm = MARKS[cl.m]; for (var j = 0; j < sm.length; j++) { var g = sm[j]; marks[b].moveTo(cl.x + g[0] * cfg.mark, cl.y + g[1] * cfg.mark); marks[b].lineTo(cl.x + g[2] * cfg.mark, cl.y + g[3] * cfg.mark); } }
+        else { dots[b].moveTo(cl.x + cfg.base, cl.y); dots[b].arc(cl.x, cl.y, cfg.base, 0, Math.PI * 2); }
       }
-      ctx.fillStyle = opts.cold; ctx.fill(dots);
-      ctx.strokeStyle = opts.coldStroke; ctx.lineWidth = 1; ctx.lineCap = 'square'; ctx.stroke(marks);
+      ctx.lineWidth = 1; ctx.lineCap = 'square';
+      for (var s = 0; s < 4; s++) {
+        ctx.globalAlpha = (s + 1) / 4;
+        ctx.fillStyle = opts.cold; ctx.fill(dots[s]);
+        ctx.strokeStyle = opts.coldStroke; ctx.stroke(marks[s]);
+      }
+      ctx.globalAlpha = 1;
       for (i = 0; i < hot.length; i += 2) {
-        var c2 = hot[i], en = hot[i + 1], a = 0.25 + en * 0.75;
+        var c2 = hot[i], en = hot[i + 1], a = (0.25 + en * 0.75) * c2.q;
         if (c2.mark) {
           var size = cfg.mark + (cfg.markHot - cfg.mark) * en, s2 = MARKS[c2.m];
           ctx.beginPath();
@@ -86,9 +105,8 @@
       if (reduced) { draw(performance.now() + 1100); return; }
       wake();
     }
-    var host = canvas.parentElement;
     host.addEventListener('pointerdown', function (e) {
-      if (e.target.closest('a, button')) return;
+      if (e.target.closest(opts.skip || 'a, button')) return;
       var r = canvas.getBoundingClientRect(); ping(e.clientX - r.left, e.clientY - r.top);
     });
     if (canHover && !reduced) {
@@ -101,8 +119,23 @@
       host.addEventListener('pointerleave', function () { cur.on = false; wake(); });
     }
     window.addEventListener('resize', resize);
+    if ('ResizeObserver' in window) new ResizeObserver(function () { resize(); }).observe(host);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(resize);
     resize();
-    return { pingAt: function (fx, fy) { ping(W * fx, H * fy); } };
+    return {
+      pingAt: function (fx, fy) { ping(W * fx, H * fy); },
+      pingClient: function (cx, cy) { var r = canvas.getBoundingClientRect(); ping(cx - r.left, cy - r.top); },
+      speed: speed
+    };
+  }
+
+  function onceInView(el, threshold, fn) {
+    if (!('IntersectionObserver' in window)) { fn(); return; }
+    var io = new IntersectionObserver(function (entries) {
+      if (!entries.some(function (e) { return e.isIntersecting; })) return;
+      io.disconnect(); fn();
+    }, { threshold: threshold });
+    io.observe(el);
   }
 
   var heroCanvas = document.getElementById('field');
@@ -110,18 +143,51 @@
     var f1 = field(heroCanvas, { cold: 'rgba(163,178,158,0.55)', coldStroke: 'rgba(163,178,158,0.62)', hot: 'rgba(52,91,72,' });
     setTimeout(function () { f1.pingAt(0.62, 0.46); }, 500);
   }
+
+  /* team: the grid stands on its own field. Hover or tap a person and a
+     signal leaves from them, lighting each teammate as it reaches them. */
+  var teamCanvas = document.getElementById('field-team');
+  if (teamCanvas) {
+    var sec = teamCanvas.parentElement;
+    var cards = Array.prototype.slice.call(sec.querySelectorAll('.tm'));
+    var ft = field(teamCanvas, {
+      cold: 'rgba(163,178,158,0.5)', coldStroke: 'rgba(163,178,158,0.58)', hot: 'rgba(52,91,72,', speed: 0.3, skip: 'a, button, .tm',
+      quiet: function () {
+        var cr = teamCanvas.getBoundingClientRect();
+        return Array.prototype.map.call(sec.querySelectorAll('.head, .tm .meta, .logos'), function (el) {
+          var r = el.getBoundingClientRect();
+          return { x: r.left - cr.left, y: r.top - cr.top, w: r.width, h: r.height };
+        });
+      }
+    });
+    function center(card) { var r = card.querySelector('.shot').getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height / 2 }; }
+    var timers = [];
+    function ripple(from) {
+      var c = center(from); ft.pingClient(c.x, c.y);
+      if (reduced) return;
+      timers.forEach(clearTimeout); timers = [];
+      cards.forEach(function (card) {
+        if (card === from) return;
+        var o = center(card), d = Math.hypot(o.x - c.x, o.y - c.y);
+        timers.push(setTimeout(function () {
+          card.classList.add('lit');
+          timers.push(setTimeout(function () { card.classList.remove('lit'); }, 750));
+        }, d / ft.speed));
+      });
+    }
+    var lastCard = null, lastT = 0;
+    cards.forEach(function (card) {
+      function go() { var now = performance.now(); if (card === lastCard && now - lastT < 1500) return; lastCard = card; lastT = now; ripple(card); }
+      if (canHover) card.addEventListener('pointerenter', go);
+      card.addEventListener('pointerdown', go);
+    });
+    onceInView(sec.querySelector('.team-grid'), 0.2, function () { setTimeout(function () { ripple(cards[0]); }, 500); });
+  }
+
   var closeCanvas = document.getElementById('field2');
   if (closeCanvas) {
     var f2 = field(closeCanvas, { cold: 'rgba(163,178,158,0.28)', coldStroke: 'rgba(163,178,158,0.34)', hot: 'rgba(231,226,215,' });
     /* one ring when the section comes into view, then still */
-    if ('IntersectionObserver' in window) {
-      var seen = false;
-      var io = new IntersectionObserver(function (entries) {
-        if (seen || !entries.some(function (e) { return e.isIntersecting; })) return;
-        seen = true; io.disconnect();
-        setTimeout(function () { f2.pingAt(0.72, 0.5); }, 350);
-      }, { threshold: 0.4 });
-      io.observe(closeCanvas.parentElement);
-    }
+    onceInView(closeCanvas.parentElement, 0.4, function () { setTimeout(function () { f2.pingAt(0.72, 0.5); }, 350); });
   }
 })();
