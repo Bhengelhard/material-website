@@ -78,7 +78,8 @@
         }
 
         a, button, .nav-link, .btn-contact, .btn-hero, .hero-link, .logo,
-        .icp-pill, .pillar, .case-study-card, .testimonial-dot, .category-block {
+        .icp-pill, .pillar, .case-study-card, .testimonial-dot, .category-block,
+        .pcard, .svc-card, .hscroll-btn {
             cursor: none;
         }
 
@@ -1225,6 +1226,601 @@
             line-height: 1.7;
         }
 
+        /* ===== WHAT WE DO: STACKED SERVICE CARDS ===== */
+        .section--services {
+            background: var(--ink);
+            color: var(--cream);
+            padding-bottom: 7rem;
+            --card-surface: #141414;
+            --stack-top: calc(5rem + 1.25rem);
+        }
+
+        .section--services .section-label { color: rgba(255, 255, 255, 0.45); }
+        .section--services .section-title { color: var(--cream); }
+        .section--services .section-description { color: rgba(255, 255, 255, 0.6); }
+        .section--services .section-closing { color: rgba(255, 255, 255, 0.5); margin-top: 3rem; }
+
+        .svc-stack {
+            position: relative;
+            margin-top: 1rem;
+        }
+
+        .svc-item {
+            position: sticky;
+            top: var(--stack-top);
+            margin-bottom: 2rem;
+        }
+
+        .svc-item:last-child { margin-bottom: 0; }
+
+        .svc-card {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+            min-height: min(66vh, 720px);
+            border-radius: 28px;
+            background: var(--card-surface);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 -24px 80px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            transform-origin: 50% 0%;
+            will-change: transform, filter;
+        }
+
+        .svc-body {
+            display: flex;
+            flex-direction: column;
+            padding: 3.25rem 3.5rem;
+            min-width: 0;
+        }
+
+        .svc-eyebrow {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 0.75rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.55);
+            font-weight: 500;
+        }
+
+        .svc-num {
+            color: var(--cream);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .svc-sep {
+            width: 28px;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .svc-card h3 {
+            font-size: clamp(1.9rem, 2.9vw, 2.9rem);
+            font-weight: 500;
+            line-height: 1.06;
+            letter-spacing: -0.03em;
+            margin: 1.5rem 0 1.1rem;
+            color: var(--cream);
+        }
+
+        .svc-card h3 em {
+            font-style: normal;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.62);
+        }
+
+        .svc-desc {
+            color: rgba(255, 255, 255, 0.62);
+            font-size: 1.125rem;
+            line-height: 1.6;
+            max-width: 48ch;
+        }
+
+        .svc-list {
+            list-style: none;
+            margin-top: 1.75rem;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0 2rem;
+        }
+
+        .svc-list li {
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            padding: 0.6rem 0;
+            font-size: 0.9375rem;
+            color: rgba(255, 255, 255, 0.82);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .svc-list li::before {
+            content: '';
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--cream);
+            opacity: 0.55;
+            flex-shrink: 0;
+        }
+
+        .svc-link {
+            margin-top: auto;
+            padding-top: 2rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            color: var(--cream);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9375rem;
+            align-self: flex-start;
+        }
+
+        .svc-link .arrow {
+            display: inline-block;
+            transition: transform 0.35s var(--ease-out-expo);
+        }
+
+        .svc-card:hover .svc-link .arrow { transform: translateX(5px); }
+
+        .svc-media {
+            position: relative;
+            min-height: 360px;
+            overflow: hidden;
+            background: #0d0d0d;
+        }
+
+        .svc-media img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            transform: scale(1.1);
+            transition: transform 1.4s var(--ease-out-expo);
+        }
+
+        .svc-card.is-active .svc-media img { transform: scale(1); }
+
+        .svc-media::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, var(--card-surface) 0%, rgba(20, 20, 20, 0) 26%);
+            pointer-events: none;
+        }
+
+        .svc-tag {
+            position: absolute;
+            right: 1.5rem;
+            bottom: 1.5rem;
+            z-index: 2;
+            padding: 0.5rem 0.9rem;
+            border-radius: 100px;
+            background: rgba(10, 10, 10, 0.45);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            font-size: 0.7rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--cream);
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* Content settles in when a card becomes the active one */
+        .svc-body > * {
+            opacity: 0;
+            transform: translateY(18px);
+            transition: opacity 0.7s var(--ease-out-expo), transform 0.7s var(--ease-out-expo);
+        }
+
+        .svc-card.is-active .svc-body > * { opacity: 1; transform: none; }
+        .svc-card.is-active .svc-body > :nth-child(2) { transition-delay: 0.06s; }
+        .svc-card.is-active .svc-body > :nth-child(3) { transition-delay: 0.12s; }
+        .svc-card.is-active .svc-body > :nth-child(4) { transition-delay: 0.18s; }
+        .svc-card.is-active .svc-body > :nth-child(5) { transition-delay: 0.24s; }
+
+        html:not(.reveal-ready) .svc-body > * { opacity: 1; transform: none; }
+
+        /* ===== OUR WORK: HORIZONTAL SCROLL PORTFOLIO ===== */
+        .work-section {
+            position: relative;
+            padding: 0;
+            background: var(--cream);
+            --work-inset: max(6rem, calc((100vw - var(--max-width)) / 2 + 3rem));
+            --pcard-h: clamp(340px, calc(100vh - 30rem), 600px);
+        }
+
+        .hscroll { position: relative; }
+
+        .hscroll-pin {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-top: 6.5rem;
+            overflow: hidden;
+        }
+
+        .hscroll-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 2rem;
+            padding: 0 var(--work-inset);
+            margin-bottom: 1.75rem;
+        }
+
+        .hscroll-head .section-label { margin-bottom: 0.9rem; }
+
+        .hscroll-head .section-title {
+            font-size: clamp(2rem, 3.4vw, 3.25rem);
+            margin-bottom: 0;
+            max-width: 16ch;
+        }
+
+        .hscroll-hint {
+            font-size: 0.75rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--silver);
+            white-space: nowrap;
+            padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .hscroll-hint .hint-swipe { display: none; }
+
+        .hscroll-hint::after {
+            content: '';
+            width: 40px;
+            height: 1px;
+            background: var(--silver);
+            animation: hint-slide 2.2s var(--ease-in-out) infinite;
+        }
+
+        @keyframes hint-slide {
+            0%, 100% { transform: translateX(0); opacity: 1; }
+            50% { transform: translateX(10px); opacity: 0.4; }
+        }
+
+        .hscroll-track {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.75rem;
+            width: max-content;
+            padding: 0.5rem var(--work-inset) 0.5rem;
+            will-change: transform;
+        }
+
+        .pcard {
+            position: relative;
+            flex: 0 0 auto;
+            width: calc(var(--pcard-h) * 0.8);
+            display: block;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .pcard-media {
+            position: relative;
+            height: var(--pcard-h);
+            border-radius: 24px;
+            overflow: hidden;
+            background: var(--pearl);
+            box-shadow: 0 24px 60px rgba(10, 10, 10, 0.12);
+            transform: translateZ(0);
+            transition: box-shadow 0.5s var(--ease-out-expo), transform 0.5s var(--ease-out-expo);
+        }
+
+        .pcard:hover .pcard-media {
+            box-shadow: 0 34px 80px rgba(10, 10, 10, 0.18);
+            transform: translateY(-4px);
+        }
+
+        .pcard-img {
+            position: absolute;
+            top: -6%;
+            left: -8%;
+            width: 116%;
+            height: 112%;
+            object-fit: cover;
+            transform: translateX(var(--px, 0px)) scale(var(--zoom, 1));
+            transition: transform 0.9s var(--ease-out-expo);
+            will-change: transform;
+        }
+
+        .pcard:hover .pcard-img { --zoom: 1.04; }
+
+        .pcard-media::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(180deg, rgba(0, 0, 0, 0.22) 0%, rgba(0, 0, 0, 0) 32%),
+                linear-gradient(0deg, rgba(0, 0, 0, 0.72) 0%, rgba(0, 0, 0, 0.18) 38%, rgba(0, 0, 0, 0) 58%);
+            pointer-events: none;
+        }
+
+        .pcard-logo {
+            position: absolute;
+            top: 1.5rem;
+            left: 1.5rem;
+            z-index: 2;
+            height: 22px;
+            width: auto;
+            max-width: 46%;
+            object-fit: contain;
+            object-position: left center;
+            filter: brightness(0) invert(1) drop-shadow(0 2px 10px rgba(0, 0, 0, 0.35));
+            opacity: 0.96;
+        }
+
+        .pcard-metric {
+            position: absolute;
+            left: 1.5rem;
+            right: 1.5rem;
+            bottom: 1.5rem;
+            z-index: 2;
+            color: #fff;
+        }
+
+        .pcard-metric strong {
+            display: block;
+            font-size: clamp(2.25rem, 3vw, 3rem);
+            font-weight: 500;
+            letter-spacing: -0.03em;
+            line-height: 1;
+        }
+
+        .pcard-metric span {
+            display: block;
+            margin-top: 0.55rem;
+            font-size: 0.7rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            opacity: 0.78;
+        }
+
+        .pcard-caption {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1.25rem 0.25rem 0;
+        }
+
+        .pcard-name {
+            font-size: 1.0625rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+        }
+
+        .pcard-desc {
+            margin-top: 0.3rem;
+            font-size: 0.9375rem;
+            line-height: 1.5;
+            color: var(--smoke);
+        }
+
+        .pcard-arrow {
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid rgba(10, 10, 10, 0.16);
+            display: grid;
+            place-items: center;
+            font-size: 1rem;
+            color: var(--ink);
+            transition: background 0.3s var(--ease-in-out), color 0.3s var(--ease-in-out), transform 0.3s var(--ease-out-expo);
+        }
+
+        .pcard:hover .pcard-arrow {
+            background: var(--ink);
+            color: var(--cream);
+            transform: translate(2px, -2px);
+        }
+
+        /* Closing card */
+        .pcard--cta .pcard-media {
+            background: var(--ink);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 2rem;
+            color: var(--cream);
+        }
+
+        .pcard--cta .pcard-media::after {
+            background: radial-gradient(120% 80% at 80% 0%, rgba(255, 255, 255, 0.12), transparent 60%);
+        }
+
+        .pcard--cta .pcard-media h3 {
+            position: relative;
+            z-index: 2;
+            font-size: clamp(1.6rem, 2.2vw, 2.1rem);
+            font-weight: 500;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        .pcard--cta .pcard-media h3 em {
+            font-style: normal;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .pcard--cta .btn-contact {
+            position: relative;
+            z-index: 2;
+            align-self: flex-start;
+            padding: 0.875rem 1.75rem;
+            font-size: 0.9375rem;
+        }
+
+        .hscroll-ui {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 0 var(--work-inset);
+            margin-top: 1.75rem;
+        }
+
+        .hscroll-count {
+            font-size: 0.75rem;
+            letter-spacing: 0.12em;
+            color: var(--silver);
+            font-variant-numeric: tabular-nums;
+            white-space: nowrap;
+        }
+
+        .hscroll-count b { color: var(--ink); font-weight: 500; }
+
+        .hscroll-bar {
+            flex: 1;
+            height: 2px;
+            border-radius: 2px;
+            background: var(--accent);
+            overflow: hidden;
+        }
+
+        .hscroll-bar i {
+            display: block;
+            height: 100%;
+            width: 100%;
+            background: var(--ink);
+            transform-origin: 0 50%;
+            transform: scaleX(0);
+        }
+
+        .hscroll-btns { display: flex; gap: 0.6rem; }
+
+        .hscroll-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1px solid rgba(10, 10, 10, 0.18);
+            background: transparent;
+            color: var(--ink);
+            font-size: 1rem;
+            display: grid;
+            place-items: center;
+            transition: background 0.3s var(--ease-in-out), color 0.3s var(--ease-in-out), border-color 0.3s;
+        }
+
+        .hscroll-btn:hover {
+            background: var(--ink);
+            color: var(--cream);
+            border-color: var(--ink);
+        }
+
+        /* Short laptop screens: tighter vertical rhythm inside the pinned gallery */
+        @media (min-width: 969px) and (max-height: 820px) {
+            .hscroll-pin { padding-top: 6rem; }
+            .hscroll-head { margin-bottom: 1.25rem; }
+            .hscroll-head .section-label { margin-bottom: 0.6rem; }
+            .hscroll-head .section-title { font-size: 1.85rem; }
+            .pcard-caption { padding-top: 1rem; }
+            .hscroll-ui { margin-top: 1.25rem; }
+        }
+
+        /* Tablet: cards stack, gallery becomes a native swipe */
+        @media (max-width: 968px) {
+            .section--services { padding-bottom: 5rem; }
+
+            .svc-item { position: static; margin-bottom: 1.25rem; }
+
+            .svc-card {
+                grid-template-columns: 1fr;
+                min-height: 0;
+                border-radius: 22px;
+                box-shadow: none;
+                transform: none !important;
+                filter: none !important;
+            }
+
+            .svc-media {
+                order: -1;
+                min-height: 0;
+                aspect-ratio: 4 / 3;
+            }
+
+            .svc-media img { transform: none; }
+
+            .svc-media::after {
+                background: linear-gradient(180deg, rgba(20, 20, 20, 0) 55%, var(--card-surface) 100%);
+            }
+
+            .svc-body { padding: 1.75rem 1.5rem 2rem; }
+            .svc-body > * { opacity: 1; transform: none; }
+            .svc-card h3 { font-size: clamp(1.7rem, 6vw, 2.2rem); margin-top: 1rem; }
+            .svc-list { grid-template-columns: 1fr; margin-top: 1.25rem; }
+            .svc-link { padding-top: 1.5rem; }
+
+            .work-section {
+                padding: 5rem 0;
+                --work-inset: 2.5rem;
+                --pcard-h: min(58vh, 460px);
+            }
+
+            .hscroll-pin {
+                position: static;
+                height: auto;
+                padding-top: 0;
+                overflow: visible;
+            }
+
+            .hscroll-head {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+                margin-bottom: 1.75rem;
+            }
+
+            .hscroll-hint .hint-scroll { display: none; }
+            .hscroll-hint .hint-swipe { display: inline; }
+
+            .hscroll-track {
+                width: auto;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                gap: 1rem;
+                padding: 0.5rem var(--work-inset) 1rem;
+                transform: none !important;
+            }
+
+            .hscroll-track::-webkit-scrollbar { display: none; }
+
+            .pcard { scroll-snap-align: start; }
+            .pcard-img { --px: 0px !important; }
+
+            .hscroll-ui { margin-top: 1.5rem; }
+        }
+
+        @media (max-width: 600px) {
+            .work-section { --work-inset: 1.5rem; --pcard-h: min(calc((100vw - 4.5rem) * 1.25), 440px); }
+            .hscroll-btns { display: none; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .svc-card { transform: none !important; filter: none !important; }
+            .svc-body > * { opacity: 1; transform: none; transition: none; }
+            .svc-media img { transform: none; transition: none; }
+            .hscroll-hint::after { animation: none; }
+        }
+
         /* ===== ANIMATIONS ===== */
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(30px); }
@@ -1312,7 +1908,7 @@
             body { cursor: auto; }
             a, button, .nav-link, .btn-contact, .btn-hero, .hero-link, .logo,
             .icp-pill, .pillar, .case-study-card, .testimonial-dot, .category-block,
-            .team-member, .member-card { cursor: pointer !important; }
+            .team-member, .member-card, .pcard, .svc-card, .hscroll-btn { cursor: pointer !important; }
 
             /* Nav mobile */
             .nav-container {
@@ -1670,7 +2266,6 @@
             </button>
             <ul class="nav-links">
                 <li><a href="#services" class="nav-link scroll-link">What We Do</a></li>
-                <li><a href="#capabilities" class="nav-link scroll-link">Capabilities</a></li>
                 <li><a href="#process" class="nav-link scroll-link">How It Works</a></li>
                 <li><a href="#work" class="nav-link scroll-link">Our Work</a></li>
                 <li><a href="/team" class="nav-link">Team</a></li>
@@ -1693,84 +2288,105 @@
             </div>
         </section>
 
-        <!-- Section 2: What We Do -->
-        <section id="services" class="section">
+        <!-- Section 2: What We Do (stacked service cards) -->
+        <section id="services" class="section section--services">
             <div class="section-content">
                 <div class="section-header reveal">
                     <p class="section-label">What we do</p>
                     <h2 class="section-title">We embed strategic operators into your company to unlock your capacity for growth.</h2>
                     <p class="section-description">Today's urgent tasks always trump the opportunities that bring your vision to life. Together we define a roadmap to drive growth and deploy a team of builders to make it a reality.</p>
                 </div>
-                <div class="pillars-grid">
-                    <div class="pillar reveal stagger-2">
-                        <p class="pillar-number">01</p>
-                        <h3>Scale Your Revenue</h3>
-                        <p>Build a world-class brand, launch new demand engines, and optimize your conversion rates.</p>
+                <div class="svc-stack" id="capabilities">
+                    <div class="svc-item">
+                        <article class="svc-card" data-index="1">
+                            <div class="svc-body">
+                                <p class="svc-eyebrow"><span class="svc-num">01</span><span class="svc-sep"></span>AI Engineering</p>
+                                <h3>Optimize your operations <em>with AI that actually ships.</em></h3>
+                                <p class="svc-desc">Fine-tune your processes and build the agents, automations, and systems that make your team more effective every day.</p>
+                                <ul class="svc-list">
+                                    <li>AI &amp; Automation</li>
+                                    <li>Internal Tools</li>
+                                    <li>Data Infrastructure</li>
+                                    <li>CRM Buildouts</li>
+                                    <li>Reporting &amp; Analytics</li>
+                                    <li>Process Development</li>
+                                </ul>
+                                <a href="https://forms.fillout.com/t/p8cqDmytcAus" class="svc-link" target="_blank" rel="noopener noreferrer">Book a discovery call <span class="arrow">&rarr;</span></a>
+                            </div>
+                            <div class="svc-media">
+                                <img src="images/services/ai-engineering.jpg" alt="" loading="lazy" decoding="async">
+                                <span class="svc-tag">01 / 04</span>
+                            </div>
+                        </article>
                     </div>
-                    <div class="pillar reveal stagger-1">
-                        <p class="pillar-number">02</p>
-                        <h3>Optimize Your Operations</h3>
-                        <p>Fine-tune your processes and build systems that make your team more effective every day.</p>
+                    <div class="svc-item">
+                        <article class="svc-card" data-index="2">
+                            <div class="svc-body">
+                                <p class="svc-eyebrow"><span class="svc-num">02</span><span class="svc-sep"></span>Go-to-Market Engineering</p>
+                                <h3>Scale your revenue <em>with systems built to deliver, convert, and scale.</em></h3>
+                                <p class="svc-desc">Launch new demand engines, open new channels, and optimize your conversion rates with a go-to-market engine built around your ideal customer.</p>
+                                <ul class="svc-list">
+                                    <li>Go-to-Market Strategy</li>
+                                    <li>AI-Powered Outbound</li>
+                                    <li>Partnerships</li>
+                                    <li>Content &amp; SEO</li>
+                                    <li>Paid Media</li>
+                                    <li>Conversion Optimization</li>
+                                </ul>
+                                <a href="https://forms.fillout.com/t/p8cqDmytcAus" class="svc-link" target="_blank" rel="noopener noreferrer">Book a discovery call <span class="arrow">&rarr;</span></a>
+                            </div>
+                            <div class="svc-media">
+                                <img src="images/services/gtm-engineering.jpg" alt="" loading="lazy" decoding="async">
+                                <span class="svc-tag">02 / 04</span>
+                            </div>
+                        </article>
                     </div>
-                    <div class="pillar reveal stagger-3">
-                        <p class="pillar-number">03</p>
-                        <h3>Build Great Products</h3>
-                        <p>Turn product vision into reality with quality end-to-end strategy, design, and engineering that ships fast.</p>
+                    <div class="svc-item">
+                        <article class="svc-card" data-index="3">
+                            <div class="svc-body">
+                                <p class="svc-eyebrow"><span class="svc-num">03</span><span class="svc-sep"></span>Product Engineering</p>
+                                <h3>Build great products, <em>from vision to launch.</em></h3>
+                                <p class="svc-desc">Turn product vision into reality with end-to-end strategy, design, and engineering that ships fast without cutting corners.</p>
+                                <ul class="svc-list">
+                                    <li>Product Strategy</li>
+                                    <li>UI/UX Design</li>
+                                    <li>Software Engineering</li>
+                                    <li>AI/ML Integration</li>
+                                    <li>Rapid Prototyping</li>
+                                    <li>Internal Tools</li>
+                                </ul>
+                                <a href="https://forms.fillout.com/t/p8cqDmytcAus" class="svc-link" target="_blank" rel="noopener noreferrer">Book a discovery call <span class="arrow">&rarr;</span></a>
+                            </div>
+                            <div class="svc-media">
+                                <img src="images/services/product-engineering.jpg" alt="" loading="lazy" decoding="async">
+                                <span class="svc-tag">03 / 04</span>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="svc-item">
+                        <article class="svc-card" data-index="4">
+                            <div class="svc-body">
+                                <p class="svc-eyebrow"><span class="svc-num">04</span><span class="svc-sep"></span>Brand &amp; Design</p>
+                                <h3>Build a world-class brand <em>the right customers lean into.</em></h3>
+                                <p class="svc-desc">Messaging, identity, and web that make your value the first thing every prospect hears.</p>
+                                <ul class="svc-list">
+                                    <li>Messaging Strategy</li>
+                                    <li>Copywriting</li>
+                                    <li>Brand &amp; Visual Design</li>
+                                    <li>Web Development</li>
+                                    <li>Decks, One-Pagers, Social</li>
+                                    <li>Launch Campaigns</li>
+                                </ul>
+                                <a href="https://forms.fillout.com/t/p8cqDmytcAus" class="svc-link" target="_blank" rel="noopener noreferrer">Book a discovery call <span class="arrow">&rarr;</span></a>
+                            </div>
+                            <div class="svc-media">
+                                <img src="images/services/brand-design.jpg" alt="" loading="lazy" decoding="async">
+                                <span class="svc-tag">04 / 04</span>
+                            </div>
+                        </article>
                     </div>
                 </div>
                 <p class="section-closing reveal">Not consultants handing off decks. Builders obsessed with the outcomes.</p>
-            </div>
-        </section>
-
-        <!-- Section 3: Capabilities -->
-        <section id="capabilities" class="section section--pearl">
-            <div class="section-content">
-                <div class="section-header reveal">
-                    <p class="section-label">Capabilities</p>
-                    <h2 class="section-title">The full bench. One team of strategic builders.</h2>
-                </div>
-                <div class="categories-grid">
-                    <div class="category-block reveal stagger-1">
-                        <h4>Branding</h4>
-                        <ul class="category-list">
-                            <li>Messaging Strategy</li>
-                            <li>Copywriting</li>
-                            <li>Design</li>
-                            <li>Web Development</li>
-                            <li>Decks, One-Pagers, Social</li>
-                        </ul>
-                    </div>
-                    <div class="category-block reveal stagger-2">
-                        <h4>Demand Generation</h4>
-                        <ul class="category-list">
-                            <li>Go-to-Market Strategy</li>
-                            <li>Partnerships</li>
-                            <li>AI-Powered Outbound</li>
-                            <li>Content & SEO</li>
-                            <li>Paid Media</li>
-                        </ul>
-                    </div>
-                    <div class="category-block reveal stagger-3">
-                        <h4>Product</h4>
-                        <ul class="category-list">
-                            <li>Product Strategy</li>
-                            <li>UI/UX Design</li>
-                            <li>Software Engineering</li>
-                            <li>Internal Tools</li>
-                            <li>AI/ML Integration</li>
-                        </ul>
-                    </div>
-                    <div class="category-block reveal stagger-4">
-                        <h4>Systems</h4>
-                        <ul class="category-list">
-                            <li>Process Development</li>
-                            <li>AI & Automation</li>
-                            <li>CRM Buildouts</li>
-                            <li>Data Infrastructure</li>
-                            <li>Reporting & Analytics</li>
-                        </ul>
-                    </div>
-                </div>
             </div>
         </section>
 
@@ -1821,60 +2437,114 @@
             </div>
         </section>
 
-        <!-- Section 5: Our Work -->
-        <section id="work" class="section">
-            <div class="section-content">
-                <div class="section-header reveal">
-                    <p class="section-label">Our work</p>
-                    <h2 class="section-title">Built on a decade of building and scaling.</h2>
-                </div>
-                <div class="case-studies-grid">
-                    <a href="https://www.goodr.co" class="case-study-card reveal stagger-1" target="_blank" rel="noopener noreferrer">
-                        <img src="images/goodr-logo.png" alt="Goodr" class="case-study-logo" loading="lazy" decoding="async">
-                        <p class="case-study-description">Scaled revenue by 20x in 3 years</p>
-                        <div class="case-study-metric" data-target="20" data-suffix="x">20x</div>
-                        <p class="case-study-metric-label">Revenue Growth</p>
-                    </a>
-                    <a href="https://www.grovara.com" class="case-study-card reveal stagger-2" target="_blank" rel="noopener noreferrer">
-                        <img src="images/grovara-logo.png" alt="Grovara" class="case-study-logo" loading="lazy" decoding="async">
-                        <p class="case-study-description">Grew clients by 7.5x in 2 years</p>
-                        <div class="case-study-metric" data-target="7.5" data-suffix="x">7.5x</div>
-                        <p class="case-study-metric-label">Client Growth</p>
-                    </a>
-                    <a href="https://www.transformative.studio" class="case-study-card reveal stagger-3" target="_blank" rel="noopener noreferrer">
-                        <img src="images/transformative-logo.png" alt="Transformative Studio" class="case-study-logo" loading="lazy" decoding="async">
-                        <p class="case-study-description">Took 3 companies from 0 to 1 in 2 years</p>
-                        <div class="case-study-metric">3 cos.</div>
-                        <p class="case-study-metric-label">Built from Zero</p>
-                    </a>
-                    <a href="https://www.harmonyworks.com" class="case-study-card reveal stagger-1" target="_blank" rel="noopener noreferrer">
-                        <img src="images/harmony-logo.png" alt="Harmony" class="case-study-logo" loading="lazy" decoding="async">
-                        <p class="case-study-description">Developed from concept to strategically funded venture spin-out</p>
-                        <div class="case-study-metric">0 &rarr; 1</div>
-                        <p class="case-study-metric-label">Venture Initiation</p>
-                    </a>
-                    <a href="https://bookkeepingconnect.pwc.com" class="case-study-card reveal stagger-2" target="_blank" rel="noopener noreferrer">
-                        <img src="images/pwc-logo.png" alt="PwC" class="case-study-logo" loading="lazy" decoding="async">
-                        <p class="case-study-description">Created PwC Bookkeeping Connect and grew it from $0 to $1M ARR</p>
-                        <div class="case-study-metric">0&rarr;$1M</div>
-                        <p class="case-study-metric-label">Annual Recurring Revenue</p>
-                    </a>
-                    <!-- COMMENTED OUT: Barkly Living
-                    <a href="https://www.barklyliving.com" class="case-study-card reveal stagger-2" target="_blank" rel="noopener noreferrer">
-                        <img src="images/barkly-living-logo.png" alt="Barkly Living" class="case-study-logo" loading="lazy" decoding="async">
-                        <p class="case-study-description">Built brand, product, and go-to-market engine from pilot to all-in-one pet wellness platform for multifamily</p>
-                        <div class="case-study-metric">9.3x</div>
-                        <p class="case-study-metric-label">Properties Onboarded</p>
-                    </a>
-                    -->
-                    <!-- COMMENTED OUT: Ford Risk
-                    <a href="https://www.fordrisk.com" class="case-study-card reveal stagger-3" target="_blank" rel="noopener noreferrer">
-                        <img src="images/ford-risk-logo.png" alt="Ford Risk" class="case-study-logo" loading="lazy" decoding="async">
-                        <p class="case-study-description">Scaled multifamily damage waiver program with differentiation strategy, rebuilt brand, and go-to-market systems</p>
-                        <div class="case-study-metric">+23.3K</div>
-                        <p class="case-study-metric-label">Units Added</p>
-                    </a>
-                    -->
+        <!-- Section 5: Our Work (horizontal scroll portfolio) -->
+        <section id="work" class="work-section">
+            <div class="hscroll" id="work-scroll">
+                <div class="hscroll-pin">
+                    <div class="hscroll-head">
+                        <div class="reveal">
+                            <p class="section-label">Our work</p>
+                            <h2 class="section-title">Built on a decade of building and scaling.</h2>
+                        </div>
+                        <p class="hscroll-hint"><span class="hint-scroll">Scroll to explore</span><span class="hint-swipe">Swipe to explore</span></p>
+                    </div>
+                    <div class="hscroll-track" id="work-track">
+                        <a href="https://www.goodr.co" class="pcard" target="_blank" rel="noopener noreferrer">
+                            <div class="pcard-media">
+                                <img class="pcard-img" src="images/portfolio/goodr.jpg" alt="Goodr" loading="lazy" decoding="async">
+                                <img class="pcard-logo" src="images/goodr-logo.png" alt="" aria-hidden="true">
+                                <div class="pcard-metric"><strong data-target="20" data-suffix="x">20x</strong><span>Revenue growth</span></div>
+                            </div>
+                            <div class="pcard-caption">
+                                <div><p class="pcard-name">Goodr</p><p class="pcard-desc">Scaled revenue by 20x in 3 years.</p></div>
+                                <span class="pcard-arrow" aria-hidden="true">&#8599;</span>
+                            </div>
+                        </a>
+                        <a href="https://www.grovara.com" class="pcard" target="_blank" rel="noopener noreferrer">
+                            <div class="pcard-media">
+                                <img class="pcard-img" src="images/portfolio/grovara.jpg" alt="Grovara" loading="lazy" decoding="async">
+                                <img class="pcard-logo" src="images/grovara-logo.png" alt="" aria-hidden="true">
+                                <div class="pcard-metric"><strong data-target="7.5" data-suffix="x">7.5x</strong><span>Client growth</span></div>
+                            </div>
+                            <div class="pcard-caption">
+                                <div><p class="pcard-name">Grovara</p><p class="pcard-desc">Grew clients by 7.5x in 2 years.</p></div>
+                                <span class="pcard-arrow" aria-hidden="true">&#8599;</span>
+                            </div>
+                        </a>
+                        <a href="https://www.transformative.studio" class="pcard" target="_blank" rel="noopener noreferrer">
+                            <div class="pcard-media">
+                                <img class="pcard-img" src="images/portfolio/transformative.jpg" alt="Transformative Studio" loading="lazy" decoding="async">
+                                <img class="pcard-logo" src="images/transformative-logo.png" alt="" aria-hidden="true">
+                                <div class="pcard-metric"><strong>3 cos.</strong><span>Built from zero</span></div>
+                            </div>
+                            <div class="pcard-caption">
+                                <div><p class="pcard-name">Transformative Studio</p><p class="pcard-desc">Took 3 companies from 0 to 1 in 2 years.</p></div>
+                                <span class="pcard-arrow" aria-hidden="true">&#8599;</span>
+                            </div>
+                        </a>
+                        <a href="https://www.harmonyworks.com" class="pcard" target="_blank" rel="noopener noreferrer">
+                            <div class="pcard-media">
+                                <img class="pcard-img" src="images/portfolio/harmony.jpg" alt="Harmony" loading="lazy" decoding="async">
+                                <img class="pcard-logo" src="images/harmony-logo.png" alt="" aria-hidden="true">
+                                <div class="pcard-metric"><strong>0 &rarr; 1</strong><span>Venture initiation</span></div>
+                            </div>
+                            <div class="pcard-caption">
+                                <div><p class="pcard-name">Harmony</p><p class="pcard-desc">Developed from concept to strategically funded venture spin-out.</p></div>
+                                <span class="pcard-arrow" aria-hidden="true">&#8599;</span>
+                            </div>
+                        </a>
+                        <a href="https://bookkeepingconnect.pwc.com" class="pcard" target="_blank" rel="noopener noreferrer">
+                            <div class="pcard-media">
+                                <img class="pcard-img" src="images/portfolio/pwc-bookkeeping-connect.jpg" alt="PwC Bookkeeping Connect" loading="lazy" decoding="async">
+                                <img class="pcard-logo" src="images/pwc-logo.png" alt="" aria-hidden="true">
+                                <div class="pcard-metric"><strong>$0 &rarr; $1M</strong><span>Annual recurring revenue</span></div>
+                            </div>
+                            <div class="pcard-caption">
+                                <div><p class="pcard-name">PwC Bookkeeping Connect</p><p class="pcard-desc">Created the product and grew it from $0 to $1M ARR.</p></div>
+                                <span class="pcard-arrow" aria-hidden="true">&#8599;</span>
+                            </div>
+                        </a>
+                        <!-- COMMENTED OUT: Barkly Living
+                        <a href="https://www.barklyliving.com" class="pcard" target="_blank" rel="noopener noreferrer">
+                            <div class="pcard-media">
+                                <img class="pcard-img" src="images/portfolio/barkly.jpg" alt="Barkly Living" loading="lazy" decoding="async">
+                                <img class="pcard-logo" src="images/barkly-living-logo.png" alt="" aria-hidden="true">
+                                <div class="pcard-metric"><strong>9.3x</strong><span>Properties onboarded</span></div>
+                            </div>
+                            <div class="pcard-caption">
+                                <div><p class="pcard-name">Barkly Living</p><p class="pcard-desc">Built brand, product, and go-to-market engine from pilot to all-in-one pet wellness platform for multifamily.</p></div>
+                                <span class="pcard-arrow" aria-hidden="true">&#8599;</span>
+                            </div>
+                        </a>
+                        -->
+                        <!-- COMMENTED OUT: Ford Risk
+                        <a href="https://www.fordrisk.com" class="pcard" target="_blank" rel="noopener noreferrer">
+                            <div class="pcard-media">
+                                <img class="pcard-img" src="images/portfolio/fordrisk.jpg" alt="Ford Risk" loading="lazy" decoding="async">
+                                <img class="pcard-logo" src="images/ford-risk-logo.png" alt="" aria-hidden="true">
+                                <div class="pcard-metric"><strong>+23.3K</strong><span>Units added</span></div>
+                            </div>
+                            <div class="pcard-caption">
+                                <div><p class="pcard-name">Ford Risk</p><p class="pcard-desc">Scaled multifamily damage waiver program with differentiation strategy, rebuilt brand, and go-to-market systems.</p></div>
+                                <span class="pcard-arrow" aria-hidden="true">&#8599;</span>
+                            </div>
+                        </a>
+                        -->
+                        <div class="pcard pcard--cta">
+                            <div class="pcard-media">
+                                <h3>Your company, <em>next.</em></h3>
+                                <a href="https://forms.fillout.com/t/p8cqDmytcAus" class="btn-contact" target="_blank" rel="noopener noreferrer">Book a Discovery Call</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hscroll-ui">
+                        <span class="hscroll-count"><b id="work-count">01</b> / <span id="work-total">06</span></span>
+                        <div class="hscroll-bar"><i id="work-bar"></i></div>
+                        <div class="hscroll-btns">
+                            <button class="hscroll-btn" type="button" data-dir="-1" aria-label="Previous project">&larr;</button>
+                            <button class="hscroll-btn" type="button" data-dir="1" aria-label="Next project">&rarr;</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -2334,6 +3004,7 @@
                     checkRevealsOnScroll();
                     setTimeout(() => { initScrollReveals(); checkRevealsOnScroll(); }, 100);
                     setTimeout(() => { initScrollReveals(); checkRevealsOnScroll(); }, 300);
+                    document.dispatchEvent(new CustomEvent('page:shown', { detail: { page: targetId } }));
                 });
             });
         }
@@ -2368,7 +3039,9 @@
             const el = document.getElementById(sectionId);
             if (!el) return;
             const navHeight = document.querySelector('nav').offsetHeight;
-            const top = el.getBoundingClientRect().top + window.pageYOffset - navHeight - 16;
+            // Pinned sections carry their own nav clearance, so land exactly on them
+            const offset = el.classList.contains('work-section') ? 0 : navHeight + 16;
+            const top = el.getBoundingClientRect().top + window.pageYOffset - offset;
             window.scrollTo({ top, behavior: 'smooth' });
         }
 
@@ -2628,7 +3301,7 @@
 
         // ===== Metric Counter Animation =====
         function initCounters() {
-            const metrics = document.querySelectorAll('.case-study-metric[data-target]');
+            const metrics = document.querySelectorAll('.case-study-metric[data-target], .pcard-metric strong[data-target]');
 
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -2671,7 +3344,7 @@
         // ===== Custom Cursor (Event Delegation) =====
         const cursor = document.getElementById('custom-cursor');
         if (cursor) {
-            const darkSelector = '.cta, .site-footer';
+            const darkSelector = '.cta, .site-footer, .section--services, .pcard-media';
             const lightBtnSelector = '.btn-contact, .btn-primary, .btn-hero';
 
             document.addEventListener('mousemove', e => {
@@ -2699,7 +3372,7 @@
                 else cursor.classList.remove('cursor-hover');
             }
 
-            const hoverSelector = 'a, button, .nav-link, .btn-contact, .btn-hero, .btn-primary, .btn-secondary, .hero-link, .team-link, .logo, .icp-pill, .pillar, .case-study-card, .testimonial-dot, .category-block, .member-card, .footer-btn';
+            const hoverSelector = 'a, button, .nav-link, .btn-contact, .btn-hero, .btn-primary, .btn-secondary, .hero-link, .team-link, .logo, .icp-pill, .pillar, .case-study-card, .testimonial-dot, .category-block, .member-card, .footer-btn, .pcard, .svc-card, .hscroll-btn';
 
             document.addEventListener('mouseover', (e) => {
                 if (e.target.closest(hoverSelector)) {
@@ -2729,6 +3402,172 @@
         }
         window.addEventListener('scroll', checkRevealsOnScroll, { passive: true });
 
+        // ===== Stacked Service Cards =====
+        function initServiceStack() {
+            const stack = document.querySelector('.svc-stack');
+            if (!stack) return;
+            const items = Array.from(stack.querySelectorAll('.svc-item'));
+            const cards = items.map(item => item.querySelector('.svc-card'));
+            const mq = window.matchMedia('(min-width: 969px)');
+            const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+            let ticking = false;
+
+            function update() {
+                ticking = false;
+                const vh = window.innerHeight;
+                const stacked = mq.matches && !reduce.matches;
+                items.forEach((item, i) => {
+                    const rect = item.getBoundingClientRect();
+                    const card = cards[i];
+                    let p = 0;
+                    if (stacked && items[i + 1]) {
+                        const next = items[i + 1].getBoundingClientRect();
+                        p = Math.min(1, Math.max(0, (rect.bottom - next.top) / rect.height));
+                    }
+                    if (stacked) {
+                        card.style.transform = `scale(${(1 - p * 0.06).toFixed(4)}) translateY(${(-p * 18).toFixed(1)}px)`;
+                        card.style.filter = `brightness(${(1 - p * 0.5).toFixed(3)})`;
+                    } else {
+                        card.style.transform = '';
+                        card.style.filter = '';
+                    }
+                    // Active = card is in the viewport and not yet covered by the next one
+                    const active = rect.top < vh * 0.72 && rect.bottom > vh * 0.2 && p < 0.55;
+                    card.classList.toggle('is-active', active);
+                });
+            }
+
+            function request() {
+                if (!ticking) {
+                    ticking = true;
+                    requestAnimationFrame(update);
+                }
+            }
+
+            window.addEventListener('scroll', request, { passive: true });
+            window.addEventListener('resize', request);
+            document.addEventListener('page:shown', request);
+            update();
+        }
+
+        // ===== Horizontal Scroll Portfolio =====
+        function initWorkScroll() {
+            const section = document.getElementById('work-scroll');
+            if (!section) return;
+            const track = document.getElementById('work-track');
+            const bar = document.getElementById('work-bar');
+            const countEl = document.getElementById('work-count');
+            const totalEl = document.getElementById('work-total');
+            const cards = Array.from(track.querySelectorAll('.pcard'));
+            const btns = section.querySelectorAll('.hscroll-btn');
+            const mq = window.matchMedia('(min-width: 969px)');
+            const pad = n => String(n).padStart(2, '0');
+            if (totalEl) totalEl.textContent = pad(cards.length);
+
+            let pinned = false;
+            let maxX = 0;        // total horizontal distance the track travels
+            let sectionTop = 0;  // document Y where pinning starts
+            let current = 0;     // eased track position
+            let target = 0;
+            let raf = null;
+
+            function isPinned() {
+                return mq.matches && document.getElementById('home').classList.contains('active');
+            }
+
+            function measure() {
+                pinned = isPinned();
+                if (!pinned) {
+                    section.style.height = '';
+                    track.style.transform = '';
+                    cards.forEach(c => c.style.setProperty('--px', '0px'));
+                    updateNative();
+                    return;
+                }
+                track.style.transform = 'translate3d(0,0,0)';
+                maxX = Math.max(0, track.scrollWidth - window.innerWidth);
+                section.style.height = (window.innerHeight + maxX) + 'px';
+                sectionTop = section.getBoundingClientRect().top + window.pageYOffset;
+                current = target = progressFromScroll() * maxX;
+                render();
+            }
+
+            function progressFromScroll() {
+                if (!maxX) return 0;
+                const y = window.pageYOffset - sectionTop;
+                return Math.min(1, Math.max(0, y / maxX));
+            }
+
+            function setUi(p) {
+                if (bar) bar.style.transform = `scaleX(${p.toFixed(4)})`;
+                if (countEl) countEl.textContent = pad(Math.min(cards.length, Math.round(p * (cards.length - 1)) + 1));
+            }
+
+            function parallax() {
+                const vw = window.innerWidth;
+                cards.forEach(card => {
+                    const r = card.getBoundingClientRect();
+                    if (r.right < -200 || r.left > vw + 200) return;
+                    const rel = (r.left + r.width / 2 - vw / 2) / vw; // -0.5 .. 0.5
+                    card.style.setProperty('--px', (rel * 36).toFixed(1) + 'px');
+                });
+            }
+
+            function render() {
+                track.style.transform = `translate3d(${(-current).toFixed(2)}px,0,0)`;
+                setUi(maxX ? current / maxX : 0);
+                parallax();
+            }
+
+            function loop() {
+                raf = null;
+                const diff = target - current;
+                if (Math.abs(diff) < 0.3) {
+                    current = target;
+                    render();
+                    return;
+                }
+                current += diff * 0.14;
+                render();
+                raf = requestAnimationFrame(loop);
+            }
+
+            function onScroll() {
+                if (!pinned) return;
+                const y = window.pageYOffset - sectionTop;
+                if (y < -window.innerHeight || y > maxX + window.innerHeight) return;
+                target = progressFromScroll() * maxX;
+                if (!raf) raf = requestAnimationFrame(loop);
+            }
+
+            // Native swipe mode (tablet / phone)
+            function updateNative() {
+                const range = track.scrollWidth - track.clientWidth;
+                setUi(range > 0 ? track.scrollLeft / range : 0);
+            }
+
+            track.addEventListener('scroll', () => { if (!pinned) updateNative(); }, { passive: true });
+
+            btns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const dir = parseInt(btn.dataset.dir, 10);
+                    const step = cards[0].getBoundingClientRect().width + parseFloat(getComputedStyle(track).gap || '28');
+                    if (pinned) {
+                        const next = Math.min(maxX, Math.max(0, current + dir * step));
+                        window.scrollTo({ top: sectionTop + next, behavior: 'smooth' });
+                    } else {
+                        track.scrollBy({ left: dir * step, behavior: 'smooth' });
+                    }
+                });
+            });
+
+            window.addEventListener('scroll', onScroll, { passive: true });
+            window.addEventListener('resize', measure);
+            window.addEventListener('load', measure);
+            document.addEventListener('page:shown', () => setTimeout(measure, 50));
+            measure();
+        }
+
         // ===== Initialize Everything =====
         initializePage();
         initScrollReveals();
@@ -2736,6 +3575,8 @@
         initParallax();
         initTestimonialCarousel();
         initCounters();
+        initServiceStack();
+        initWorkScroll();
         // Run once more after a brief delay to catch anything missed
         setTimeout(() => { initScrollReveals(); checkRevealsOnScroll(); }, 100);
     </script>
