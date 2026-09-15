@@ -1,0 +1,78 @@
+/* ============================================================
+   Deep — option 2
+   ------------------------------------------------------------
+   The same glass, mixed darker. Forest is a mid green with a
+   lot of grey in it; this is a deep emerald: less light, more
+   colour. The pools are pitched brighter so the light in the
+   glass still reads against the darker ground.
+
+   Loaded after glass.css.
+   ============================================================ */
+
+:root {
+  /* the dark green, deeper and more saturated than forest */
+  --band: #0A2A1F;
+  --forest: #0C3123;
+
+  /* the wash */
+  --glass-a: #11472F;
+  --glass-b: #0B2E21;
+  --glass-c: #061F17;
+
+  /* the pools, brighter so they still show on the darker ground */
+  --pool-pale: rgba(126, 186, 148, 0.30);
+  --pool-mid:  rgba(46, 124, 86, 0.58);
+  --pool-deep: rgba(6, 34, 24, 0.66);
+
+  /* the scrim over photographs */
+  --scrim-1: rgba(7, 32, 24, 0.14);
+  --scrim-2: rgba(7, 32, 24, 0.54);
+  --scrim-3: rgba(5, 26, 19, 0.90);
+
+  /* the accents on the light body, pulled down to match */
+  --accent: #123E2D;
+  --accent-2: #2F5C47;
+
+  /* the pale green used for the second tone in headlines */
+  --sage: #AFCBAC;
+}
+
+.hero {
+  background: linear-gradient(165deg, var(--glass-a) 0%, var(--glass-b) 52%, var(--glass-c) 100%);
+}
+.hero::before {
+  background:
+    radial-gradient(42% 50% at 24% 28%, var(--pool-mid), transparent 64%),
+    radial-gradient(40% 38% at 70% 64%, var(--pool-deep), transparent 66%);
+}
+.hero::after {
+  background:
+    radial-gradient(34% 42% at 78% 22%, var(--pool-pale), transparent 66%),
+    radial-gradient(28% 32% at 44% 66%, rgba(96, 156, 118, 0.2), transparent 68%);
+}
+.hero-media::after {
+  background: linear-gradient(180deg, rgba(7, 32, 24, 0.44) 0%, rgba(7, 32, 24, 0) 40%, rgba(6, 28, 21, 0.86) 100%);
+}
+
+.project figure::after {
+  background:
+    radial-gradient(80% 44% at 16% 100%, rgba(30, 84, 60, 0.44), transparent 72%),
+    linear-gradient(0deg, rgba(6, 30, 22, 0.88) 0%, rgba(7, 32, 24, 0.3) 45%, rgba(7, 32, 24, 0) 66%);
+}
+.venture figure::after {
+  background:
+    radial-gradient(80% 44% at 16% 100%, rgba(30, 84, 60, 0.42), transparent 72%),
+    linear-gradient(0deg, rgba(6, 30, 22, 0.84) 0%, rgba(7, 32, 24, 0.3) 45%, rgba(7, 32, 24, 0) 66%);
+}
+
+.site-header.is-scrolled {
+  background-image:
+    radial-gradient(60% 300% at 12% 0%, rgba(34, 92, 66, 0.84), transparent 70%),
+    linear-gradient(90deg, rgba(13, 47, 35, 0.88), rgba(8, 34, 26, 0.84));
+}
+
+@media (max-width: 860px) {
+  .site-header:has(.nav.is-open) {
+    background-image: linear-gradient(90deg, rgba(13, 47, 35, 0.95), rgba(8, 34, 26, 0.95));
+  }
+}

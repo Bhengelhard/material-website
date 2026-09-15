@@ -1,0 +1,160 @@
+/* ============================================================
+   Glass green
+   ------------------------------------------------------------
+   The agency hero is not a flat colour. It is a wash of green
+   with soft pools of light blurred into it, so the surface
+   reads like thick glass rather than paint. This sheet takes
+   that same recipe and puts it on every green surface on the
+   site, so no green anywhere is a straight fill.
+
+   Loaded after styles.css. It changes surfaces only: no
+   layout, no type, no copy.
+   ============================================================ */
+
+:root {
+  /* the wash: the same three stops the hero uses */
+  --glass-a: #1B4C39;
+  --glass-b: #14392C;
+  --glass-c: #0F2E24;
+
+  /* the pools of light blurred into the wash */
+  --pool-pale: rgba(104, 158, 128, 0.32);
+  --pool-mid:  rgba(58, 118, 88, 0.52);
+  --pool-deep: rgba(15, 58, 43, 0.60);
+
+  /* the scrim over photographs, so pictures sit in the same green */
+  --scrim-1: rgba(14, 45, 35, 0.10);
+  --scrim-2: rgba(14, 45, 35, 0.48);
+  --scrim-3: rgba(12, 40, 31, 0.86);
+}
+
+/* ------------------------------------------------------------
+   The big surfaces: the close band and the 404. These get the
+   full treatment, two blurred layers over the wash, exactly as
+   the hero has.
+   ------------------------------------------------------------ */
+.close .band,
+.notfound {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background: linear-gradient(165deg, var(--glass-a) 0%, var(--glass-b) 52%, var(--glass-c) 100%);
+}
+
+.close .band::before,
+.close .band::after,
+.notfound::before,
+.notfound::after {
+  content: "";
+  position: absolute;
+  inset: -28%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.close .band::before {
+  background:
+    radial-gradient(44% 56% at 22% 26%, var(--pool-mid), transparent 66%),
+    radial-gradient(40% 42% at 74% 70%, var(--pool-deep), transparent 68%);
+  filter: blur(54px);
+}
+.close .band::after {
+  background:
+    radial-gradient(36% 46% at 80% 20%, var(--pool-pale), transparent 68%),
+    radial-gradient(30% 34% at 44% 72%, rgba(88, 140, 112, 0.22), transparent 70%);
+  filter: blur(64px);
+}
+
+.notfound::before {
+  background:
+    radial-gradient(46% 54% at 26% 30%, var(--pool-mid), transparent 66%),
+    radial-gradient(38% 40% at 72% 66%, var(--pool-deep), transparent 68%);
+  filter: blur(56px);
+}
+.notfound::after {
+  background:
+    radial-gradient(34% 44% at 78% 24%, var(--pool-pale), transparent 68%),
+    radial-gradient(28% 32% at 40% 70%, rgba(88, 140, 112, 0.2), transparent 70%);
+  filter: blur(66px);
+}
+
+.close .band > * { position: relative; z-index: 1; }
+.notfound .wrap { position: relative; z-index: 1; }
+
+/* ------------------------------------------------------------
+   The call-to-action cards. Smaller surfaces, so the pools are
+   drawn soft rather than blurred: at this size a blur filter
+   costs more than it shows.
+   ------------------------------------------------------------ */
+.project--cta > div,
+.venture--cta > div {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    radial-gradient(52% 130% at 14% 10%, var(--pool-mid), transparent 62%),
+    radial-gradient(44% 120% at 86% 96%, var(--pool-deep), transparent 64%),
+    radial-gradient(30% 90% at 68% 0%, var(--pool-pale), transparent 66%),
+    linear-gradient(165deg, var(--glass-a) 0%, var(--glass-b) 52%, var(--glass-c) 100%);
+}
+.project--cta > div > *,
+.venture--cta > div > * { position: relative; z-index: 1; }
+
+/* ------------------------------------------------------------
+   The service cards. A photograph sits behind the words, held
+   down by a scrim. The scrim was a straight green fade; now it
+   is the same glass, so the picture sinks into the wash instead
+   of sitting under a sheet of colour.
+   ------------------------------------------------------------ */
+.service {
+  background:
+    radial-gradient(60% 80% at 20% 12%, var(--pool-mid), transparent 66%),
+    linear-gradient(165deg, var(--glass-a) 0%, var(--glass-b) 52%, var(--glass-c) 100%);
+}
+.service figure::after {
+  background:
+    radial-gradient(70% 55% at 18% 8%, rgba(70, 128, 98, 0.34), transparent 70%),
+    radial-gradient(60% 50% at 88% 30%, rgba(104, 158, 128, 0.2), transparent 72%),
+    linear-gradient(180deg, var(--scrim-1) 0%, var(--scrim-2) 55%, var(--scrim-3) 100%);
+}
+
+/* ------------------------------------------------------------
+   The scrims on the work and studio pictures, so every green
+   laid over a photograph is the same glass.
+   ------------------------------------------------------------ */
+.project figure::after {
+  background:
+    radial-gradient(80% 44% at 16% 100%, rgba(38, 92, 68, 0.42), transparent 72%),
+    linear-gradient(0deg, rgba(12, 40, 31, 0.84) 0%, rgba(13, 43, 33, 0.26) 45%, rgba(13, 43, 33, 0) 66%);
+}
+.venture figure::after {
+  background:
+    radial-gradient(80% 44% at 16% 100%, rgba(38, 92, 68, 0.4), transparent 72%),
+    linear-gradient(0deg, rgba(12, 40, 31, 0.8) 0%, rgba(13, 43, 33, 0.26) 45%, rgba(13, 43, 33, 0) 66%);
+}
+
+/* ------------------------------------------------------------
+   The header, once scrolled, and the menu panel on a phone.
+   Both were a flat green with a blur behind them; now the green
+   itself carries a little light.
+   ------------------------------------------------------------ */
+.site-header.is-scrolled {
+  background-color: transparent;
+  background-image:
+    radial-gradient(60% 300% at 12% 0%, rgba(44, 104, 78, 0.82), transparent 70%),
+    linear-gradient(90deg, rgba(20, 57, 44, 0.86), rgba(15, 46, 36, 0.8));
+  backdrop-filter: blur(16px) saturate(1.2);
+  -webkit-backdrop-filter: blur(16px) saturate(1.2);
+}
+
+@media (max-width: 860px) {
+  .nav {
+    background:
+      radial-gradient(60% 50% at 80% 8%, var(--pool-mid), transparent 68%),
+      linear-gradient(165deg, var(--glass-a) 0%, var(--glass-b) 52%, var(--glass-c) 100%);
+  }
+  .site-header:has(.nav.is-open) {
+    background-color: transparent;
+    background-image: linear-gradient(90deg, rgba(20, 57, 44, 0.94), rgba(15, 46, 36, 0.94));
+  }
+}
