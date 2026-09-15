@@ -7,7 +7,7 @@ All photos below are from Pexels under the Pexels License (free for commercial u
 - `goodr.jpg`: Packed delivery van with boxes and fresh produce crates for efficient logistics. Photo by Kampus Production. https://www.pexels.com/photo/boxes-in-bus-7843985/
 - `grovara.jpg`: Container cranes at a bustling port during sunset, creating a vibrant industrial scene. Photo by thorl5. https://www.pexels.com/photo/vibrant-sunset-at-an-industrial-shipping-port-33587048/
 - `pwc-bookkeeping-connect.jpg`: Close-up of hands working on documents and a laptop in an office setting, illustrating teamwork and productivity. Photo by Kampus Production. https://www.pexels.com/photo/person-using-a-laptop-8428063/
-- `barkly.jpg`: A woman walks two dogs along a path near city apartment buildings on a sunny day. Photo by Mariya Eskina. https://www.pexels.com/search/dog%20walker%20apartment/ (Pexels)
+- `barkly.jpg`: A dog walker with seven dogs on a tree-lined city street of apartment buildings. Photo by Sarah O'Shea. https://www.pexels.com/photo/man-walking-multiple-dogs-on-a-sidewalk-26839567/ (replaced 2026-09-14)
 - `transformative.jpg`: Casual business meeting in a loft-style office with a diverse team sharing ideas. Photo by Henri Mathieu-Saint-Laurent. https://www.pexels.com/photo/men-having-a-conversation-8355844/
 - `harmony.jpg`: Urban residential apartment complex with trees in foreground on a clear day. Photo by Mahmoud Zakariya. https://www.pexels.com/photo/modern-residential-apartment-building-exterior-34604972/
 
