@@ -219,11 +219,20 @@ h3 { font-family: var(--display); font-weight: 400; letter-spacing: -0.02em; }
 .project .metric small { display: block; margin-top: 6px; font-size: 13px; font-weight: 500; color: var(--band-fg-2); }
 .project .desc { margin-top: 10px; font-size: 14px; line-height: 1.45; color: var(--band-fg-2); max-width: 30ch; }
 .project .desc b { color: var(--band-fg); font-weight: 500; }
-.project--cta > div { flex-direction: column; align-items: flex-start; justify-content: flex-end; gap: 22px; padding: clamp(22px, 2.2vw, 28px); background: var(--band); color: var(--band-fg); border-radius: var(--r-img); }
-.project--cta h3 { font-size: clamp(24px, 2vw, 30px); line-height: 1.08; font-weight: 300; color: var(--band-fg); max-width: 12ch; }
+/* The tile that closes the grid is an invitation, not a project, so
+   it is the one tile with no photograph: the same forest as the
+   scrim on its neighbours, the label where they carry a client
+   logo, the statement where they carry their number. A link, not a
+   button, so the close below keeps the only button on the page. */
+.project--cta > a { justify-content: flex-end; align-items: flex-start; gap: 10px; min-height: 300px; padding: 22px; border-radius: var(--r-img); background: var(--band); color: var(--band-fg); transition: background 0.5s var(--ease); }
+.project--cta .eyebrow { margin-bottom: auto; color: var(--band-fg-2); }
+.project--cta h3 { font-family: var(--display); font-weight: 300; font-size: clamp(30px, 3vw, 42px); line-height: 1.02; letter-spacing: -0.03em; color: var(--band-fg); max-width: 10ch; }
 .project--cta h3 .accent { color: var(--sage); }
-.project--cta .btn { background: var(--band-fg); color: var(--band); }
-.project--cta .btn:hover { background: #fff; }
+.project--cta .go { display: inline-flex; align-items: center; gap: 9px; margin-top: 6px; font-size: 15px; font-weight: 500; color: var(--sage); }
+.project--cta .go .arr { transition: transform 0.4s var(--ease); }
+.project--cta:hover > a { background: var(--forest); }
+.project--cta:hover .go .arr { transform: translateX(4px); }
+.project--cta > a:focus-visible { outline: 2px solid var(--sage); outline-offset: 3px; }
 
 /* studio portfolio: the words sit on the picture */
 .venture-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
@@ -403,7 +412,8 @@ button.btn:disabled { opacity: 0.6; cursor: default; transform: none; background
   .service { min-height: 260px; }
   .work-list { grid-template-columns: 1fr; gap: 16px; }
   .venture-list { grid-template-columns: 1fr; gap: 16px; }
-  .project--cta > div, .venture--cta > div { flex-direction: column; align-items: flex-start; gap: 20px; }
+  .project--cta > a { min-height: 240px; }
+  .venture--cta > div { flex-direction: column; align-items: flex-start; gap: 20px; }
   .three { grid-template-columns: 1fr; gap: 22px; }
   .team-grid { grid-template-columns: 1fr 1fr; gap: 26px 14px; }
   .tm .nm { font-size: 17px; }
@@ -422,5 +432,5 @@ button.btn:disabled { opacity: 0.6; cursor: default; transform: none; background
   .js .r { opacity: 1; transform: none; transition: none; animation: none; }
   .js .hero .r, .js .build .r { animation: none; }
   .hero-media img, .hero::before, .hero::after { animation: none; }
-  .btn, .link, .project figure img, .venture figure img, .service figure img, .tm .shot img, .site-header, .site-header::before { transition: none; }
+  .btn, .link, .project--cta > a, .project--cta .go .arr, .project figure img, .venture figure img, .service figure img, .tm .shot img, .site-header, .site-header::before { transition: none; }
 }
